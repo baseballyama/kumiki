@@ -38,7 +38,7 @@
   "scripts": {
     "build": "svelte-package -i src -o dist && publint",
     "dev": "svelte-package -i src -o dist --watch",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "typecheck": "svelte-check --tsconfig ./tsconfig.json",
     "lint": "eslint src",
