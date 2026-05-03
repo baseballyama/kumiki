@@ -43,7 +43,8 @@
     "typescript": "catalog:",
     "vitest": "catalog:",
     "size-limit": "catalog:",
-    "@size-limit/preset-small-lib": "catalog:"
+    "@size-limit/preset-small-lib": "catalog:",
+    "@types/node": "^22.10.0"
   },
   "size-limit": [
     {

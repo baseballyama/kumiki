@@ -565,6 +565,9 @@ importers:
       '@size-limit/preset-small-lib':
         specifier: 'catalog:'
         version: 12.1.0(size-limit@12.1.0)
+      '@types/node':
+        specifier: ^22.10.0
+        version: 22.19.17
       size-limit:
         specifier: 'catalog:'
         version: 12.1.0
