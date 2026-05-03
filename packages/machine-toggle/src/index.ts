@@ -57,7 +57,7 @@ export interface CreateToggleInput {
 
 // ─── Machine ──────────────────────────────────────────────────────────────
 
-const factory = defineMachine<ToggleContext, ToggleEvent, ToggleState>({
+const factory = /* @__PURE__ */ defineMachine<ToggleContext, ToggleEvent, ToggleState>({
   id: 'toggle',
   initial: 'unpressed',
   context: { pressed: false, toggles: 0 },

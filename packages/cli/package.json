@@ -57,7 +57,7 @@
     "provenance": true
   },
   "bin": {
-    "kumiki": "./dist/bin/kumiki.js"
+    "kumiki": "./dist/bin/kumiki.mjs"
   },
   "dependencies": {}
 }
