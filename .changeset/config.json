@@ -1,0 +1,15 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "baseballyama/kumiki" }],
+  "commit": false,
+  "fixed": [],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": ["@kumiki/docs"],
+  "snapshot": {
+    "useCalculatedVersion": true,
+    "prereleaseTemplate": "0.0.0-preview-{datetime}-{commit}"
+  }
+}

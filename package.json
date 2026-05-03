@@ -1,0 +1,61 @@
+{
+  "name": "kumiki-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Headless, composable, deeply accessible UI primitives for Svelte 5",
+  "license": "MIT",
+  "author": "Yuichiro Yamashita",
+  "homepage": "https://github.com/baseballyama/kumiki",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baseballyama/kumiki.git"
+  },
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "build": "pnpm -r --filter='./packages/*' run build",
+    "build:docs": "pnpm --filter='./apps/docs' run build",
+    "test": "pnpm -r run test",
+    "test:e2e": "pnpm --filter='./apps/docs' run test:e2e",
+    "lint": "pnpm -r run lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "pnpm -r run typecheck",
+    "size": "pnpm -r --filter='./packages/*' run size",
+    "publint": "pnpm -r --filter='./packages/*' exec publint",
+    "attw": "pnpm -r --filter='./packages/*' exec attw --pack .",
+    "agadoo": "pnpm -r --filter='./packages/*' exec agadoo",
+    "release": "pnpm build && changeset publish",
+    "version": "changeset version && pnpm install --no-frozen-lockfile",
+    "check:layering": "node scripts/check-layering.mjs",
+    "check:locale-shape": "node scripts/check-locale-shape.mjs",
+    "check:jsdoc": "node scripts/check-jsdoc.mjs",
+    "check:all": "pnpm check:layering && pnpm check:locale-shape && pnpm check:jsdoc",
+    "ci:health": "pnpm check:all && pnpm publint && pnpm attw && pnpm agadoo && pnpm size",
+    "prepare": "lefthook install"
+  },
+  "devDependencies": {
+    "@changesets/cli": "catalog:",
+    "@changesets/changelog-github": "catalog:",
+    "@arethetypeswrong/cli": "catalog:",
+    "agadoo": "catalog:",
+    "publint": "catalog:",
+    "size-limit": "catalog:",
+    "@size-limit/preset-small-lib": "catalog:",
+    "@size-limit/esbuild": "catalog:",
+    "prettier": "catalog:",
+    "prettier-plugin-svelte": "catalog:",
+    "eslint": "catalog:",
+    "@eslint/js": "catalog:",
+    "eslint-plugin-svelte": "catalog:",
+    "svelte-eslint-parser": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "typescript": "catalog:",
+    "lefthook": "catalog:"
+  }
+}

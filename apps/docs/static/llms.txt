@@ -1,0 +1,28 @@
+# Kumiki
+
+> Headless, composable, deeply accessible UI primitives for Svelte 5 — built on framework-agnostic state machines, with surgical bundle sizes.
+
+Kumiki is published as ~30 packages under the `@kumiki/*` scope. Each package targets a single Layer (1–5) and is independently versioned. Layers are described in `docs/design/02-architecture.md`.
+
+## Layers
+
+- Layer 1 (`@kumiki/primitives`, `@kumiki/locale`): framework-agnostic utilities and locale data.
+- Layer 2 (`@kumiki/runtime`, `@kumiki/machine-*`): pure-TS finite state machines. One package per component.
+- Layer 3 (`@kumiki/attachment-*`): Svelte 5 attachments (`{@attach}`) wrapping Layer 2.
+- Layer 4 (`@kumiki/component-*`): compound components (`Combobox.Root`, `Combobox.Item`, …).
+- Layer 5 (`@kumiki/recipes-*`, preview): styled, copy-paste templates. Preview during the v1.0 series.
+
+## Core principles
+
+- WCAG 2.2 AA, WAI-ARIA 1.2 (1.3-ready), APG-driven keyboard tests, axe-core in CI, Guidepup for NVDA/VoiceOver.
+- RTL-aware, dynamically importable locale data (1 KB per locale target), 13 calendars (Gregorian, Islamic, Buddhist, Japanese, …).
+- Standard Schema for validation. Svelte 5 only (runes + attachments).
+- `data-state` data attributes on every component for animation hooks. No animation engine bundled.
+- `child` snippet pattern for render delegation (replaces `asChild`).
+
+## Documentation
+
+- Design docs: /docs/
+- Components reference: /components/
+- Roadmap: /docs/roadmap
+- llms-full.txt: /llms-full.txt (full type definitions and anti-patterns)

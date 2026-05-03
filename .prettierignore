@@ -1,0 +1,12 @@
+node_modules
+dist
+build
+.svelte-kit
+.changeset
+.turbo
+coverage
+*.lock
+pnpm-lock.yaml
+
+# External reference repositories (git submodules) — never touch.
+references/

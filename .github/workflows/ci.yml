@@ -1,0 +1,173 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PNPM_VERSION: 9.15.0
+  NODE_VERSION: 22
+
+jobs:
+  # ─── Fast lane: lint, typecheck, build, unit tests ───
+  build-and-test:
+    name: Build & test (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Format check
+        run: pnpm format:check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Custom QA (layering, locale shape, JSDoc)
+        run: pnpm check:all
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Unit tests
+        run: pnpm test
+
+  # ─── Distribution health: publint, attw, agadoo, size-limit ───
+  publish-health:
+    name: Publish health
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: publint (package.json correctness)
+        run: pnpm publint
+
+      - name: arethetypeswrong (.d.ts resolution)
+        run: pnpm attw
+
+      - name: agadoo (tree-shake check)
+        run: pnpm agadoo
+
+      - name: size-limit (gzip budget)
+        # Compares against main and posts a comment on PRs.
+        uses: andresz1/size-limit-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          script: pnpm size
+
+  # ─── Browser tests: e2e + axe ───
+  browser:
+    name: Browser tests (e2e + axe)
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm --filter='./apps/docs' exec playwright install --with-deps chromium
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Build docs site
+        run: pnpm build:docs
+
+      - name: e2e tests
+        run: pnpm --filter='./apps/docs' run test:e2e -- --project=e2e
+
+      - name: a11y tests (axe-core)
+        run: pnpm --filter='./apps/docs' run test:e2e -- --project=a11y
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: apps/docs/playwright-report
+          retention-days: 7
+
+  # ─── Screen-reader smoke tests (scheduled, not per-PR) ───
+  # Guidepup requires macOS or Windows runners. We run a small suite on
+  # macOS (VoiceOver) and Windows (NVDA) on the nightly schedule only.
+  screen-reader:
+    name: Screen reader (${{ matrix.os }})
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    needs: build-and-test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Setup Guidepup (NVDA / VoiceOver)
+        uses: guidepup/setup-action@0.21.0
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm --filter='./apps/docs' exec playwright install --with-deps chromium
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Build docs site
+        run: pnpm build:docs
+
+      - name: Screen reader tests
+        env:
+          GUIDEPUP: '1'
+        run: pnpm --filter='./apps/docs' run test:sr

@@ -1,0 +1,54 @@
+; Reference repositories for Kumiki design + implementation work.
+; All submodules are shallow (depth=1). Update with:
+;   git submodule update --remote --depth=1
+;
+; CI does NOT init submodules (`actions/checkout@v4` defaults to `submodules: false`).
+; Local developers can `git submodule update --init` to opt in.
+
+[submodule "references/bits-ui"]
+	path = references/bits-ui
+	url = https://github.com/huntabyte/bits-ui.git
+	shallow = true
+	update = none
+
+[submodule "references/melt-ui"]
+	path = references/melt-ui
+	url = https://github.com/melt-ui/melt-ui.git
+	shallow = true
+	update = none
+
+[submodule "references/zag"]
+	path = references/zag
+	url = https://github.com/chakra-ui/zag.git
+	shallow = true
+	update = none
+
+[submodule "references/radix-primitives"]
+	path = references/radix-primitives
+	url = https://github.com/radix-ui/primitives.git
+	shallow = true
+	update = none
+
+[submodule "references/react-spectrum"]
+	path = references/react-spectrum
+	url = https://github.com/adobe/react-spectrum.git
+	shallow = true
+	update = none
+
+[submodule "references/ark-ui"]
+	path = references/ark-ui
+	url = https://github.com/chakra-ui/ark.git
+	shallow = true
+	update = none
+
+[submodule "references/shadcn-svelte"]
+	path = references/shadcn-svelte
+	url = https://github.com/huntabyte/shadcn-svelte.git
+	shallow = true
+	update = none
+
+[submodule "references/base-ui"]
+	path = references/base-ui
+	url = https://github.com/mui/base-ui.git
+	shallow = true
+	update = none

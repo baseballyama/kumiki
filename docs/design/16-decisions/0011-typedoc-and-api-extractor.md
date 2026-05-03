@@ -1,0 +1,80 @@
+# ADR 0011 — TypeDoc + api-extractor (both, different roles)
+
+**Status:** Accepted
+**Date:** 2026-05
+
+## Context
+
+Two TS-aware documentation tools dominate the ecosystem:
+
+- **TypeDoc** — generates human-readable Markdown / HTML reference from TS source + JSDoc.
+- **`@microsoft/api-extractor`** — produces an API report (`<pkg>.api.md`) listing every public TS symbol; intended as a SemVer compatibility gate.
+
+They overlap in inputs (TS + JSDoc) but have different outputs and audiences.
+
+## Decision
+
+Use **both**, in different roles:
+
+- **TypeDoc + `typedoc-plugin-markdown`**: generates the per-component reference rendered by the SvelteKit docs site. Audience: humans browsing `kumiki.dev/components/<name>`.
+- **api-extractor**: generates `api/<pkg>.api.md` per package, committed to the repo. Diff is reviewed in PRs as part of the SemVer contract. Audience: maintainers, reviewers.
+
+Both run in CI on every PR. TypeDoc output drives the docs site; api-extractor output is a tracked file under each package.
+
+## Alternatives considered
+
+| Option                             | Verdict                                                                           |
+| ---------------------------------- | --------------------------------------------------------------------------------- |
+| **Both, different roles** (chosen) | ✅ Each tool plays to its strength; no overlap                                    |
+| TypeDoc only                       | ⚠️ Loses the SemVer-gate function; relies on humans to spot type changes in PRs   |
+| api-extractor only                 | ⚠️ Its docs output is not great for end users; we'd need a separate site renderer |
+| Neither (manual docs)              | ❌ Doesn't scale to 30+ packages                                                  |
+
+## How they cooperate
+
+TypeDoc consumes JSDoc tags (`@when-to-use`, `@anti-pattern`, `@see`) directly. The same JSDoc lives in source.
+
+api-extractor produces a file like:
+
+```ts
+// api/component-combobox.api.md
+@public(undocumented)
+class Combobox {
+  /** @public */
+  static Root: typeof ComboboxRoot;
+  /** @public */
+  static Item: typeof ComboboxItem;
+  // …
+}
+```
+
+A change to `Combobox.Root`'s public type produces a diff in this file; the PR reviewer sees the surface change at a glance.
+
+## Known limitations on Svelte 5 components
+
+api-extractor does not parse `.svelte` files; it operates on the `.svelte.d.ts` produced by `svelte-package`. There are edge cases with namespace re-exports ([sveltejs/svelte#12785](https://github.com/sveltejs/svelte/issues/12785)). Workaround: also export each subcomponent as a named export, so api-extractor can trace the type graph.
+
+## Consequences
+
+**Easier:**
+
+- Public API changes are visible at PR time.
+- The docs site's component reference is auto-generated from JSDoc.
+
+**Harder:**
+
+- Two tools to keep configured. Mitigation: minimal config files per package; uniform across the workspace.
+- api-extractor reports add ~100 lines per package to git history. Acceptable cost.
+
+## Phase plan
+
+- **Phase 0a**: TypeDoc working for `@kumiki/primitives` and `@kumiki/component-toggle`. api-extractor wired but not enforcing.
+- **Phase 0b**: api-extractor enforces — PRs that change reports without updating them are rejected.
+- **Phase 0c**: TypeDoc output rendered into the SvelteKit docs site.
+- **Phase 1**: Both tools running over all 37 packages.
+
+## References
+
+- TypeDoc: https://typedoc.org/
+- api-extractor: https://api-extractor.com/
+- typedoc-plugin-markdown: https://typedoc-plugin-markdown.org/

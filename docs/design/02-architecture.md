@@ -1,0 +1,216 @@
+# 02 — Architecture: The Five Layers
+
+## 2.1 Why layers at all
+
+The brief says "the user can import only what they use; everything else tree-shakes." Tree-shaking is the _fallback_. The _plan_ is that **users import from a layer — not a barrel** — so the bundler never sees code we don't want shipped.
+
+Layers also serve a second purpose: they decouple decisions. Replacing the FSM runtime (Layer 2 internal) doesn't break attachments (Layer 3). Adding a new compound component (Layer 4) doesn't change the machine (Layer 2).
+
+## 2.2 Layer overview
+
+```
+┌────────────────────────────────────────────────────────────────────┐
+│ Layer 5 — Recipes (preview during v1.0)                             │
+│   @kumiki/recipes-{toggle, dialog, …}                              │
+│   Styled, copy-paste templates. Tailwind v4 + vanilla CSS variants.│
+└──────────────┬──────────────────────────────────────────────────────┘
+               │ imports from
+┌──────────────▼──────────────────────────────────────────────────────┐
+│ Layer 4 — Compound components                                       │
+│   @kumiki/component-{toggle, dialog, combobox, …}                  │
+│   <Combobox.Root> / <Combobox.Item>. The default user surface.     │
+└──────────────┬──────────────────────────────────────────────────────┘
+               │ imports from
+┌──────────────▼──────────────────────────────────────────────────────┐
+│ Layer 3 — Attachments / Builders                                    │
+│   @kumiki/attachment-{toggle, dialog, combobox, …}                 │
+│   `{@attach}` factories that bind machines to DOM elements.        │
+└──────────────┬──────────────────────────────────────────────────────┘
+               │ imports from
+┌──────────────▼──────────────────────────────────────────────────────┐
+│ Layer 2 — State machines                                            │
+│   @kumiki/machine-{toggle, dialog, combobox, …}, @kumiki/runtime   │
+│   Pure TypeScript. Framework-agnostic. Vitest-testable headlessly. │
+└──────────────┬──────────────────────────────────────────────────────┘
+               │ imports from
+┌──────────────▼──────────────────────────────────────────────────────┐
+│ Layer 1 — Primitives                                                │
+│   @kumiki/primitives (with subpath exports), @kumiki/locale        │
+│   focus-trap, dismissable, id, locale, live-region, collection,    │
+│   interactions, motion, portal.                                    │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+**Strict downward dependency rule.** Layer N imports from Layer N-1, N-2, …, never from Layer N+1. This is enforced by:
+
+1. `package.json` `dependencies` review at PR time.
+2. ESLint's `import/no-extraneous-dependencies` (configured per package).
+3. A custom `pnpm` script `pnpm run check:layering` that walks dependency graphs and fails if any package depends on a higher-layer package. (Phase 0a deliverable.)
+
+## 2.3 Layer 1 — Primitives
+
+Pure utilities. No component awareness. Each primitive is a subpath of `@kumiki/primitives` and individually tree-shakeable.
+
+| Primitive      | What it does                                                                       | Approx gzip |
+| -------------- | ---------------------------------------------------------------------------------- | ----------- |
+| `focus-trap`   | Trap Tab cycle, set initial focus, restore on unmount                              | ≤ 500 B     |
+| `dismissable`  | Outside click + Escape detection                                                   | ≤ 500 B     |
+| `id`           | Stable SSR-safe id generator (uses `crypto.randomUUID` with fallback)              | ≤ 500 B     |
+| `locale`       | `direction()`, `formatter(locale, opts)`, `numberSystem()`                         | ≤ 500 B     |
+| `live-region`  | `announce(message, { politeness })`                                                | ≤ 500 B     |
+| `collection`   | Roving tabindex, type-ahead, `getNextEnabled` helpers                              | ≤ 500 B     |
+| `interactions` | `press(node)`, `hover(node)`, `focus(node)` — React Aria–style normalized handlers | ≤ 500 B     |
+| `motion`       | `prefersReducedMotion()`, `prefersContrast()`                                      | ≤ 500 B     |
+| `portal`       | Svelte 5 portal abstraction (renders in a target node)                             | ≤ 500 B     |
+
+**API style:** plain functions or classes with `$state` fields where reactivity matters. No global registries.
+
+```ts
+// Layer 1 — focus-trap (sketch).
+export function focusTrap(node: HTMLElement, options: FocusTrapOptions = {}): () => void {
+  // Returns a teardown function. Used directly as a Svelte 5 attachment, or wrapped.
+  // ...
+}
+```
+
+## 2.4 Layer 2 — State machines
+
+Pure TypeScript finite state machines. This is the **load-bearing decision** of Kumiki — see [04-state-machines.md](04-state-machines.md) for the runtime, the API, and the XState-compatible export format.
+
+**Each machine is its own package** (`@kumiki/machine-toggle`, `@kumiki/machine-combobox`, …). The shared runtime lives in `@kumiki/runtime` (~1 KB gzip target).
+
+A machine exports:
+
+- `createXMachine(input): Machine<State, Event, Context>`
+- `XStateConfig` — the JSON-export shape consumable by stately.ai
+
+A machine **does not** know about Svelte. It does not import `svelte` or `$state`. It can be tested with `vitest` against a JSDOM-free environment.
+
+```ts
+// @kumiki/machine-toggle (sketch)
+import { defineMachine } from '@kumiki/runtime';
+
+export type ToggleEvent = { type: 'TOGGLE' } | { type: 'SET'; pressed: boolean };
+export type ToggleContext = { pressed: boolean; disabled: boolean };
+
+export function createToggleMachine(input: { initial?: boolean; disabled?: boolean }) {
+  return defineMachine<ToggleContext, ToggleEvent>({
+    id: 'toggle',
+    context: { pressed: input.initial ?? false, disabled: input.disabled ?? false },
+    initial: input.initial ? 'pressed' : 'unpressed',
+    states: {
+      pressed: {
+        on: { TOGGLE: 'unpressed', SET: { target: 'unpressed', cond: (_, e) => !e.pressed } },
+      },
+      unpressed: {
+        on: { TOGGLE: 'pressed', SET: { target: 'pressed', cond: (_, e) => e.pressed } },
+      },
+    },
+  });
+}
+```
+
+## 2.5 Layer 3 — Attachments
+
+Layer 3 adapts a Layer 2 machine to Svelte 5's reactive model. It exports **`{@attach}`-compatible functions** that the user spreads onto their own DOM.
+
+```svelte
+<script lang="ts">
+  import { createCombobox } from '@kumiki/attachment-combobox';
+  const cb = createCombobox({ options });
+</script>
+
+<input {@attach cb.input} />
+<ul {@attach cb.listbox}>
+  {#each cb.filtered as opt}
+    <li {@attach cb.option(opt)}>{opt.label}</li>
+  {/each}
+</ul>
+```
+
+`createCombobox(input)` does three things:
+
+1. Creates a Layer 2 machine instance.
+2. Wraps machine state in `$state` / `$derived` (in a `.svelte.ts` controller class) so Svelte can track reactivity.
+3. Exposes attachment factories (`input`, `listbox`, `option`, `trigger`) that wire DOM events to `machine.send(...)` and synchronize ARIA attributes from `machine.state`.
+
+**Attachments are the right primitive here.** Per the Svelte 5 research, attachments support multiple per-element, run inside an effect context, and return optional teardown — exactly what we need for portal-and-focus-trap-and-event-listener bundles.
+
+## 2.6 Layer 4 — Compound components
+
+Layer 4 wraps Layer 3 in a familiar Radix-style API. It is the layer most users will touch.
+
+```svelte
+<Combobox.Root bind:value generic="User">
+  <Combobox.Input />
+  <Combobox.Listbox>
+    {#snippet item(user)}
+      <Combobox.Item value={user}>{user.name}</Combobox.Item>
+    {/snippet}
+  </Combobox.Listbox>
+</Combobox.Root>
+```
+
+**Render delegation uses Svelte 5's `child` snippet pattern**, not `asChild`. (See [16-decisions/0007-aschild-svelte-alternative.md](16-decisions/0007-aschild-svelte-alternative.md).)
+
+```svelte
+<Combobox.Trigger>
+  {#snippet child({ props })}
+    <MyButton {...props}>Open</MyButton>
+  {/snippet}
+</Combobox.Trigger>
+```
+
+**Generic propagation:** the outermost `Combobox.Root` holds the generic, and children consume it via Svelte 5's context API (`getContext` / `setContext`). This works around the inference limits of deeply-bound generics (sveltejs/svelte#11356). See [08-typescript.md](08-typescript.md).
+
+## 2.7 Layer 5 — Recipes (preview during v1.0)
+
+Styled, copy-paste-friendly templates published as `@kumiki/recipes-*` with the `0.x.x-preview` tag. The CLI (`@kumiki/cli`) copies recipe sources into the user's project.
+
+```bash
+npx kumiki add dialog --variant=tailwind
+```
+
+**Why preview?** Recipe API depends on Layer 4 stability. Until Layer 4 hits 1.0, we don't want to lock in copy-paste templates that users would have to re-paste.
+
+Two variants per recipe:
+
+- **Tailwind v4** — utility-class based, copy paste into a Tailwind project.
+- **Vanilla CSS** — CSS modules with custom properties for theming.
+
+## 2.8 Cross-cutting: animation hooks
+
+The library never imports an animation library. Components emit `data-state` data attributes:
+
+| Attribute          | Values                              | When                             |
+| ------------------ | ----------------------------------- | -------------------------------- |
+| `data-state`       | `open` `closed` `opening` `closing` | Dialog/Popover/Tooltip lifecycle |
+| `data-orientation` | `horizontal` `vertical`             | Tabs, RadioGroup, Slider         |
+| `data-side`        | `top` `right` `bottom` `left`       | Floating-positioned elements     |
+| `data-direction`   | `ltr` `rtl`                         | Forwarded from `<html dir>`      |
+| `data-disabled`    | present                             | Disabled element                 |
+| `data-checked`     | `true` `false` `mixed`              | Checkbox / Toggle / Switch       |
+
+Users author CSS / Svelte transitions / View Transitions / Motion library bindings against these. This pattern is established by Radix and battle-tested.
+
+## 2.9 Cross-cutting: SSR
+
+All Layer 4 components must SSR cleanly. The **stable id** primitive (`@kumiki/primitives/id`) uses `getContext` to maintain a per-request id counter under SvelteKit, falling back to `crypto.randomUUID` client-side.
+
+ARIA attributes that depend on knowing whether the popover is open server-side (e.g. `aria-expanded`) emit their default closed-state values during SSR. Users that want server-rendered open state pass `defaultOpen` to `Root`.
+
+## 2.10 Architecture alternatives we considered
+
+| Alternative                                                                     | Why we didn't pick it                                                                                                                                                                                                  |
+| ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **One package per component, no Layer split** (Bits UI shape)                   | Conflates the FSM with the render adapter. Forces every consumer to pull in the Svelte runtime, even when they want to reuse the machine in a worker / test / non-Svelte tool.                                         |
+| **One mega-package** (`kumiki`) with subpath exports for each Layer × component | Reduces install ceremony, but blurs versioning — a Layer 1 `dismissable` patch would force every consumer to bump. Also makes it harder to publish Layer 5 with `preview` tag without contaminating Layer 4 stability. |
+| **Two layers** (just machines + components, no separate attachments)            | Loses the "want maximum DOM control" surface. Some users (custom DOM, accessibility audit consumers) want machine + builders without Layer 4 abstractions.                                                             |
+| **Six layers** (split Layer 1 into "primitives" and "locale" formally)          | Locale is conceptually data, not behavior. We treat it as Layer 1-adjacent and ship it as `@kumiki/locale` — a separate package — but the architectural diagram keeps it within Layer 1.                               |
+
+The chosen 5-layer design balances (a) tree-shake-friendliness, (b) separation of concerns, (c) coherent versioning, and (d) approachable mental model for new contributors.
+
+## 2.11 Open questions
+
+- **TBD: should `@kumiki/runtime` be merged into `@kumiki/primitives`?** Currently they're separate because the FSM runtime is Layer 2 conceptually and `primitives` is Layer 1. Phase 0b will measure whether splitting them costs duplicate-bundling enough to warrant a merge.
+- **TBD: a meta-package `@kumiki` (or `kumiki`) that re-exports Layer 4 from one entry?** Pro: easier docs, easier `npx kumiki add`. Con: it is the kind of thing tree-shaking _can_ handle but consumers don't always trust. Decision deferred to v1.1 — not blocking v1.0.

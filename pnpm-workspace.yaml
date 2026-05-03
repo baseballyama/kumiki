@@ -1,0 +1,69 @@
+packages:
+  - 'packages/*'
+  - 'apps/*'
+
+# Catalog: pinned versions shared across workspace packages.
+# Reference from a package.json with `"svelte": "catalog:"`.
+# All versions verified against npm on 2026-05.
+catalog:
+  # --- runtime peers ---
+  # `{@attach}` requires Svelte 5.29+; we pin the floor accordingly.
+  svelte: ^5.55.0
+  typescript: ^5.7.0
+
+  # --- build / publish ---
+  # tsdown is pre-1.0 (Rolldown-based, VoidZero); pin tightly and watch the changelog.
+  tsdown: ^0.21.10
+  '@sveltejs/package': ^2.5.7
+  'svelte-check': ^4.4.7
+  publint: ^0.3.18
+  '@arethetypeswrong/cli': ^0.18.2
+  agadoo: ^3.0.0
+  'size-limit': ^12.1.0
+  '@size-limit/preset-small-lib': ^12.1.0
+  '@size-limit/esbuild': ^12.1.0
+
+  # --- versioning ---
+  '@changesets/cli': ^2.31.0
+  '@changesets/changelog-github': ^0.6.0
+
+  # --- testing ---
+  vitest: ^4.1.5
+  '@vitest/coverage-v8': ^4.1.5
+  jsdom: ^25.0.1
+  playwright: ^1.59.1
+  '@playwright/test': ^1.59.1
+  '@axe-core/playwright': ^4.11.3
+  'axe-core': ^4.11.4
+  # @guidepup/guidepup is the canonical package name; the older bare `guidepup` no longer publishes.
+  '@guidepup/guidepup': ^0.24.1
+  '@guidepup/playwright': ^0.15.0
+  '@guidepup/virtual-screen-reader': ^0.32.1
+
+  # --- docs / api ---
+  typedoc: ^0.28.19
+  'typedoc-plugin-markdown': ^4.11.0
+  '@microsoft/api-extractor': ^7.58.7
+
+  # --- lint / format ---
+  eslint: ^10.3.0
+  '@eslint/js': ^10.0.1
+  'eslint-plugin-svelte': ^3.17.1
+  'svelte-eslint-parser': ^1.6.0
+  '@typescript-eslint/parser': ^8.59.1
+  prettier: ^3.8.3
+  'prettier-plugin-svelte': ^3.5.1
+
+  # --- git hooks ---
+  lefthook: ^2.1.6
+
+  # --- docs site (SvelteKit + Cloudflare) ---
+  '@sveltejs/kit': ^2.59.0
+  '@sveltejs/adapter-cloudflare': ^7.2.8
+  '@sveltejs/vite-plugin-svelte': ^7.0.0
+  vite: ^8.0.10
+
+# onlyBuiltDependencies: keep install hermetic.
+onlyBuiltDependencies:
+  - '@sveltejs/kit'
+  - esbuild

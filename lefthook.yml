@@ -1,0 +1,31 @@
+# Pre-commit and pre-push hooks for Kumiki.
+# Install: `pnpm install` (auto-runs `lefthook install` via the `prepare` script).
+# See https://github.com/evilmartians/lefthook
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: format
+      glob: '*.{ts,svelte,svelte.ts,json,md,yml,yaml}'
+      run: pnpm exec prettier --check {staged_files}
+      stage_fixed: true
+    - name: lint
+      glob: '*.{ts,svelte,svelte.ts}'
+      run: pnpm exec eslint {staged_files}
+    - name: layering
+      # Cheap; runs on every commit.
+      run: pnpm check:layering
+    - name: locale-shape
+      glob: 'packages/locale/**'
+      run: pnpm check:locale-shape
+
+pre-push:
+  parallel: false
+  jobs:
+    - name: typecheck
+      run: pnpm typecheck
+    - name: test
+      run: pnpm test
+    - name: health
+      # publint / attw / agadoo / size-limit / layering / locale / jsdoc.
+      run: pnpm ci:health

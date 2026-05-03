@@ -1,0 +1,46 @@
+name: Preview snapshot
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+env:
+  PNPM_VERSION: 9.15.0
+  NODE_VERSION: 22
+
+jobs:
+  snapshot:
+    name: Publish snapshot
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Publish snapshot to npm with `preview` tag
+        # Each PR gets a snapshot version like 0.0.0-preview-<datetime>-<sha>.
+        # Layer-5 `recipes-*` packages are also released this way.
+        run: |
+          pnpm changeset version --snapshot preview
+          pnpm changeset publish --tag preview --no-git-tag
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

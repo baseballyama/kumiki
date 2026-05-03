@@ -1,0 +1,84 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":semanticCommitsDisabled"],
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "schedule": ["before 9am on monday"],
+  "timezone": "Asia/Tokyo",
+  "ignorePaths": ["**/node_modules/**", "references/**"],
+  "packageRules": [
+    {
+      "description": "Group Svelte / SvelteKit / vite-plugin-svelte updates",
+      "matchPackageNames": [
+        "svelte",
+        "svelte-check",
+        "@sveltejs/kit",
+        "@sveltejs/package",
+        "@sveltejs/adapter-cloudflare",
+        "@sveltejs/vite-plugin-svelte"
+      ],
+      "groupName": "Svelte stack"
+    },
+    {
+      "description": "Group Vitest updates",
+      "matchPackageNames": ["vitest", "@vitest/coverage-v8", "jsdom"],
+      "groupName": "Vitest stack"
+    },
+    {
+      "description": "Group Playwright updates",
+      "matchPackageNames": ["playwright", "@playwright/test", "@axe-core/playwright", "axe-core"],
+      "groupName": "Playwright stack"
+    },
+    {
+      "description": "Group Guidepup updates",
+      "matchPackageNames": [
+        "@guidepup/guidepup",
+        "@guidepup/playwright",
+        "@guidepup/virtual-screen-reader",
+        "@guidepup/setup"
+      ],
+      "groupName": "Guidepup stack"
+    },
+    {
+      "description": "Group lint / format updates",
+      "matchPackageNames": [
+        "eslint",
+        "@eslint/js",
+        "eslint-plugin-svelte",
+        "svelte-eslint-parser",
+        "@typescript-eslint/parser",
+        "prettier",
+        "prettier-plugin-svelte"
+      ],
+      "groupName": "Lint stack"
+    },
+    {
+      "description": "Group publish-health tools",
+      "matchPackageNames": [
+        "publint",
+        "@arethetypeswrong/cli",
+        "agadoo",
+        "size-limit",
+        "@size-limit/preset-small-lib",
+        "@size-limit/esbuild"
+      ],
+      "groupName": "Publish-health stack"
+    },
+    {
+      "description": "tsdown is pre-1.0; pin tightly and review every bump.",
+      "matchPackageNames": ["tsdown"],
+      "rangeStrategy": "bump",
+      "labels": ["dependencies", "tsdown-pin"]
+    },
+    {
+      "description": "Pin TypeScript to a 5.x line until tooling stabilises on 6.",
+      "matchPackageNames": ["typescript"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 9am on monday"]
+  }
+}

@@ -141,3 +141,21 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Wrangler / Cloudflare local dev cache
+.wrangler/
+
+# Lockfile is intentionally committed for reproducibility — do NOT ignore.
+
+# tsdown / size-limit caches
+.tsdown/
+.size-limit-cache/
+
+# size-limit per-package outputs
+size-snapshot.json
+

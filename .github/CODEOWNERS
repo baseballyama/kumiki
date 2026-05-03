@@ -1,0 +1,24 @@
+# Code owners for Kumiki — required reviewers for matching paths.
+# Format: <pattern> <user-or-team>
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner — every PR.
+*                                @baseballyama
+
+# Architecture decisions are immutable; review extra-carefully.
+docs/design/16-decisions/        @baseballyama
+docs/design/                     @baseballyama
+
+# Build / release infrastructure.
+.github/workflows/               @baseballyama
+.changeset/                      @baseballyama
+pnpm-workspace.yaml              @baseballyama
+package.json                     @baseballyama
+renovate.json                    @baseballyama
+lefthook.yml                     @baseballyama
+
+# QA scripts must stay tight.
+scripts/                         @baseballyama
+
+# State machine runtime is load-bearing — extra review needed.
+packages/runtime/                @baseballyama

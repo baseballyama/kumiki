@@ -1,0 +1,54 @@
+name: Screen reader (nightly)
+
+on:
+  schedule:
+    # 16:00 UTC = 01:00 JST. Adjust as needed.
+    - cron: '0 16 * * *'
+  workflow_dispatch:
+
+env:
+  PNPM_VERSION: 9.15.0
+  NODE_VERSION: 22
+
+jobs:
+  screen-reader:
+    name: Screen reader (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Setup Guidepup
+        uses: guidepup/setup-action@0.21.0
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm --filter='./apps/docs' exec playwright install --with-deps chromium
+
+      - name: Build
+        run: pnpm build && pnpm build:docs
+
+      - name: Screen reader tests
+        env:
+          GUIDEPUP: '1'
+        run: pnpm --filter='./apps/docs' run test:sr
+
+      - name: Upload SR transcript
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sr-${{ matrix.os }}
+          path: apps/docs/sr-output
+          retention-days: 14

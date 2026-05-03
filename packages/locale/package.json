@@ -1,0 +1,144 @@
+{
+  "name": "@kumiki/locale",
+  "version": "0.0.0",
+  "description": "Locale data — dynamically importable per language. Initial set: en, ja, zh-Hans, zh-Hant, ko, es, fr, de, ar, he.",
+  "license": "MIT",
+  "author": "Yuichiro Yamashita",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/locale",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baseballyama/kumiki.git",
+    "directory": "packages/locale"
+  },
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json",
+    "./en": {
+      "types": "./dist/en/index.d.mts",
+      "import": "./dist/en/index.mjs"
+    },
+    "./ja": {
+      "types": "./dist/ja/index.d.mts",
+      "import": "./dist/ja/index.mjs"
+    },
+    "./zh-Hans": {
+      "types": "./dist/zh-Hans/index.d.mts",
+      "import": "./dist/zh-Hans/index.mjs"
+    },
+    "./zh-Hant": {
+      "types": "./dist/zh-Hant/index.d.mts",
+      "import": "./dist/zh-Hant/index.mjs"
+    },
+    "./ko": {
+      "types": "./dist/ko/index.d.mts",
+      "import": "./dist/ko/index.mjs"
+    },
+    "./es": {
+      "types": "./dist/es/index.d.mts",
+      "import": "./dist/es/index.mjs"
+    },
+    "./fr": {
+      "types": "./dist/fr/index.d.mts",
+      "import": "./dist/fr/index.mjs"
+    },
+    "./de": {
+      "types": "./dist/de/index.d.mts",
+      "import": "./dist/de/index.mjs"
+    },
+    "./ar": {
+      "types": "./dist/ar/index.d.mts",
+      "import": "./dist/ar/index.mjs"
+    },
+    "./he": {
+      "types": "./dist/he/index.d.mts",
+      "import": "./dist/he/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "size": "size-limit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "size-limit": "catalog:",
+    "@size-limit/preset-small-lib": "catalog:"
+  },
+  "size-limit": [
+    {
+      "name": "en",
+      "path": "dist/en/index.mjs",
+      "limit": "1 KB"
+    },
+    {
+      "name": "ja",
+      "path": "dist/ja/index.mjs",
+      "limit": "1 KB"
+    },
+    {
+      "name": "zh-Hans",
+      "path": "dist/zh-Hans/index.mjs",
+      "limit": "1 KB"
+    },
+    {
+      "name": "zh-Hant",
+      "path": "dist/zh-Hant/index.mjs",
+      "limit": "1 KB"
+    },
+    {
+      "name": "ko",
+      "path": "dist/ko/index.mjs",
+      "limit": "1 KB"
+    },
+    {
+      "name": "es",
+      "path": "dist/es/index.mjs",
+      "limit": "1 KB"
+    },
+    {
+      "name": "fr",
+      "path": "dist/fr/index.mjs",
+      "limit": "1 KB"
+    },
+    {
+      "name": "de",
+      "path": "dist/de/index.mjs",
+      "limit": "1 KB"
+    },
+    {
+      "name": "ar",
+      "path": "dist/ar/index.mjs",
+      "limit": "1 KB"
+    },
+    {
+      "name": "he",
+      "path": "dist/he/index.mjs",
+      "limit": "1 KB"
+    }
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
