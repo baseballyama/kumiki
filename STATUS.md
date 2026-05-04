@@ -5,13 +5,13 @@ after every successful commit + push.
 
 ## TL;DR
 
-Phase 0a (Toggle pilot) and Phase 0b (Combobox design validation) are
-**complete**. Switch / Checkbox / RadioGroup / Tabs / Dialog / Tooltip /
-Select landed end-to-end. focus-trap + dismissable Layer 1 primitives
-shipped.
+**Phase 1 is complete.** All 10 components — Toggle, Switch, Combobox,
+Checkbox, RadioGroup, Tabs, Dialog, Tooltip, Select, Field/Form — landed
+end-to-end (machine + attachment + component + sandbox + e2e + axe +
+Playground). focus-trap + dismissable Layer 1 primitives shipped.
 
-**349 unit tests + 128 Playwright tests = 477 tests passing** at the latest
-green push.
+**380 unit tests + 141 Playwright tests = 521 tests passing** at the
+latest green push.
 
 ## What runs (verified end-to-end)
 
@@ -26,6 +26,7 @@ green push.
 | Dialog     |    ✅ 20 tests    |     ✅ 15 tests      |     ✅ 0 errors     |    ✅     | ✅ 8 + 4  |
 | Tooltip    |    ✅ 16 tests    |     ✅ 12 tests      |     ✅ 0 errors     |    ✅     | ✅ 7 + 4  |
 | Select     |    ✅ 26 tests    |     ✅ 14 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 4  |
+| Field/Form |    ✅ 17 tests    |     ✅ 14 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 4  |
 
 | Shared package                   | Status                                   |
 | -------------------------------- | :--------------------------------------- |

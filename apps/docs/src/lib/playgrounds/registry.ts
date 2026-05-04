@@ -147,17 +147,15 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/listbox/',
     status: 'preview',
   },
-  ...(['form-field'] as const).map(
-    (slug) =>
-      ({
-        slug: `machine-${slug}`,
-        name: `@kumiki/machine-${slug}`,
-        layer: 2,
-        summary: `Pure-TS FSM for the ${slug} component.`,
-        live: false,
-        status: 'unreleased',
-      }) satisfies PlaygroundEntry,
-  ),
+  {
+    slug: 'machine-form-field',
+    name: '@kumiki/machine-form-field',
+    layer: 2,
+    summary:
+      'Pure-TS FSM for Form Field validation — pristine/editing/validating/valid/invalid with race-token guarding.',
+    live: false,
+    status: 'preview',
+  },
 
   // ── Layer 3 — Attachments ────────────────────────────────────────────────
   {
@@ -247,17 +245,15 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/listbox/',
     status: 'preview',
   },
-  ...(['form-field'] as const).map(
-    (slug) =>
-      ({
-        slug: `attachment-${slug}`,
-        name: `@kumiki/attachment-${slug}`,
-        layer: 3,
-        summary: `Svelte 5 attachment for ${slug}.`,
-        live: false,
-        status: 'unreleased',
-      }) satisfies PlaygroundEntry,
-  ),
+  {
+    slug: 'attachment-form-field',
+    name: '@kumiki/attachment-form-field',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for Form Field — Standard Schema validator runner with race-token dispatch + ARIA wiring.',
+    live: false,
+    status: 'preview',
+  },
 
   // ── Layer 4 — Compound components ────────────────────────────────────────
   {
@@ -348,17 +344,15 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/listbox/',
     status: 'preview',
   },
-  ...(['form-field'] as const).map(
-    (slug) =>
-      ({
-        slug: `component-${slug}`,
-        name: `@kumiki/component-${slug}`,
-        layer: 4,
-        summary: `Compound Svelte 5 components (Root/Trigger/Item) for ${slug}.`,
-        live: false,
-        status: 'unreleased',
-      }) satisfies PlaygroundEntry,
-  ),
+  {
+    slug: 'component-form-field',
+    name: '@kumiki/component-form-field',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Label>` / `<Input>` / `<Errors>` / `<Description>` for accessible form fields with Standard Schema validation.',
+    live: true,
+    status: 'preview',
+  },
 
   // ── Layer 5 — Recipes (preview) ───────────────────────────────────────────
   {
@@ -400,4 +394,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-dialog': () => import('./demos/component-dialog.svelte'),
   'component-tooltip': () => import('./demos/component-tooltip.svelte'),
   'component-select': () => import('./demos/component-select.svelte'),
+  'component-form-field': () => import('./demos/component-form-field.svelte'),
 };

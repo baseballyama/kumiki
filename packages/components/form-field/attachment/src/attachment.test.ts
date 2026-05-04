@@ -111,7 +111,9 @@ describe('createFormField attachment', () => {
     });
     attachAll(f);
     // Touch the field then blur with empty value.
-    input.dispatchEvent(new Event('focus'));
+    // Dispatch INPUT to enter editing first; FOCUS alone is a no-op now.
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
     input.dispatchEvent(new Event('blur'));
     await vi.runAllTimersAsync();
     expect(f.state).toBe('invalid');
@@ -125,7 +127,9 @@ describe('createFormField attachment', () => {
       validator: makeNonEmptyValidator(),
     });
     attachAll(f);
-    input.dispatchEvent(new Event('focus'));
+    // Dispatch INPUT to enter editing first; FOCUS alone is a no-op now.
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
     input.dispatchEvent(new Event('blur'));
     await vi.runAllTimersAsync();
     expect(errors.textContent).toBe('Required');
@@ -140,7 +144,9 @@ describe('createFormField attachment', () => {
       validator: makeNonEmptyValidator(),
     });
     attachAll(f);
-    input.dispatchEvent(new Event('focus'));
+    // Dispatch INPUT to enter editing first; FOCUS alone is a no-op now.
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
     input.dispatchEvent(new Event('blur'));
     await vi.runAllTimersAsync();
     const desc = input.getAttribute('aria-describedby');
@@ -153,7 +159,9 @@ describe('createFormField attachment', () => {
       validator: makeNonEmptyValidator(),
     });
     attachAll(f);
-    input.dispatchEvent(new Event('focus'));
+    // Dispatch INPUT to enter editing first; FOCUS alone is a no-op now.
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
     input.dispatchEvent(new Event('blur'));
     await vi.runAllTimersAsync();
     expect(f.state).toBe('invalid');
@@ -189,8 +197,9 @@ describe('createFormField attachment', () => {
       validator: makeAsyncValidator(20),
     });
     attachAll(f);
-    input.dispatchEvent(new Event('focus'));
-    input.dispatchEvent(new Event('blur'));
+    // Use the imperative validate() since FOCUS is a no-op and we want to
+    // validate the initial value without forcing a redundant INPUT event.
+    void f.validate();
     expect(f.state).toBe('validating');
     await vi.advanceTimersByTimeAsync(25);
     expect(f.state).toBe('valid');

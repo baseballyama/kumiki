@@ -400,6 +400,95 @@ console.log(m.context.value);                       // 'cherry'`,
     },
   ],
 
+  'component-form-field': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-form-field' },
+    {
+      title: 'Basic — email field with Valibot',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import * as Field from '@kumiki/component-form-field';
+  import * as v from 'valibot';
+
+  const emailSchema = v.pipe(v.string(), v.email('Enter a valid email'));
+  let value = $state('');
+</script>
+
+<Field.Root initialValue="" bind:value validator={emailSchema}>
+  <Field.Label>Email</Field.Label>
+  <Field.Input type="email" autocomplete="email" />
+  <Field.Description>We'll send a confirmation link.</Field.Description>
+  <Field.Errors />
+</Field.Root>`,
+    },
+    {
+      title: 'Validate on every keystroke',
+      lang: 'svelte',
+      code: `<Field.Root initialValue="" validator={schema} validateOn="change">
+  <Field.Label>Username</Field.Label>
+  <Field.Input />
+  <Field.Errors />
+</Field.Root>`,
+    },
+    {
+      title: 'Async validator (e.g. server uniqueness check)',
+      lang: 'ts',
+      code: `// Standard Schema validators may be async — Promise<Result> is fine.
+// Race-token guarding is automatic: stale resolutions are dropped.
+const usernameSchema: StandardSchemaV1<string, string> = {
+  '~standard': {
+    version: 1,
+    vendor: 'app',
+    validate: async (value) => {
+      const r = await fetch(\`/api/users/\${value}\`);
+      if (r.status === 404) return { value: value as string };
+      return { issues: [{ message: 'Already taken' }] };
+    },
+  },
+};`,
+    },
+  ],
+
+  'machine-form-field': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-form-field' },
+    {
+      title: 'Pure-TS — race-token guarding',
+      lang: 'ts',
+      code: `import { createFormFieldMachine } from '@kumiki/machine-form-field';
+
+const m = createFormFieldMachine({ initialValue: '' });
+m.send({ type: 'INPUT', value: 'a' });
+m.send({ type: 'BLUR' });
+const stale = m.context.validationToken;
+
+// User keeps typing while validator is in flight.
+m.send({ type: 'INPUT', value: 'ab' });
+// The stale validation result arrives — DROPPED, token mismatch.
+m.send({
+  type: 'VALIDATION_RESOLVE',
+  token: stale,
+  issues: [{ message: 'too short' }],
+});
+console.log(m.state); // 'editing' — not 'invalid'`,
+    },
+  ],
+
+  'attachment-form-field': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-form-field' },
+    {
+      title: 'Drive your own DOM',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createFormField } from '@kumiki/attachment-form-field';
+  const f = createFormField({ initialValue: '', validator });
+</script>
+
+<label {@attach f.label}>Email</label>
+<input {@attach f.input} type="email" />
+<p {@attach f.description}>We won't share it.</p>
+<div {@attach f.errors}></div>`,
+    },
+  ],
+
   'component-checkbox': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-checkbox' },
     {

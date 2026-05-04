@@ -15,10 +15,10 @@ describe('form-field machine', () => {
   });
 
   describe('FOCUS / INPUT / BLUR', () => {
-    it('FOCUS moves pristine → editing', () => {
+    it('FOCUS from pristine is a no-op (no validation until INPUT)', () => {
       const m = createFormFieldMachine({ initialValue: '' });
       m.send({ type: 'FOCUS' });
-      expect(m.state).toBe('editing');
+      expect(m.state).toBe('pristine');
     });
 
     it('INPUT updates value and marks dirty', () => {

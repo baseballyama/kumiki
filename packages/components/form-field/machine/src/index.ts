@@ -143,7 +143,9 @@ export function createFormFieldMachine<T>(input: CreateFormFieldInput<T>): FormF
     states: {
       pristine: {
         on: {
-          FOCUS: 'editing',
+          // FOCUS is a no-op from pristine — visiting a field without
+          // typing should not trigger validation on the subsequent blur.
+          // INPUT is what marks the user as actively editing.
           INPUT: { target: 'editing', actions: [inputAction()] },
           BLUR: { actions: [{ type: 'touch', exec: () => ({ touched: true }) }] },
           SUBMIT_REQUEST: { target: 'validating', actions: [startValidating()] },
