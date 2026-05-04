@@ -31,6 +31,10 @@ const browserAndNodeGlobals = {
 const sharedRules = {
   'no-unused-vars': 'off',
   'no-undef': 'off', // TypeScript handles this; eslint's heuristic misjudges TS types.
+  // SvelteKit's `resolve()` only matters when the app uses the `reroute` hook
+  // to remap URLs. Kumiki's docs site doesn't, so static `href="/path"` is
+  // safe and the rule is pure ceremony.
+  'svelte/no-navigation-without-resolve': 'off',
 };
 
 export default [

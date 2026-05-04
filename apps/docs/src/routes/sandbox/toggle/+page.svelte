@@ -54,7 +54,7 @@
 
   <h2>Event log</h2>
   <ol data-testid="log">
-    {#each log as line}
+    {#each log as line, i (i)}
       <li>{line}</li>
     {/each}
   </ol>
