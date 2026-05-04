@@ -40,14 +40,18 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      - name: Custom QA (layering, locale shape, JSDoc)
-        run: pnpm check:all
+      - name: Custom QA (layering, locale shape, JSDoc, Node compat)
+        # check:node-compat needs dist/, so it runs after build below.
+        run: pnpm check:layering && pnpm check:locale-shape && pnpm check:jsdoc
 
       - name: Typecheck
         run: pnpm typecheck
 
       - name: Build packages
         run: pnpm build
+
+      - name: Node compatibility (Layer 1 / 2 / 3 import without DOM globals)
+        run: pnpm check:node-compat
 
       - name: Unit tests
         run: pnpm test

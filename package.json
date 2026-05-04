@@ -35,7 +35,8 @@
     "check:layering": "node scripts/check-layering.mjs",
     "check:locale-shape": "node scripts/check-locale-shape.mjs",
     "check:jsdoc": "node scripts/check-jsdoc.mjs",
-    "check:all": "pnpm check:layering && pnpm check:locale-shape && pnpm check:jsdoc",
+    "check:node-compat": "node scripts/check-node-compat.mjs",
+    "check:all": "pnpm check:layering && pnpm check:locale-shape && pnpm check:jsdoc && pnpm check:node-compat",
     "ci:health": "pnpm check:all && pnpm publint && pnpm attw && pnpm agadoo && pnpm size",
     "prepare": "lefthook install"
   },

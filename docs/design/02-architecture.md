@@ -193,13 +193,43 @@ The library never imports an animation library. Components emit `data-state` dat
 
 Users author CSS / Svelte transitions / View Transitions / Motion library bindings against these. This pattern is established by Radix and battle-tested.
 
-## 2.9 Cross-cutting: SSR
+## 2.9 Cross-cutting: Node + browser dual targets
+
+Kumiki is published as **isomorphic** packages — every Layer 1 / 2 / 3 / 4
+package imports cleanly in both Node 22+ and modern browsers. The contract:
+
+| Layer                  | Node import                             | Node execute                                                            | Browser execute                 |
+| ---------------------- | --------------------------------------- | ----------------------------------------------------------------------- | ------------------------------- |
+| 1 — primitives, locale | ✅ no DOM                               | ✅ pure logic / data                                                    | ✅                              |
+| 2 — runtime, machines  | ✅ no DOM                               | ✅ FSM in Vitest, scripts, server validation                            | ✅                              |
+| 3 — attachments        | ✅ DOM types only inside factory bodies | ⚠️ controller construction OK; calling `t.root(node)` requires real DOM | ✅                              |
+| 4 — components         | ✅ via SvelteKit SSR                    | ✅ SSR rendering                                                        | ✅ post-hydration interactivity |
+
+Practical implications:
+
+- **Layer 2 machines run on the server.** Use them for non-UI logic
+  (validation, simulation, batch jobs, AI agents) without dragging a Svelte
+  runtime — `import { createComboboxMachine } from '@kumiki/machine-combobox'`
+  in a Node worker is a supported path.
+- **Layer 3 attachments import cleanly on Node** but their `root(node)` call
+  will throw if invoked without a real DOM. Use them only in browsers (or
+  with a JSDOM fixture, as our jsdom-mode Vitest tests do).
+- **Layer 4 SSR works through SvelteKit's `adapter-cloudflare` /
+  `adapter-node`.** Hydration on the browser then takes over interaction.
+
+CI gate: `pnpm check:node-compat` (`scripts/check-node-compat.mjs`)
+imports every published `dist/index.mjs` of Layer 1 / 2 / 3 packages in a
+fresh Node process _with `document`, `window`, and `HTMLElement` deleted
+from `globalThis`_ — any source that secretly reads a DOM global at import
+time fails the gate.
+
+## 2.10 Cross-cutting: SSR
 
 All Layer 4 components must SSR cleanly. The **stable id** primitive (`@kumiki/primitives/id`) uses `getContext` to maintain a per-request id counter under SvelteKit, falling back to `crypto.randomUUID` client-side.
 
 ARIA attributes that depend on knowing whether the popover is open server-side (e.g. `aria-expanded`) emit their default closed-state values during SSR. Users that want server-rendered open state pass `defaultOpen` to `Root`.
 
-## 2.10 Architecture alternatives we considered
+## 2.11 Architecture alternatives we considered
 
 | Alternative                                                                     | Why we didn't pick it                                                                                                                                                                                                  |
 | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -210,7 +240,7 @@ ARIA attributes that depend on knowing whether the popover is open server-side (
 
 The chosen 5-layer design balances (a) tree-shake-friendliness, (b) separation of concerns, (c) coherent versioning, and (d) approachable mental model for new contributors.
 
-## 2.11 Open questions
+## 2.12 Open questions
 
 - **TBD: should `@kumiki/runtime` be merged into `@kumiki/primitives`?** Currently they're separate because the FSM runtime is Layer 2 conceptually and `primitives` is Layer 1. Phase 0b will measure whether splitting them costs duplicate-bundling enough to warrant a merge.
 - **TBD: a meta-package `@kumiki` (or `kumiki`) that re-exports Layer 4 from one entry?** Pro: easier docs, easier `npx kumiki add`. Con: it is the kind of thing tree-shaking _can_ handle but consumers don't always trust. Decision deferred to v1.1 — not blocking v1.0.

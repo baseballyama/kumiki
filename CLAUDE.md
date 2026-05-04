@@ -83,6 +83,34 @@ references/                 Shallow submodules of competitor libs (opt-in, ~400 
 pnpm-workspace.yaml         Catalog (Svelte 5.29, tsdown 0.21, etc.)
 ```
 
+## Runtime targets — Node + browser
+
+Kumiki must run in **both Node 22+ and modern browsers**. The dual-environment
+contract is:
+
+| Layer                  | Node import                                         | Node execute                                                            | Browser execute                 |
+| ---------------------- | --------------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------- |
+| 1 — primitives, locale | ✅ no DOM                                           | ✅ pure logic / data                                                    | ✅                              |
+| 2 — runtime, machines  | ✅ no DOM                                           | ✅ FSM in Vitest, scripts, server validation                            | ✅                              |
+| 3 — attachments        | ✅ import OK (DOM types only inside factory bodies) | ⚠️ controller construction OK; calling `t.root(node)` requires real DOM | ✅                              |
+| 4 — components         | ✅ via SvelteKit SSR                                | ✅ SSR rendering                                                        | ✅ post-hydration interactivity |
+
+**Hard rules to preserve this:**
+
+- No top-level `document.` / `window.` / `HTMLElement` / `MouseEvent` access
+  in any source file. DOM globals only inside attachment-factory bodies that
+  the consumer calls when a real node exists.
+- `typeof X === 'undefined'` guards for `crypto`, `process`, `globalThis`
+  before reading them at module scope.
+- Vitest tests for Layer 1 / 2 must use `environment: 'node'`. Layer 3
+  controller tests use `environment: 'jsdom'`.
+- Use only modern globals available in Node 22 (`crypto.randomUUID`,
+  `AbortSignal`, `Intl.*`, `URL`). Don't reach for Node-specific built-ins
+  like `node:fs`, `node:path`, `node:process` in library packages.
+
+The smoke test for this is `node -e "import('./dist/index.mjs')"` from any
+package's directory — it must succeed without DOM globals.
+
 ## Phase 1 components (10) and the order they ship
 
 Ship order from `15-roadmap.md`: **Toggle (Phase 0a) → Combobox (Phase 0b) → Switch → Checkbox → RadioGroup → Tabs → Dialog → Tooltip → Select → Field/Form**.
