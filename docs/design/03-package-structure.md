@@ -2,27 +2,58 @@
 
 ## 3.1 Repository shape
 
+Packages are **vertically sliced** — when you work on a component (say, Combobox),
+its three layers (machine, attachment, component) sit in adjacent directories.
+This matches the unit of work in Phase 0b/1, where one component is implemented
+end-to-end at a time.
+
 ```
 /
 ├── packages/
-│   ├── primitives/                  Layer 1 — subpath exports per primitive
-│   ├── locale/                      Layer 1 — subpath exports per language
-│   ├── runtime/                     Layer 2 — minimal FSM runtime
-│   ├── types/                       Layer 0 — shared TS types
-│   ├── machine-{toggle, …}/         Layer 2 — 10 packages
-│   ├── attachment-{toggle, …}/      Layer 3 — 10 packages
-│   ├── component-{toggle, …}/       Layer 4 — 10 packages
-│   ├── recipes-{toggle, dialog}/    Layer 5 (preview) — 2 packages at v1.0
-│   └── cli/                         `kumiki` binary for `npx kumiki add`
+│   ├── core/                        # Layer 0–2 shared
+│   │   ├── primitives/              @kumiki/primitives — subpath exports per primitive
+│   │   ├── locale/                  @kumiki/locale — subpath exports per language
+│   │   ├── runtime/                 @kumiki/runtime — minimal FSM runtime
+│   │   └── types/                   @kumiki/types — shared TS types (Layer 0)
+│   ├── components/                  # 10 components × 3 layers each
+│   │   ├── toggle/
+│   │   │   ├── machine/             @kumiki/machine-toggle (Layer 2)
+│   │   │   ├── attachment/          @kumiki/attachment-toggle (Layer 3)
+│   │   │   └── component/           @kumiki/component-toggle (Layer 4)
+│   │   ├── combobox/
+│   │   │   ├── machine/             @kumiki/machine-combobox
+│   │   │   ├── attachment/          @kumiki/attachment-combobox
+│   │   │   └── component/           @kumiki/component-combobox
+│   │   └── … (switch, checkbox, radio-group, tabs, dialog,
+│   │          tooltip, select, form-field)
+│   ├── recipes/                     # Layer 5 preview
+│   │   ├── toggle/                  @kumiki/recipes-toggle
+│   │   └── dialog/                  @kumiki/recipes-dialog
+│   └── tooling/
+│       └── cli/                     @kumiki/cli — `kumiki` binary
 ├── apps/
 │   └── docs/                        SvelteKit documentation site
 ├── docs/                            This design folder
 ├── .changeset/                      Independent versioning state
 ├── .github/workflows/               CI / release / docs deploy
-├── .config/                         Shared tool configs (size-limit aggregator)
 ├── pnpm-workspace.yaml              Workspace + catalog
 ├── package.json                     Root scripts
 └── tsconfig.json                    Base TS config
+```
+
+**npm names stay flat.** `@kumiki/component-toggle`, not
+`@kumiki/components/toggle/component`. The nested directory structure is a
+developer-ergonomics concern; npm consumers never see it.
+
+The `pnpm-workspace.yaml` includes:
+
+```yaml
+packages:
+  - 'packages/core/*'
+  - 'packages/components/*/*' # the layer subfolder under each component
+  - 'packages/recipes/*'
+  - 'packages/tooling/*'
+  - 'apps/*'
 ```
 
 **37 packages** in total at v1.0:

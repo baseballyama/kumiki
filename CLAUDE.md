@@ -55,16 +55,25 @@ docs/design/                01-vision … 15-roadmap, 16-decisions/
 docs/components/            Per-component specs (_template.md, combobox.md)
 docs/market-research.md     User-supplied competitor research
 
-packages/                   37 packages
-  primitives/               Layer 1 (focus-trap, dismissable, id, …) — subpath exports
-  locale/                   Layer 1 data — subpath per language (en, ja, ar, …)
-  runtime/                  Layer 2 minimal FSM
-  types/                    Shared TS types
-  machine-{X}/              Layer 2 per-component (×10)
-  attachment-{X}/           Layer 3 per-component (×10)
-  component-{X}/            Layer 4 per-component (×10)
-  recipes-{toggle,dialog}/  Layer 5 preview
-  cli/                      `kumiki add` binary
+packages/                       37 packages, vertically sliced
+  core/
+    primitives/                 @kumiki/primitives — Layer 1 (subpath exports)
+    locale/                     @kumiki/locale — subpath per language
+    runtime/                    @kumiki/runtime — minimal FSM
+    types/                      @kumiki/types — shared TS types
+  components/                   one folder per component, all 3 layers co-located
+    {toggle,switch,checkbox,radio-group,tabs,dialog,tooltip,combobox,select,form-field}/
+      machine/                  @kumiki/machine-{X}     (Layer 2)
+      attachment/               @kumiki/attachment-{X}  (Layer 3)
+      component/                @kumiki/component-{X}   (Layer 4)
+  recipes/
+    toggle/                     @kumiki/recipes-toggle  (Layer 5 preview)
+    dialog/                     @kumiki/recipes-dialog  (Layer 5 preview)
+  tooling/
+    cli/                        @kumiki/cli — `kumiki add` binary
+
+# npm package names are flat (`@kumiki/machine-toggle`, not `@kumiki/components/toggle/machine`).
+# The vertical directory structure is for developer ergonomics, not the published surface.
 
 apps/docs/                  SvelteKit docs site → Cloudflare Pages
 

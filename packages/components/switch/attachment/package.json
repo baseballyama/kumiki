@@ -1,0 +1,67 @@
+{
+  "name": "@kumiki/attachment-switch",
+  "version": "0.0.0",
+  "description": "Svelte 5 attachments (Layer 3) for switch — reactive bindings to @kumiki/machine-switch.",
+  "license": "MIT",
+  "author": "Yuichiro Yamashita",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/switch/attachment",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baseballyama/kumiki.git",
+    "directory": "packages/components/switch/attachment"
+  },
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "size": "size-limit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "size-limit": "catalog:",
+    "@size-limit/preset-small-lib": "catalog:"
+  },
+  "size-limit": [
+    {
+      "name": "default",
+      "path": "dist/index.mjs",
+      "limit": "1500 B"
+    }
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "peerDependencies": {
+    "svelte": "catalog:"
+  },
+  "dependencies": {
+    "@kumiki/machine-switch": "workspace:*",
+    "@kumiki/runtime": "workspace:*",
+    "@kumiki/primitives": "workspace:*"
+  }
+}

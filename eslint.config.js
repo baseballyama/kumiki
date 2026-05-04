@@ -4,6 +4,35 @@ import svelte from 'eslint-plugin-svelte';
 import svelteParser from 'svelte-eslint-parser';
 import tsParser from '@typescript-eslint/parser';
 
+const browserAndNodeGlobals = {
+  process: 'readonly',
+  crypto: 'readonly',
+  console: 'readonly',
+  document: 'readonly',
+  window: 'readonly',
+  globalThis: 'readonly',
+  HTMLElement: 'readonly',
+  HTMLButtonElement: 'readonly',
+  Element: 'readonly',
+  Node: 'readonly',
+  MouseEvent: 'readonly',
+  KeyboardEvent: 'readonly',
+  Event: 'readonly',
+  EventListener: 'readonly',
+  AbortSignal: 'readonly',
+  Intl: 'readonly',
+};
+
+// Base ESLint's `no-unused-vars` doesn't understand TypeScript syntax
+// (parameter types, function-type signatures, etc.). TypeScript's
+// `noUnusedLocals` / `noUnusedParameters` would be the right replacement, but
+// we keep them off in tsconfig since strict + bundler mode is already loud
+// enough. Disable the rule here rather than chase phantom errors.
+const sharedRules = {
+  'no-unused-vars': 'off',
+  'no-undef': 'off', // TypeScript handles this; eslint's heuristic misjudges TS types.
+};
+
 export default [
   js.configs.recommended,
   ...svelte.configs.recommended,
@@ -13,25 +42,9 @@ export default [
       parser: tsParser,
       ecmaVersion: 2022,
       sourceType: 'module',
-      globals: {
-        process: 'readonly',
-        crypto: 'readonly',
-        console: 'readonly',
-        document: 'readonly',
-        window: 'readonly',
-        globalThis: 'readonly',
-        HTMLElement: 'readonly',
-        HTMLButtonElement: 'readonly',
-        Element: 'readonly',
-        Node: 'readonly',
-        MouseEvent: 'readonly',
-        KeyboardEvent: 'readonly',
-        Event: 'readonly',
-        EventListener: 'readonly',
-        AbortSignal: 'readonly',
-        Intl: 'readonly',
-      },
+      globals: browserAndNodeGlobals,
     },
+    rules: sharedRules,
   },
   {
     files: ['**/*.svelte', '**/*.svelte.ts'],
@@ -40,7 +53,9 @@ export default [
       parserOptions: {
         parser: tsParser,
       },
+      globals: browserAndNodeGlobals,
     },
+    rules: sharedRules,
   },
   {
     ignores: [

@@ -31,7 +31,7 @@ The remaining 9 Phase 1 components (Switch, Checkbox, RadioGroup, Tabs, Dialog, 
 - README.md placeholder.
 - Registered in the Playground (`/play`) as "unreleased" cards.
 
-These will follow the **exact same template** as Toggle (see `packages/{machine,attachment,component}-toggle/`).
+These will follow the **exact same template** as Toggle — see `packages/components/toggle/{machine,attachment,component}/`. Adding a new component means populating the matching `packages/components/<name>/` folder.
 
 ## Quality gates active in CI
 

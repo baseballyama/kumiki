@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 
 const __filename = fileURLToPath(import.meta.url);
-const LOCALE_SRC = join(dirname(__filename), '..', 'packages', 'locale', 'src');
+const LOCALE_SRC = join(dirname(__filename), '..', 'packages', 'core', 'locale', 'src');
 
 const langs = readdirSync(LOCALE_SRC)
   .filter((name) => existsSync(join(LOCALE_SRC, name, 'index.ts')))

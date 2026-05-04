@@ -14,20 +14,33 @@
  */
 
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { dirname } from 'node:path';
 
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = join(dirname(__filename), '..');
 const PACKAGES = join(ROOT, 'packages');
 
+function* findPackageJsons(dir) {
+  let entries;
+  try {
+    entries = readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return;
+  }
+  for (const e of entries) {
+    if (e.name === 'node_modules' || e.name === 'dist') continue;
+    const p = join(dir, e.name);
+    if (e.isSymbolicLink()) continue;
+    if (e.isDirectory()) yield* findPackageJsons(p);
+    else if (e.name === 'package.json') yield p;
+  }
+}
+
 let warnings = 0;
 let errors = 0;
 
-for (const dir of readdirSync(PACKAGES)) {
-  const pkgPath = join(PACKAGES, dir, 'package.json');
-  if (!existsSync(pkgPath)) continue;
+for (const pkgPath of findPackageJsons(PACKAGES)) {
   const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
   if (!pkg.name?.startsWith('@kumiki/')) continue;
 
@@ -36,7 +49,7 @@ for (const dir of readdirSync(PACKAGES)) {
   if (!isLayer4) continue;
 
   // Look at the source — dist may not exist before the first build.
-  const indexTs = join(PACKAGES, dir, 'src', 'index.ts');
+  const indexTs = join(dirname(pkgPath), 'src', 'index.ts');
   if (!existsSync(indexTs)) {
     console.warn(`⚠ ${pkg.name}: missing src/index.ts`);
     warnings++;

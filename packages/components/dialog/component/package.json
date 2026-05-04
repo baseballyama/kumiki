@@ -1,0 +1,69 @@
+{
+  "name": "@kumiki/component-dialog",
+  "version": "0.0.0",
+  "description": "Compound Svelte 5 components (Layer 4) for dialog — Root/Trigger/Item style API.",
+  "license": "MIT",
+  "author": "Yuichiro Yamashita",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/dialog/component",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baseballyama/kumiki.git",
+    "directory": "packages/components/dialog/component"
+  },
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "svelte": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "peerDependencies": {
+    "svelte": "catalog:"
+  },
+  "dependencies": {
+    "@kumiki/attachment-dialog": "workspace:*"
+  },
+  "scripts": {
+    "build": "svelte-package -i src -o dist && publint",
+    "dev": "svelte-package -i src -o dist --watch",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "typecheck": "svelte-check --tsconfig ./tsconfig.json",
+    "lint": "eslint src",
+    "size": "size-limit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@sveltejs/package": "catalog:",
+    "svelte": "catalog:",
+    "svelte-check": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "publint": "catalog:",
+    "size-limit": "catalog:",
+    "@size-limit/preset-small-lib": "catalog:"
+  },
+  "size-limit": [
+    {
+      "name": "default",
+      "path": "dist/index.js",
+      "limit": "3500 B"
+    }
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

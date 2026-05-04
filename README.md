@@ -74,19 +74,35 @@ console.log(machine.state, machine.derived.filtered);
 
 ```text
 packages/
-  primitives/             Layer 1 — focus-trap, dismissable, id, locale, …
-  locale/                 Locale data, dynamically importable per language
-  runtime/                Layer 2 — minimal FSM runtime
-  types/                  Shared types
-  machine-{component}/    Layer 2 — pure-TS state machine per component
-  attachment-{component}/ Layer 3 — Svelte 5 attachments
-  component-{component}/  Layer 4 — compound components (Root/Trigger/Item)
-  recipes-{component}/    Layer 5 (preview) — styled, copy-paste templates
-  cli/                    `kumiki add` CLI
+  core/                       Shared (layers 0–2)
+    primitives/               @kumiki/primitives — focus-trap, dismissable, id, locale, …
+    locale/                   @kumiki/locale — dynamically importable per language
+    runtime/                  @kumiki/runtime — minimal FSM
+    types/                    @kumiki/types — shared TS types
+  components/                 One folder per component, all 3 layers co-located
+    toggle/
+      machine/                @kumiki/machine-toggle (Layer 2)
+      attachment/             @kumiki/attachment-toggle (Layer 3)
+      component/              @kumiki/component-toggle (Layer 4)
+    combobox/
+      machine/                @kumiki/machine-combobox
+      attachment/             @kumiki/attachment-combobox
+      component/              @kumiki/component-combobox
+    … (8 more)
+  recipes/                    Layer 5 (preview) — styled, copy-paste templates
+    toggle/                   @kumiki/recipes-toggle
+    dialog/                   @kumiki/recipes-dialog
+  tooling/
+    cli/                      @kumiki/cli — `kumiki add` binary
 apps/
-  docs/                   SvelteKit documentation site
-docs/                     Architecture design documents
+  docs/                       SvelteKit documentation site
+docs/                         Architecture design documents
+references/                   Competitor source as shallow git submodules (opt-in)
 ```
+
+> Published npm names are flat (`@kumiki/machine-toggle`), not nested
+> (`@kumiki/components/toggle/machine`). The directory shape is purely a
+> developer-ergonomics concern — npm consumers never see it.
 
 ## Documentation
 

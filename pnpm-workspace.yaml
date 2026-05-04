@@ -1,5 +1,9 @@
 packages:
-  - 'packages/*'
+  # Vertical slicing — see docs/design/03-package-structure.md.
+  - 'packages/core/*'
+  - 'packages/components/*/*'
+  - 'packages/recipes/*'
+  - 'packages/tooling/*'
   - 'apps/*'
 
 # Catalog: pinned versions shared across workspace packages.

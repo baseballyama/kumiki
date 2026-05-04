@@ -18,6 +18,23 @@ const __filename = fileURLToPath(import.meta.url);
 const ROOT = join(dirname(__filename), '..');
 const PACKAGES = join(ROOT, 'packages');
 
+/** Recursively yield every `package.json` under packages/, skipping node_modules/dist. */
+function* findPackageJsons(dir) {
+  let entries;
+  try {
+    entries = readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return;
+  }
+  for (const e of entries) {
+    if (e.name === 'node_modules' || e.name === 'dist') continue;
+    const p = join(dir, e.name);
+    if (e.isSymbolicLink()) continue;
+    if (e.isDirectory()) yield* findPackageJsons(p);
+    else if (e.name === 'package.json') yield p;
+  }
+}
+
 /** Map a package name to its Layer (0–5). */
 function layerOf(pkgName) {
   if (pkgName === '@kumiki/types') return 0;
@@ -44,8 +61,7 @@ function depsOf(pkg) {
 
 let errors = 0;
 
-for (const dir of readdirSync(PACKAGES)) {
-  const pkgPath = join(PACKAGES, dir, 'package.json');
+for (const pkgPath of findPackageJsons(PACKAGES)) {
   let pkg;
   try {
     pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
