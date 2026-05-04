@@ -50,7 +50,7 @@
     {
       "name": "attachment-popover (incremental)",
       "path": "dist/index.mjs",
-      "limit": "1.5 KB",
+      "limit": "1250 B",
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
@@ -60,7 +60,7 @@
     {
       "name": "attachment-popover (full first-import)",
       "path": "dist/index.mjs",
-      "limit": "2.5 KB"
+      "limit": "2400 B"
     }
   ],
   "publishConfig": {

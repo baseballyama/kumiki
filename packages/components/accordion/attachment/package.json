@@ -50,7 +50,7 @@
     {
       "name": "attachment-accordion (incremental)",
       "path": "dist/index.mjs",
-      "limit": "1.5 KB",
+      "limit": "1350 B",
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
@@ -60,7 +60,7 @@
     {
       "name": "attachment-accordion (full first-import)",
       "path": "dist/index.mjs",
-      "limit": "3 KB"
+      "limit": "2900 B"
     }
   ],
   "publishConfig": {

@@ -50,7 +50,7 @@
     {
       "name": "attachment-radio-group (incremental)",
       "path": "dist/index.mjs",
-      "limit": "1500 B",
+      "limit": "1150 B",
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
@@ -60,7 +60,7 @@
     {
       "name": "attachment-radio-group (full first-import)",
       "path": "dist/index.mjs",
-      "limit": "2.5 KB"
+      "limit": "2400 B"
     }
   ],
   "publishConfig": {

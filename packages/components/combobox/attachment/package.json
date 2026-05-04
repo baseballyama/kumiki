@@ -50,7 +50,7 @@
     {
       "name": "attachment-combobox (incremental)",
       "path": "dist/index.mjs",
-      "limit": "2.5 KB",
+      "limit": "1650 B",
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
@@ -60,7 +60,7 @@
     {
       "name": "attachment-combobox (full first-import)",
       "path": "dist/index.mjs",
-      "limit": "4 KB"
+      "limit": "3250 B"
     }
   ],
   "publishConfig": {

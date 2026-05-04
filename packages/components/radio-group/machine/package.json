@@ -58,7 +58,7 @@
     {
       "name": "machine-radio-group (full, runtime + collection inlined)",
       "path": "dist/index.mjs",
-      "limit": "2 KB"
+      "limit": "1500 B"
     }
   ],
   "publishConfig": {

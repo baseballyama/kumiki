@@ -49,7 +49,7 @@
     {
       "name": "default",
       "path": "dist/index.mjs",
-      "limit": "1 KB"
+      "limit": "900 B"
     }
   ],
   "publishConfig": {

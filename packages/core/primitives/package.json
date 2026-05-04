@@ -90,12 +90,12 @@
     {
       "name": "dismissable",
       "path": "dist/dismissable/index.mjs",
-      "limit": "500 B"
+      "limit": "400 B"
     },
     {
       "name": "id",
       "path": "dist/id/index.mjs",
-      "limit": "500 B"
+      "limit": "300 B"
     },
     {
       "name": "locale",
@@ -130,7 +130,7 @@
     {
       "name": "full",
       "path": "dist/index.mjs",
-      "limit": "3 KB"
+      "limit": "1200 B"
     }
   ],
   "publishConfig": {

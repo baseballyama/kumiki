@@ -49,7 +49,7 @@
     {
       "name": "machine-popover",
       "path": "dist/index.mjs",
-      "limit": "1500 B"
+      "limit": "1150 B"
     }
   ],
   "publishConfig": {

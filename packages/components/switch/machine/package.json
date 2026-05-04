@@ -58,7 +58,7 @@
     {
       "name": "machine-switch (full, runtime inlined first import)",
       "path": "dist/index.mjs",
-      "limit": "1500 B"
+      "limit": "1100 B"
     }
   ],
   "publishConfig": {

@@ -1,6 +1,24 @@
 {
-  "generatedAt": "2026-05-04T10:32:33.718Z",
+  "generatedAt": "2026-05-04T12:56:51.366Z",
   "packages": [
+    {
+      "package": "@kumiki/attachment-accordion",
+      "directory": "packages/components/accordion/attachment",
+      "entries": [
+        {
+          "name": "attachment-accordion (incremental)",
+          "size": 1169,
+          "sizeLimit": 1350,
+          "passed": true
+        },
+        {
+          "name": "attachment-accordion (full first-import)",
+          "size": 2559,
+          "sizeLimit": 2900,
+          "passed": true
+        }
+      ]
+    },
     {
       "package": "@kumiki/attachment-checkbox",
       "directory": "packages/components/checkbox/attachment",
@@ -26,13 +44,13 @@
         {
           "name": "attachment-combobox (incremental)",
           "size": 1433,
-          "sizeLimit": 2500,
+          "sizeLimit": 1650,
           "passed": true
         },
         {
           "name": "attachment-combobox (full first-import)",
           "size": 2864,
-          "sizeLimit": 4000,
+          "sizeLimit": 3250,
           "passed": true
         }
       ]
@@ -44,13 +62,13 @@
         {
           "name": "attachment-dialog (incremental)",
           "size": 1123,
-          "sizeLimit": 2000,
+          "sizeLimit": 1300,
           "passed": true
         },
         {
           "name": "attachment-dialog (full first-import)",
           "size": 2450,
-          "sizeLimit": 3500,
+          "sizeLimit": 2750,
           "passed": true
         }
       ]
@@ -62,13 +80,49 @@
         {
           "name": "attachment-form-field (incremental)",
           "size": 1234,
-          "sizeLimit": 1500,
+          "sizeLimit": 1400,
           "passed": true
         },
         {
           "name": "attachment-form-field (full first-import)",
           "size": 2262,
-          "sizeLimit": 3000,
+          "sizeLimit": 2550,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/attachment-number-field",
+      "directory": "packages/components/number-field/attachment",
+      "entries": [
+        {
+          "name": "attachment-number-field (incremental)",
+          "size": 1302,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "attachment-number-field (full first-import)",
+          "size": 2464,
+          "sizeLimit": 2500,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/attachment-popover",
+      "directory": "packages/components/popover/attachment",
+      "entries": [
+        {
+          "name": "attachment-popover (incremental)",
+          "size": 1110,
+          "sizeLimit": 1250,
+          "passed": true
+        },
+        {
+          "name": "attachment-popover (full first-import)",
+          "size": 2140,
+          "sizeLimit": 2400,
           "passed": true
         }
       ]
@@ -80,13 +134,13 @@
         {
           "name": "attachment-radio-group (incremental)",
           "size": 996,
-          "sizeLimit": 1500,
+          "sizeLimit": 1150,
           "passed": true
         },
         {
           "name": "attachment-radio-group (full first-import)",
           "size": 2140,
-          "sizeLimit": 2500,
+          "sizeLimit": 2400,
           "passed": true
         }
       ]
@@ -98,13 +152,31 @@
         {
           "name": "attachment-select (incremental)",
           "size": 1360,
-          "sizeLimit": 2500,
+          "sizeLimit": 1550,
           "passed": true
         },
         {
           "name": "attachment-select (full first-import)",
           "size": 2982,
-          "sizeLimit": 4000,
+          "sizeLimit": 3350,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/attachment-slider",
+      "directory": "packages/components/slider/attachment",
+      "entries": [
+        {
+          "name": "attachment-slider (incremental)",
+          "size": 1201,
+          "sizeLimit": 1350,
+          "passed": true
+        },
+        {
+          "name": "attachment-slider (full first-import)",
+          "size": 2289,
+          "sizeLimit": 2500,
           "passed": true
         }
       ]
@@ -116,7 +188,7 @@
         {
           "name": "attachment-switch (incremental, runtime/primitives/machine excluded)",
           "size": 648,
-          "sizeLimit": 800,
+          "sizeLimit": 750,
           "passed": true
         },
         {
@@ -134,7 +206,7 @@
         {
           "name": "attachment-tabs (incremental)",
           "size": 1249,
-          "sizeLimit": 1500,
+          "sizeLimit": 1400,
           "passed": true
         },
         {
@@ -152,7 +224,7 @@
         {
           "name": "attachment-toggle (incremental, runtime/primitives/machine excluded)",
           "size": 642,
-          "sizeLimit": 800,
+          "sizeLimit": 750,
           "passed": true
         },
         {
@@ -170,13 +242,13 @@
         {
           "name": "attachment-tooltip (incremental)",
           "size": 878,
-          "sizeLimit": 1500,
+          "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "attachment-tooltip (full first-import)",
           "size": 1738,
-          "sizeLimit": 2500,
+          "sizeLimit": 1950,
           "passed": true
         }
       ]
@@ -260,19 +332,31 @@
       ]
     },
     {
+      "package": "@kumiki/machine-accordion",
+      "directory": "packages/components/accordion/machine",
+      "entries": [
+        {
+          "name": "machine-accordion",
+          "size": 1574,
+          "sizeLimit": 1700,
+          "passed": true
+        }
+      ]
+    },
+    {
       "package": "@kumiki/machine-checkbox",
       "directory": "packages/components/checkbox/machine",
       "entries": [
         {
           "name": "machine-checkbox (incremental, runtime excluded)",
           "size": 440,
-          "sizeLimit": 700,
+          "sizeLimit": 550,
           "passed": true
         },
         {
           "name": "machine-checkbox (full, runtime inlined)",
           "size": 995,
-          "sizeLimit": 1800,
+          "sizeLimit": 1150,
           "passed": true
         }
       ]
@@ -284,13 +368,13 @@
         {
           "name": "machine-combobox (incremental, runtime excluded)",
           "size": 1067,
-          "sizeLimit": 2000,
+          "sizeLimit": 1200,
           "passed": true
         },
         {
           "name": "machine-combobox (full, runtime inlined first import)",
           "size": 1618,
-          "sizeLimit": 3000,
+          "sizeLimit": 1850,
           "passed": true
         }
       ]
@@ -302,7 +386,7 @@
         {
           "name": "default",
           "size": 1039,
-          "sizeLimit": 1800,
+          "sizeLimit": 1200,
           "passed": true
         }
       ]
@@ -314,7 +398,31 @@
         {
           "name": "default",
           "size": 1214,
-          "sizeLimit": 2000,
+          "sizeLimit": 1400,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-number-field",
+      "directory": "packages/components/number-field/machine",
+      "entries": [
+        {
+          "name": "machine-number-field",
+          "size": 1369,
+          "sizeLimit": 1500,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-popover",
+      "directory": "packages/components/popover/machine",
+      "entries": [
+        {
+          "name": "machine-popover",
+          "size": 1005,
+          "sizeLimit": 1150,
           "passed": true
         }
       ]
@@ -332,7 +440,7 @@
         {
           "name": "machine-radio-group (full, runtime + collection inlined)",
           "size": 1334,
-          "sizeLimit": 2000,
+          "sizeLimit": 1500,
           "passed": true
         }
       ]
@@ -344,7 +452,19 @@
         {
           "name": "default",
           "size": 1601,
-          "sizeLimit": 2500,
+          "sizeLimit": 1800,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-slider",
+      "directory": "packages/components/slider/machine",
+      "entries": [
+        {
+          "name": "machine-slider",
+          "size": 1271,
+          "sizeLimit": 1450,
           "passed": true
         }
       ]
@@ -362,7 +482,7 @@
         {
           "name": "machine-switch (full, runtime inlined first import)",
           "size": 967,
-          "sizeLimit": 1500,
+          "sizeLimit": 1100,
           "passed": true
         }
       ]
@@ -392,7 +512,7 @@
         {
           "name": "machine-toggle (full, runtime inlined first import)",
           "size": 969,
-          "sizeLimit": 1500,
+          "sizeLimit": 1100,
           "passed": true
         }
       ]
@@ -404,7 +524,7 @@
         {
           "name": "default",
           "size": 1026,
-          "sizeLimit": 1500,
+          "sizeLimit": 1150,
           "passed": true
         }
       ]
@@ -422,13 +542,13 @@
         {
           "name": "dismissable",
           "size": 295,
-          "sizeLimit": 500,
+          "sizeLimit": 400,
           "passed": true
         },
         {
           "name": "id",
           "size": 174,
-          "sizeLimit": 500,
+          "sizeLimit": 300,
           "passed": true
         },
         {
@@ -470,7 +590,7 @@
         {
           "name": "full",
           "size": 1032,
-          "sizeLimit": 3000,
+          "sizeLimit": 1200,
           "passed": true
         }
       ]
@@ -482,7 +602,7 @@
         {
           "name": "default",
           "size": 752,
-          "sizeLimit": 1000,
+          "sizeLimit": 900,
           "passed": true
         }
       ]

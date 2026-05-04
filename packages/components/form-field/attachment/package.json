@@ -50,7 +50,7 @@
     {
       "name": "attachment-form-field (incremental)",
       "path": "dist/index.mjs",
-      "limit": "1.5 KB",
+      "limit": "1400 B",
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
@@ -60,7 +60,7 @@
     {
       "name": "attachment-form-field (full first-import)",
       "path": "dist/index.mjs",
-      "limit": "3 KB"
+      "limit": "2550 B"
     }
   ],
   "publishConfig": {

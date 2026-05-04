@@ -49,7 +49,7 @@
     {
       "name": "machine-slider",
       "path": "dist/index.mjs",
-      "limit": "1500 B"
+      "limit": "1450 B"
     }
   ],
   "publishConfig": {

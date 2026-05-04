@@ -50,7 +50,7 @@
     {
       "name": "attachment-dialog (incremental)",
       "path": "dist/index.mjs",
-      "limit": "2 KB",
+      "limit": "1300 B",
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
@@ -60,7 +60,7 @@
     {
       "name": "attachment-dialog (full first-import)",
       "path": "dist/index.mjs",
-      "limit": "3.5 KB"
+      "limit": "2750 B"
     }
   ],
   "publishConfig": {

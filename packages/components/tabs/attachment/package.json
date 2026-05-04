@@ -50,7 +50,7 @@
     {
       "name": "attachment-tabs (incremental)",
       "path": "dist/index.mjs",
-      "limit": "1500 B",
+      "limit": "1400 B",
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",

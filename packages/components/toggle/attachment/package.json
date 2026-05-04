@@ -50,7 +50,7 @@
     {
       "name": "attachment-toggle (incremental, runtime/primitives/machine excluded)",
       "path": "dist/index.mjs",
-      "limit": "800 B",
+      "limit": "750 B",
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
