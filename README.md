@@ -2,7 +2,7 @@
 
 > Headless, composable, deeply accessible UI primitives for **Svelte 5** — built on framework-agnostic state machines, with surgical bundle sizes.
 
-**Status: pre-alpha.** This repository is currently a design document and scaffolding. No runtime code is published yet. See [`docs/design.md`](docs/design.md) for the full architecture plan and [`docs/design/15-roadmap.md`](docs/design/15-roadmap.md) for the milestone schedule.
+**Status: pre-alpha (preview).** Phase 1 (10 components) + Phase 2 (6 of 7; Calendar / DatePicker pending) + Phase 0b composition (4 of 4) ship end-to-end against measured bundle budgets and APG keyboard contracts; nothing is published to npm yet. See [`STATUS.md`](STATUS.md) for the rolling snapshot, [`docs/design.md`](docs/design.md) for the full architecture plan, and [`docs/design/15-roadmap.md`](docs/design/15-roadmap.md) for the milestone schedule.
 
 ## Why Kumiki?
 
@@ -15,12 +15,26 @@ The Svelte ecosystem has excellent headless libraries (Bits UI, Melt UI), but no
 
 The name comes from **kumiki** (組木), the Japanese woodworking technique that joins parts by their shape alone — without nails or glue. Kumiki the library carries the same spirit: the parts are composable enough that nothing extra is needed to hold them together.
 
-## Quick start (planned API — not yet shipping)
+## What's shipping today
 
-Install only what you use. The library is published as ~30 small packages under the `@kumiki/*` scope.
+Verified end-to-end (machine + attachment + component + sandbox + e2e + axe + APG keyboard contract; see [`STATUS.md`](STATUS.md) for live counts):
+
+- **Phase 1 (10 components)** — Toggle, Switch, Combobox, Checkbox, RadioGroup, Tabs, Dialog, Tooltip, Select, Field/Form.
+- **Phase 2 (6 of 7)** — Slider, Accordion, NumberField, Popover, Toast, Menu. Calendar / DatePicker are pending an `@internationalized/date` dependency decision.
+- **Phase 0b composition (4 of 4)** — `withValidation`, `withAsyncSearch`, `withMultiSelect`, `withVirtualization` on Combobox. 1.77 KB total optional surface; each tree-shakes when not imported. See [`docs/components/combobox-composition.md`](docs/components/combobox-composition.md).
+- **Phase 0c QA gates** — APG keyboard harness, `llms-full.txt` builder, `/sizes` route with verified bundle measurements, per-component reference docs.
+
+## Quick start (preview API — not yet on npm)
+
+Install only what you use. The library ships as small per-component packages under the `@kumiki/*` scope, plus a `@kumiki/components` umbrella that re-exports every Layer 4 component as a subpath (each subpath tree-shakes independently).
 
 ```bash
+# One component at a time:
 pnpm add @kumiki/component-combobox
+
+# Or pull every Layer 4 component in one install:
+pnpm add @kumiki/components
+# then `import { Root, Input, Listbox } from '@kumiki/components/combobox'`
 ```
 
 ```svelte
