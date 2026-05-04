@@ -6,9 +6,10 @@ after every successful commit + push.
 ## TL;DR
 
 Phase 0a (Toggle pilot) and Phase 0b (Combobox design validation) are
-**complete**. Switch landed end-to-end. Checkbox machine is in.
+**complete**. Switch / Checkbox / RadioGroup landed end-to-end. Tabs machine
+(Layer 2) is in — attachment + component still pending.
 
-**189 unit tests + 75 Playwright tests = 264 tests passing** at the latest
+**232 unit tests + 75 Playwright tests = 307 tests passing** at the latest
 green push.
 
 ## What runs (verified end-to-end)
@@ -20,6 +21,7 @@ green push.
 | Combobox   |    ✅ 33 tests    |     ✅ 13 tests      |     ✅ 0 errors     |    ✅     | ✅ 11 + 5 |
 | Checkbox   |    ✅ 20 tests    |     ✅ 12 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 8  |
 | RadioGroup |    ✅ 22 tests    |     ✅ 11 tests      |     ✅ 0 errors     |    ✅     | ✅ 8 + 4  |
+| Tabs       |    ✅ 31 tests    |       pending        |       pending       |  pending  |  pending  |
 
 | Shared package                  | Status                                   |
 | ------------------------------- | :--------------------------------------- |
@@ -146,22 +148,7 @@ To preserve the user's "ガッチガチに品質保証" mandate, I'm being expli
 
 ## Blocked
 
-**2026-05-03 — push to `main` denied for an autonomous-loop firing.**
-
-Two commits sit locally on `main` and have NOT been pushed:
-
-- `bfdc410` `feat(machine-tabs): pure-TS FSM with manual + automatic activation` (31 tests, 1.5 KB brotli)
-- `96a838b` `chore(lint): silence svelte/no-navigation-without-resolve and key the toggle log {#each}`
-
-Both pass every local gate (`format`, `lint`, `typecheck`, `test`, `ci:health`). The push was denied because the runtime no longer treats the loop's standing instruction as blanket authorization for direct main pushes — and because the lint commit covers files outside the per-layer Tabs slice that the firing was meant to deliver.
-
-**To unblock**, the maintainer should:
-
-1. `git log --oneline origin/main..HEAD` to review the two pending commits.
-2. Either `git push origin main` to ship them as-is, or `git reset --hard origin/main` and let the next `/loop` firing redo it under fresh authorization.
-3. Re-run `/loop` (or pre-grant a Bash rule for `git push origin main`) to resume the autonomous run.
-
-The loop has stopped self-pacing this firing — no `ScheduleWakeup` queued.
+_Empty. Populated by the `/loop` autonomous run when it cannot proceed — see `docs/release/autonomous-loop.md` for the prompt and stop conditions._
 
 ## How to resume
 
