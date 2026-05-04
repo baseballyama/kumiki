@@ -47,9 +47,18 @@
   },
   "size-limit": [
     {
-      "name": "default",
+      "name": "machine-radio-group (incremental, runtime/primitives excluded)",
       "path": "dist/index.mjs",
-      "limit": "1200 B"
+      "limit": "700 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machine-radio-group (full, runtime + collection inlined)",
+      "path": "dist/index.mjs",
+      "limit": "2 KB"
     }
   ],
   "publishConfig": {
