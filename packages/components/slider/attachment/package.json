@@ -1,0 +1,78 @@
+{
+  "name": "@kumiki/attachment-slider",
+  "version": "0.0.0",
+  "description": "Svelte 5 attachments (Layer 3) for slider — reactive bindings to @kumiki/machine-slider.",
+  "license": "MIT",
+  "author": "Yuichiro Yamashita",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/slider/attachment",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baseballyama/kumiki.git",
+    "directory": "packages/components/slider/attachment"
+  },
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "size": "size-limit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "size-limit": "catalog:",
+    "@size-limit/preset-small-lib": "catalog:",
+    "jsdom": "catalog:"
+  },
+  "size-limit": [
+    {
+      "name": "attachment-slider (incremental)",
+      "path": "dist/index.mjs",
+      "limit": "1.5 KB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machine-slider"
+      ]
+    },
+    {
+      "name": "attachment-slider (full first-import)",
+      "path": "dist/index.mjs",
+      "limit": "2.5 KB"
+    }
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "peerDependencies": {
+    "svelte": "catalog:"
+  },
+  "dependencies": {
+    "@kumiki/machine-slider": "workspace:*",
+    "@kumiki/runtime": "workspace:*",
+    "@kumiki/primitives": "workspace:*"
+  }
+}
