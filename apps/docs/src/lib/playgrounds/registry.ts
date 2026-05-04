@@ -102,7 +102,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/',
     status: 'preview',
   },
-  ...(['radio-group', 'tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const).map(
+  {
+    slug: 'machine-radio-group',
+    name: '@kumiki/machine-radio-group',
+    layer: 2,
+    summary: 'Pure-TS FSM for RadioGroup with roving-tabindex select-on-focus.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/radio/',
+    status: 'preview',
+  },
+  ...(['tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `machine-${slug}`,
@@ -152,7 +161,17 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/',
     status: 'preview',
   },
-  ...(['radio-group', 'tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const).map(
+  {
+    slug: 'attachment-radio-group',
+    name: '@kumiki/attachment-radio-group',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for RadioGroup — group + per-item factories with roving tabindex.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/radio/',
+    status: 'preview',
+  },
+  ...(['tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `attachment-${slug}`,
@@ -204,7 +223,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/',
     status: 'preview',
   },
-  ...(['radio-group', 'tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const).map(
+  {
+    slug: 'component-radio-group',
+    name: '@kumiki/component-radio-group',
+    layer: 4,
+    summary: 'Compound `<Root>` + `<Item>` for mutually-exclusive option groups.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/radio/',
+    status: 'preview',
+  },
+  ...(['tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `component-${slug}`,
@@ -251,4 +279,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-switch': () => import('./demos/component-switch.svelte'),
   'component-combobox': () => import('./demos/component-combobox.svelte'),
   'component-checkbox': () => import('./demos/component-checkbox.svelte'),
+  'component-radio-group': () => import('./demos/component-radio-group.svelte'),
 };

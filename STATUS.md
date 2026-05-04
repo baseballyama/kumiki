@@ -8,24 +8,26 @@ after every successful commit + push.
 Phase 0a (Toggle pilot) and Phase 0b (Combobox design validation) are
 **complete**. Switch landed end-to-end. Checkbox machine is in.
 
-**148 unit tests + 63 Playwright tests = 211 tests passing** at the latest
+**189 unit tests + 75 Playwright tests = 264 tests passing** at the latest
 green push.
 
 ## What runs (verified end-to-end)
 
-| Component | Layer 2 (machine) | Layer 3 (attachment) | Layer 4 (component) | Live demo | E2E + axe |
-| --------- | :---------------: | :------------------: | :-----------------: | :-------: | :-------: |
-| Toggle    |    ✅ 15 tests    |     ✅ 13 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 6  |
-| Switch    |    ✅ 15 tests    |      ✅ 8 tests      |     ✅ 0 errors     |    ✅     | ✅ 7 + 6  |
-| Combobox  |    ✅ 33 tests    |     ✅ 13 tests      |     ✅ 0 errors     |    ✅     | ✅ 11 + 5 |
-| Checkbox  |    ✅ 20 tests    |     ✅ 12 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 8  |
+| Component  | Layer 2 (machine) | Layer 3 (attachment) | Layer 4 (component) | Live demo | E2E + axe |
+| ---------- | :---------------: | :------------------: | :-----------------: | :-------: | :-------: |
+| Toggle     |    ✅ 15 tests    |     ✅ 13 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 6  |
+| Switch     |    ✅ 15 tests    |      ✅ 8 tests      |     ✅ 0 errors     |    ✅     | ✅ 7 + 6  |
+| Combobox   |    ✅ 33 tests    |     ✅ 13 tests      |     ✅ 0 errors     |    ✅     | ✅ 11 + 5 |
+| Checkbox   |    ✅ 20 tests    |     ✅ 12 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 8  |
+| RadioGroup |    ✅ 22 tests    |     ✅ 11 tests      |     ✅ 0 errors     |    ✅     | ✅ 8 + 4  |
 
-| Shared package          | Status                                   |
-| ----------------------- | :--------------------------------------- |
-| `@kumiki/runtime`       | ✅ 15 tests, transition arrays supported |
-| `@kumiki/primitives/id` | ✅ 4 tests, 174 B brotli ≤ 500 B budget  |
-| `@kumiki/types`         | placeholder (no exports yet)             |
-| `@kumiki/locale/<lang>` | placeholders for 10 languages            |
+| Shared package                  | Status                                   |
+| ------------------------------- | :--------------------------------------- |
+| `@kumiki/runtime`               | ✅ 15 tests, transition arrays supported |
+| `@kumiki/primitives/id`         | ✅ 4 tests, 174 B brotli ≤ 500 B budget  |
+| `@kumiki/primitives/collection` | ✅ 20 tests, 369 B brotli ≤ 500 B budget |
+| `@kumiki/types`                 | placeholder (no exports yet)             |
+| `@kumiki/locale/<lang>`         | placeholders for 10 languages            |
 
 ## What's wired but not yet exercised on real code
 

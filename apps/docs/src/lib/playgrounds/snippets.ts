@@ -10,6 +10,81 @@ export interface Snippet {
 }
 
 export const SNIPPETS: Record<string, ReadonlyArray<Snippet>> = {
+  'component-radio-group': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-radio-group' },
+    {
+      title: 'Basic — typed plan picker',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Root, Item, type RadioItem } from '@kumiki/component-radio-group';
+
+  type Plan = 'free' | 'pro' | 'enterprise';
+  const plans: RadioItem<Plan>[] = [
+    { id: 'free', value: 'free', label: 'Free' },
+    { id: 'pro', value: 'pro', label: 'Pro' },
+    { id: 'enterprise', value: 'enterprise', label: 'Enterprise' },
+  ];
+
+  let value = $state<Plan | null>('free');
+</script>
+
+<Root items={plans} bind:value>
+  {#each plans as plan (plan.id)}
+    <Item value={plan}>{plan.label}</Item>
+  {/each}
+</Root>`,
+    },
+    {
+      title: 'Disabled item',
+      lang: 'svelte',
+      code: `const items = [
+  { id: 'a', value: 'a', label: 'Option A' },
+  { id: 'b', value: 'b', label: 'Option B', disabled: true },
+  { id: 'c', value: 'c', label: 'Option C' },
+];
+// 'b' is unfocusable and unclickable; arrow-key nav skips it.`,
+    },
+  ],
+
+  'machine-radio-group': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-radio-group' },
+    {
+      title: 'Pure-TS — select-on-focus arrow nav',
+      lang: 'ts',
+      code: `import { createRadioGroupMachine } from '@kumiki/machine-radio-group';
+
+const m = createRadioGroupMachine({
+  items: [
+    { id: '1', value: 'apple' },
+    { id: '2', value: 'banana', disabled: true },
+    { id: '3', value: 'cherry' },
+  ],
+});
+m.send({ type: 'NAVIGATE', direction: 'first' });
+console.log(m.context.value);          // 'apple'
+m.send({ type: 'NAVIGATE', direction: 'next' });
+console.log(m.context.value);          // 'cherry' (skipped disabled banana)`,
+    },
+  ],
+
+  'attachment-radio-group': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-radio-group' },
+    {
+      title: 'Drive your own DOM',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createRadioGroup } from '@kumiki/attachment-radio-group';
+  const g = createRadioGroup({ items });
+</script>
+
+<div {@attach g.root}>
+  {#each items as item (item.id)}
+    <button {@attach g.item(item)}>{item.label}</button>
+  {/each}
+</div>`,
+    },
+  ],
+
   'component-checkbox': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-checkbox' },
     {

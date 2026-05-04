@@ -31,7 +31,8 @@
     "@kumiki/attachment-toggle": "workspace:*",
     "@kumiki/attachment-switch": "workspace:*",
     "@kumiki/attachment-combobox": "workspace:*",
-    "@kumiki/attachment-checkbox": "workspace:*"
+    "@kumiki/attachment-checkbox": "workspace:*",
+    "@kumiki/attachment-radio-group": "workspace:*"
   },
   "devDependencies": {
     "@axe-core/playwright": "catalog:",

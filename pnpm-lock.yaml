@@ -170,6 +170,9 @@ importers:
       '@kumiki/attachment-combobox':
         specifier: workspace:*
         version: link:../../packages/components/combobox/attachment
+      '@kumiki/attachment-radio-group':
+        specifier: workspace:*
+        version: link:../../packages/components/radio-group/attachment
       '@kumiki/attachment-switch':
         specifier: workspace:*
         version: link:../../packages/components/switch/attachment
@@ -662,6 +665,9 @@ importers:
       '@sveltejs/package':
         specifier: 'catalog:'
         version: 2.5.7(svelte@5.55.5(@typescript-eslint/types@8.59.1))(typescript@5.9.3)
+      '@sveltejs/vite-plugin-svelte':
+        specifier: 'catalog:'
+        version: 7.0.0(svelte@5.55.5(@typescript-eslint/types@8.59.1))(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0))
       publint:
         specifier: 'catalog:'
         version: 0.3.18
