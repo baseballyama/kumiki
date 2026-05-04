@@ -555,6 +555,60 @@ console.log(m.context.expandedIds); // ['b', 'a']`,
     },
   ],
 
+  'component-slider': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-slider' },
+    {
+      title: 'Basic — volume slider',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Root, Thumb } from '@kumiki/component-slider';
+  let value = $state(50);
+</script>
+
+<Root bind:value min={0} max={100} step={1}>
+  <Thumb aria-label="Volume" />
+</Root>`,
+    },
+    {
+      title: 'Vertical + custom step',
+      lang: 'svelte',
+      code: `<Root bind:value orientation="vertical" min={0} max={1} step={0.1} pageStep={0.25}>
+  <Thumb aria-label="Brightness" />
+</Root>`,
+    },
+  ],
+
+  'machine-slider': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-slider' },
+    {
+      title: 'Pure-TS — clamp + snap',
+      lang: 'ts',
+      code: `import { createSliderMachine } from '@kumiki/machine-slider';
+
+const m = createSliderMachine({ min: 0, max: 100, step: 5 });
+m.send({ type: 'SET.VALUE', value: 13 });
+console.log(m.context.value); // 15 (snapped)
+m.send({ type: 'SET.VALUE', value: 200 });
+console.log(m.context.value); // 100 (clamped)`,
+    },
+  ],
+
+  'attachment-slider': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-slider' },
+    {
+      title: 'Drive your own DOM',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createSlider } from '@kumiki/attachment-slider';
+  const s = createSlider();
+</script>
+
+<div {@attach s.root}>
+  <div {@attach s.thumb} aria-label="Volume"></div>
+</div>`,
+    },
+  ],
+
   'attachment-accordion': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-accordion' },
     {

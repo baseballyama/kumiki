@@ -165,6 +165,15 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/accordion/',
     status: 'preview',
   },
+  {
+    slug: 'machine-slider',
+    name: '@kumiki/machine-slider',
+    layer: 2,
+    summary: 'Pure-TS FSM for Slider — clamped numeric value with step + pageStep increments.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/slider/',
+    status: 'preview',
+  },
 
   // ── Layer 3 — Attachments ────────────────────────────────────────────────
   {
@@ -271,6 +280,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
       'Svelte 5 attachments for Accordion — root / item / trigger / panel compound primitive with roving-tabindex nav.',
     live: false,
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/accordion/',
+    status: 'preview',
+  },
+  {
+    slug: 'attachment-slider',
+    name: '@kumiki/attachment-slider',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for Slider — root + thumb factories with keyboard, pointer-drag, and RTL inversion.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/slider/',
     status: 'preview',
   },
 
@@ -382,6 +401,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/accordion/',
     status: 'preview',
   },
+  {
+    slug: 'component-slider',
+    name: '@kumiki/component-slider',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Thumb>` for continuous numeric input with step + pageStep, horizontal/vertical, RTL inversion.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/slider/',
+    status: 'preview',
+  },
 
   // ── Layer 5 — Recipes (preview) ───────────────────────────────────────────
   {
@@ -425,4 +454,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-select': () => import('./demos/component-select.svelte'),
   'component-form-field': () => import('./demos/component-form-field.svelte'),
   'component-accordion': () => import('./demos/component-accordion.svelte'),
+  'component-slider': () => import('./demos/component-slider.svelte'),
 };
