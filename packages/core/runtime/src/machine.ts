@@ -12,13 +12,21 @@ import type {
 } from './types.ts';
 
 /**
- * Resolve a `TransitionLike` into a normalized `Transition`.
- * A bare string target is upgraded to `{ target }`.
+ * Resolve a `TransitionLike` into a normalized array of `Transition`s.
+ * A bare string target is upgraded to `[{ target }]`. Multiple transitions
+ * are evaluated in order; the first whose `cond` passes (or has no `cond`)
+ * wins. This is the XState convention for guard-based dispatch.
  */
 function normalize<C, E extends EventLike, S extends string>(
   t: TransitionLike<C, E, S>,
-): Transition<C, E, S> {
-  return typeof t === 'string' ? { target: t } : t;
+): ReadonlyArray<Transition<C, E, S>> {
+  if (typeof t === 'string') return [{ target: t }];
+  if (Array.isArray(t)) {
+    return (t as ReadonlyArray<S | Transition<C, E, S>>).map((x) =>
+      typeof x === 'string' ? { target: x } : x,
+    );
+  }
+  return [t as Transition<C, E, S>];
 }
 
 /**
@@ -82,13 +90,16 @@ export function defineMachine<C, E extends EventLike, S extends string>(
       [S, StateNode<C, E, S>]
     >) {
       const onMap = (node.on ?? {}) as Record<string, TransitionLike<C, E, S> | undefined>;
-      for (const t of Object.values(onMap)) {
-        if (t === undefined) continue;
-        const target = typeof t === 'string' ? t : t.target;
-        if (target !== undefined && !(target in config.states)) {
-          throw new Error(
-            `[@kumiki/runtime] Machine "${config.id}": state "${stateName}" has a transition targeting unknown state "${target}".`,
-          );
+      for (const raw of Object.values(onMap)) {
+        if (raw === undefined) continue;
+        const transitions = normalize<C, E, S>(raw);
+        for (const t of transitions) {
+          const target = t.target;
+          if (target !== undefined && !(target in config.states)) {
+            throw new Error(
+              `[@kumiki/runtime] Machine "${config.id}": state "${stateName}" has a transition targeting unknown state "${target}".`,
+            );
+          }
         }
       }
     }
@@ -110,10 +121,16 @@ export function defineMachine<C, E extends EventLike, S extends string>(
       const handler = node.on?.[event.type as E['type']];
       if (handler === undefined) return;
 
-      const t = normalize<C, E, S>(handler);
-
-      // Guard
-      if (t.cond && !t.cond(context, event)) return;
+      // Pick the first transition whose guard passes (or has no guard).
+      const candidates = normalize<C, E, S>(handler);
+      let t: Transition<C, E, S> | undefined;
+      for (const candidate of candidates) {
+        if (!candidate.cond || candidate.cond(context, event)) {
+          t = candidate;
+          break;
+        }
+      }
+      if (!t) return;
 
       const prevState = state;
       const target = t.target;
@@ -149,7 +166,9 @@ export function defineMachine<C, E extends EventLike, S extends string>(
         for (const [evType, raw] of Object.entries(node.on ?? {}) as Array<
           [string, TransitionLike<C, E, S>]
         >) {
-          const t = normalize<C, E, S>(raw);
+          // For visualizer purposes we serialize the first candidate of an
+          // array-of-transitions handler; guards are not serialized.
+          const t = normalize<C, E, S>(raw)[0]!;
           onOut[evType] = {
             ...(t.target !== undefined ? { target: t.target } : {}),
             ...(t.actions ? { actions: t.actions.map(actionId) } : {}),

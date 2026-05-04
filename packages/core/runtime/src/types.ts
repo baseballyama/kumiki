@@ -41,8 +41,15 @@ export interface Transition<C, E extends EventLike, S extends string> {
   readonly internal?: boolean;
 }
 
-/** Shorthand: a target string is equivalent to `{ target }`. */
-export type TransitionLike<C, E extends EventLike, S extends string> = S | Transition<C, E, S>;
+/**
+ * Shorthand: a bare target string is equivalent to `{ target }`. An array means
+ * "first guard that passes wins" (XState convention) — useful when one event
+ * dispatches to different targets based on payload.
+ */
+export type TransitionLike<C, E extends EventLike, S extends string> =
+  | S
+  | Transition<C, E, S>
+  | ReadonlyArray<S | Transition<C, E, S>>;
 
 /** A state node — entry/exit actions plus an event handler map. */
 export interface StateNode<C, E extends EventLike, S extends string> {

@@ -47,9 +47,18 @@
   },
   "size-limit": [
     {
-      "name": "default",
+      "name": "machine-checkbox (incremental, runtime excluded)",
       "path": "dist/index.mjs",
-      "limit": "900 B"
+      "limit": "700 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machine-checkbox (full, runtime inlined)",
+      "path": "dist/index.mjs",
+      "limit": "1800 B"
     }
   ],
   "publishConfig": {
