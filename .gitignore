@@ -162,3 +162,7 @@ playwright/.cache/
 # size-limit per-package outputs
 size-snapshot.json
 
+# direnv local cache (Nix dev shell)
+.direnv/
+
+

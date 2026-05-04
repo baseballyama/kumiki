@@ -12,6 +12,31 @@ Once Phase 0 lands (mid-2026), we'll open up code contributions in earnest.
 
 Requires **Node 22+** and **pnpm 9+**. The repo uses pnpm workspaces — there is no Turborepo / Nx layer.
 
+### Recommended: Nix dev shell
+
+Every contributor runs the same toolchain via [Nix flakes](https://nixos.wiki/wiki/Flakes). Node 22 + corepack-managed pnpm are pinned in `flake.nix`; `flake.lock` freezes them per commit.
+
+```bash
+# One-time:
+#  - Install Nix (https://nixos.org/download). On macOS the Determinate
+#    installer is the painless option.
+#  - (Optional) Install direnv + nix-direnv so cd-ing into the repo
+#    auto-loads the shell.
+
+nix develop          # drops you into a shell with node + pnpm pinned
+# or, with direnv:
+direnv allow         # one-off; subsequent `cd` loads the shell silently
+
+pnpm install
+pnpm build
+```
+
+### Without Nix
+
+Manage Node and pnpm yourself (asdf / fnm / Volta / mise). Match the
+versions in `package.json#engines` and `package.json#packageManager` —
+otherwise lockfile drift will hit you.
+
 ```bash
 git clone https://github.com/baseballyama/kumiki
 cd kumiki
