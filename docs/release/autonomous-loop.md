@@ -119,8 +119,14 @@ GATES (every firing must end on a green state):
 - Bundle within budget per docs/design/09-bundle-budget.md. If a budget is honestly impossible, write a new ADR raising it WITH measurement evidence; do not silently widen.
 - Playwright e2e + axe pass with --workers=1.
 
-COMMIT + PUSH:
+COMMIT + PUSH (small + frequent — explicitly do NOT batch):
 - Conventional Commits; scope = component name minus @kumiki/.
+- Push to origin/main as soon as a logical unit completes its gates. A unit is one of:
+  · One layer of one component (machine, attachment, OR component) with its tests passing.
+  · One QA-gate addition.
+  · One bug fix.
+  · One docs / sandbox / playground demo update.
+  Do NOT save up several components and push in a batch. The maintainer wants to see incremental main-branch movement; small commits are easier to review on return and easier for `git revert` if anything regresses.
 - Push to origin/main when ALL gates pass — the pre-push hook verifies.
 - After each successful push, update STATUS.md with the new test count, bundle measurements, and next priority. Commit STATUS.md as a follow-up `docs(status): <date> snapshot`.
 
