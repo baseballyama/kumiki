@@ -8,10 +8,14 @@ after every successful commit + push.
 **Phase 1 is complete.** All 10 components — Toggle, Switch, Combobox,
 Checkbox, RadioGroup, Tabs, Dialog, Tooltip, Select, Field/Form — landed
 end-to-end (machine + attachment + component + sandbox + e2e + axe +
-Playground). focus-trap + dismissable Layer 1 primitives shipped.
+Playground + APG keyboard contract). focus-trap + dismissable Layer 1
+primitives shipped.
 
-**380 unit tests + 141 Playwright tests = 521 tests passing** at the
-latest green push.
+**Phase 0c QA gates in flight:** APG keyboard harness ✅, llms-full.txt
+builder ✅, sizes.json + /sizes route ✅, per-component reference docs ✅.
+
+**402 unit tests + 190 Playwright tests = 592 tests passing** at the
+latest green push (190 = 84 e2e + 57 a11y + 49 keyboard).
 
 ## What runs (verified end-to-end)
 
@@ -38,17 +42,33 @@ latest green push.
 | `@kumiki/types`                  | placeholder (no exports yet)             |
 | `@kumiki/locale/<lang>`          | placeholders for 10 languages            |
 
-## What's wired but not yet exercised on real code
+## APG keyboard harness coverage
 
-The remaining 6 Phase 1 components (RadioGroup, Tabs, Dialog, Tooltip, Select, Field/Form) have:
+`apps/docs/keyboard/<name>.kb.ts` declares each component's keyboard
+contract per the APG spec; `apps/docs/tests/keyboard/_harness.ts` runs
+each contract under Playwright with a hydration sentinel.
 
-- Empty `src/index.ts` (`export {}`).
-- Per-package `package.json` with the right `exports`, `size-limit`, `peerDependencies`.
-- `tsconfig.json`.
-- README.md placeholder.
-- Registered in the Playground (`/play`) as "unreleased" cards.
+| Component  | Cases | Notes                                                |
+| ---------- | ----: | ---------------------------------------------------- |
+| Tabs       |    11 | LTR/RTL/vertical arrows, Home/End, manual activation |
+| RadioGroup |     8 | Axis-agnostic arrows, Space, Home/End, skip-disabled |
+| Select     |    10 | Open/close, navigate, type-ahead, Enter/Escape/Tab   |
+| Combobox   |     6 | Open/close, active-descendant via `data-highlighted` |
+| Toggle     |     3 | Space/Enter activation cycle                         |
+| Switch     |     2 | Space/Enter activation                               |
+| Checkbox   |     2 | Space toggles checked ↔ unchecked                    |
+| Dialog     |     4 | Open via Enter/Space, Escape close (policy-gated)    |
+| Tooltip    |     1 | Escape closes focused tooltip                        |
+| Field/Form |     2 | Tab-after-typing → blur-validation surface           |
 
-These will follow the **exact same template** as Toggle — see `packages/components/toggle/{machine,attachment,component}/`. Adding a new component means populating the matching `packages/components/<name>/` folder.
+Total: **49 keyboard cases** all green.
+
+## Phase 0c QA artifacts
+
+- **`/llms-full.txt`** — apps/docs/scripts/build-llms-full.mjs walks every package, inlines first-JSDoc + exports → 1185-line / 33 KB AI reference.
+- **`/sizes.json`** — apps/docs/scripts/build-sizes.mjs runs `size-limit --json` per package, aggregates verified bundle measurements.
+- **`/sizes`** — SvelteKit route that renders `/sizes.json` as a per-package table with safe / tight / fail color bars.
+- **`docs/components/<name>.md`** — reference docs for all 10 Phase 1 components: anatomy, keyboard, ARIA, source links.
 
 ## Quality gates active in CI
 
@@ -106,32 +126,34 @@ Auto-installed via `pnpm install` (root `prepare` script).
 ## Documentation
 
 - **Design** (16 sections + 11 ADRs): `docs/design/`.
-- **Components reference**: `docs/components/_template.md` (template) + `docs/components/combobox.md` (worked example).
+- **Components reference**: `docs/components/_template.md` (template) + per-component reference for all 10 Phase 1 components (`combobox.md`, `dialog.md`, `tabs.md`, `select.md`, `tooltip.md`, `radio-group.md`, `checkbox.md`, `toggle.md`, `switch.md`, `form-field.md`).
 - **User-supplied market research**: `docs/market-research.md`.
 - **Branch protection**: `docs/release/branch-protection.md`.
 - **CLAUDE.md** (root): project context for AI assistants.
 
-## What is NOT done (post-Phase-0a roadmap)
+## What is NOT done (post-Phase-1 roadmap)
 
-To preserve the user's "ガッチガチに品質保証" mandate, I'm being explicit about gaps. None of these are blockers for Phase 0a but they are for v1.0.
+To preserve the user's "ガッチガチに品質保証" mandate, gaps are explicit. None block v0.x preview; some block v1.0.
 
-### Components (Phase 0b → Phase 1)
+### Phase 0c QA gaps still open
 
-- Phase 0b: implement Combobox end-to-end (the second pilot — validates `with*` composition + APG-driven keyboard harness).
-- Phase 1: 8 more components (Switch, Checkbox, RadioGroup, Tabs, Dialog, Tooltip, Select, Field/Form).
-- Each will follow the exact same template as Toggle. Estimated ~1 week per component to the Toggle quality bar.
+| Item                                  | Status                                                               | Notes                                                                      |
+| ------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| **api-extractor reports** per package | Configs not generated; needs `@microsoft/api-extractor` dep          | Locked-in via ADR 0011; awaiting maintainer dep approval                   |
+| **TypeDoc reference site**            | Not configured; needs `typedoc` + `typedoc-plugin-markdown`          | Locked-in via ADR 0011; awaiting maintainer dep approval                   |
+| **Lighthouse CI**                     | Not configured; needs `@lhci/cli` dep                                | For docs site perf budget                                                  |
+| **APG diff-against-published**        | The harness is in; the scraper that diffs published APG tables isn't | Hand-transcribed contracts won't drift, but spec changes will go unnoticed |
+| **Tree-shake regression tests**       | Not implemented (separate from `agadoo`'s side-effect check)         | Verify importing one component doesn't pull others                         |
+| **Performance benchmarks**            | Not implemented                                                      | Phase 0c stretch goal                                                      |
+| **Coverage gate aggregation**         | Per-package `vitest.config.ts` thresholds set; not aggregated in CI  |                                                                            |
 
-### QA infrastructure not yet wired
+### Phase 2 components (not started)
 
-| Item                                                            | Status                                                                                                         | Estimated effort                     |
-| --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| **APG keyboard test harness** (`scripts/run-keyboard-yaml.mjs`) | Not started — referenced in `docs/design/05-accessibility.md` §5.4. Needs Phase 0b's Combobox to drive design. | ~1 day after Combobox                |
-| **api-extractor reports** per package                           | Configs not generated.                                                                                         | ~1 day for all 30 component packages |
-| **TypeDoc reference site**                                      | Not configured.                                                                                                | ~1 day                               |
-| **`llms-full.txt` builder**                                     | Not implemented.                                                                                               | ~1 day after TypeDoc                 |
-| **Tree-shake regression tests** (`apps/docs/sizes/`)            | Not implemented.                                                                                               | ~0.5 day                             |
-| **Performance benchmarks** (`apps/docs/perf/`)                  | Not implemented.                                                                                               | ~0.5 day                             |
-| **Coverage gate**                                               | Per-package `vitest.config.ts` thresholds set, but not aggregated in CI.                                       | ~0.5 day                             |
+Calendar / DatePicker, NumberField, Slider, Menu, Accordion, Popover, Toast.
+
+### Phase 0b deferred composition
+
+`withValidation` / `withAsyncSearch` / `withMultiSelect` / `withVirtualization` on Combobox.
 
 ### Things that need maintainer-in-the-loop decisions
 
@@ -143,15 +165,17 @@ To preserve the user's "ガッチガチに品質保証" mandate, I'm being expli
 
 ## Honest caveats
 
-1. **"Beats every competitor"** — not a measurable claim. The technical foundation is sound (FSM separation, lazy i18n, real SR testing in CI, tight budgets). Whether maintainers of other libraries "concede" is a market-positioning question not solvable by code quality alone. What I can promise: every claim Kumiki makes is verifiable from this repo.
+1. **"Beats every competitor"** — not a measurable claim. Every claim Kumiki makes is verifiable from this repo: bundle measurements at `/sizes`, keyboard contracts at `apps/docs/keyboard/`, axe results in CI, screen-reader tests via Guidepup nightly.
 
-2. **Single autonomous run is not 1 month of work.** I cannot continue progressing without a message. To run autonomously during the trip, invoke `/loop` with this prompt as the recurring task — the runtime fires me at intervals and I keep extending the implementation. Without `/loop`, this snapshot is the final state until the next manual conversation.
+2. **`/loop` keeps the work going while away.** Single conversations end when the user closes Claude Code. The autonomous loop fires me at ~5-min intervals to keep shipping. Without `/loop`, progress pauses until the next manual conversation.
 
-3. **Phase 0b (Combobox) is the highest-leverage next step.** It validates `with*` composition, async fetch races, virtualization, and the APG-driven keyboard harness. Many tooling gaps above (api-extractor, llms-full.txt builder) become feasible only after Combobox is in.
+3. **Phase 1 + the harness are the highest-leverage milestones already passed.** All 10 components ship machine + attachment + component + sandbox + e2e + axe + keyboard contract. The shape is proven; Phase 2 components fill out the catalog.
 
-4. **The Toggle implementation is reference-grade but not "shippable to npm."** Two reasons: (a) recipes are placeholder; (b) the `kumiki@preview` dist-tag publish flow has not been smoke-tested against an actual npm registry.
+4. **The npm publish flow has not been smoke-tested against an actual registry.** `pnpm ci:health` validates package shape (`publint`, `attw`, `agadoo`, `size-limit`) but the `kumiki@preview` dist-tag publish from `release.yml` needs one round-trip before v0.x.
 
 5. **Reference submodule `react-spectrum` is 217 MB shallow.** Anyone cloning the repo with `--recurse-submodules` pays the cost. The `update = none` setting in `.gitmodules` plus `submodules: false` in CI means it's opt-in.
+
+6. **Phase 0c needs new devDeps.** `@microsoft/api-extractor`, `typedoc`, `@lhci/cli` are awaiting maintainer dep approval per CLAUDE.md "Things to NOT do without confirmation".
 
 ## Blocked
 
