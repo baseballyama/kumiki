@@ -43,11 +43,22 @@
     "typescript": "catalog:",
     "vitest": "catalog:",
     "size-limit": "catalog:",
-    "@size-limit/preset-small-lib": "catalog:"
+    "@size-limit/preset-small-lib": "catalog:",
+    "jsdom": "catalog:"
   },
   "size-limit": [
     {
-      "name": "default",
+      "name": "attachment-switch (incremental, runtime/primitives/machine excluded)",
+      "path": "dist/index.mjs",
+      "limit": "800 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machine-switch"
+      ]
+    },
+    {
+      "name": "attachment-switch (full, first-import cost)",
       "path": "dist/index.mjs",
       "limit": "1500 B"
     }

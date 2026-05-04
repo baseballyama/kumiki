@@ -47,9 +47,18 @@
   },
   "size-limit": [
     {
-      "name": "default",
+      "name": "machine-combobox (incremental, runtime excluded)",
       "path": "dist/index.mjs",
-      "limit": "3000 B"
+      "limit": "2 KB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machine-combobox (full, runtime inlined first import)",
+      "path": "dist/index.mjs",
+      "limit": "3 KB"
     }
   ],
   "publishConfig": {

@@ -1,3 +1,28 @@
-// @kumiki/component-switch
-// Placeholder. Implementation lands in Phase 0/1 — see docs/design/15-roadmap.md.
-export {};
+/**
+ * `@kumiki/component-switch` — Layer 4 compound component for the Switch.
+ *
+ * Behavior follows the WAI-ARIA APG switch pattern.
+ *
+ * @when-to-use For an on/off setting that takes effect immediately (e.g.,
+ *              dark-mode toggle, notifications, feature flag).
+ *
+ * @anti-pattern For a button that flips a transient pressed state, use
+ *               `@kumiki/component-toggle`. For a form-level boolean field,
+ *               use `@kumiki/component-checkbox`.
+ *
+ * @see https://www.w3.org/WAI/ARIA/apg/patterns/switch/
+ */
+
+import Root from './Root.svelte';
+
+export { Root };
+
+export const Switch = { Root };
+
+export type {
+  SwitchController,
+  SwitchContext,
+  SwitchEvent,
+  SwitchState,
+  CreateSwitchOptions,
+} from '@kumiki/attachment-switch';

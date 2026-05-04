@@ -53,7 +53,8 @@
     "vitest": "catalog:",
     "publint": "catalog:",
     "size-limit": "catalog:",
-    "@size-limit/preset-small-lib": "catalog:"
+    "@size-limit/preset-small-lib": "catalog:",
+    "@sveltejs/vite-plugin-svelte": "catalog:"
   },
   "size-limit": [
     {

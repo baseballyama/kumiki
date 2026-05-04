@@ -3,8 +3,9 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "noEmit": false,
-    "moduleResolution": "Bundler"
+    "noEmit": true,
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true
   },
   "include": ["src/**/*.ts", "src/**/*.svelte", "src/**/*.svelte.ts"],
   "exclude": ["dist", "**/*.test.ts", "**/*.test.svelte.ts"]

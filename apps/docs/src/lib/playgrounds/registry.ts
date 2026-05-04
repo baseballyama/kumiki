@@ -74,18 +74,27 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/button/',
     status: 'preview',
   },
+  {
+    slug: 'machine-switch',
+    name: '@kumiki/machine-switch',
+    layer: 2,
+    summary: 'Pure-TS FSM for the Switch component (on/off setting).',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/switch/',
+    status: 'preview',
+  },
+  {
+    slug: 'machine-combobox',
+    name: '@kumiki/machine-combobox',
+    layer: 2,
+    summary:
+      'Pure-TS FSM for Combobox: keyboard nav, async race-token guarding, generic over option type T.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/combobox/',
+    status: 'preview',
+  },
   ...(
-    [
-      'switch',
-      'checkbox',
-      'radio-group',
-      'tabs',
-      'dialog',
-      'tooltip',
-      'combobox',
-      'select',
-      'form-field',
-    ] as const
+    ['checkbox', 'radio-group', 'tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const
   ).map(
     (slug) =>
       ({
@@ -108,18 +117,27 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/button/',
     status: 'preview',
   },
+  {
+    slug: 'attachment-switch',
+    name: '@kumiki/attachment-switch',
+    layer: 3,
+    summary: 'Svelte 5 attachment for Switch. Drives role="switch" + aria-checked + data-state.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/switch/',
+    status: 'preview',
+  },
+  {
+    slug: 'attachment-combobox',
+    name: '@kumiki/attachment-combobox',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for Combobox — input, listbox, option, trigger. Compound primitive across multiple DOM elements.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/combobox/',
+    status: 'preview',
+  },
   ...(
-    [
-      'switch',
-      'checkbox',
-      'radio-group',
-      'tabs',
-      'dialog',
-      'tooltip',
-      'combobox',
-      'select',
-      'form-field',
-    ] as const
+    ['checkbox', 'radio-group', 'tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const
   ).map(
     (slug) =>
       ({
@@ -143,18 +161,27 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/button/',
     status: 'preview',
   },
+  {
+    slug: 'component-switch',
+    name: '@kumiki/component-switch',
+    layer: 4,
+    summary: 'Compound `<Switch.Root>` for an on/off setting (role="switch", aria-checked).',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/switch/',
+    status: 'preview',
+  },
+  {
+    slug: 'component-combobox',
+    name: '@kumiki/component-combobox',
+    layer: 4,
+    summary:
+      'Compound Combobox — Root / Input / Listbox / Item / Trigger. Generic over option type T.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/combobox/',
+    status: 'preview',
+  },
   ...(
-    [
-      'switch',
-      'checkbox',
-      'radio-group',
-      'tabs',
-      'dialog',
-      'tooltip',
-      'combobox',
-      'select',
-      'form-field',
-    ] as const
+    ['checkbox', 'radio-group', 'tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const
   ).map(
     (slug) =>
       ({
@@ -199,4 +226,6 @@ export type LivePlaygroundLoader = () => Promise<{ default: Component }>;
 export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-toggle': () => import('./demos/component-toggle.svelte'),
   'attachment-toggle': () => import('./demos/attachment-toggle.svelte'),
+  'component-switch': () => import('./demos/component-switch.svelte'),
+  'component-combobox': () => import('./demos/component-combobox.svelte'),
 };

@@ -47,9 +47,18 @@
   },
   "size-limit": [
     {
-      "name": "default",
+      "name": "machine-switch (incremental, runtime excluded)",
       "path": "dist/index.mjs",
-      "limit": "800 B"
+      "limit": "500 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machine-switch (full, runtime inlined first import)",
+      "path": "dist/index.mjs",
+      "limit": "1500 B"
     }
   ],
   "publishConfig": {
