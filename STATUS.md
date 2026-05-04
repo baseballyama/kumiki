@@ -33,6 +33,10 @@ bundled support stabilizes). ~30–100× faster local + CI.
 **Reproducible dev shell:** `flake.nix` pins Node 22 + corepack-managed
 pnpm; `direnv` auto-loads.
 
+**Phase 0b composition complete:** `withValidation` / `withAsyncSearch` /
+`withMultiSelect` / `withVirtualization` shipped on Combobox as four
+tree-shakable subpaths (1.77 KB total optional surface).
+
 ## What runs (verified end-to-end)
 
 | Component   | Layer 2 (machine) | Layer 3 (attachment) | Layer 4 (component) | Live demo | E2E + axe |
@@ -179,9 +183,17 @@ Only **Calendar / DatePicker** — blocked on `@internationalized/date`
 dep approval. Slider, Accordion, NumberField, Popover, Toast, Menu
 all shipped end-to-end.
 
-### Phase 0b deferred composition
+### Phase 0b deferred composition — DONE
 
-`withValidation` / `withAsyncSearch` / `withMultiSelect` / `withVirtualization` on Combobox.
+All four `with*` compositions shipped on `@kumiki/attachment-combobox`:
+
+| Subpath                    | Brotli      | Adds                                                          |
+| -------------------------- | ----------- | ------------------------------------------------------------- |
+| `/with-validation`         | 378 B       | Standard Schema validator with race-token guard               |
+| `/with-async-search`       | 476 B       | Abort-aware fetcher; reuses machine's FETCH.\* token protocol |
+| `/with-multi-select`       | 365 B       | `selected: T[]` + toggle / selectAll / clear                  |
+| `/with-virtualization`     | 548 B       | Fixed-row windowing; visibleItems + getItemStyle              |
+| **Total optional surface** | **1.77 KB** | Each subpath tree-shakes when not imported                    |
 
 ### Things that need maintainer-in-the-loop decisions
 
