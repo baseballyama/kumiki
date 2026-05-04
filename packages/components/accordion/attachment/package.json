@@ -1,0 +1,78 @@
+{
+  "name": "@kumiki/attachment-accordion",
+  "version": "0.0.0",
+  "description": "Svelte 5 attachments (Layer 3) for accordion — reactive bindings to @kumiki/machine-accordion.",
+  "license": "MIT",
+  "author": "Yuichiro Yamashita",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/accordion/attachment",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baseballyama/kumiki.git",
+    "directory": "packages/components/accordion/attachment"
+  },
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "size": "size-limit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "size-limit": "catalog:",
+    "@size-limit/preset-small-lib": "catalog:",
+    "jsdom": "catalog:"
+  },
+  "size-limit": [
+    {
+      "name": "attachment-accordion (incremental)",
+      "path": "dist/index.mjs",
+      "limit": "1.5 KB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machine-accordion"
+      ]
+    },
+    {
+      "name": "attachment-accordion (full first-import)",
+      "path": "dist/index.mjs",
+      "limit": "3 KB"
+    }
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "peerDependencies": {
+    "svelte": "catalog:"
+  },
+  "dependencies": {
+    "@kumiki/machine-accordion": "workspace:*",
+    "@kumiki/runtime": "workspace:*",
+    "@kumiki/primitives": "workspace:*"
+  }
+}
