@@ -194,6 +194,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog/',
     status: 'preview',
   },
+  {
+    slug: 'machine-toast',
+    name: '@kumiki/machine-toast',
+    layer: 2,
+    summary:
+      'Pure-TS FSM for Toast (toaster queue) — ADD/REMOVE/UPDATE/CLEAR with max-size trim, politeness, sticky vs auto-dismiss.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/alert/',
+    status: 'preview',
+  },
 
   // ── Layer 3 — Attachments ────────────────────────────────────────────────
   {
@@ -330,6 +340,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
       'Svelte 5 attachments for Popover — trigger / content / close / title / description with dismissable + focus-on-open wiring.',
     live: false,
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog/',
+    status: 'preview',
+  },
+  {
+    slug: 'attachment-toast',
+    name: '@kumiki/attachment-toast',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for Toast — viewport / item / closeButton with auto-dismiss, hover-pause, and aria-live wiring.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/alert/',
     status: 'preview',
   },
 
@@ -471,6 +491,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog/',
     status: 'preview',
   },
+  {
+    slug: 'component-toast',
+    name: '@kumiki/component-toast',
+    layer: 4,
+    summary:
+      'Compound `<Toaster>` / `<Viewport>` / `<Item>` / `<Title>` / `<Description>` / `<Close>` for transient notifications with auto-dismiss + hover-pause.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/alert/',
+    status: 'preview',
+  },
 
   // ── Layer 5 — Recipes (preview) ───────────────────────────────────────────
   {
@@ -517,4 +547,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-slider': () => import('./demos/component-slider.svelte'),
   'component-number-field': () => import('./demos/component-number-field.svelte'),
   'component-popover': () => import('./demos/component-popover.svelte'),
+  'component-toast': () => import('./demos/component-toast.svelte'),
 };

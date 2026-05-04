@@ -197,6 +197,9 @@ importers:
       '@kumiki/component-tabs':
         specifier: workspace:*
         version: link:../../packages/components/tabs/component
+      '@kumiki/component-toast':
+        specifier: workspace:*
+        version: link:../../packages/components/toast/component
       '@kumiki/component-toggle':
         specifier: workspace:*
         version: link:../../packages/components/toggle/component

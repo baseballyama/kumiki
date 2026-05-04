@@ -36,6 +36,6 @@
   const itemAttach = controller.item(toast.id);
 </script>
 
-<li data-component-part="item" {...rest} {@attach itemAttach}>
+<div data-component-part="item" {...rest} {@attach itemAttach}>
   {#if children}{@render children()}{/if}
-</li>
+</div>

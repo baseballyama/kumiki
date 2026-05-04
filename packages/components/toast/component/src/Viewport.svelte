@@ -19,6 +19,6 @@
   const { controller } = getContext<ToasterContextValue>(TOASTER_CONTEXT_KEY);
 </script>
 
-<ol data-component-part="viewport" {...rest} {@attach controller.viewport}>
+<div data-component-part="viewport" {...rest} {@attach controller.viewport}>
   {#if children}{@render children()}{/if}
-</ol>
+</div>

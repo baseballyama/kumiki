@@ -734,6 +734,76 @@ console.log(m.state); // 'closed'`,
     },
   ],
 
+  'component-toast': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-toast' },
+    {
+      title: 'Basic — toaster with auto-dismiss',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Toaster, Viewport, Item, Title, Description, Close } from '@kumiki/component-toast';
+</script>
+
+<Toaster defaultDuration={4000}>
+  {#snippet children({ toasts, controller })}
+    <Viewport>
+      {#each toasts as toast (toast.id)}
+        <Item {toast}>
+          <Title>{toast.title}</Title>
+          {#if toast.description}<Description>{toast.description}</Description>{/if}
+          <Close>×</Close>
+        </Item>
+      {/each}
+    </Viewport>
+
+    <button onclick={() => controller.add({ title: 'Saved' })}>Notify</button>
+  {/snippet}
+</Toaster>`,
+    },
+  ],
+
+  'machine-toast': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-toast' },
+    {
+      title: 'Pure-TS — toaster queue',
+      lang: 'ts',
+      code: `import { createToastMachine } from '@kumiki/machine-toast';
+
+const m = createToastMachine({ max: 3 });
+m.send({ type: 'ADD', toast: { id: 'a', title: 'Saved' } });
+console.log(m.context.toasts.length); // 1
+m.send({ type: 'CLEAR' });
+console.log(m.context.toasts.length); // 0`,
+    },
+  ],
+
+  'attachment-toast': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-toast' },
+    {
+      title: 'Drive your own DOM (toaster queue)',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createToast } from '@kumiki/attachment-toast';
+  const t = createToast({ defaultDuration: 4000 });
+
+  function notify() {
+    t.add({ title: 'Saved', description: 'Your changes were saved.' });
+  }
+</script>
+
+<button onclick={notify}>Notify</button>
+
+<ol {@attach t.viewport}>
+  {#each t.toasts as toast (toast.id)}
+    <li {@attach t.item(toast.id)}>
+      <strong>{toast.title}</strong>
+      <p>{toast.description}</p>
+      <button {@attach t.closeButton(toast.id)}>×</button>
+    </li>
+  {/each}
+</ol>`,
+    },
+  ],
+
   'attachment-accordion': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-accordion' },
     {
