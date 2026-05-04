@@ -609,6 +609,77 @@ console.log(m.context.value); // 100 (clamped)`,
     },
   ],
 
+  'component-number-field': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-number-field' },
+    {
+      title: 'Basic — quantity selector',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import {
+    Root,
+    Input,
+    Increment,
+    Decrement,
+  } from '@kumiki/component-number-field';
+  let qty = $state(1);
+</script>
+
+<Root bind:value={qty} min={0} max={99} step={1}>
+  <Decrement aria-label="Decrease">−</Decrement>
+  <Input aria-label="Quantity" />
+  <Increment aria-label="Increase">+</Increment>
+</Root>`,
+    },
+    {
+      title: 'Custom format/parse — currency',
+      lang: 'svelte',
+      code: `<Root
+  bind:value={price}
+  min={0}
+  step={100}
+  format={(n) => '$' + n.toLocaleString('en-US')}
+  parse={(raw) => Number(raw.replace(/[$,\\s]/g, '')) || undefined}
+>
+  <Decrement>−</Decrement>
+  <Input aria-label="Price" />
+  <Increment>+</Increment>
+</Root>`,
+    },
+  ],
+
+  'machine-number-field': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-number-field' },
+    {
+      title: 'Pure-TS — clamp + snap, nullable',
+      lang: 'ts',
+      code: `import { createNumberFieldMachine } from '@kumiki/machine-number-field';
+
+const m = createNumberFieldMachine({ min: 0, max: 10, step: 1 });
+m.send({ type: 'INCREMENT' }); // seeds from min
+console.log(m.context.value); // 1
+m.send({ type: 'CLEAR' });
+console.log(m.context.value); // null`,
+    },
+  ],
+
+  'attachment-number-field': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-number-field' },
+    {
+      title: 'Drive your own DOM (compound)',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createNumberField } from '@kumiki/attachment-number-field';
+  const n = createNumberField({ min: 0, max: 10 });
+</script>
+
+<div {@attach n.root}>
+  <button {@attach n.decrement_}>−</button>
+  <input {@attach n.input} aria-label="Quantity" />
+  <button {@attach n.increment_}>+</button>
+</div>`,
+    },
+  ],
+
   'attachment-accordion': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-accordion' },
     {

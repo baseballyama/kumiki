@@ -194,6 +194,9 @@ importers:
       '@kumiki/component-form-field':
         specifier: workspace:*
         version: link:../../packages/components/form-field/component
+      '@kumiki/component-number-field':
+        specifier: workspace:*
+        version: link:../../packages/components/number-field/component
       '@kumiki/component-radio-group':
         specifier: workspace:*
         version: link:../../packages/components/radio-group/component

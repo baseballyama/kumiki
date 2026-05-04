@@ -29,6 +29,7 @@
     "@kumiki/component-form-field": "workspace:*",
     "@kumiki/component-accordion": "workspace:*",
     "@kumiki/component-slider": "workspace:*",
+    "@kumiki/component-number-field": "workspace:*",
     "@kumiki/locale": "workspace:*",
     "@kumiki/primitives": "workspace:*",
     "@kumiki/attachment-toggle": "workspace:*",

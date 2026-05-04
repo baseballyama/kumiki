@@ -174,6 +174,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/slider/',
     status: 'preview',
   },
+  {
+    slug: 'machine-number-field',
+    name: '@kumiki/machine-number-field',
+    layer: 2,
+    summary:
+      'Pure-TS FSM for NumberField — nullable numeric value with clamp + snap + page-step semantics.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/',
+    status: 'preview',
+  },
 
   // ── Layer 3 — Attachments ────────────────────────────────────────────────
   {
@@ -290,6 +300,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
       'Svelte 5 attachments for Slider — root + thumb factories with keyboard, pointer-drag, and RTL inversion.',
     live: false,
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/slider/',
+    status: 'preview',
+  },
+  {
+    slug: 'attachment-number-field',
+    name: '@kumiki/attachment-number-field',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for NumberField — root / input / increment / decrement with spinbutton ARIA + format/parse hooks.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/',
     status: 'preview',
   },
 
@@ -411,6 +431,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/slider/',
     status: 'preview',
   },
+  {
+    slug: 'component-number-field',
+    name: '@kumiki/component-number-field',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Input>` / `<Increment>` / `<Decrement>` for precise numeric input with format/parse hooks and boundary-aware step buttons.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/',
+    status: 'preview',
+  },
 
   // ── Layer 5 — Recipes (preview) ───────────────────────────────────────────
   {
@@ -455,4 +485,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-form-field': () => import('./demos/component-form-field.svelte'),
   'component-accordion': () => import('./demos/component-accordion.svelte'),
   'component-slider': () => import('./demos/component-slider.svelte'),
+  'component-number-field': () => import('./demos/component-number-field.svelte'),
 };
