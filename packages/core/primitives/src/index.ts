@@ -9,3 +9,11 @@
  */
 
 export { uid, createIdScope } from './id/index.ts';
+export {
+  findByTypeAhead,
+  getNextEnabledId,
+  tabindexFor,
+  type CollectionItem,
+  type NavigateDirection,
+  type NavigateOptions,
+} from './collection/index.ts';
