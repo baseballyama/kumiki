@@ -1,0 +1,79 @@
+<!--
+  @component Dialog.Root — owns the controller and shares it via context.
+
+  Bindable props:
+  - `open` → boolean. Bind for two-way control.
+
+  Plain props:
+  - `defaultOpen` / `modal` (default true) / `closeOnEscape` (default true) /
+    `closeOnOutsideClick` (default true) / `onOpenChange`.
+
+  Renders no DOM itself — leaf components (`Dialog.Trigger`, `Dialog.Content`,
+  etc.) are responsible for their own elements. This makes portal'ing the
+  Content trivial: the consumer wraps it in their own `<Portal>` without the
+  Root contributing extra wrappers.
+-->
+<script lang="ts">
+  import { onDestroy, setContext, untrack } from 'svelte';
+  import { createDialog, type DialogController } from '@kumiki/attachment-dialog';
+  import type { Snippet } from 'svelte';
+  import { DIALOG_CONTEXT_KEY, type DialogContextValue } from './context.js';
+
+  type Props = {
+    open?: boolean;
+    defaultOpen?: boolean;
+    modal?: boolean;
+    closeOnEscape?: boolean;
+    closeOnOutsideClick?: boolean;
+    onOpenChange?: (open: boolean) => void;
+    id?: string;
+    children: Snippet;
+  };
+
+  let {
+    open = $bindable(undefined),
+    defaultOpen = false,
+    modal = true,
+    closeOnEscape = true,
+    closeOnOutsideClick = true,
+    onOpenChange,
+    id,
+    children,
+  }: Props = $props();
+
+  const controller: DialogController = untrack(() =>
+    createDialog({
+      defaultOpen: open ?? defaultOpen,
+      modal,
+      closeOnEscape,
+      closeOnOutsideClick,
+      id,
+      onOpenChange: (next) => {
+        open = next;
+        onOpenChange?.(next);
+      },
+    }),
+  );
+
+  $effect(() => {
+    if (open !== undefined && open !== controller.open) {
+      controller.setOpen(open);
+    }
+  });
+  $effect(() => {
+    controller.setModal(modal);
+  });
+  $effect(() => {
+    controller.setCloseOnEscape(closeOnEscape);
+  });
+  $effect(() => {
+    controller.setCloseOnOutsideClick(closeOnOutsideClick);
+  });
+
+  let unsub = controller.subscribe(() => {});
+  onDestroy(unsub);
+
+  setContext<DialogContextValue>(DIALOG_CONTEXT_KEY, { controller });
+</script>
+
+{@render children()}
