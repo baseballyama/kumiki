@@ -8,6 +8,7 @@ export default defineConfig({
     'src/combobox.ts',
     'src/dialog.ts',
     'src/form-field.ts',
+    'src/menu.ts',
     'src/number-field.ts',
     'src/popover.ts',
     'src/radio-group.ts',

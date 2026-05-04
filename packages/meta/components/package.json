@@ -46,6 +46,10 @@
       "types": "./dist/form-field.d.mts",
       "import": "./dist/form-field.mjs"
     },
+    "./menu": {
+      "types": "./dist/menu.d.mts",
+      "import": "./dist/menu.mjs"
+    },
     "./number-field": {
       "types": "./dist/number-field.d.mts",
       "import": "./dist/number-field.mjs"
@@ -105,6 +109,7 @@
     "@kumiki/component-combobox": "workspace:*",
     "@kumiki/component-dialog": "workspace:*",
     "@kumiki/component-form-field": "workspace:*",
+    "@kumiki/component-menu": "workspace:*",
     "@kumiki/component-number-field": "workspace:*",
     "@kumiki/component-popover": "workspace:*",
     "@kumiki/component-radio-group": "workspace:*",

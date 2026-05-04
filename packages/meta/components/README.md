@@ -35,6 +35,7 @@ import * as Combobox from '@kumiki/components/combobox';
 - `@kumiki/components/combobox` → `@kumiki/component-combobox`
 - `@kumiki/components/dialog` → `@kumiki/component-dialog`
 - `@kumiki/components/form-field` → `@kumiki/component-form-field`
+- `@kumiki/components/menu` → `@kumiki/component-menu`
 - `@kumiki/components/number-field` → `@kumiki/component-number-field`
 - `@kumiki/components/popover` → `@kumiki/component-popover`
 - `@kumiki/components/radio-group` → `@kumiki/component-radio-group`
