@@ -91,8 +91,25 @@ export interface KeyboardContract {
   apg: string;
   /** Default sandbox URL. */
   sandbox: string;
+  /**
+   * A selector that's painted *only* by an attachment factory's first
+   * subscribe — the sentinel the harness waits for to confirm hydration is
+   * done before keys are dispatched. Recommended: a `[id^="kumiki-..."]`
+   * selector on a non-trigger element (the trigger's id is often in SSR).
+   */
+  hydrationSelector?: string;
   /** All cases to run. */
   cases: ReadonlyArray<KeyboardCase>;
+}
+
+/**
+ * Translate the canonical APG key to Playwright's `keyboard.press()` name.
+ * Single-character " " is unreliable on native button activation; use the
+ * named "Space" key for native semantics. Other keys pass through.
+ */
+function normalizeKey(key: string): string {
+  if (key === ' ') return 'Space';
+  return key;
 }
 
 async function applyAssertion(page: Page, a: ExpectAssertion): Promise<void> {
@@ -125,11 +142,17 @@ export function runKeyboardContract(contract: KeyboardContract): void {
       test(c.name, async ({ page }) => {
         await page.goto(c.url ?? contract.sandbox);
         await page.locator(c.focus).waitFor({ state: 'attached' });
+        if (contract.hydrationSelector) {
+          await page
+            .locator(contract.hydrationSelector)
+            .first()
+            .waitFor({ state: 'attached', timeout: 5000 });
+        }
         await page.locator(c.focus).focus();
         for (const k of c.prelude ?? []) {
-          await page.keyboard.press(k);
+          await page.keyboard.press(normalizeKey(k));
         }
-        await page.keyboard.press(c.press);
+        await page.keyboard.press(normalizeKey(c.press));
         for (const a of c.expect) {
           await applyAssertion(page, a);
         }
