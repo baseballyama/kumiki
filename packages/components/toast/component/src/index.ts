@@ -45,6 +45,7 @@
  *               (use Dialog) or for critical errors that must not be
  *               missed (use a banner / status message).
  *
+ * @see https://www.w3.org/WAI/ARIA/apg/patterns/alert/
  * @see https://www.w3.org/TR/wai-aria-practices-1.2/#live
  */
 
