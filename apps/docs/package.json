@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "prebuild": "node scripts/build-llms-full.mjs",
+    "prebuild": "node scripts/build-llms-full.mjs && node scripts/build-sizes.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "test:e2e": "playwright test",

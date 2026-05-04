@@ -1,0 +1,503 @@
+{
+  "generatedAt": "2026-05-04T10:24:23.750Z",
+  "packages": [
+    {
+      "package": "@kumiki/attachment-checkbox",
+      "directory": "packages/components/checkbox/attachment",
+      "entries": [
+        {
+          "name": "attachment-checkbox (incremental, runtime/primitives/machine excluded)",
+          "size": 676,
+          "sizeLimit": 800,
+          "passed": true
+        },
+        {
+          "name": "attachment-checkbox (full first-import — tri-state +200B vs binary toggle/switch)",
+          "size": 1530,
+          "sizeLimit": 1700,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/attachment-combobox",
+      "directory": "packages/components/combobox/attachment",
+      "entries": [
+        {
+          "name": "attachment-combobox (incremental)",
+          "size": 1433,
+          "sizeLimit": 2500,
+          "passed": true
+        },
+        {
+          "name": "attachment-combobox (full first-import)",
+          "size": 2864,
+          "sizeLimit": 4000,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/attachment-dialog",
+      "directory": "packages/components/dialog/attachment",
+      "entries": [
+        {
+          "name": "attachment-dialog (incremental)",
+          "size": 1123,
+          "sizeLimit": 2000,
+          "passed": true
+        },
+        {
+          "name": "attachment-dialog (full first-import)",
+          "size": 2450,
+          "sizeLimit": 3500,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/attachment-form-field",
+      "directory": "packages/components/form-field/attachment",
+      "entries": [
+        {
+          "name": "attachment-form-field (incremental)",
+          "size": 1234,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "attachment-form-field (full first-import)",
+          "size": 2262,
+          "sizeLimit": 3000,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/attachment-radio-group",
+      "directory": "packages/components/radio-group/attachment",
+      "entries": [
+        {
+          "name": "attachment-radio-group (incremental)",
+          "size": 996,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "attachment-radio-group (full first-import)",
+          "size": 2140,
+          "sizeLimit": 2500,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/attachment-select",
+      "directory": "packages/components/select/attachment",
+      "entries": [
+        {
+          "name": "attachment-select (incremental)",
+          "size": 1360,
+          "sizeLimit": 2500,
+          "passed": true
+        },
+        {
+          "name": "attachment-select (full first-import)",
+          "size": 2982,
+          "sizeLimit": 4000,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/attachment-switch",
+      "directory": "packages/components/switch/attachment",
+      "entries": [
+        {
+          "name": "attachment-switch (incremental, runtime/primitives/machine excluded)",
+          "size": 648,
+          "sizeLimit": 800,
+          "passed": true
+        },
+        {
+          "name": "attachment-switch (full, first-import cost)",
+          "size": 1451,
+          "sizeLimit": 1500,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/attachment-tabs",
+      "directory": "packages/components/tabs/attachment",
+      "entries": [
+        {
+          "name": "attachment-tabs (incremental)",
+          "size": 1249,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "attachment-tabs (full first-import)",
+          "size": 2553,
+          "sizeLimit": 2700,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/attachment-toggle",
+      "directory": "packages/components/toggle/attachment",
+      "entries": [
+        {
+          "name": "attachment-toggle (incremental, runtime/primitives/machine excluded)",
+          "size": 642,
+          "sizeLimit": 800,
+          "passed": true
+        },
+        {
+          "name": "attachment-toggle (full, first-import cost)",
+          "size": 1453,
+          "sizeLimit": 1500,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/attachment-tooltip",
+      "directory": "packages/components/tooltip/attachment",
+      "entries": [
+        {
+          "name": "attachment-tooltip (incremental)",
+          "size": 878,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "attachment-tooltip (full first-import)",
+          "size": 1738,
+          "sizeLimit": 2500,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/cli",
+      "directory": "packages/tooling/cli",
+      "entries": [
+        {
+          "name": "default",
+          "size": 13,
+          "sizeLimit": 30000,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/locale",
+      "directory": "packages/core/locale",
+      "entries": [
+        {
+          "name": "en",
+          "size": 13,
+          "sizeLimit": 1000,
+          "passed": true
+        },
+        {
+          "name": "ja",
+          "size": 13,
+          "sizeLimit": 1000,
+          "passed": true
+        },
+        {
+          "name": "zh-Hans",
+          "size": 13,
+          "sizeLimit": 1000,
+          "passed": true
+        },
+        {
+          "name": "zh-Hant",
+          "size": 13,
+          "sizeLimit": 1000,
+          "passed": true
+        },
+        {
+          "name": "ko",
+          "size": 13,
+          "sizeLimit": 1000,
+          "passed": true
+        },
+        {
+          "name": "es",
+          "size": 13,
+          "sizeLimit": 1000,
+          "passed": true
+        },
+        {
+          "name": "fr",
+          "size": 13,
+          "sizeLimit": 1000,
+          "passed": true
+        },
+        {
+          "name": "de",
+          "size": 13,
+          "sizeLimit": 1000,
+          "passed": true
+        },
+        {
+          "name": "ar",
+          "size": 13,
+          "sizeLimit": 1000,
+          "passed": true
+        },
+        {
+          "name": "he",
+          "size": 13,
+          "sizeLimit": 1000,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-checkbox",
+      "directory": "packages/components/checkbox/machine",
+      "entries": [
+        {
+          "name": "machine-checkbox (incremental, runtime excluded)",
+          "size": 440,
+          "sizeLimit": 700,
+          "passed": true
+        },
+        {
+          "name": "machine-checkbox (full, runtime inlined)",
+          "size": 995,
+          "sizeLimit": 1800,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-combobox",
+      "directory": "packages/components/combobox/machine",
+      "entries": [
+        {
+          "name": "machine-combobox (incremental, runtime excluded)",
+          "size": 1067,
+          "sizeLimit": 2000,
+          "passed": true
+        },
+        {
+          "name": "machine-combobox (full, runtime inlined first import)",
+          "size": 1618,
+          "sizeLimit": 3000,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-dialog",
+      "directory": "packages/components/dialog/machine",
+      "entries": [
+        {
+          "name": "default",
+          "size": 1039,
+          "sizeLimit": 1800,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-form-field",
+      "directory": "packages/components/form-field/machine",
+      "entries": [
+        {
+          "name": "default",
+          "size": 1214,
+          "sizeLimit": 2000,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-radio-group",
+      "directory": "packages/components/radio-group/machine",
+      "entries": [
+        {
+          "name": "machine-radio-group (incremental, runtime/primitives excluded)",
+          "size": 641,
+          "sizeLimit": 700,
+          "passed": true
+        },
+        {
+          "name": "machine-radio-group (full, runtime + collection inlined)",
+          "size": 1334,
+          "sizeLimit": 2000,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-select",
+      "directory": "packages/components/select/machine",
+      "entries": [
+        {
+          "name": "default",
+          "size": 1601,
+          "sizeLimit": 2500,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-switch",
+      "directory": "packages/components/switch/machine",
+      "entries": [
+        {
+          "name": "machine-switch (incremental, runtime excluded)",
+          "size": 397,
+          "sizeLimit": 500,
+          "passed": true
+        },
+        {
+          "name": "machine-switch (full, runtime inlined first import)",
+          "size": 967,
+          "sizeLimit": 1500,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-tabs",
+      "directory": "packages/components/tabs/machine",
+      "entries": [
+        {
+          "name": "default",
+          "size": 1495,
+          "sizeLimit": 1500,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-toggle",
+      "directory": "packages/components/toggle/machine",
+      "entries": [
+        {
+          "name": "machine-toggle (incremental, runtime excluded)",
+          "size": 399,
+          "sizeLimit": 500,
+          "passed": true
+        },
+        {
+          "name": "machine-toggle (full, runtime inlined first import)",
+          "size": 969,
+          "sizeLimit": 1500,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/machine-tooltip",
+      "directory": "packages/components/tooltip/machine",
+      "entries": [
+        {
+          "name": "default",
+          "size": 1026,
+          "sizeLimit": 1500,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/primitives",
+      "directory": "packages/core/primitives",
+      "entries": [
+        {
+          "name": "focus-trap",
+          "size": 434,
+          "sizeLimit": 500,
+          "passed": true
+        },
+        {
+          "name": "dismissable",
+          "size": 295,
+          "sizeLimit": 500,
+          "passed": true
+        },
+        {
+          "name": "id",
+          "size": 174,
+          "sizeLimit": 500,
+          "passed": true
+        },
+        {
+          "name": "locale",
+          "size": 13,
+          "sizeLimit": 500,
+          "passed": true
+        },
+        {
+          "name": "live-region",
+          "size": 13,
+          "sizeLimit": 500,
+          "passed": true
+        },
+        {
+          "name": "collection",
+          "size": 369,
+          "sizeLimit": 500,
+          "passed": true
+        },
+        {
+          "name": "interactions",
+          "size": 13,
+          "sizeLimit": 500,
+          "passed": true
+        },
+        {
+          "name": "motion",
+          "size": 13,
+          "sizeLimit": 500,
+          "passed": true
+        },
+        {
+          "name": "portal",
+          "size": 13,
+          "sizeLimit": 500,
+          "passed": true
+        },
+        {
+          "name": "full",
+          "size": 1032,
+          "sizeLimit": 3000,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/runtime",
+      "directory": "packages/core/runtime",
+      "entries": [
+        {
+          "name": "default",
+          "size": 752,
+          "sizeLimit": 1000,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/types",
+      "directory": "packages/core/types",
+      "entries": [
+        {
+          "name": "default",
+          "size": 13,
+          "sizeLimit": 300,
+          "passed": true
+        }
+      ]
+    }
+  ]
+}

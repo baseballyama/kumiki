@@ -37,6 +37,7 @@
     "check:jsdoc": "node scripts/check-jsdoc.mjs",
     "check:node-compat": "node scripts/check-node-compat.mjs",
     "build:llms-full": "node apps/docs/scripts/build-llms-full.mjs",
+    "build:sizes": "node apps/docs/scripts/build-sizes.mjs",
     "check:all": "pnpm check:layering && pnpm check:locale-shape && pnpm check:jsdoc && pnpm check:node-compat",
     "ci:health": "pnpm check:all && pnpm publint && pnpm attw && pnpm agadoo && pnpm size",
     "prepare": "lefthook install"
