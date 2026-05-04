@@ -156,6 +156,15 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     live: false,
     status: 'preview',
   },
+  {
+    slug: 'machine-accordion',
+    name: '@kumiki/machine-accordion',
+    layer: 2,
+    summary: 'Pure-TS FSM for Accordion — single / multiple expansion modes with focus navigation.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/accordion/',
+    status: 'preview',
+  },
 
   // ── Layer 3 — Attachments ────────────────────────────────────────────────
   {
@@ -252,6 +261,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     summary:
       'Svelte 5 attachments for Form Field — Standard Schema validator runner with race-token dispatch + ARIA wiring.',
     live: false,
+    status: 'preview',
+  },
+  {
+    slug: 'attachment-accordion',
+    name: '@kumiki/attachment-accordion',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for Accordion — root / item / trigger / panel compound primitive with roving-tabindex nav.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/accordion/',
     status: 'preview',
   },
 
@@ -353,6 +372,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     live: true,
     status: 'preview',
   },
+  {
+    slug: 'component-accordion',
+    name: '@kumiki/component-accordion',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Item>` / `<Trigger>` / `<Panel>` for stacked disclosure regions. Generic over item value V; single or multiple expansion modes.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/accordion/',
+    status: 'preview',
+  },
 
   // ── Layer 5 — Recipes (preview) ───────────────────────────────────────────
   {
@@ -395,4 +424,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-tooltip': () => import('./demos/component-tooltip.svelte'),
   'component-select': () => import('./demos/component-select.svelte'),
   'component-form-field': () => import('./demos/component-form-field.svelte'),
+  'component-accordion': () => import('./demos/component-accordion.svelte'),
 };

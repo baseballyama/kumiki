@@ -489,6 +489,93 @@ console.log(m.state); // 'editing' — not 'invalid'`,
     },
   ],
 
+  'component-accordion': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-accordion' },
+    {
+      title: 'Basic — single-expand FAQ',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Root, Item, Trigger, Panel, type AccordionItem } from '@kumiki/component-accordion';
+
+  const items: AccordionItem<string>[] = [
+    { id: 'q1', value: 'q1', label: 'How do I cancel?' },
+    { id: 'q2', value: 'q2', label: 'When am I charged?' },
+    { id: 'q3', value: 'q3', label: 'Refund policy?' },
+  ];
+
+  let value = $state<string | null>(null);
+</script>
+
+<Root {items} bind:value>
+  {#each items as item (item.id)}
+    <Item value={item}>
+      <Trigger value={item}>{item.label}</Trigger>
+      <Panel value={item}>…answer…</Panel>
+    </Item>
+  {/each}
+</Root>`,
+    },
+    {
+      title: 'Multiple-expand mode + non-collapsible',
+      lang: 'svelte',
+      code: `<!-- multiple: any subset can be open simultaneously. -->
+<Root {items} bind:value mode="multiple">
+  …
+</Root>
+
+<!-- single + collapsible=false: at least one must always be open. -->
+<Root {items} bind:value collapsible={false}>
+  …
+</Root>`,
+    },
+  ],
+
+  'machine-accordion': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-accordion' },
+    {
+      title: 'Pure-TS — single vs multiple modes',
+      lang: 'ts',
+      code: `import { createAccordionMachine } from '@kumiki/machine-accordion';
+
+const m = createAccordionMachine({
+  items: [
+    { id: 'a', value: 'general' },
+    { id: 'b', value: 'team' },
+  ],
+  mode: 'single',
+});
+
+m.send({ type: 'TOGGLE', id: 'a' });
+m.send({ type: 'TOGGLE', id: 'b' });
+console.log(m.context.expandedIds); // ['b'] — single mode closes prior
+
+m.send({ type: 'SET.MODE', mode: 'multiple' });
+m.send({ type: 'TOGGLE', id: 'a' });
+console.log(m.context.expandedIds); // ['b', 'a']`,
+    },
+  ],
+
+  'attachment-accordion': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-accordion' },
+    {
+      title: 'Drive your own DOM (compound — root + item + trigger + panel)',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createAccordion } from '@kumiki/attachment-accordion';
+  const c = createAccordion({ items });
+</script>
+
+<div {@attach c.root}>
+  {#each items as it (it.id)}
+    <section {@attach c.item(it)}>
+      <button {@attach c.trigger(it)}>{it.label}</button>
+      <div {@attach c.panel(it)}>…panel content…</div>
+    </section>
+  {/each}
+</div>`,
+    },
+  ],
+
   'component-checkbox': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-checkbox' },
     {

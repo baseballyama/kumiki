@@ -80,8 +80,14 @@ export function createAccordion<V>(options: CreateAccordionOptions<V>): Accordio
   }
 
   let prevExpanded: ReadonlyArray<string> = machine.context.expandedIds;
+  function sameIds(a: ReadonlyArray<string>, b: ReadonlyArray<string>): boolean {
+    if (a === b) return true;
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+    return true;
+  }
   machine.subscribe(({ context }) => {
-    if (context.expandedIds !== prevExpanded) {
+    if (!sameIds(context.expandedIds, prevExpanded)) {
       prevExpanded = context.expandedIds;
       options.onValueChange?.(context.expandedIds);
     }
