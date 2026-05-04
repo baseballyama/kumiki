@@ -43,13 +43,24 @@
     "typescript": "catalog:",
     "vitest": "catalog:",
     "size-limit": "catalog:",
-    "@size-limit/preset-small-lib": "catalog:"
+    "@size-limit/preset-small-lib": "catalog:",
+    "jsdom": "catalog:"
   },
   "size-limit": [
     {
-      "name": "default",
+      "name": "attachment-form-field (incremental)",
       "path": "dist/index.mjs",
-      "limit": "3000 B"
+      "limit": "1.5 KB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machine-form-field"
+      ]
+    },
+    {
+      "name": "attachment-form-field (full first-import)",
+      "path": "dist/index.mjs",
+      "limit": "3 KB"
     }
   ],
   "publishConfig": {
