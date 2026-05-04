@@ -7,6 +7,7 @@
   <nav>
     <a href="/docs/getting-started">Docs</a>
     <a href="/components">Components</a>
+    <a href="/sizes">Sizes</a>
     <a href="/llms.txt">llms.txt</a>
     <a href="https://github.com/baseballyama/kumiki">GitHub</a>
   </nav>
