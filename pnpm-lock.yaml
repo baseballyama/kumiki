@@ -839,6 +839,40 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0))
 
+  packages/components/popover/component:
+    dependencies:
+      '@kumiki/attachment-popover':
+        specifier: workspace:*
+        version: link:../attachment
+    devDependencies:
+      '@size-limit/preset-small-lib':
+        specifier: 'catalog:'
+        version: 12.1.0(size-limit@12.1.0)
+      '@sveltejs/package':
+        specifier: 'catalog:'
+        version: 2.5.7(svelte@5.55.5(@typescript-eslint/types@8.59.1))(typescript@5.9.3)
+      '@sveltejs/vite-plugin-svelte':
+        specifier: 'catalog:'
+        version: 7.0.0(svelte@5.55.5(@typescript-eslint/types@8.59.1))(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0))
+      publint:
+        specifier: 'catalog:'
+        version: 0.3.18
+      size-limit:
+        specifier: 'catalog:'
+        version: 12.1.0
+      svelte:
+        specifier: 'catalog:'
+        version: 5.55.5(@typescript-eslint/types@8.59.1)
+      svelte-check:
+        specifier: 'catalog:'
+        version: 4.4.7(picomatch@4.0.4)(svelte@5.55.5(@typescript-eslint/types@8.59.1))(typescript@5.9.3)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.5(@types/node@22.19.17)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0))
+
   packages/components/popover/machine:
     dependencies:
       '@kumiki/runtime':
@@ -1601,6 +1635,9 @@ importers:
       '@kumiki/component-number-field':
         specifier: workspace:*
         version: link:../../components/number-field/component
+      '@kumiki/component-popover':
+        specifier: workspace:*
+        version: link:../../components/popover/component
       '@kumiki/component-radio-group':
         specifier: workspace:*
         version: link:../../components/radio-group/component

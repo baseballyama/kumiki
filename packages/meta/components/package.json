@@ -2,22 +2,25 @@
   "name": "@kumiki/components",
   "version": "0.0.0",
   "description": "Umbrella package — every Layer 4 (`@kumiki/component-*`) under one install. Auto-generated.",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/meta/components",
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
   "author": "Yuichiro Yamashita",
-  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/meta/components",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/baseballyama/kumiki.git",
     "directory": "packages/meta/components"
   },
-  "bugs": "https://github.com/baseballyama/kumiki/issues",
-  "type": "module",
-  "sideEffects": false,
   "files": [
     "dist",
     "!dist/**/*.test.*",
     "README.md"
   ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
@@ -46,6 +49,10 @@
     "./number-field": {
       "types": "./dist/number-field.d.mts",
       "import": "./dist/number-field.mjs"
+    },
+    "./popover": {
+      "types": "./dist/popover.d.mts",
+      "import": "./dist/popover.mjs"
     },
     "./radio-group": {
       "types": "./dist/radio-group.d.mts",
@@ -77,11 +84,16 @@
     },
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
-  "peerDependencies": {
-    "svelte": "catalog:"
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "tag": "latest"
+  },
+  "scripts": {
+    "build": "tsdown && publint",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
   },
   "dependencies": {
     "@kumiki/component-accordion": "workspace:*",
@@ -90,6 +102,7 @@
     "@kumiki/component-dialog": "workspace:*",
     "@kumiki/component-form-field": "workspace:*",
     "@kumiki/component-number-field": "workspace:*",
+    "@kumiki/component-popover": "workspace:*",
     "@kumiki/component-radio-group": "workspace:*",
     "@kumiki/component-select": "workspace:*",
     "@kumiki/component-slider": "workspace:*",
@@ -98,21 +111,13 @@
     "@kumiki/component-toggle": "workspace:*",
     "@kumiki/component-tooltip": "workspace:*"
   },
-  "scripts": {
-    "build": "tsdown && publint",
-    "dev": "tsdown --watch",
-    "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist"
-  },
   "devDependencies": {
-    "tsdown": "catalog:",
-    "typescript": "catalog:",
+    "publint": "catalog:",
     "svelte": "catalog:",
-    "publint": "catalog:"
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
   },
-  "publishConfig": {
-    "access": "public",
-    "provenance": true,
-    "tag": "latest"
+  "peerDependencies": {
+    "svelte": "catalog:"
   }
 }

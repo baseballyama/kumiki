@@ -22,6 +22,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
+import { execFileSync } from 'node:child_process';
 import prettier from 'prettier';
 
 const ROOT = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..');
@@ -248,6 +249,20 @@ await generateMetaPackage({
   status: 'unreleased',
   entries: recipes,
 });
+
+// Final pass: run oxfmt on the generated trees so the output matches
+// what `pnpm format` would produce. oxfmt normalizes package.json key
+// order in ways prettier does not, so re-running oxfmt here keeps the
+// generator's output stable across `pnpm gen:meta` and `pnpm format`.
+try {
+  execFileSync('pnpm', ['exec', 'oxfmt', 'packages/meta/components', 'packages/meta/recipes'], {
+    cwd: ROOT,
+    stdio: 'pipe',
+  });
+} catch (e) {
+  console.error('oxfmt post-pass failed:', e.message);
+  process.exit(1);
+}
 
 console.log(
   `✓ generated @kumiki/components (${components.length} subpaths) + @kumiki/recipes (${recipes.length} subpaths)`,

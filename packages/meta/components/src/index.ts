@@ -6,6 +6,7 @@ export * as Combobox from '@kumiki/component-combobox';
 export * as Dialog from '@kumiki/component-dialog';
 export * as FormField from '@kumiki/component-form-field';
 export * as NumberField from '@kumiki/component-number-field';
+export * as Popover from '@kumiki/component-popover';
 export * as RadioGroup from '@kumiki/component-radio-group';
 export * as Select from '@kumiki/component-select';
 export * as Slider from '@kumiki/component-slider';

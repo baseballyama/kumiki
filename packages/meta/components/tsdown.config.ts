@@ -9,6 +9,7 @@ export default defineConfig({
     'src/dialog.ts',
     'src/form-field.ts',
     'src/number-field.ts',
+    'src/popover.ts',
     'src/radio-group.ts',
     'src/select.ts',
     'src/slider.ts',
