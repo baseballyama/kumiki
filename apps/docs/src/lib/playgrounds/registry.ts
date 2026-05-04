@@ -138,7 +138,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/',
     status: 'preview',
   },
-  ...(['select', 'form-field'] as const).map(
+  {
+    slug: 'machine-select',
+    name: '@kumiki/machine-select',
+    layer: 2,
+    summary: 'Pure-TS FSM for Select — listbox without free-text input, with type-ahead.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/listbox/',
+    status: 'preview',
+  },
+  ...(['form-field'] as const).map(
     (slug) =>
       ({
         slug: `machine-${slug}`,
@@ -228,7 +237,17 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/',
     status: 'preview',
   },
-  ...(['select', 'form-field'] as const).map(
+  {
+    slug: 'attachment-select',
+    name: '@kumiki/attachment-select',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for Select — trigger / listbox / option compound with active-descendant + typeahead.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/listbox/',
+    status: 'preview',
+  },
+  ...(['form-field'] as const).map(
     (slug) =>
       ({
         slug: `attachment-${slug}`,
@@ -319,7 +338,17 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/',
     status: 'preview',
   },
-  ...(['select', 'form-field'] as const).map(
+  {
+    slug: 'component-select',
+    name: '@kumiki/component-select',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Trigger>` / `<Listbox>` / `<Option>` for picking one of N options. Generic over option value V.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/listbox/',
+    status: 'preview',
+  },
+  ...(['form-field'] as const).map(
     (slug) =>
       ({
         slug: `component-${slug}`,
@@ -370,4 +399,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-tabs': () => import('./demos/component-tabs.svelte'),
   'component-dialog': () => import('./demos/component-dialog.svelte'),
   'component-tooltip': () => import('./demos/component-tooltip.svelte'),
+  'component-select': () => import('./demos/component-select.svelte'),
 };

@@ -321,6 +321,85 @@ console.log(m.state);     // 'closed'`,
     },
   ],
 
+  'component-select': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-select' },
+    {
+      title: 'Basic — typed plan picker',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Root, Trigger, Listbox, Option, type SelectItem } from '@kumiki/component-select';
+
+  type Plan = 'free' | 'pro' | 'enterprise';
+  const plans: SelectItem<Plan>[] = [
+    { id: 'free', value: 'free', label: 'Free' },
+    { id: 'pro', value: 'pro', label: 'Pro' },
+    { id: 'enterprise', value: 'enterprise', label: 'Enterprise' },
+  ];
+
+  let value = $state<Plan | null>('pro');
+</script>
+
+<Root items={plans} bind:value>
+  <Trigger>{value ?? 'Pick a plan'}</Trigger>
+  <Listbox>
+    {#each plans as plan (plan.id)}
+      <Option value={plan}>{plan.label}</Option>
+    {/each}
+  </Listbox>
+</Root>`,
+    },
+    {
+      title: 'Disabled item + clamp navigation',
+      lang: 'svelte',
+      code: `<!-- 'banana' is unfocusable; arrow keys skip it. clamp stops at edges. -->
+<Root items={items} bind:value navigation="clamp">
+  <Trigger>{labelFor(value) ?? 'Pick'}</Trigger>
+  <Listbox>{#each items as it (it.id)}<Option value={it}>{it.label}</Option>{/each}</Listbox>
+</Root>`,
+    },
+  ],
+
+  'machine-select': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-select' },
+    {
+      title: 'Pure-TS — listbox state machine',
+      lang: 'ts',
+      code: `import { createSelectMachine } from '@kumiki/machine-select';
+
+const m = createSelectMachine({
+  items: [
+    { id: '1', value: 'apple', label: 'Apple' },
+    { id: '2', value: 'banana', label: 'Banana', disabled: true },
+    { id: '3', value: 'cherry', label: 'Cherry' },
+  ],
+});
+
+m.send({ type: 'OPEN' });
+m.send({ type: 'NAVIGATE', direction: 'next' });    // skip banana → cherry
+m.send({ type: 'SELECT', id: '3' });
+console.log(m.context.value);                       // 'cherry'`,
+    },
+  ],
+
+  'attachment-select': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-select' },
+    {
+      title: 'Drive your own DOM (compound — trigger + listbox + option)',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createSelect } from '@kumiki/attachment-select';
+  const s = createSelect({ items });
+</script>
+
+<button {@attach s.trigger}>{labelFor(s.value)}</button>
+<ul {@attach s.listbox}>
+  {#each items as it (it.id)}
+    <li {@attach s.option(it)}>{it.label}</li>
+  {/each}
+</ul>`,
+    },
+  ],
+
   'component-checkbox': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-checkbox' },
     {
