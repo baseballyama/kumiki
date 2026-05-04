@@ -129,7 +129,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/',
     status: 'preview',
   },
-  ...(['tooltip', 'select', 'form-field'] as const).map(
+  {
+    slug: 'machine-tooltip',
+    name: '@kumiki/machine-tooltip',
+    layer: 2,
+    summary: 'Pure-TS FSM for Tooltip with configurable open / close delays.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/',
+    status: 'preview',
+  },
+  ...(['select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `machine-${slug}`,
@@ -209,7 +218,17 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/',
     status: 'preview',
   },
-  ...(['tooltip', 'select', 'form-field'] as const).map(
+  {
+    slug: 'attachment-tooltip',
+    name: '@kumiki/attachment-tooltip',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for Tooltip — debounced timers, prefers-reduced-motion, hoverable content.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/',
+    status: 'preview',
+  },
+  ...(['select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `attachment-${slug}`,
@@ -290,7 +309,17 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/',
     status: 'preview',
   },
-  ...(['tooltip', 'select', 'form-field'] as const).map(
+  {
+    slug: 'component-tooltip',
+    name: '@kumiki/component-tooltip',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Trigger>` / `<Content>` for hover/focus tooltips with debounced delays.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/',
+    status: 'preview',
+  },
+  ...(['select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `component-${slug}`,
@@ -340,4 +369,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-radio-group': () => import('./demos/component-radio-group.svelte'),
   'component-tabs': () => import('./demos/component-tabs.svelte'),
   'component-dialog': () => import('./demos/component-dialog.svelte'),
+  'component-tooltip': () => import('./demos/component-tooltip.svelte'),
 };

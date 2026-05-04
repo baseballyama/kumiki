@@ -266,6 +266,61 @@ console.log(m.state);              // 'closed'`,
     },
   ],
 
+  'component-tooltip': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-tooltip' },
+    {
+      title: 'Basic — icon button hint',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import * as Tooltip from '@kumiki/component-tooltip';
+</script>
+
+<Tooltip.Root>
+  <Tooltip.Trigger>?</Tooltip.Trigger>
+  <Tooltip.Content>Help text shown on hover or focus.</Tooltip.Content>
+</Tooltip.Root>`,
+    },
+    {
+      title: 'Custom delays + non-hoverable content',
+      lang: 'svelte',
+      code: `<!-- 0 ms open delay = no debounce; instant. closeDelay still applies. -->
+<Tooltip.Root openDelay={0} closeDelay={150} disableHoverableContent>
+  <Tooltip.Trigger aria-label="Save">⌘S</Tooltip.Trigger>
+  <Tooltip.Content>Save (Cmd/Ctrl + S)</Tooltip.Content>
+</Tooltip.Root>`,
+    },
+  ],
+
+  'machine-tooltip': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-tooltip' },
+    {
+      title: 'Pure-TS — policy-driven open/close',
+      lang: 'ts',
+      code: `import { createTooltipMachine } from '@kumiki/machine-tooltip';
+
+const m = createTooltipMachine({ openDelay: 0, closeDelay: 0 });
+m.send({ type: 'OPEN' });
+console.log(m.state);     // 'open'
+m.send({ type: 'ESCAPE' });
+console.log(m.state);     // 'closed'`,
+    },
+  ],
+
+  'attachment-tooltip': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-tooltip' },
+    {
+      title: 'Drive your own DOM',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createTooltip } from '@kumiki/attachment-tooltip';
+  const t = createTooltip({ openDelay: 500, closeDelay: 200 });
+</script>
+
+<button {@attach t.trigger} aria-label="Save">⌘S</button>
+<div {@attach t.content}>Save (Cmd/Ctrl + S)</div>`,
+    },
+  ],
+
   'component-checkbox': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-checkbox' },
     {

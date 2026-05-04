@@ -1102,6 +1102,9 @@ importers:
       '@size-limit/preset-small-lib':
         specifier: 'catalog:'
         version: 12.1.0(size-limit@12.1.0)
+      jsdom:
+        specifier: 'catalog:'
+        version: 25.0.1
       size-limit:
         specifier: 'catalog:'
         version: 12.1.0
@@ -1127,6 +1130,9 @@ importers:
       '@sveltejs/package':
         specifier: 'catalog:'
         version: 2.5.7(svelte@5.55.5(@typescript-eslint/types@8.59.1))(typescript@5.9.3)
+      '@sveltejs/vite-plugin-svelte':
+        specifier: 'catalog:'
+        version: 7.0.0(svelte@5.55.5(@typescript-eslint/types@8.59.1))(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0))
       publint:
         specifier: 'catalog:'
         version: 0.3.18
