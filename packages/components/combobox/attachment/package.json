@@ -34,6 +34,10 @@
       "types": "./dist/with-async-search/index.d.mts",
       "import": "./dist/with-async-search/index.mjs"
     },
+    "./with-multi-select": {
+      "types": "./dist/with-multi-select/index.d.mts",
+      "import": "./dist/with-multi-select/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -96,6 +100,17 @@
     {
       "name": "with-async-search (incremental, base excluded)",
       "path": "dist/with-async-search/index.mjs",
+      "limit": "750 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machine-combobox",
+        "@kumiki/attachment-combobox"
+      ]
+    },
+    {
+      "name": "with-multi-select (incremental, base excluded)",
+      "path": "dist/with-multi-select/index.mjs",
       "limit": "750 B",
       "ignore": [
         "@kumiki/runtime",
