@@ -26,6 +26,10 @@
       "types": "./dist/index.d.mts",
       "import": "./dist/index.mjs"
     },
+    "./with-validation": {
+      "types": "./dist/with-validation/index.d.mts",
+      "import": "./dist/with-validation/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -73,6 +77,17 @@
       "name": "attachment-combobox (full first-import)",
       "path": "dist/index.mjs",
       "limit": "3250 B"
+    },
+    {
+      "name": "with-validation (incremental, base excluded)",
+      "path": "dist/with-validation/index.mjs",
+      "limit": "750 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machine-combobox",
+        "@kumiki/attachment-combobox"
+      ]
     }
   ]
 }
