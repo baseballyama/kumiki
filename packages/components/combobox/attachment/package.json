@@ -30,6 +30,10 @@
       "types": "./dist/with-validation/index.d.mts",
       "import": "./dist/with-validation/index.mjs"
     },
+    "./with-async-search": {
+      "types": "./dist/with-async-search/index.d.mts",
+      "import": "./dist/with-async-search/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -81,6 +85,17 @@
     {
       "name": "with-validation (incremental, base excluded)",
       "path": "dist/with-validation/index.mjs",
+      "limit": "750 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machine-combobox",
+        "@kumiki/attachment-combobox"
+      ]
+    },
+    {
+      "name": "with-async-search (incremental, base excluded)",
+      "path": "dist/with-async-search/index.mjs",
       "limit": "750 B",
       "ignore": [
         "@kumiki/runtime",
