@@ -176,6 +176,9 @@ importers:
       '@kumiki/component-form-field':
         specifier: workspace:*
         version: link:../../packages/components/form-field/component
+      '@kumiki/component-menu':
+        specifier: workspace:*
+        version: link:../../packages/components/menu/component
       '@kumiki/component-number-field':
         specifier: workspace:*
         version: link:../../packages/components/number-field/component

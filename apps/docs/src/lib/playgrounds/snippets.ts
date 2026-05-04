@@ -804,6 +804,74 @@ console.log(m.context.toasts.length); // 0`,
     },
   ],
 
+  'component-menu': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-menu' },
+    {
+      title: 'Basic — actions menu',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Root, Trigger, Menu, Item, Separator, type MenuItem } from '@kumiki/component-menu';
+
+  const items: MenuItem[] = [
+    { id: 'new', label: 'New file' },
+    { id: 'open', label: 'Open' },
+    { id: 'sep1', label: '', kind: 'separator' },
+    { id: 'export', label: 'Export' },
+  ];
+</script>
+
+<Root {items} onSelect={(it) => console.log('selected', it.id)}>
+  {#snippet children({ items })}
+    <Trigger>Actions</Trigger>
+    <Menu>
+      {#each items as item (item.id)}
+        {#if item.kind === 'separator'}
+          <Separator {item} />
+        {:else}
+          <Item {item}>{item.label}</Item>
+        {/if}
+      {/each}
+    </Menu>
+  {/snippet}
+</Root>`,
+    },
+  ],
+
+  'machine-menu': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-menu' },
+    {
+      title: 'Pure-TS — single-level menu',
+      lang: 'ts',
+      code: `import { createMenuMachine } from '@kumiki/machine-menu';
+
+const m = createMenuMachine({ items: [{ id: 'a', label: 'A' }, { id: 'b', label: 'B' }] });
+m.send({ type: 'OPEN' });
+console.log(m.context.highlightedId); // 'a'
+m.send({ type: 'NAVIGATE', direction: 'next' });
+console.log(m.context.highlightedId); // 'b'`,
+    },
+  ],
+
+  'attachment-menu': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-menu' },
+    {
+      title: 'Drive your own DOM (compound)',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createMenu } from '@kumiki/attachment-menu';
+  const items = [{ id: 'a', label: 'A' }, { id: 'b', label: 'B' }];
+  const m = createMenu({ items, onSelect: (it) => console.log(it.id) });
+</script>
+
+<button {@attach m.trigger}>Open</button>
+<div {@attach m.menu}>
+  {#each items as item (item.id)}
+    <div {@attach m.item(item)}>{item.label}</div>
+  {/each}
+</div>`,
+    },
+  ],
+
   'attachment-accordion': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-accordion' },
     {

@@ -204,6 +204,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/alert/',
     status: 'preview',
   },
+  {
+    slug: 'machine-menu',
+    name: '@kumiki/machine-menu',
+    layer: 2,
+    summary:
+      'Pure-TS FSM for Menu (single-level) — open/close + active-descendant cursor + arrow / Home / End / typeahead. Submenus deferred.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/menubar/',
+    status: 'preview',
+  },
 
   // ── Layer 3 — Attachments ────────────────────────────────────────────────
   {
@@ -350,6 +360,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
       'Svelte 5 attachments for Toast — viewport / item / closeButton with auto-dismiss, hover-pause, and aria-live wiring.',
     live: false,
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/alert/',
+    status: 'preview',
+  },
+  {
+    slug: 'attachment-menu',
+    name: '@kumiki/attachment-menu',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for Menu — trigger / menu / item compound with APG keyboard handling, dismissable wiring, activatedId-driven onSelect.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/menubar/',
     status: 'preview',
   },
 
@@ -501,6 +521,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/alert/',
     status: 'preview',
   },
+  {
+    slug: 'component-menu',
+    name: '@kumiki/component-menu',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Trigger>` / `<Menu>` / `<Item>` / `<Separator>` for action menus. Single-level; submenus deferred.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/menubar/',
+    status: 'preview',
+  },
 
   // ── Layer 5 — Recipes (preview) ───────────────────────────────────────────
   {
@@ -548,4 +578,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-number-field': () => import('./demos/component-number-field.svelte'),
   'component-popover': () => import('./demos/component-popover.svelte'),
   'component-toast': () => import('./demos/component-toast.svelte'),
+  'component-menu': () => import('./demos/component-menu.svelte'),
 };
