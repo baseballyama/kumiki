@@ -85,6 +85,99 @@ console.log(m.context.value);          // 'cherry' (skipped disabled banana)`,
     },
   ],
 
+  'component-tabs': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-tabs' },
+    {
+      title: 'Basic — settings tabs',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Root, List, Tab, Panel, type TabItem } from '@kumiki/component-tabs';
+
+  const items: TabItem[] = [
+    { id: 'account', value: 'account', label: 'Account' },
+    { id: 'team', value: 'team', label: 'Team' },
+    { id: 'security', value: 'security', label: 'Security' },
+  ];
+
+  let value = $state<string | null>('account');
+</script>
+
+<Root {items} bind:value>
+  <List>
+    {#each items as item (item.id)}
+      <Tab value={item}>{item.label}</Tab>
+    {/each}
+  </List>
+  {#each items as item (item.id)}
+    <Panel value={item}>…panel content…</Panel>
+  {/each}
+</Root>`,
+    },
+    {
+      title: 'Manual activation (Enter / Space to commit)',
+      lang: 'svelte',
+      code: `<Root {items} bind:value activation="manual">
+  <!-- Arrow keys move focus only; Enter or Space activates. -->
+  <List>{#each items as it (it.id)}<Tab value={it}>{it.label}</Tab>{/each}</List>
+  {#each items as it (it.id)}<Panel value={it}>{it.label}</Panel>{/each}
+</Root>`,
+    },
+    {
+      title: 'Vertical tablist + RTL',
+      lang: 'svelte',
+      code: `<!-- orientation switches which arrows navigate.
+     direction inverts horizontal arrows; vertical is dir-agnostic. -->
+<Root {items} bind:value orientation="vertical" direction="rtl">
+  <List>{#each items as it (it.id)}<Tab value={it}>{it.label}</Tab>{/each}</List>
+  {#each items as it (it.id)}<Panel value={it}>{it.label}</Panel>{/each}
+</Root>`,
+    },
+  ],
+
+  'machine-tabs': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-tabs' },
+    {
+      title: 'Pure-TS — automatic vs manual activation',
+      lang: 'ts',
+      code: `import { createTabsMachine } from '@kumiki/machine-tabs';
+
+const m = createTabsMachine({
+  items: [
+    { id: 'a', value: 'account' },
+    { id: 'b', value: 'billing', disabled: true },
+    { id: 'c', value: 'team' },
+  ],
+  activation: 'manual',
+});
+
+m.send({ type: 'FOCUS', id: 'c' });
+console.log(m.context.value);          // 'account' (manual: focus ≠ activate)
+m.send({ type: 'ACTIVATE_FOCUSED' });
+console.log(m.context.value);          // 'team'`,
+    },
+  ],
+
+  'attachment-tabs': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-tabs' },
+    {
+      title: 'Drive your own DOM (compound — list + tab + panel)',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createTabs } from '@kumiki/attachment-tabs';
+  const c = createTabs({ items, orientation: 'horizontal' });
+</script>
+
+<div {@attach c.list}>
+  {#each items as it (it.id)}
+    <button {@attach c.tab(it)}>{it.label}</button>
+  {/each}
+</div>
+{#each items as it (it.id)}
+  <div {@attach c.panel(it)}>…content…</div>
+{/each}`,
+    },
+  ],
+
   'component-checkbox': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-checkbox' },
     {

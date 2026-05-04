@@ -111,7 +111,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/radio/',
     status: 'preview',
   },
-  ...(['tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const).map(
+  {
+    slug: 'machine-tabs',
+    name: '@kumiki/machine-tabs',
+    layer: 2,
+    summary: 'Pure-TS FSM for Tabs with manual + automatic activation modes.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/tabs/',
+    status: 'preview',
+  },
+  ...(['dialog', 'tooltip', 'select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `machine-${slug}`,
@@ -171,7 +180,17 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/radio/',
     status: 'preview',
   },
-  ...(['tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const).map(
+  {
+    slug: 'attachment-tabs',
+    name: '@kumiki/attachment-tabs',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for Tabs — list / tab / panel factories with orientation + RTL keyboard handling.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/tabs/',
+    status: 'preview',
+  },
+  ...(['dialog', 'tooltip', 'select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `attachment-${slug}`,
@@ -232,7 +251,17 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/radio/',
     status: 'preview',
   },
-  ...(['tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const).map(
+  {
+    slug: 'component-tabs',
+    name: '@kumiki/component-tabs',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<List>` / `<Tab>` / `<Panel>` for tabbed interfaces with manual + automatic activation.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/tabs/',
+    status: 'preview',
+  },
+  ...(['dialog', 'tooltip', 'select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `component-${slug}`,
@@ -280,4 +309,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-combobox': () => import('./demos/component-combobox.svelte'),
   'component-checkbox': () => import('./demos/component-checkbox.svelte'),
   'component-radio-group': () => import('./demos/component-radio-group.svelte'),
+  'component-tabs': () => import('./demos/component-tabs.svelte'),
 };

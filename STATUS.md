@@ -6,10 +6,9 @@ after every successful commit + push.
 ## TL;DR
 
 Phase 0a (Toggle pilot) and Phase 0b (Combobox design validation) are
-**complete**. Switch / Checkbox / RadioGroup landed end-to-end. Tabs machine
-(Layer 2) is in — attachment + component still pending.
+**complete**. Switch / Checkbox / RadioGroup / Tabs landed end-to-end.
 
-**232 unit tests + 75 Playwright tests = 307 tests passing** at the latest
+**246 unit tests + 92 Playwright tests = 338 tests passing** at the latest
 green push.
 
 ## What runs (verified end-to-end)
@@ -21,7 +20,7 @@ green push.
 | Combobox   |    ✅ 33 tests    |     ✅ 13 tests      |     ✅ 0 errors     |    ✅     | ✅ 11 + 5 |
 | Checkbox   |    ✅ 20 tests    |     ✅ 12 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 8  |
 | RadioGroup |    ✅ 22 tests    |     ✅ 11 tests      |     ✅ 0 errors     |    ✅     | ✅ 8 + 4  |
-| Tabs       |    ✅ 31 tests    |       pending        |       pending       |  pending  |  pending  |
+| Tabs       |    ✅ 31 tests    |     ✅ 14 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 8  |
 
 | Shared package                  | Status                                   |
 | ------------------------------- | :--------------------------------------- |
