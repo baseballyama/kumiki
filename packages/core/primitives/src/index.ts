@@ -17,3 +17,15 @@ export {
   type NavigateDirection,
   type NavigateOptions,
 } from './collection/index.ts';
+export {
+  createFocusTrap,
+  type FocusTarget,
+  type FocusTrap,
+  type FocusTrapOptions,
+} from './focus-trap/index.ts';
+export {
+  createDismissable,
+  type Dismissable,
+  type DismissableOptions,
+  type ElementTarget,
+} from './dismissable/index.ts';
