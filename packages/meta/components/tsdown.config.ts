@@ -15,6 +15,7 @@ export default defineConfig({
     'src/slider.ts',
     'src/switch.ts',
     'src/tabs.ts',
+    'src/toast.ts',
     'src/toggle.ts',
     'src/tooltip.ts',
   ],

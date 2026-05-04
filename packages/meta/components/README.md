@@ -42,6 +42,7 @@ import * as Combobox from '@kumiki/components/combobox';
 - `@kumiki/components/slider` → `@kumiki/component-slider`
 - `@kumiki/components/switch` → `@kumiki/component-switch`
 - `@kumiki/components/tabs` → `@kumiki/component-tabs`
+- `@kumiki/components/toast` → `@kumiki/component-toast`
 - `@kumiki/components/toggle` → `@kumiki/component-toggle`
 - `@kumiki/components/tooltip` → `@kumiki/component-tooltip`
 

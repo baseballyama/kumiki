@@ -12,5 +12,6 @@ export * as Select from '@kumiki/component-select';
 export * as Slider from '@kumiki/component-slider';
 export * as Switch from '@kumiki/component-switch';
 export * as Tabs from '@kumiki/component-tabs';
+export * as Toast from '@kumiki/component-toast';
 export * as Toggle from '@kumiki/component-toggle';
 export * as Tooltip from '@kumiki/component-tooltip';

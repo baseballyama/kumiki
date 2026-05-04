@@ -74,6 +74,10 @@
       "types": "./dist/tabs.d.mts",
       "import": "./dist/tabs.mjs"
     },
+    "./toast": {
+      "types": "./dist/toast.d.mts",
+      "import": "./dist/toast.mjs"
+    },
     "./toggle": {
       "types": "./dist/toggle.d.mts",
       "import": "./dist/toggle.mjs"
@@ -108,6 +112,7 @@
     "@kumiki/component-slider": "workspace:*",
     "@kumiki/component-switch": "workspace:*",
     "@kumiki/component-tabs": "workspace:*",
+    "@kumiki/component-toast": "workspace:*",
     "@kumiki/component-toggle": "workspace:*",
     "@kumiki/component-tooltip": "workspace:*"
   },
