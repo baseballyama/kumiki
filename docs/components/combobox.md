@@ -311,16 +311,23 @@ type Props<T> = {
 
 ## Composition
 
-Available `with*`:
+Optional features layered on top of the base controller. Each is its own
+subpath import and tree-shakes when not used. See
+[combobox-composition.md](combobox-composition.md) for full usage examples
+and bundle costs.
 
-- `withValidation(base, schema)` — Standard Schema validation
-- `withAsyncSearch(base, fetcher)` — async option loading
-- `withAsyncOptions(base, loader)` — lazy initial option set
-- `withVirtualization(base, opts)` — large lists
-- `withMultiSelect(base)` — array `value`
-- `withTypeahead(base, opts)` — character-jump (rarely needed; Combobox already filters)
-- `withControlledOpen(base, opts)` — externally controlled open state
-- `withControlledValue(base, opts)` — externally controlled value
+Shipped (Phase 0b):
+
+- [`withValidation(base, schema)`](combobox-composition.md#withvalidationbase-schema) — Standard Schema validation, race-token guarded
+- [`withAsyncSearch(base, fetcher, opts?)`](combobox-composition.md#withasyncsearchbase-fetcher-options) — abort-aware fetcher
+- [`withMultiSelect(base, initial?)`](combobox-composition.md#withmultiselectbase-initial) — `selected: T[]` semantics
+- [`withVirtualization(base, opts)`](combobox-composition.md#withvirtualizationbase-itemheight-overscan) — fixed-row windowing
+
+Roadmap (not yet shipped):
+
+- `withAsyncOptions(base, loader)` — lazy initial option set (open → fetch)
+- `withTypeahead(base, opts)` — character-jump
+- `withControlledOpen(base, opts)` / `withControlledValue(base, opts)` — externally controlled
 
 ## Related
 
