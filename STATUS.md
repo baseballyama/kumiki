@@ -8,7 +8,7 @@ after every successful commit + push.
 Phase 0a (Toggle pilot) and Phase 0b (Combobox design validation) are
 **complete**. Switch landed end-to-end. Checkbox machine is in.
 
-**148 unit tests + 46 Playwright tests = 194 tests passing** at the latest
+**148 unit tests + 63 Playwright tests = 211 tests passing** at the latest
 green push.
 
 ## What runs (verified end-to-end)
@@ -18,7 +18,7 @@ green push.
 | Toggle    |    ✅ 15 tests    |     ✅ 13 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 6  |
 | Switch    |    ✅ 15 tests    |      ✅ 8 tests      |     ✅ 0 errors     |    ✅     | ✅ 7 + 6  |
 | Combobox  |    ✅ 33 tests    |     ✅ 13 tests      |     ✅ 0 errors     |    ✅     | ✅ 11 + 5 |
-| Checkbox  |    ✅ 20 tests    |     ✅ 12 tests      |         🟡          |    🟡     |    🟡     |
+| Checkbox  |    ✅ 20 tests    |     ✅ 12 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 8  |
 
 | Shared package          | Status                                   |
 | ----------------------- | :--------------------------------------- |

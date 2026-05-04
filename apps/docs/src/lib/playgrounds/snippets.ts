@@ -10,6 +10,79 @@ export interface Snippet {
 }
 
 export const SNIPPETS: Record<string, ReadonlyArray<Snippet>> = {
+  'component-checkbox': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-checkbox' },
+    {
+      title: 'Basic — uncontrolled',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Checkbox } from '@kumiki/component-checkbox';
+  let value = $state<'unchecked' | 'checked' | 'mixed'>('unchecked');
+</script>
+
+<Checkbox.Root bind:value>
+  {value === 'checked' ? '✓' : value === 'mixed' ? '−' : ''}
+</Checkbox.Root>`,
+    },
+    {
+      title: 'Tri-state parent of a group',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Checkbox } from '@kumiki/component-checkbox';
+  let items = $state([
+    { id: 1, checked: false },
+    { id: 2, checked: true },
+    { id: 3, checked: false },
+  ]);
+  // mixed when some-but-not-all children checked
+  const parentValue = $derived(
+    items.every((i) => i.checked)
+      ? 'checked'
+      : items.some((i) => i.checked)
+        ? 'mixed'
+        : 'unchecked',
+  );
+</script>
+
+<Checkbox.Root
+  value={parentValue}
+  onCheckedChange={(v) => items.forEach((i) => (i.checked = v === 'checked'))}>
+  Select all
+</Checkbox.Root>`,
+    },
+  ],
+
+  'machine-checkbox': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-checkbox' },
+    {
+      title: 'Pure-TS tri-state',
+      lang: 'ts',
+      code: `import { createCheckboxMachine } from '@kumiki/machine-checkbox';
+
+const m = createCheckboxMachine({ initial: 'mixed' });
+m.send({ type: 'TOGGLE' });          // mixed → checked (APG tristate)
+console.log(m.context.value);        // 'checked'
+m.send({ type: 'SET', value: 'mixed' });
+console.log(m.state);                // 'mixed'`,
+    },
+  ],
+
+  'attachment-checkbox': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-checkbox' },
+    {
+      title: 'Drive your own DOM',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createCheckbox } from '@kumiki/attachment-checkbox';
+  const c = createCheckbox({ initial: 'unchecked' });
+</script>
+
+<button {@attach c.root}>
+  {c.value === 'checked' ? '✓' : c.value === 'mixed' ? '−' : ''}
+</button>`,
+    },
+  ],
+
   'component-combobox': [
     {
       title: 'Install',

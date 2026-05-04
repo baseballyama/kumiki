@@ -93,9 +93,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/combobox/',
     status: 'preview',
   },
-  ...(
-    ['checkbox', 'radio-group', 'tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const
-  ).map(
+  {
+    slug: 'machine-checkbox',
+    name: '@kumiki/machine-checkbox',
+    layer: 2,
+    summary: 'Pure-TS tri-state FSM (unchecked / checked / mixed) for the Checkbox component.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/',
+    status: 'preview',
+  },
+  ...(['radio-group', 'tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `machine-${slug}`,
@@ -136,9 +143,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/combobox/',
     status: 'preview',
   },
-  ...(
-    ['checkbox', 'radio-group', 'tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const
-  ).map(
+  {
+    slug: 'attachment-checkbox',
+    name: '@kumiki/attachment-checkbox',
+    layer: 3,
+    summary: 'Svelte 5 attachment for Checkbox. Tri-state aria-checked (true/false/mixed).',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/',
+    status: 'preview',
+  },
+  ...(['radio-group', 'tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `attachment-${slug}`,
@@ -180,9 +194,17 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/combobox/',
     status: 'preview',
   },
-  ...(
-    ['checkbox', 'radio-group', 'tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const
-  ).map(
+  {
+    slug: 'component-checkbox',
+    name: '@kumiki/component-checkbox',
+    layer: 4,
+    summary:
+      'Compound `<Checkbox.Root>` for tri-state form checkboxes (role=checkbox, aria-checked).',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/',
+    status: 'preview',
+  },
+  ...(['radio-group', 'tabs', 'dialog', 'tooltip', 'select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `component-${slug}`,
@@ -228,4 +250,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'attachment-toggle': () => import('./demos/attachment-toggle.svelte'),
   'component-switch': () => import('./demos/component-switch.svelte'),
   'component-combobox': () => import('./demos/component-combobox.svelte'),
+  'component-checkbox': () => import('./demos/component-checkbox.svelte'),
 };
