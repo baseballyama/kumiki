@@ -43,13 +43,24 @@
     "typescript": "catalog:",
     "vitest": "catalog:",
     "size-limit": "catalog:",
-    "@size-limit/preset-small-lib": "catalog:"
+    "@size-limit/preset-small-lib": "catalog:",
+    "jsdom": "catalog:"
   },
   "size-limit": [
     {
-      "name": "default",
+      "name": "attachment-select (incremental)",
       "path": "dist/index.mjs",
-      "limit": "4500 B"
+      "limit": "2.5 KB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machine-select"
+      ]
+    },
+    {
+      "name": "attachment-select (full first-import)",
+      "path": "dist/index.mjs",
+      "limit": "4 KB"
     }
   ],
   "publishConfig": {
