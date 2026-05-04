@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "ignorePatterns": [
+    "**/dist/**",
+    "**/.svelte-kit/**",
+    "**/node_modules/**",
+    "**/coverage/**",
+    "references/**",
+    "**/*.svelte",
+    "pnpm-lock.yaml",
+    "flake.lock"
+  ]
+}

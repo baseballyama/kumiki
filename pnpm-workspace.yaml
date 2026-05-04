@@ -51,11 +51,12 @@ catalog:
   '@microsoft/api-extractor': ^7.58.7
 
   # --- lint / format ---
-  eslint: ^10.3.0
-  '@eslint/js': ^10.0.1
-  'eslint-plugin-svelte': ^3.17.1
-  'svelte-eslint-parser': ^1.6.0
-  '@typescript-eslint/parser': ^8.59.1
+  # Migrated 2026-05 from ESLint + Prettier to the oxc toolchain. Rust-
+  # native, ~30–100× faster, and shared config between every package.
+  # Prettier is kept ONLY for .svelte files until oxfmt's bundled Svelte
+  # support stabilizes (oxc-project/oxc#19715).
+  oxlint: ^1.62.0
+  oxfmt: ^0.47.0
   prettier: ^3.8.3
   'prettier-plugin-svelte': ^3.5.1
 

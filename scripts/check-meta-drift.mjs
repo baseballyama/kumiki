@@ -6,7 +6,6 @@
 // anything would change, exits non-zero with a one-line hint pointing
 // the contributor at `pnpm gen:meta`.
 
-import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 import { execFileSync } from 'node:child_process';

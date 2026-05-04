@@ -1,0 +1,48 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "warn",
+    "style": "off",
+    "pedantic": "off",
+    "restriction": "off",
+    "nursery": "off"
+  },
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
+    "no-undef": "off",
+    "no-shadow": "off",
+    "no-underscore-dangle": "off",
+    "no-await-in-loop": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "unicorn/require-module-specifiers": "off",
+    "unicorn/no-array-sort": "off",
+    "unicorn/consistent-function-scoping": "off",
+    "unicorn/no-useless-fallback-in-spread": "off",
+    "unicorn/prefer-dom-node-append": "off",
+    "oxc/no-accumulating-spread": "off"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2022": true
+  },
+  "ignorePatterns": [
+    "**/dist/**",
+    "**/.svelte-kit/**",
+    "**/node_modules/**",
+    "**/coverage/**",
+    "references/**",
+    "packages/meta/**/src/**"
+  ]
+}

@@ -2,22 +2,25 @@
   "name": "@kumiki/attachment-combobox",
   "version": "0.0.0",
   "description": "Svelte 5 attachments (Layer 3) for combobox — reactive bindings to @kumiki/machine-combobox.",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/combobox/attachment",
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
   "author": "Yuichiro Yamashita",
-  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/combobox/attachment",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/baseballyama/kumiki.git",
     "directory": "packages/components/combobox/attachment"
   },
-  "bugs": "https://github.com/baseballyama/kumiki/issues",
-  "type": "module",
-  "sideEffects": false,
   "files": [
     "dist",
     "!dist/**/*.test.*",
     "README.md"
   ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
@@ -25,26 +28,35 @@
     },
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src",
+    "lint": "oxlint src",
     "size": "size-limit",
     "clean": "rm -rf dist"
   },
+  "dependencies": {
+    "@kumiki/machine-combobox": "workspace:*",
+    "@kumiki/primitives": "workspace:*",
+    "@kumiki/runtime": "workspace:*"
+  },
   "devDependencies": {
+    "@size-limit/preset-small-lib": "catalog:",
+    "jsdom": "catalog:",
+    "size-limit": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:",
-    "size-limit": "catalog:",
-    "@size-limit/preset-small-lib": "catalog:",
-    "jsdom": "catalog:"
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "svelte": "catalog:"
   },
   "size-limit": [
     {
@@ -62,17 +74,5 @@
       "path": "dist/index.mjs",
       "limit": "3250 B"
     }
-  ],
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
-  "peerDependencies": {
-    "svelte": "catalog:"
-  },
-  "dependencies": {
-    "@kumiki/machine-combobox": "workspace:*",
-    "@kumiki/runtime": "workspace:*",
-    "@kumiki/primitives": "workspace:*"
-  }
+  ]
 }

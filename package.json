@@ -3,28 +3,23 @@
   "version": "0.0.0",
   "private": true,
   "description": "Headless, composable, deeply accessible UI primitives for Svelte 5",
+  "homepage": "https://github.com/baseballyama/kumiki",
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
   "author": "Yuichiro Yamashita",
-  "homepage": "https://github.com/baseballyama/kumiki",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/baseballyama/kumiki.git"
   },
-  "bugs": "https://github.com/baseballyama/kumiki/issues",
   "type": "module",
-  "engines": {
-    "node": ">=22.0.0",
-    "pnpm": ">=9.0.0"
-  },
-  "packageManager": "pnpm@9.15.0",
   "scripts": {
     "build": "pnpm -r --filter='@kumiki/*' run build",
     "build:docs": "pnpm --filter='@kumiki/docs' run build",
     "test": "pnpm -r run test",
     "test:e2e": "pnpm --filter='@kumiki/docs' run test:e2e",
-    "lint": "pnpm -r run lint",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "lint": "oxlint",
+    "format": "oxfmt . && prettier --write '**/*.svelte'",
+    "format:check": "oxfmt . --check && prettier --check '**/*.svelte'",
     "typecheck": "pnpm -r run typecheck",
     "size": "pnpm -r --filter='@kumiki/*' --filter='!@kumiki/component-*' --filter='!@kumiki/recipes-*' --filter='!@kumiki/docs' run size",
     "publint": "pnpm -r --filter='@kumiki/*' --filter='!@kumiki/docs' exec publint",
@@ -45,22 +40,24 @@
     "prepare": "lefthook install"
   },
   "devDependencies": {
-    "@changesets/cli": "catalog:",
-    "@changesets/changelog-github": "catalog:",
     "@arethetypeswrong/cli": "catalog:",
-    "agadoo": "catalog:",
-    "publint": "catalog:",
-    "size-limit": "catalog:",
-    "@size-limit/preset-small-lib": "catalog:",
+    "@changesets/changelog-github": "catalog:",
+    "@changesets/cli": "catalog:",
     "@size-limit/esbuild": "catalog:",
+    "@size-limit/preset-small-lib": "catalog:",
+    "agadoo": "catalog:",
+    "lefthook": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-svelte": "catalog:",
-    "eslint": "catalog:",
-    "@eslint/js": "catalog:",
-    "eslint-plugin-svelte": "catalog:",
-    "svelte-eslint-parser": "catalog:",
-    "@typescript-eslint/parser": "catalog:",
-    "typescript": "catalog:",
-    "lefthook": "catalog:"
-  }
+    "publint": "catalog:",
+    "size-limit": "catalog:",
+    "typescript": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.15.0"
 }

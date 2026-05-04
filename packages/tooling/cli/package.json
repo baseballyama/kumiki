@@ -2,22 +2,28 @@
   "name": "@kumiki/cli",
   "version": "0.0.0",
   "description": "Kumiki CLI: copy Layer 5 recipes into a project.",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/tooling/cli",
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
   "author": "Yuichiro Yamashita",
-  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/tooling/cli",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/baseballyama/kumiki.git",
     "directory": "packages/tooling/cli"
   },
-  "bugs": "https://github.com/baseballyama/kumiki/issues",
-  "type": "module",
-  "sideEffects": false,
+  "bin": {
+    "kumiki": "./dist/bin/kumiki.mjs"
+  },
   "files": [
     "dist",
     "!dist/**/*.test.*",
     "README.md"
   ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
@@ -25,26 +31,28 @@
     },
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src",
+    "lint": "oxlint src",
     "size": "size-limit",
     "clean": "rm -rf dist"
   },
+  "dependencies": {},
   "devDependencies": {
+    "@size-limit/preset-small-lib": "catalog:",
+    "@types/node": "^22.10.0",
+    "size-limit": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:",
-    "size-limit": "catalog:",
-    "@size-limit/preset-small-lib": "catalog:",
-    "@types/node": "^22.10.0"
+    "vitest": "catalog:"
   },
   "size-limit": [
     {
@@ -52,13 +60,5 @@
       "path": "dist/index.mjs",
       "limit": "30 KB"
     }
-  ],
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
-  "bin": {
-    "kumiki": "./dist/bin/kumiki.mjs"
-  },
-  "dependencies": {}
+  ]
 }

@@ -5,15 +5,21 @@
 pre-commit:
   parallel: true
   jobs:
-    - name: format
-      glob: '*.{ts,svelte,svelte.ts,json,md,yml,yaml}'
+    - name: format-non-svelte
+      # oxfmt handles TS/JS/JSON/MD/YAML/etc.; .svelte stays on prettier
+      # via prettier-plugin-svelte until oxfmt's bundled Svelte support
+      # stabilizes (oxc-project/oxc#19715).
+      glob: '*.{ts,svelte.ts,js,mjs,cjs,json,md,yml,yaml}'
+      run: pnpm exec oxfmt --check {staged_files}
+      stage_fixed: true
+    - name: format-svelte
+      glob: '*.svelte'
       run: pnpm exec prettier --check {staged_files}
       stage_fixed: true
     - name: lint
       glob: '*.{ts,svelte,svelte.ts}'
-      run: pnpm exec eslint {staged_files}
+      run: pnpm exec oxlint {staged_files}
     - name: layering
-      # Cheap; runs on every commit.
       run: pnpm check:layering
     - name: locale-shape
       glob: 'packages/locale/**'

@@ -91,7 +91,7 @@ for (const pkgPath of findPackageJsons(PACKAGES)) {
     // Locate the JSON array start defensively.
     const start = raw.indexOf('[');
     entries = JSON.parse(raw.slice(start));
-  } catch (err) {
+  } catch (_err) {
     anyFailure = true;
     console.error(`✘ ${pkg.name}: could not parse size-limit JSON`);
     console.error(raw);

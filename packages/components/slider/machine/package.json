@@ -2,22 +2,25 @@
   "name": "@kumiki/machine-slider",
   "version": "0.0.0",
   "description": "Pure-TS finite state machine for the slider component.",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/slider/machine",
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
   "author": "Yuichiro Yamashita",
-  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/slider/machine",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/baseballyama/kumiki.git",
     "directory": "packages/components/slider/machine"
   },
-  "bugs": "https://github.com/baseballyama/kumiki/issues",
-  "type": "module",
-  "sideEffects": false,
   "files": [
     "dist",
     "!dist/**/*.test.*",
     "README.md"
   ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
@@ -25,25 +28,29 @@
     },
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src",
+    "lint": "oxlint src",
     "size": "size-limit",
     "clean": "rm -rf dist"
   },
+  "dependencies": {
+    "@kumiki/runtime": "workspace:*"
+  },
   "devDependencies": {
+    "@size-limit/preset-small-lib": "catalog:",
+    "size-limit": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:",
-    "size-limit": "catalog:",
-    "@size-limit/preset-small-lib": "catalog:"
+    "vitest": "catalog:"
   },
   "size-limit": [
     {
@@ -51,12 +58,5 @@
       "path": "dist/index.mjs",
       "limit": "1450 B"
     }
-  ],
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
-  "dependencies": {
-    "@kumiki/runtime": "workspace:*"
-  }
+  ]
 }

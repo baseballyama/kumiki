@@ -2,22 +2,25 @@
   "name": "@kumiki/locale",
   "version": "0.0.0",
   "description": "Locale data — dynamically importable per language. Initial set: en, ja, zh-Hans, zh-Hant, ko, es, fr, de, ar, he.",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/core/locale",
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
   "author": "Yuichiro Yamashita",
-  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/core/locale",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/baseballyama/kumiki.git",
     "directory": "packages/core/locale"
   },
-  "bugs": "https://github.com/baseballyama/kumiki/issues",
-  "type": "module",
-  "sideEffects": false,
   "files": [
     "dist",
     "!dist/**/*.test.*",
     "README.md"
   ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
@@ -65,25 +68,26 @@
       "import": "./dist/he/index.mjs"
     }
   },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src",
+    "lint": "oxlint src",
     "size": "size-limit",
     "clean": "rm -rf dist"
   },
   "devDependencies": {
+    "@size-limit/preset-small-lib": "catalog:",
+    "size-limit": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:",
-    "size-limit": "catalog:",
-    "@size-limit/preset-small-lib": "catalog:"
+    "vitest": "catalog:"
   },
   "size-limit": [
     {
@@ -136,9 +140,5 @@
       "path": "dist/he/index.mjs",
       "limit": "1 KB"
     }
-  ],
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  }
+  ]
 }
