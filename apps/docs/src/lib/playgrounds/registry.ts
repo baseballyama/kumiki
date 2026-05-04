@@ -184,6 +184,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/',
     status: 'preview',
   },
+  {
+    slug: 'machine-popover',
+    name: '@kumiki/machine-popover',
+    layer: 2,
+    summary:
+      'Pure-TS FSM for Popover — non-modal disclosure with closeOnEscape / closeOnOutsideClick policy flags.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog/',
+    status: 'preview',
+  },
 
   // ── Layer 3 — Attachments ────────────────────────────────────────────────
   {
@@ -310,6 +320,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
       'Svelte 5 attachments for NumberField — root / input / increment / decrement with spinbutton ARIA + format/parse hooks.',
     live: false,
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/',
+    status: 'preview',
+  },
+  {
+    slug: 'attachment-popover',
+    name: '@kumiki/attachment-popover',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for Popover — trigger / content / close / title / description with dismissable + focus-on-open wiring.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog/',
     status: 'preview',
   },
 
@@ -441,6 +461,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/',
     status: 'preview',
   },
+  {
+    slug: 'component-popover',
+    name: '@kumiki/component-popover',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Trigger>` / `<Content>` / `<Close>` / `<Title>` / `<Description>` for click-anchored non-modal disclosure.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog/',
+    status: 'preview',
+  },
 
   // ── Layer 5 — Recipes (preview) ───────────────────────────────────────────
   {
@@ -486,4 +516,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-accordion': () => import('./demos/component-accordion.svelte'),
   'component-slider': () => import('./demos/component-slider.svelte'),
   'component-number-field': () => import('./demos/component-number-field.svelte'),
+  'component-popover': () => import('./demos/component-popover.svelte'),
 };

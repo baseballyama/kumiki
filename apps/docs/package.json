@@ -28,6 +28,7 @@
     "@kumiki/component-dialog": "workspace:*",
     "@kumiki/component-form-field": "workspace:*",
     "@kumiki/component-number-field": "workspace:*",
+    "@kumiki/component-popover": "workspace:*",
     "@kumiki/component-radio-group": "workspace:*",
     "@kumiki/component-select": "workspace:*",
     "@kumiki/component-slider": "workspace:*",

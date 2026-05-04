@@ -24,6 +24,7 @@
   {...rest}
   role="dialog"
   aria-labelledby={controller.titleId}
+  aria-describedby={controller.descriptionId}
   data-component-host="popover"
   data-state={initialOpen ? 'open' : 'closed'}
   hidden={!initialOpen || undefined}

@@ -179,6 +179,9 @@ importers:
       '@kumiki/component-number-field':
         specifier: workspace:*
         version: link:../../packages/components/number-field/component
+      '@kumiki/component-popover':
+        specifier: workspace:*
+        version: link:../../packages/components/popover/component
       '@kumiki/component-radio-group':
         specifier: workspace:*
         version: link:../../packages/components/radio-group/component

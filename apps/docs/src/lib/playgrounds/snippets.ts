@@ -680,6 +680,60 @@ console.log(m.context.value); // null`,
     },
   ],
 
+  'component-popover': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-popover' },
+    {
+      title: 'Basic — share menu',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Root, Trigger, Content, Title, Close } from '@kumiki/component-popover';
+  let open = $state(false);
+</script>
+
+<Root bind:open>
+  <Trigger>Share</Trigger>
+  <Content>
+    <Title>Share this page</Title>
+    <button>Copy link</button>
+    <Close>Done</Close>
+  </Content>
+</Root>`,
+    },
+  ],
+
+  'machine-popover': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-popover' },
+    {
+      title: 'Pure-TS — non-modal lifecycle',
+      lang: 'ts',
+      code: `import { createPopoverMachine } from '@kumiki/machine-popover';
+
+const m = createPopoverMachine({ closeOnEscape: true });
+m.send({ type: 'OPEN' });
+console.log(m.state); // 'open'
+m.send({ type: 'ESCAPE' });
+console.log(m.state); // 'closed'`,
+    },
+  ],
+
+  'attachment-popover': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-popover' },
+    {
+      title: 'Drive your own DOM (compound)',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createPopover } from '@kumiki/attachment-popover';
+  const p = createPopover();
+</script>
+
+<button {@attach p.trigger}>Share</button>
+<div {@attach p.content}>
+  <h2 {@attach p.title}>Share this page</h2>
+  <button {@attach p.close}>Done</button>
+</div>`,
+    },
+  ],
+
   'attachment-accordion': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-accordion' },
     {

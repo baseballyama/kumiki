@@ -16,6 +16,6 @@
   const { controller } = getContext<PopoverContextValue>(POPOVER_CONTEXT_KEY);
 </script>
 
-<h2 data-component-part="title" {...rest} {@attach controller.title}>
+<h2 {...rest} id={controller.titleId} data-component-part="title" {@attach controller.title}>
   {#if children}{@render children()}{/if}
 </h2>
