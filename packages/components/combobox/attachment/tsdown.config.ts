@@ -6,6 +6,7 @@ export default defineConfig({
     'src/with-validation/index.ts',
     'src/with-async-search/index.ts',
     'src/with-multi-select/index.ts',
+    'src/with-virtualization/index.ts',
   ],
   format: ['esm'],
   dts: true,
