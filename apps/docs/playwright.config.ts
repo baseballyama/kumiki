@@ -29,6 +29,13 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
     {
+      name: 'keyboard',
+      // Hand-transcribed APG keyboard contracts driven through the harness.
+      // See docs/design/05-accessibility.md §5.4.
+      testMatch: /.*\.kb\.test\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
       name: 'screen-reader',
       // Guidepup runs only on macos-latest / windows-latest in CI.
       // Locally, this project is skipped unless GUIDEPUP=1 is set.
