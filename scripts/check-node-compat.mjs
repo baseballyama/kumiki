@@ -54,6 +54,8 @@ for (const pkgPath of findPackageJsons(PACKAGES)) {
   if (pkg.name.startsWith('@kumiki/component-') || pkg.name.startsWith('@kumiki/recipes-')) {
     continue;
   }
+  // Same applies to the umbrella packages that re-export Layer 4 / Layer 5.
+  if (pkg.name === '@kumiki/components' || pkg.name === '@kumiki/recipes') continue;
   // Skip cli — it has a bin shebang, separate concern.
   if (pkg.name === '@kumiki/cli') continue;
 

@@ -42,7 +42,9 @@ function layerOf(pkgName) {
   if (pkgName === '@kumiki/runtime' || pkgName.startsWith('@kumiki/machine-')) return 2;
   if (pkgName.startsWith('@kumiki/attachment-')) return 3;
   if (pkgName.startsWith('@kumiki/component-')) return 4;
+  if (pkgName === '@kumiki/components') return 4; // Layer 4 umbrella
   if (pkgName.startsWith('@kumiki/recipes-')) return 5;
+  if (pkgName === '@kumiki/recipes') return 5; // Layer 5 umbrella
   if (pkgName === '@kumiki/cli') return 5; // tooling, treated as Layer 5
   if (pkgName === '@kumiki/docs') return 5; // app
   return null;

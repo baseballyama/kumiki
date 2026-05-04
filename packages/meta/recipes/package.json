@@ -1,0 +1,63 @@
+{
+  "name": "@kumiki/recipes",
+  "version": "0.0.0",
+  "description": "Umbrella package — every Layer 5 (`@kumiki/recipes-*`) under one install. Auto-generated; published 0.x.x-preview during the v1.0 series.",
+  "license": "MIT",
+  "author": "Yuichiro Yamashita",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/meta/recipes",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baseballyama/kumiki.git",
+    "directory": "packages/meta/recipes"
+  },
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./dialog": {
+      "types": "./dist/dialog.d.mts",
+      "import": "./dist/dialog.mjs"
+    },
+    "./toggle": {
+      "types": "./dist/toggle.d.mts",
+      "import": "./dist/toggle.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "peerDependencies": {
+    "svelte": "catalog:"
+  },
+  "dependencies": {
+    "@kumiki/recipes-dialog": "workspace:*",
+    "@kumiki/recipes-toggle": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsdown && publint",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "svelte": "catalog:",
+    "publint": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "tag": "preview"
+  }
+}

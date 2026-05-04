@@ -1,0 +1,118 @@
+{
+  "name": "@kumiki/components",
+  "version": "0.0.0",
+  "description": "Umbrella package — every Layer 4 (`@kumiki/component-*`) under one install. Auto-generated.",
+  "license": "MIT",
+  "author": "Yuichiro Yamashita",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/meta/components",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baseballyama/kumiki.git",
+    "directory": "packages/meta/components"
+  },
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./accordion": {
+      "types": "./dist/accordion.d.mts",
+      "import": "./dist/accordion.mjs"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox.d.mts",
+      "import": "./dist/checkbox.mjs"
+    },
+    "./combobox": {
+      "types": "./dist/combobox.d.mts",
+      "import": "./dist/combobox.mjs"
+    },
+    "./dialog": {
+      "types": "./dist/dialog.d.mts",
+      "import": "./dist/dialog.mjs"
+    },
+    "./form-field": {
+      "types": "./dist/form-field.d.mts",
+      "import": "./dist/form-field.mjs"
+    },
+    "./number-field": {
+      "types": "./dist/number-field.d.mts",
+      "import": "./dist/number-field.mjs"
+    },
+    "./radio-group": {
+      "types": "./dist/radio-group.d.mts",
+      "import": "./dist/radio-group.mjs"
+    },
+    "./select": {
+      "types": "./dist/select.d.mts",
+      "import": "./dist/select.mjs"
+    },
+    "./slider": {
+      "types": "./dist/slider.d.mts",
+      "import": "./dist/slider.mjs"
+    },
+    "./switch": {
+      "types": "./dist/switch.d.mts",
+      "import": "./dist/switch.mjs"
+    },
+    "./tabs": {
+      "types": "./dist/tabs.d.mts",
+      "import": "./dist/tabs.mjs"
+    },
+    "./toggle": {
+      "types": "./dist/toggle.d.mts",
+      "import": "./dist/toggle.mjs"
+    },
+    "./tooltip": {
+      "types": "./dist/tooltip.d.mts",
+      "import": "./dist/tooltip.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "peerDependencies": {
+    "svelte": "catalog:"
+  },
+  "dependencies": {
+    "@kumiki/component-accordion": "workspace:*",
+    "@kumiki/component-checkbox": "workspace:*",
+    "@kumiki/component-combobox": "workspace:*",
+    "@kumiki/component-dialog": "workspace:*",
+    "@kumiki/component-form-field": "workspace:*",
+    "@kumiki/component-number-field": "workspace:*",
+    "@kumiki/component-radio-group": "workspace:*",
+    "@kumiki/component-select": "workspace:*",
+    "@kumiki/component-slider": "workspace:*",
+    "@kumiki/component-switch": "workspace:*",
+    "@kumiki/component-tabs": "workspace:*",
+    "@kumiki/component-toggle": "workspace:*",
+    "@kumiki/component-tooltip": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsdown && publint",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "svelte": "catalog:",
+    "publint": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "tag": "latest"
+  }
+}

@@ -3,6 +3,7 @@ packages:
   - 'packages/core/*'
   - 'packages/components/*/*'
   - 'packages/recipes/*'
+  - 'packages/meta/*'
   - 'packages/tooling/*'
   - 'apps/*'
 
