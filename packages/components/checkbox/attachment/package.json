@@ -43,13 +43,24 @@
     "typescript": "catalog:",
     "vitest": "catalog:",
     "size-limit": "catalog:",
-    "@size-limit/preset-small-lib": "catalog:"
+    "@size-limit/preset-small-lib": "catalog:",
+    "jsdom": "catalog:"
   },
   "size-limit": [
     {
-      "name": "default",
+      "name": "attachment-checkbox (incremental, runtime/primitives/machine excluded)",
       "path": "dist/index.mjs",
-      "limit": "1500 B"
+      "limit": "800 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machine-checkbox"
+      ]
+    },
+    {
+      "name": "attachment-checkbox (full first-import — tri-state +200B vs binary toggle/switch)",
+      "path": "dist/index.mjs",
+      "limit": "1700 B"
     }
   ],
   "publishConfig": {
