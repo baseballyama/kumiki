@@ -136,14 +136,25 @@ To preserve the user's "ガッチガチに品質保証" mandate, I'm being expli
 
 5. **Reference submodule `react-spectrum` is 217 MB shallow.** Anyone cloning the repo with `--recurse-submodules` pays the cost. The `update = none` setting in `.gitmodules` plus `submodules: false` in CI means it's opt-in.
 
+## Blocked
+
+_Empty. Populated by the `/loop` autonomous run when it cannot proceed — see `docs/release/autonomous-loop.md` for the prompt and stop conditions._
+
 ## How to resume
 
-Recommended order for the next maintainer / next session:
+### Continuing autonomously while away
 
-1. **Push to GitHub.** `git remote add origin git@github.com:baseballyama/kumiki.git && git push -u origin main`. CI will run on the first push.
-2. **Apply branch protection** per `docs/release/branch-protection.md`.
-3. **Set up Cloudflare Pages.** Manual; documented above.
-4. **Configure npm secrets and confirm `@kumiki/runtime` and `@kumiki/primitives` publish under the `preview` tag** via the snapshot workflow.
-5. **Phase 0b: Combobox.** Take the Toggle stack as the template; copy/adapt to combobox-shaped state machine, controller, and compound API.
+See [`docs/release/autonomous-loop.md`](docs/release/autonomous-loop.md) for the `/loop` setup, prep checklist, and the verbatim prompt to paste.
 
-That ordering puts the smallest in-the-loop step first (push + verify CI), then unblocks the maintenance flow before adding more components.
+### Manual resume (after a trip / break)
+
+1. `git pull --ff-only` then read this file's "Blocked" section.
+2. `pnpm install` if `pnpm-lock.yaml` changed.
+3. `pnpm test && pnpm ci:health` to confirm the codebase is green.
+4. If "Blocked" is non-empty, address the blocking decision; otherwise pick up the next priority from `docs/design/15-roadmap.md`.
+
+### Initial GitHub setup (one-time)
+
+1. **Apply branch protection** per `docs/release/branch-protection.md`.
+2. **Set up Cloudflare Pages** for the docs site.
+3. **Configure npm secrets** and confirm `@kumiki/runtime` and `@kumiki/primitives` publish under the `preview` tag via the snapshot workflow.
