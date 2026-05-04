@@ -6,9 +6,10 @@ after every successful commit + push.
 ## TL;DR
 
 Phase 0a (Toggle pilot) and Phase 0b (Combobox design validation) are
-**complete**. Switch / Checkbox / RadioGroup / Tabs landed end-to-end.
+**complete**. Switch / Checkbox / RadioGroup / Tabs / Dialog landed end-to-end.
+focus-trap + dismissable Layer 1 primitives shipped.
 
-**246 unit tests + 92 Playwright tests = 338 tests passing** at the latest
+**281 unit tests + 104 Playwright tests = 385 tests passing** at the latest
 green push.
 
 ## What runs (verified end-to-end)
@@ -21,14 +22,17 @@ green push.
 | Checkbox   |    ✅ 20 tests    |     ✅ 12 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 8  |
 | RadioGroup |    ✅ 22 tests    |     ✅ 11 tests      |     ✅ 0 errors     |    ✅     | ✅ 8 + 4  |
 | Tabs       |    ✅ 31 tests    |     ✅ 14 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 8  |
+| Dialog     |    ✅ 20 tests    |     ✅ 15 tests      |     ✅ 0 errors     |    ✅     | ✅ 8 + 4  |
 
-| Shared package                  | Status                                   |
-| ------------------------------- | :--------------------------------------- |
-| `@kumiki/runtime`               | ✅ 15 tests, transition arrays supported |
-| `@kumiki/primitives/id`         | ✅ 4 tests, 174 B brotli ≤ 500 B budget  |
-| `@kumiki/primitives/collection` | ✅ 20 tests, 369 B brotli ≤ 500 B budget |
-| `@kumiki/types`                 | placeholder (no exports yet)             |
-| `@kumiki/locale/<lang>`         | placeholders for 10 languages            |
+| Shared package                   | Status                                   |
+| -------------------------------- | :--------------------------------------- |
+| `@kumiki/runtime`                | ✅ 15 tests, transition arrays supported |
+| `@kumiki/primitives/id`          | ✅ 4 tests, 174 B brotli ≤ 500 B budget  |
+| `@kumiki/primitives/collection`  | ✅ 20 tests, 369 B brotli ≤ 500 B budget |
+| `@kumiki/primitives/focus-trap`  | ✅ 12 tests, 434 B brotli ≤ 500 B budget |
+| `@kumiki/primitives/dismissable` | ✅ 10 tests, 295 B brotli ≤ 500 B budget |
+| `@kumiki/types`                  | placeholder (no exports yet)             |
+| `@kumiki/locale/<lang>`          | placeholders for 10 languages            |
 
 ## What's wired but not yet exercised on real code
 

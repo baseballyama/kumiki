@@ -120,7 +120,16 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/tabs/',
     status: 'preview',
   },
-  ...(['dialog', 'tooltip', 'select', 'form-field'] as const).map(
+  {
+    slug: 'machine-dialog',
+    name: '@kumiki/machine-dialog',
+    layer: 2,
+    summary: 'Pure-TS FSM for Dialog with policy-driven Escape / outside-click dismissal.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/',
+    status: 'preview',
+  },
+  ...(['tooltip', 'select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `machine-${slug}`,
@@ -190,7 +199,17 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/tabs/',
     status: 'preview',
   },
-  ...(['dialog', 'tooltip', 'select', 'form-field'] as const).map(
+  {
+    slug: 'attachment-dialog',
+    name: '@kumiki/attachment-dialog',
+    layer: 3,
+    summary:
+      'Svelte 5 attachments for Dialog — trigger / content / overlay / close + focus-trap + dismissable + sibling inert.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/',
+    status: 'preview',
+  },
+  ...(['tooltip', 'select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `attachment-${slug}`,
@@ -261,7 +280,17 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/tabs/',
     status: 'preview',
   },
-  ...(['dialog', 'tooltip', 'select', 'form-field'] as const).map(
+  {
+    slug: 'component-dialog',
+    name: '@kumiki/component-dialog',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Trigger>` / `<Overlay>` / `<Content>` / `<Title>` / `<Description>` / `<Close>` for modal and non-modal dialogs.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/',
+    status: 'preview',
+  },
+  ...(['tooltip', 'select', 'form-field'] as const).map(
     (slug) =>
       ({
         slug: `component-${slug}`,
@@ -310,4 +339,5 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-checkbox': () => import('./demos/component-checkbox.svelte'),
   'component-radio-group': () => import('./demos/component-radio-group.svelte'),
   'component-tabs': () => import('./demos/component-tabs.svelte'),
+  'component-dialog': () => import('./demos/component-dialog.svelte'),
 };

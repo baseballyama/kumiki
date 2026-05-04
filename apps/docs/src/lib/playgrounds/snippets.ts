@@ -178,6 +178,94 @@ console.log(m.context.value);          // 'team'`,
     },
   ],
 
+  'component-dialog': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-dialog' },
+    {
+      title: 'Basic — modal confirmation',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import * as Dialog from '@kumiki/component-dialog';
+  let open = $state(false);
+</script>
+
+<Dialog.Root bind:open>
+  <Dialog.Trigger>Open dialog</Dialog.Trigger>
+  <Dialog.Overlay />
+  <Dialog.Content>
+    <Dialog.Title>Confirm purchase</Dialog.Title>
+    <Dialog.Description>You're about to enroll in the Pro plan.</Dialog.Description>
+    <Dialog.Close>Cancel</Dialog.Close>
+    <Dialog.Close>Confirm</Dialog.Close>
+  </Dialog.Content>
+</Dialog.Root>`,
+    },
+    {
+      title: 'Non-modal sheet (no overlay, no inert)',
+      lang: 'svelte',
+      code: `<Dialog.Root bind:open modal={false}>
+  <Dialog.Trigger>Show</Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Title>Tips</Dialog.Title>
+    <p>Background remains interactive — useful for inline help panels.</p>
+    <Dialog.Close>Close</Dialog.Close>
+  </Dialog.Content>
+</Dialog.Root>`,
+    },
+    {
+      title: 'Disable Escape / outside-click for forced confirmation',
+      lang: 'svelte',
+      code: `<!-- e.g. a destructive action that requires explicit confirmation. -->
+<Dialog.Root bind:open closeOnEscape={false} closeOnOutsideClick={false}>
+  <Dialog.Trigger>Delete account</Dialog.Trigger>
+  <Dialog.Overlay />
+  <Dialog.Content>
+    <Dialog.Title>Are you sure?</Dialog.Title>
+    <Dialog.Description>This cannot be undone.</Dialog.Description>
+    <Dialog.Close>Keep account</Dialog.Close>
+    <button onclick={destructive}>Yes, delete</button>
+  </Dialog.Content>
+</Dialog.Root>`,
+    },
+  ],
+
+  'machine-dialog': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-dialog' },
+    {
+      title: 'Pure-TS — policy-driven dismissal',
+      lang: 'ts',
+      code: `import { createDialogMachine } from '@kumiki/machine-dialog';
+
+const m = createDialogMachine({ closeOnEscape: false });
+m.send({ type: 'OPEN' });
+m.send({ type: 'ESCAPE' });        // ignored — policy says no
+console.log(m.state);              // 'open'
+
+m.send({ type: 'SET.CLOSE_ON_ESCAPE', value: true });
+m.send({ type: 'ESCAPE' });
+console.log(m.state);              // 'closed'`,
+    },
+  ],
+
+  'attachment-dialog': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-dialog' },
+    {
+      title: 'Drive your own DOM (six factories)',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createDialog } from '@kumiki/attachment-dialog';
+  const d = createDialog({ modal: true });
+</script>
+
+<button {@attach d.trigger}>Open</button>
+<div {@attach d.overlay}></div>
+<div {@attach d.content}>
+  <h2 {@attach d.title}>Title</h2>
+  <p {@attach d.description}>Description</p>
+  <button {@attach d.close}>Close</button>
+</div>`,
+    },
+  ],
+
   'component-checkbox': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-checkbox' },
     {
