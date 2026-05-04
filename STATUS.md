@@ -1,29 +1,35 @@
-# Kumiki — Project Status (2026-05-04)
+# Kumiki — Project Status (rolling — last touched by `/loop`)
 
-Snapshot at the end of the foundation pass. Use this to brief any future session, including subsequent Claude conversations.
+Snapshot of the most recent autonomous-loop firing. The loop updates this file
+after every successful commit + push.
 
 ## TL;DR
 
-**Phase 0a (Toggle pilot + QA gates) is functionally complete.** The end-to-end pipeline — pure machine → controller + attachment → Svelte 5 component → SSR + hydration + interaction → axe-core a11y → Playwright e2e → bundle budgets → publint / arethetypeswrong / agadoo / custom layering / locale / JSDoc gates — is **proven against real code** with **47 unit tests + 17 Playwright tests = 64 tests passing**.
+Phase 0a (Toggle pilot) and Phase 0b (Combobox design validation) are
+**complete**. Switch landed end-to-end. Checkbox machine is in.
 
-The Playground site (`/play`) lists every package and renders live demos for `component-toggle` and `attachment-toggle`. The remaining 9 components are scaffolding only.
+**136 unit tests + 46 Playwright tests = 182 tests passing** at the latest
+green push.
 
 ## What runs (verified end-to-end)
 
-| Component | Layer 2 (machine) | Layer 3 (attachment) | Layer 4 (component) | Live demo on /play |    E2E + axe     |
-| --------- | :---------------: | :------------------: | :-----------------: | :----------------: | :--------------: |
-| Toggle    |    ✅ 15 tests    |     ✅ 13 tests      |     ✅ 0 errors     |         ✅         | ✅ 9 e2e + 6 axe |
+| Component | Layer 2 (machine) | Layer 3 (attachment) | Layer 4 (component) | Live demo | E2E + axe |
+| --------- | :---------------: | :------------------: | :-----------------: | :-------: | :-------: |
+| Toggle    |    ✅ 15 tests    |     ✅ 13 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 6  |
+| Switch    |    ✅ 15 tests    |      ✅ 8 tests      |     ✅ 0 errors     |    ✅     | ✅ 7 + 6  |
+| Combobox  |    ✅ 33 tests    |     ✅ 13 tests      |     ✅ 0 errors     |    ✅     | ✅ 11 + 5 |
+| Checkbox  |    ✅ 20 tests    |          🟡          |         🟡          |    🟡     |    🟡     |
 
-| Shared package          | Status                                  |
-| ----------------------- | :-------------------------------------- |
-| `@kumiki/runtime`       | ✅ 15 tests, 676 B brotli ≤ 1 KB budget |
-| `@kumiki/primitives/id` | ✅ 4 tests, 174 B brotli ≤ 500 B budget |
-| `@kumiki/types`         | placeholder (no exports yet)            |
-| `@kumiki/locale/<lang>` | placeholders for 10 languages           |
+| Shared package          | Status                                   |
+| ----------------------- | :--------------------------------------- |
+| `@kumiki/runtime`       | ✅ 15 tests, transition arrays supported |
+| `@kumiki/primitives/id` | ✅ 4 tests, 174 B brotli ≤ 500 B budget  |
+| `@kumiki/types`         | placeholder (no exports yet)             |
+| `@kumiki/locale/<lang>` | placeholders for 10 languages            |
 
 ## What's wired but not yet exercised on real code
 
-The remaining 9 Phase 1 components (Switch, Checkbox, RadioGroup, Tabs, Dialog, Tooltip, Combobox, Select, Field/Form) have:
+The remaining 6 Phase 1 components (RadioGroup, Tabs, Dialog, Tooltip, Select, Field/Form) have:
 
 - Empty `src/index.ts` (`export {}`).
 - Per-package `package.json` with the right `exports`, `size-limit`, `peerDependencies`.
