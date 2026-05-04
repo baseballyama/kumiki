@@ -150,6 +150,9 @@ playwright/.cache/
 # Wrangler / Cloudflare local dev cache
 .wrangler/
 
+# Claude Code runtime state (scheduled tasks, transient locks).
+.claude/
+
 # Lockfile is intentionally committed for reproducibility — do NOT ignore.
 
 # tsdown / size-limit caches
