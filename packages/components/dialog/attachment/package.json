@@ -43,13 +43,24 @@
     "typescript": "catalog:",
     "vitest": "catalog:",
     "size-limit": "catalog:",
-    "@size-limit/preset-small-lib": "catalog:"
+    "@size-limit/preset-small-lib": "catalog:",
+    "jsdom": "catalog:"
   },
   "size-limit": [
     {
-      "name": "default",
+      "name": "attachment-dialog (incremental)",
       "path": "dist/index.mjs",
-      "limit": "3500 B"
+      "limit": "2 KB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machine-dialog"
+      ]
+    },
+    {
+      "name": "attachment-dialog (full first-import)",
+      "path": "dist/index.mjs",
+      "limit": "3.5 KB"
     }
   ],
   "publishConfig": {
