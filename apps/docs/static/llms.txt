@@ -22,7 +22,15 @@ Kumiki ships as 9 layer-level packages under the `@kumiki/*` scope, with subpath
 
 ## Documentation
 
-- Design docs: /docs/
-- Components reference: /components/
-- Roadmap: /docs/roadmap
-- llms-full.txt: /llms-full.txt (full type definitions and anti-patterns)
+Browseable design + component reference is in the GitHub repository
+(https://github.com/baseballyama/kumiki) under `docs/design/` and
+`docs/components/`. The deployed docs site currently surfaces:
+
+- /play — playground
+- /sandbox/<name> — interactive demos for every shipped component
+- /sizes — verified per-subpath brotli bundle measurements
+- /bench — vitest microbenchmarks (ops/sec, mean, p99)
+- /llms-full.txt — full type definitions, JSDoc, and anti-patterns
+
+A SvelteKit-rendered `/api` route for TypeDoc output is planned but
+not yet wired (gated on a maintainer URL-shape decision).
