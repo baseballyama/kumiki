@@ -32,10 +32,11 @@
     "check:jsdoc": "node scripts/check-jsdoc.mjs",
     "check:node-compat": "node scripts/check-node-compat.mjs",
     "check:meta-drift": "node scripts/check-meta-drift.mjs",
+    "check:tree-shake": "node scripts/check-tree-shake.mjs",
     "gen:meta": "node scripts/build-meta-packages.mjs",
     "build:llms-full": "node apps/docs/scripts/build-llms-full.mjs",
     "build:sizes": "node apps/docs/scripts/build-sizes.mjs",
-    "check:all": "pnpm check:layering && pnpm check:locale-shape && pnpm check:jsdoc && pnpm check:node-compat && pnpm check:meta-drift",
+    "check:all": "pnpm check:layering && pnpm check:locale-shape && pnpm check:jsdoc && pnpm check:node-compat && pnpm check:meta-drift && pnpm check:tree-shake",
     "ci:health": "pnpm check:all && pnpm publint && pnpm attw && pnpm agadoo && pnpm size",
     "prepare": "lefthook install"
   },
