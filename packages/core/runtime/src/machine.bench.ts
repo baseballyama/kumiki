@@ -15,7 +15,8 @@
  */
 
 import { bench, describe } from 'vitest';
-import { defineMachine, type Machine } from './machine.ts';
+import { defineMachine } from './machine.ts';
+import type { Machine } from './types.ts';
 
 type Ctx = { count: number; flag: boolean };
 type Evt = { type: 'INC' } | { type: 'DEC' } | { type: 'TOGGLE' } | { type: 'SET'; value: number };
