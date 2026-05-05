@@ -125,7 +125,8 @@
   "dependencies": {
     "@kumiki/machines": "workspace:*",
     "@kumiki/primitives": "workspace:*",
-    "@kumiki/runtime": "workspace:*"
+    "@kumiki/runtime": "workspace:*",
+    "@kumiki/types": "workspace:*"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "catalog:",

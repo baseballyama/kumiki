@@ -29,33 +29,15 @@ import {
   type FormFieldState,
 } from '@kumiki/machines/form-field';
 import { uid } from '@kumiki/primitives/id';
+import type { StandardSchemaV1, StandardSchemaResult } from '@kumiki/types';
 
 export type Attachment = (node: HTMLElement) => void | (() => void);
 
-/**
- * Subset of the Standard Schema v1 type surface we depend on. We don't
- * import the full package — Standard Schema is a TYPE contract, not a
- * runtime dependency.
- */
-export interface StandardSchemaV1<Input = unknown, Output = Input> {
-  readonly '~standard': {
-    readonly version: 1;
-    readonly vendor: string;
-    readonly validate: (
-      value: unknown,
-    ) => StandardSchemaResult<Output> | Promise<StandardSchemaResult<Output>>;
-  };
-  // Phantom for input type narrowing.
-  readonly _input?: Input;
-}
-export type StandardSchemaResult<Output> =
-  | { readonly value: Output; readonly issues?: undefined }
-  | {
-      readonly issues: ReadonlyArray<{
-        readonly message: string;
-        readonly path?: ReadonlyArray<PropertyKey>;
-      }>;
-    };
+// Re-export the Standard Schema types from `@kumiki/types` so existing
+// consumers that import them from here keep compiling. The canonical
+// definition lives in `@kumiki/types` per ADR 0012's cross-layer type
+// policy.
+export type { StandardSchemaV1, StandardSchemaResult };
 
 export type ValidateOn = 'blur' | 'change' | 'submit';
 

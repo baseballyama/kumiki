@@ -340,6 +340,9 @@ importers:
       '@kumiki/runtime':
         specifier: workspace:*
         version: link:../core/runtime
+      '@kumiki/types':
+        specifier: workspace:*
+        version: link:../core/types
       svelte:
         specifier: 'catalog:'
         version: 5.55.5(@typescript-eslint/types@8.59.1)
