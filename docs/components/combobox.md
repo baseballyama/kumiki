@@ -7,7 +7,6 @@
 | **APG pattern**                     | [Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) |
 | **Bundle (Layer 4 target, brotli)** | `4.5 kB` brotli (informational)                                |
 | **Status**                          | `preview` (Phase 0b shipped — base + 4 with-\* compositions)   |
-| **Phase**                           | 0b — design validation; v1.0 includes                          |
 | **Layer 5 preview**                 | `none` at v1.0 (Toggle and Dialog only)                        |
 
 ## Anatomy
@@ -66,35 +65,42 @@ In **RTL** (`dir="rtl"`), `ArrowLeft` and `ArrowRight` are handled when the comp
 
 ## State machine
 
+`ComboboxState`:
+
 ```
 combobox
-├── closed                               // initial; input not focused
-├── open
-│   ├── filtering                        // sync filter against `options` prop
-│   ├── async-loading                    // fetcher in flight
-│   ├── empty                            // no results
-│   └── populated                        // listbox has items
-└── selected                             // value committed; input shows label
+├── idle                                 // input not focused; default
+├── open                                 // listbox visible
+└── disabled                             // not interactive
 ```
 
-Visualizer: drop `createComboboxMachine().toJSON()` into [stately.ai/viz](https://stately.ai/viz). The JSON will be embedded inline in the docs site at v1.0 time.
+Loading / empty / populated are reflected through **context**, not states:
+the `status: 'idle' | 'loading' | 'error'` field flips while an async
+fetcher is in flight, and `filtered: ReadonlyArray<T>` derives from the
+current query. Consumers render UI off these.
+
+Visualizer: drop `createComboboxMachine().toJSON()` into [stately.ai/viz](https://stately.ai/viz). The JSON is XState-compatible.
 
 ### Events
 
-| Event            | Payload                                                                              |
-| ---------------- | ------------------------------------------------------------------------------------ |
-| `INPUT.FOCUS`    | —                                                                                    |
-| `INPUT.BLUR`     | —                                                                                    |
-| `INPUT.CHANGE`   | `{ value: string }`                                                                  |
-| `INPUT.ESCAPE`   | —                                                                                    |
-| `INPUT.ENTER`    | —                                                                                    |
-| `INPUT.NAVIGATE` | `{ direction: 'next' \| 'prev' \| 'first' \| 'last' \| 'page-next' \| 'page-prev' }` |
-| `OPTION.HOVER`   | `{ id: string }`                                                                     |
-| `OPTION.CLICK`   | `{ option: T }`                                                                      |
-| `TRIGGER.CLICK`  | —                                                                                    |
-| `FETCH.RESOLVE`  | `{ options: T[]; token: number }`                                                    |
-| `FETCH.REJECT`   | `{ error: Error; token: number }`                                                    |
-| `RESET`          | —                                                                                    |
+| Event                | Payload                                                                              |
+| -------------------- | ------------------------------------------------------------------------------------ |
+| `INPUT.FOCUS`        | —                                                                                    |
+| `INPUT.BLUR`         | —                                                                                    |
+| `INPUT.CHANGE`       | `{ value: string }`                                                                  |
+| `INPUT.ESCAPE`       | —                                                                                    |
+| `INPUT.ENTER`        | —                                                                                    |
+| `INPUT.NAVIGATE`     | `{ direction: 'next' \| 'prev' \| 'first' \| 'last' \| 'page-next' \| 'page-prev' }` |
+| `OPTION.HIGHLIGHT`   | `{ id: string }`                                                                     |
+| `OPTION.SELECT`      | `{ option: T }`                                                                      |
+| `TRIGGER.CLICK`      | —                                                                                    |
+| `OPEN` / `CLOSE`     | —                                                                                    |
+| `FETCH.LOADING`      | `{ token: number }`                                                                  |
+| `FETCH.RESOLVE`      | `{ options: T[]; token: number }`                                                    |
+| `FETCH.REJECT`       | `{ error: Error; token: number }`                                                    |
+| `SET.VALUE`          | `{ value: T \| null }`                                                               |
+| `RESET`              | —                                                                                    |
+| `DISABLE` / `ENABLE` | —                                                                                    |
 
 ## API
 
