@@ -14,24 +14,21 @@
 
 ```
 Combobox.Root
-  ├── Combobox.Input              (the text input)
-  ├── Combobox.Trigger            (optional toggle button next to the input)
-  ├── Combobox.Listbox            (the popover containing options)
-  │   ├── Combobox.Item           (each suggestion, repeated)
-  │   ├── Combobox.Empty          (rendered when no results)
-  │   └── Combobox.Loading        (rendered during async fetch)
-  └── Combobox.ClearButton        (optional clear button, role=button)
+  ├── Combobox.Input         (the text input)
+  ├── Combobox.Trigger       (optional toggle button next to the input)
+  └── Combobox.Listbox       (the popover containing options)
+      └── Combobox.Item      (each suggestion, repeated)
 ```
 
-| Part                | Responsibility                                                       |
-| ------------------- | -------------------------------------------------------------------- |
-| `Root`              | Owns the machine, provides context, handles `bind:value`.            |
-| `Input`             | The `<input role="combobox">` element.                               |
-| `Trigger`           | Toggle button (icon-only by convention); shows/hides listbox.        |
-| `Listbox`           | The popover element with `role="listbox"`. Anchored via Floating UI. |
-| `Item`              | An `<li role="option">` with `aria-selected`.                        |
-| `Empty` / `Loading` | Conditional content slots; rendered based on state.                  |
-| `ClearButton`       | Optional reset button.                                               |
+| Part      | Responsibility                                                       |
+| --------- | -------------------------------------------------------------------- |
+| `Root`    | Owns the machine, provides context, handles `bind:value`.            |
+| `Input`   | The `<input role="combobox">` element.                               |
+| `Trigger` | Toggle button (icon-only by convention); shows/hides listbox.        |
+| `Listbox` | The popover element with `role="listbox"`. Anchored via Floating UI. |
+| `Item`    | An `<li role="option">` with `aria-selected`.                        |
+
+> Empty-state and loading-state UI are caller-provided through the `Listbox` snippet — the controller exposes `status: 'idle' | 'loading' | 'error'` and a derived `filtered: ReadonlyArray<T>`, so the consumer's `{#snippet item(...)}` block + a sibling `{#if controller.status === 'loading'}` covers both. There are no dedicated `Loading`/`Empty`/`ClearButton` subcomponents — keeps the bundle smaller.
 
 ## Keyboard
 

@@ -12,15 +12,23 @@
 ## Anatomy
 
 ```
-Toaster (Root)              (owns the queue + controller; one per app)
-└─ Toaster.Viewport         (role="region", aria-live="polite", hover/focus pauses timers)
-   └─ Toaster.Item × N      (per-toast wrapper, role="status" | role="alert")
-      ├─ Toaster.Title
-      ├─ Toaster.Description (optional)
-      └─ Toaster.Close       (dismiss button)
+Toast.Toaster               (owns the queue + controller; one per app)
+└─ Toast.Viewport           (role="region", aria-live="polite", hover/focus pauses timers)
+   └─ Toast.Item × N        (per-toast wrapper, role="status" | role="alert")
+      ├─ Toast.Title
+      ├─ Toast.Description  (optional)
+      └─ Toast.Close        (dismiss button)
 ```
 
-`Toaster`'s `children` snippet receives `{ toasts, controller }` so the consumer iterates the queue in their own template and calls `controller.add({ ... })` from any handler. There is **no** keyboard contract — toasts don't capture focus.
+```svelte
+<script>
+  import { Toast } from '@kumiki/components';
+  // or, via the subpath:
+  // import { Toaster, Viewport, Item, Title, Description, Close } from '@kumiki/components/toast';
+</script>
+```
+
+`Toaster`'s `children` snippet receives `{ toasts, controller }` so the consumer iterates the queue in their own template and calls `controller.add({ ... })` from any handler. The per-toast `Close` button is keyboard-accessible — Tab into it, Enter dismisses (APG keyboard contract at [`apps/docs/keyboard/toast.kb.ts`](../../apps/docs/keyboard/toast.kb.ts)); the toast bodies themselves are not focused.
 
 ## Behaviour
 
