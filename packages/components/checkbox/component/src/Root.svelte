@@ -19,7 +19,7 @@
     createCheckbox,
     type CheckboxController,
     type CheckboxValue,
-  } from '@kumiki/attachment-checkbox';
+  } from '@kumiki/headless/checkbox';
   import type { Snippet } from 'svelte';
 
   type ChildPayload = {

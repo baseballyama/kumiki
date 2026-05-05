@@ -13,7 +13,7 @@
 -->
 <script lang="ts" generics="T extends ComboboxOption">
   import { onDestroy, setContext, untrack } from 'svelte';
-  import { createCombobox, type ComboboxController } from '@kumiki/attachment-combobox';
+  import { createCombobox, type ComboboxController } from '@kumiki/headless/combobox';
   import type { Snippet } from 'svelte';
   import {
     COMBOBOX_CONTEXT_KEY,

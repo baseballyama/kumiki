@@ -15,7 +15,7 @@
 -->
 <script lang="ts" generics="V">
   import { onDestroy, setContext, untrack } from 'svelte';
-  import { createSelect, type SelectController, type SelectItem } from '@kumiki/attachment-select';
+  import { createSelect, type SelectController, type SelectItem } from '@kumiki/headless/select';
   import type { Snippet } from 'svelte';
   import { SELECT_CONTEXT_KEY, type SelectContextValue } from './context.js';
 

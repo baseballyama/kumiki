@@ -19,7 +19,7 @@
     type TabsController,
     type TabsDirection,
     type TabsOrientation,
-  } from '@kumiki/attachment-tabs';
+  } from '@kumiki/headless/tabs';
   import type { Snippet } from 'svelte';
   import { TABS_CONTEXT_KEY, type TabsContextValue } from './context.js';
 

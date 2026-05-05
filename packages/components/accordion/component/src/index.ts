@@ -57,4 +57,4 @@ export type {
   AccordionMode,
   AccordionState,
   CreateAccordionOptions,
-} from '@kumiki/attachment-accordion';
+} from '@kumiki/headless/accordion';

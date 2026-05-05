@@ -20,7 +20,7 @@
 -->
 <script lang="ts">
   import { onDestroy, setContext, untrack } from 'svelte';
-  import { createToast, type ToastController, type ToastItem } from '@kumiki/attachment-toast';
+  import { createToast, type ToastController, type ToastItem } from '@kumiki/headless/toast';
   import type { Snippet } from 'svelte';
   import { TOASTER_CONTEXT_KEY, type ToasterContextValue } from './context.js';
 

@@ -12,7 +12,7 @@
 -->
 <script lang="ts">
   import { onDestroy, setContext, untrack } from 'svelte';
-  import { createTooltip, type TooltipController } from '@kumiki/attachment-tooltip';
+  import { createTooltip, type TooltipController } from '@kumiki/headless/tooltip';
   import type { Snippet } from 'svelte';
   import { TOOLTIP_CONTEXT_KEY, type TooltipContextValue } from './context.js';
 

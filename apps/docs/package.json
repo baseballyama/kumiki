@@ -17,11 +17,6 @@
     "lint": "oxlint src"
   },
   "dependencies": {
-    "@kumiki/attachment-checkbox": "workspace:*",
-    "@kumiki/attachment-combobox": "workspace:*",
-    "@kumiki/attachment-radio-group": "workspace:*",
-    "@kumiki/attachment-switch": "workspace:*",
-    "@kumiki/attachment-toggle": "workspace:*",
     "@kumiki/component-accordion": "workspace:*",
     "@kumiki/component-checkbox": "workspace:*",
     "@kumiki/component-combobox": "workspace:*",
@@ -38,7 +33,9 @@
     "@kumiki/component-toast": "workspace:*",
     "@kumiki/component-toggle": "workspace:*",
     "@kumiki/component-tooltip": "workspace:*",
+    "@kumiki/headless": "workspace:*",
     "@kumiki/locale": "workspace:*",
+    "@kumiki/machines": "workspace:*",
     "@kumiki/primitives": "workspace:*"
   },
   "devDependencies": {

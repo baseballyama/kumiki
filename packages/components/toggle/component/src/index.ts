@@ -37,4 +37,4 @@ export type {
   ToggleEvent,
   ToggleState,
   CreateToggleOptions,
-} from '@kumiki/attachment-toggle';
+} from '@kumiki/headless/toggle';

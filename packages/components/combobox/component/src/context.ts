@@ -8,7 +8,7 @@
  * compound APIs.
  */
 
-import type { ComboboxController, ComboboxOption } from '@kumiki/attachment-combobox';
+import type { ComboboxController, ComboboxOption } from '@kumiki/headless/combobox';
 
 export const COMBOBOX_CONTEXT_KEY = Symbol('kumiki.combobox');
 
@@ -17,5 +17,5 @@ export interface ComboboxContextValue<T extends ComboboxOption> {
 }
 
 // Re-export option type so subcomponents can declare typed snippet args without
-// double-importing @kumiki/attachment-combobox alongside this file.
-export type { ComboboxOption } from '@kumiki/attachment-combobox';
+// double-importing @kumiki/headless/combobox alongside this file.
+export type { ComboboxOption } from '@kumiki/headless/combobox';

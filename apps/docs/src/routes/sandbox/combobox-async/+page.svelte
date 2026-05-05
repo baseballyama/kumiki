@@ -11,8 +11,8 @@
 -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { createCombobox } from '@kumiki/attachment-combobox';
-  import { withAsyncSearch } from '@kumiki/attachment-combobox/with-async-search';
+  import { createCombobox } from '@kumiki/headless/combobox';
+  import { withAsyncSearch } from '@kumiki/headless/combobox/with-async-search';
   import { page } from '$app/state';
 
   interface City {

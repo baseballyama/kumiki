@@ -1,318 +1,6 @@
 {
-  "generatedAt": "2026-05-05T02:28:32.301Z",
+  "generatedAt": "2026-05-05T02:40:56.224Z",
   "packages": [
-    {
-      "package": "@kumiki/attachment-accordion",
-      "directory": "packages/components/accordion/attachment",
-      "entries": [
-        {
-          "name": "attachment-accordion (incremental)",
-          "size": 1169,
-          "sizeLimit": 1350,
-          "passed": true
-        },
-        {
-          "name": "attachment-accordion (full first-import)",
-          "size": 2559,
-          "sizeLimit": 2900,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-checkbox",
-      "directory": "packages/components/checkbox/attachment",
-      "entries": [
-        {
-          "name": "attachment-checkbox (incremental, runtime/primitives/machine excluded)",
-          "size": 678,
-          "sizeLimit": 800,
-          "passed": true
-        },
-        {
-          "name": "attachment-checkbox (full first-import — tri-state +200B vs binary toggle/switch)",
-          "size": 1532,
-          "sizeLimit": 1700,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-combobox",
-      "directory": "packages/components/combobox/attachment",
-      "entries": [
-        {
-          "name": "attachment-combobox (incremental)",
-          "size": 1436,
-          "sizeLimit": 1650,
-          "passed": true
-        },
-        {
-          "name": "attachment-combobox (full first-import)",
-          "size": 2858,
-          "sizeLimit": 3250,
-          "passed": true
-        },
-        {
-          "name": "with-validation (incremental, base excluded)",
-          "size": 378,
-          "sizeLimit": 750,
-          "passed": true
-        },
-        {
-          "name": "with-async-search (incremental, base excluded)",
-          "size": 476,
-          "sizeLimit": 750,
-          "passed": true
-        },
-        {
-          "name": "with-multi-select (incremental, base excluded)",
-          "size": 365,
-          "sizeLimit": 750,
-          "passed": true
-        },
-        {
-          "name": "with-virtualization (incremental, base excluded)",
-          "size": 548,
-          "sizeLimit": 750,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-dialog",
-      "directory": "packages/components/dialog/attachment",
-      "entries": [
-        {
-          "name": "attachment-dialog (incremental)",
-          "size": 1125,
-          "sizeLimit": 1300,
-          "passed": true
-        },
-        {
-          "name": "attachment-dialog (full first-import)",
-          "size": 2451,
-          "sizeLimit": 2750,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-form-field",
-      "directory": "packages/components/form-field/attachment",
-      "entries": [
-        {
-          "name": "attachment-form-field (incremental)",
-          "size": 1235,
-          "sizeLimit": 1400,
-          "passed": true
-        },
-        {
-          "name": "attachment-form-field (full first-import)",
-          "size": 2264,
-          "sizeLimit": 2550,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-menu",
-      "directory": "packages/components/menu/attachment",
-      "entries": [
-        {
-          "name": "attachment-menu (incremental)",
-          "size": 1412,
-          "sizeLimit": 1500,
-          "passed": true
-        },
-        {
-          "name": "attachment-menu (full first-import)",
-          "size": 2980,
-          "sizeLimit": 3000,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-number-field",
-      "directory": "packages/components/number-field/attachment",
-      "entries": [
-        {
-          "name": "attachment-number-field (incremental)",
-          "size": 1301,
-          "sizeLimit": 1500,
-          "passed": true
-        },
-        {
-          "name": "attachment-number-field (full first-import)",
-          "size": 2464,
-          "sizeLimit": 2500,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-popover",
-      "directory": "packages/components/popover/attachment",
-      "entries": [
-        {
-          "name": "attachment-popover (incremental)",
-          "size": 1108,
-          "sizeLimit": 1250,
-          "passed": true
-        },
-        {
-          "name": "attachment-popover (full first-import)",
-          "size": 2140,
-          "sizeLimit": 2400,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-radio-group",
-      "directory": "packages/components/radio-group/attachment",
-      "entries": [
-        {
-          "name": "attachment-radio-group (incremental)",
-          "size": 996,
-          "sizeLimit": 1150,
-          "passed": true
-        },
-        {
-          "name": "attachment-radio-group (full first-import)",
-          "size": 2142,
-          "sizeLimit": 2400,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-select",
-      "directory": "packages/components/select/attachment",
-      "entries": [
-        {
-          "name": "attachment-select (incremental)",
-          "size": 1359,
-          "sizeLimit": 1550,
-          "passed": true
-        },
-        {
-          "name": "attachment-select (full first-import)",
-          "size": 2981,
-          "sizeLimit": 3350,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-slider",
-      "directory": "packages/components/slider/attachment",
-      "entries": [
-        {
-          "name": "attachment-slider (incremental)",
-          "size": 1201,
-          "sizeLimit": 1350,
-          "passed": true
-        },
-        {
-          "name": "attachment-slider (full first-import)",
-          "size": 2289,
-          "sizeLimit": 2500,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-switch",
-      "directory": "packages/components/switch/attachment",
-      "entries": [
-        {
-          "name": "attachment-switch (incremental, runtime/primitives/machine excluded)",
-          "size": 649,
-          "sizeLimit": 750,
-          "passed": true
-        },
-        {
-          "name": "attachment-switch (full, first-import cost)",
-          "size": 1447,
-          "sizeLimit": 1500,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-tabs",
-      "directory": "packages/components/tabs/attachment",
-      "entries": [
-        {
-          "name": "attachment-tabs (incremental)",
-          "size": 1250,
-          "sizeLimit": 1400,
-          "passed": true
-        },
-        {
-          "name": "attachment-tabs (full first-import)",
-          "size": 2553,
-          "sizeLimit": 2700,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-toast",
-      "directory": "packages/components/toast/attachment",
-      "entries": [
-        {
-          "name": "attachment-toast (incremental)",
-          "size": 1244,
-          "sizeLimit": 1500,
-          "passed": true
-        },
-        {
-          "name": "attachment-toast (full first-import)",
-          "size": 2162,
-          "sizeLimit": 2500,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-toggle",
-      "directory": "packages/components/toggle/attachment",
-      "entries": [
-        {
-          "name": "attachment-toggle (incremental, runtime/primitives/machine excluded)",
-          "size": 643,
-          "sizeLimit": 750,
-          "passed": true
-        },
-        {
-          "name": "attachment-toggle (full, first-import cost)",
-          "size": 1451,
-          "sizeLimit": 1500,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/attachment-tooltip",
-      "directory": "packages/components/tooltip/attachment",
-      "entries": [
-        {
-          "name": "attachment-tooltip (incremental)",
-          "size": 876,
-          "sizeLimit": 1000,
-          "passed": true
-        },
-        {
-          "name": "attachment-tooltip (full first-import)",
-          "size": 1734,
-          "sizeLimit": 1950,
-          "passed": true
-        }
-      ]
-    },
     {
       "package": "@kumiki/cli",
       "directory": "packages/tooling/cli",
@@ -321,6 +9,132 @@
           "name": "default",
           "size": 13,
           "sizeLimit": 30000,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "package": "@kumiki/headless",
+      "directory": "packages/headless",
+      "entries": [
+        {
+          "name": "headless/toggle (incremental)",
+          "size": 726,
+          "sizeLimit": 750,
+          "passed": true
+        },
+        {
+          "name": "headless/switch (incremental)",
+          "size": 731,
+          "sizeLimit": 750,
+          "passed": true
+        },
+        {
+          "name": "headless/checkbox (incremental)",
+          "size": 766,
+          "sizeLimit": 850,
+          "passed": true
+        },
+        {
+          "name": "headless/radio-group (incremental)",
+          "size": 1076,
+          "sizeLimit": 1200,
+          "passed": true
+        },
+        {
+          "name": "headless/tabs (incremental)",
+          "size": 1337,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "headless/dialog (incremental)",
+          "size": 1211,
+          "sizeLimit": 1400,
+          "passed": true
+        },
+        {
+          "name": "headless/tooltip (incremental)",
+          "size": 963,
+          "sizeLimit": 1000,
+          "passed": true
+        },
+        {
+          "name": "headless/combobox (incremental)",
+          "size": 1527,
+          "sizeLimit": 1700,
+          "passed": true
+        },
+        {
+          "name": "headless/select (incremental)",
+          "size": 1449,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "headless/form-field (incremental)",
+          "size": 1323,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "headless/slider (incremental)",
+          "size": 1289,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "headless/accordion (incremental)",
+          "size": 1251,
+          "sizeLimit": 1400,
+          "passed": true
+        },
+        {
+          "name": "headless/number-field (incremental)",
+          "size": 1390,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "headless/popover (incremental)",
+          "size": 1178,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "headless/toast (incremental)",
+          "size": 1337,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "headless/menu (incremental)",
+          "size": 1503,
+          "sizeLimit": 1700,
+          "passed": true
+        },
+        {
+          "name": "headless/combobox/with-validation",
+          "size": 378,
+          "sizeLimit": 750,
+          "passed": true
+        },
+        {
+          "name": "headless/combobox/with-async-search",
+          "size": 476,
+          "sizeLimit": 750,
+          "passed": true
+        },
+        {
+          "name": "headless/combobox/with-multi-select",
+          "size": 365,
+          "sizeLimit": 750,
+          "passed": true
+        },
+        {
+          "name": "headless/combobox/with-virtualization",
+          "size": 548,
+          "sizeLimit": 750,
           "passed": true
         }
       ]

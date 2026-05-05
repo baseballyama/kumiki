@@ -17,7 +17,7 @@
     type SliderController,
     type SliderDirection,
     type SliderOrientation,
-  } from '@kumiki/attachment-slider';
+  } from '@kumiki/headless/slider';
   import type { Snippet } from 'svelte';
   import { SLIDER_CONTEXT_KEY, type SliderContextValue } from './context.js';
 

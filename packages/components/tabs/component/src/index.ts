@@ -31,4 +31,4 @@ export type {
   TabsOrientation,
   TabsState,
   CreateTabsOptions,
-} from '@kumiki/attachment-tabs';
+} from '@kumiki/headless/tabs';

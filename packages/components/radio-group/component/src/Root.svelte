@@ -21,7 +21,7 @@
     createRadioGroup,
     type RadioGroupController,
     type RadioItem,
-  } from '@kumiki/attachment-radio-group';
+  } from '@kumiki/headless/radio-group';
   import type { Snippet } from 'svelte';
   import { RADIO_GROUP_CONTEXT_KEY, type RadioGroupContextValue } from './context.js';
 

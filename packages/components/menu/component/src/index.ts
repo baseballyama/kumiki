@@ -71,4 +71,4 @@ export type {
   MenuMachine,
   MenuState,
   CreateMenuOptions,
-} from '@kumiki/attachment-menu';
+} from '@kumiki/headless/menu';

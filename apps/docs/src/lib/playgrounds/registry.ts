@@ -218,7 +218,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   // ── Layer 3 — Attachments ────────────────────────────────────────────────
   {
     slug: 'attachment-toggle',
-    name: '@kumiki/attachment-toggle',
+    name: '@kumiki/headless/toggle',
     layer: 3,
     summary: 'Svelte 5 attachment for Toggle. Drives ARIA + data-state directly on a DOM node.',
     live: true,
@@ -227,7 +227,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-switch',
-    name: '@kumiki/attachment-switch',
+    name: '@kumiki/headless/switch',
     layer: 3,
     summary: 'Svelte 5 attachment for Switch. Drives role="switch" + aria-checked + data-state.',
     live: false,
@@ -236,7 +236,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-combobox',
-    name: '@kumiki/attachment-combobox',
+    name: '@kumiki/headless/combobox',
     layer: 3,
     summary:
       'Svelte 5 attachments for Combobox — input, listbox, option, trigger. Compound primitive across multiple DOM elements.',
@@ -246,7 +246,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-checkbox',
-    name: '@kumiki/attachment-checkbox',
+    name: '@kumiki/headless/checkbox',
     layer: 3,
     summary: 'Svelte 5 attachment for Checkbox. Tri-state aria-checked (true/false/mixed).',
     live: false,
@@ -255,7 +255,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-radio-group',
-    name: '@kumiki/attachment-radio-group',
+    name: '@kumiki/headless/radio-group',
     layer: 3,
     summary:
       'Svelte 5 attachments for RadioGroup — group + per-item factories with roving tabindex.',
@@ -265,7 +265,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-tabs',
-    name: '@kumiki/attachment-tabs',
+    name: '@kumiki/headless/tabs',
     layer: 3,
     summary:
       'Svelte 5 attachments for Tabs — list / tab / panel factories with orientation + RTL keyboard handling.',
@@ -275,7 +275,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-dialog',
-    name: '@kumiki/attachment-dialog',
+    name: '@kumiki/headless/dialog',
     layer: 3,
     summary:
       'Svelte 5 attachments for Dialog — trigger / content / overlay / close + focus-trap + dismissable + sibling inert.',
@@ -285,7 +285,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-tooltip',
-    name: '@kumiki/attachment-tooltip',
+    name: '@kumiki/headless/tooltip',
     layer: 3,
     summary:
       'Svelte 5 attachments for Tooltip — debounced timers, prefers-reduced-motion, hoverable content.',
@@ -295,7 +295,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-select',
-    name: '@kumiki/attachment-select',
+    name: '@kumiki/headless/select',
     layer: 3,
     summary:
       'Svelte 5 attachments for Select — trigger / listbox / option compound with active-descendant + typeahead.',
@@ -305,7 +305,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-form-field',
-    name: '@kumiki/attachment-form-field',
+    name: '@kumiki/headless/form-field',
     layer: 3,
     summary:
       'Svelte 5 attachments for Form Field — Standard Schema validator runner with race-token dispatch + ARIA wiring.',
@@ -314,7 +314,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-accordion',
-    name: '@kumiki/attachment-accordion',
+    name: '@kumiki/headless/accordion',
     layer: 3,
     summary:
       'Svelte 5 attachments for Accordion — root / item / trigger / panel compound primitive with roving-tabindex nav.',
@@ -324,7 +324,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-slider',
-    name: '@kumiki/attachment-slider',
+    name: '@kumiki/headless/slider',
     layer: 3,
     summary:
       'Svelte 5 attachments for Slider — root + thumb factories with keyboard, pointer-drag, and RTL inversion.',
@@ -334,7 +334,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-number-field',
-    name: '@kumiki/attachment-number-field',
+    name: '@kumiki/headless/number-field',
     layer: 3,
     summary:
       'Svelte 5 attachments for NumberField — root / input / increment / decrement with spinbutton ARIA + format/parse hooks.',
@@ -344,7 +344,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-popover',
-    name: '@kumiki/attachment-popover',
+    name: '@kumiki/headless/popover',
     layer: 3,
     summary:
       'Svelte 5 attachments for Popover — trigger / content / close / title / description with dismissable + focus-on-open wiring.',
@@ -354,7 +354,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-toast',
-    name: '@kumiki/attachment-toast',
+    name: '@kumiki/headless/toast',
     layer: 3,
     summary:
       'Svelte 5 attachments for Toast — viewport / item / closeButton with auto-dismiss, hover-pause, and aria-live wiring.',
@@ -364,7 +364,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'attachment-menu',
-    name: '@kumiki/attachment-menu',
+    name: '@kumiki/headless/menu',
     layer: 3,
     summary:
       'Svelte 5 attachments for Menu — trigger / menu / item compound with APG keyboard handling, dismissable wiring, activatedId-driven onSelect.',

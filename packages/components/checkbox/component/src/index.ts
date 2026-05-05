@@ -28,4 +28,4 @@ export type {
   CheckboxState,
   CheckboxValue,
   CreateCheckboxOptions,
-} from '@kumiki/attachment-checkbox';
+} from '@kumiki/headless/checkbox';

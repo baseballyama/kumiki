@@ -55,4 +55,4 @@ export type {
   PopoverMachine,
   PopoverState,
   CreatePopoverOptions,
-} from '@kumiki/attachment-popover';
+} from '@kumiki/headless/popover';

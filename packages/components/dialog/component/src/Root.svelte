@@ -15,7 +15,7 @@
 -->
 <script lang="ts">
   import { onDestroy, setContext, untrack } from 'svelte';
-  import { createDialog, type DialogController } from '@kumiki/attachment-dialog';
+  import { createDialog, type DialogController } from '@kumiki/headless/dialog';
   import type { Snippet } from 'svelte';
   import { DIALOG_CONTEXT_KEY, type DialogContextValue } from './context.js';
 

@@ -68,4 +68,4 @@ export type {
   ToastState,
   ToastType,
   CreateToastOptions,
-} from '@kumiki/attachment-toast';
+} from '@kumiki/headless/toast';

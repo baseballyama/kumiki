@@ -1,0 +1,343 @@
+{
+  "name": "@kumiki/headless",
+  "version": "0.0.0",
+  "description": "Layer 3 — Svelte 5 attachments that wire @kumiki/machines to real DOM. One subpath per component; install once, import the parts you use.",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/headless",
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
+  "license": "MIT",
+  "author": "Yuichiro Yamashita",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baseballyama/kumiki.git",
+    "directory": "packages/headless"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json",
+    "./accordion": {
+      "types": "./dist/accordion/index.d.mts",
+      "import": "./dist/accordion/index.mjs"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox/index.d.mts",
+      "import": "./dist/checkbox/index.mjs"
+    },
+    "./combobox": {
+      "types": "./dist/combobox/index.d.mts",
+      "import": "./dist/combobox/index.mjs"
+    },
+    "./combobox/with-validation": {
+      "types": "./dist/combobox/with-validation/index.d.mts",
+      "import": "./dist/combobox/with-validation/index.mjs"
+    },
+    "./combobox/with-async-search": {
+      "types": "./dist/combobox/with-async-search/index.d.mts",
+      "import": "./dist/combobox/with-async-search/index.mjs"
+    },
+    "./combobox/with-multi-select": {
+      "types": "./dist/combobox/with-multi-select/index.d.mts",
+      "import": "./dist/combobox/with-multi-select/index.mjs"
+    },
+    "./combobox/with-virtualization": {
+      "types": "./dist/combobox/with-virtualization/index.d.mts",
+      "import": "./dist/combobox/with-virtualization/index.mjs"
+    },
+    "./dialog": {
+      "types": "./dist/dialog/index.d.mts",
+      "import": "./dist/dialog/index.mjs"
+    },
+    "./form-field": {
+      "types": "./dist/form-field/index.d.mts",
+      "import": "./dist/form-field/index.mjs"
+    },
+    "./menu": {
+      "types": "./dist/menu/index.d.mts",
+      "import": "./dist/menu/index.mjs"
+    },
+    "./number-field": {
+      "types": "./dist/number-field/index.d.mts",
+      "import": "./dist/number-field/index.mjs"
+    },
+    "./popover": {
+      "types": "./dist/popover/index.d.mts",
+      "import": "./dist/popover/index.mjs"
+    },
+    "./radio-group": {
+      "types": "./dist/radio-group/index.d.mts",
+      "import": "./dist/radio-group/index.mjs"
+    },
+    "./select": {
+      "types": "./dist/select/index.d.mts",
+      "import": "./dist/select/index.mjs"
+    },
+    "./slider": {
+      "types": "./dist/slider/index.d.mts",
+      "import": "./dist/slider/index.mjs"
+    },
+    "./switch": {
+      "types": "./dist/switch/index.d.mts",
+      "import": "./dist/switch/index.mjs"
+    },
+    "./tabs": {
+      "types": "./dist/tabs/index.d.mts",
+      "import": "./dist/tabs/index.mjs"
+    },
+    "./toast": {
+      "types": "./dist/toast/index.d.mts",
+      "import": "./dist/toast/index.mjs"
+    },
+    "./toggle": {
+      "types": "./dist/toggle/index.d.mts",
+      "import": "./dist/toggle/index.mjs"
+    },
+    "./tooltip": {
+      "types": "./dist/tooltip/index.d.mts",
+      "import": "./dist/tooltip/index.mjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint src",
+    "size": "size-limit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@kumiki/machines": "workspace:*",
+    "@kumiki/primitives": "workspace:*",
+    "@kumiki/runtime": "workspace:*"
+  },
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "catalog:",
+    "jsdom": "catalog:",
+    "size-limit": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "svelte": "catalog:"
+  },
+  "size-limit": [
+    {
+      "name": "headless/toggle (incremental)",
+      "path": "dist/toggle/index.mjs",
+      "limit": "750 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/switch (incremental)",
+      "path": "dist/switch/index.mjs",
+      "limit": "750 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/checkbox (incremental)",
+      "path": "dist/checkbox/index.mjs",
+      "limit": "850 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/radio-group (incremental)",
+      "path": "dist/radio-group/index.mjs",
+      "limit": "1.2 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/tabs (incremental)",
+      "path": "dist/tabs/index.mjs",
+      "limit": "1.5 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/dialog (incremental)",
+      "path": "dist/dialog/index.mjs",
+      "limit": "1.4 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/tooltip (incremental)",
+      "path": "dist/tooltip/index.mjs",
+      "limit": "1 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/combobox (incremental)",
+      "path": "dist/combobox/index.mjs",
+      "limit": "1700 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/select (incremental)",
+      "path": "dist/select/index.mjs",
+      "limit": "1.5 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/form-field (incremental)",
+      "path": "dist/form-field/index.mjs",
+      "limit": "1.5 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/slider (incremental)",
+      "path": "dist/slider/index.mjs",
+      "limit": "1.5 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/accordion (incremental)",
+      "path": "dist/accordion/index.mjs",
+      "limit": "1.4 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/number-field (incremental)",
+      "path": "dist/number-field/index.mjs",
+      "limit": "1.5 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/popover (incremental)",
+      "path": "dist/popover/index.mjs",
+      "limit": "1.5 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/toast (incremental)",
+      "path": "dist/toast/index.mjs",
+      "limit": "1.5 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/menu (incremental)",
+      "path": "dist/menu/index.mjs",
+      "limit": "1.7 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/combobox/with-validation",
+      "path": "dist/combobox/with-validation/index.mjs",
+      "limit": "750 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/combobox/with-async-search",
+      "path": "dist/combobox/with-async-search/index.mjs",
+      "limit": "750 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/combobox/with-multi-select",
+      "path": "dist/combobox/with-multi-select/index.mjs",
+      "limit": "750 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/combobox/with-virtualization",
+      "path": "dist/combobox/with-virtualization/index.mjs",
+      "limit": "750 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    }
+  ]
+}

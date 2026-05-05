@@ -68,12 +68,12 @@ console.log(m.context.value);          // 'cherry' (skipped disabled banana)`,
   ],
 
   'attachment-radio-group': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-radio-group' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createRadioGroup } from '@kumiki/attachment-radio-group';
+  import { createRadioGroup } from '@kumiki/headless/radio-group';
   const g = createRadioGroup({ items });
 </script>
 
@@ -158,12 +158,12 @@ console.log(m.context.value);          // 'team'`,
   ],
 
   'attachment-tabs': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-tabs' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM (compound — list + tab + panel)',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createTabs } from '@kumiki/attachment-tabs';
+  import { createTabs } from '@kumiki/headless/tabs';
   const c = createTabs({ items, orientation: 'horizontal' });
 </script>
 
@@ -247,12 +247,12 @@ console.log(m.state);              // 'closed'`,
   ],
 
   'attachment-dialog': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-dialog' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM (six factories)',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createDialog } from '@kumiki/attachment-dialog';
+  import { createDialog } from '@kumiki/headless/dialog';
   const d = createDialog({ modal: true });
 </script>
 
@@ -307,12 +307,12 @@ console.log(m.state);     // 'closed'`,
   ],
 
   'attachment-tooltip': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-tooltip' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createTooltip } from '@kumiki/attachment-tooltip';
+  import { createTooltip } from '@kumiki/headless/tooltip';
   const t = createTooltip({ openDelay: 500, closeDelay: 200 });
 </script>
 
@@ -382,12 +382,12 @@ console.log(m.context.value);                       // 'cherry'`,
   ],
 
   'attachment-select': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-select' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM (compound — trigger + listbox + option)',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createSelect } from '@kumiki/attachment-select';
+  import { createSelect } from '@kumiki/headless/select';
   const s = createSelect({ items });
 </script>
 
@@ -473,12 +473,12 @@ console.log(m.state); // 'editing' — not 'invalid'`,
   ],
 
   'attachment-form-field': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-form-field' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createFormField } from '@kumiki/attachment-form-field';
+  import { createFormField } from '@kumiki/headless/form-field';
   const f = createFormField({ initialValue: '', validator });
 </script>
 
@@ -594,12 +594,12 @@ console.log(m.context.value); // 100 (clamped)`,
   ],
 
   'attachment-slider': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-slider' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createSlider } from '@kumiki/attachment-slider';
+  import { createSlider } from '@kumiki/headless/slider';
   const s = createSlider();
 </script>
 
@@ -663,12 +663,12 @@ console.log(m.context.value); // null`,
   ],
 
   'attachment-number-field': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-number-field' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM (compound)',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createNumberField } from '@kumiki/attachment-number-field';
+  import { createNumberField } from '@kumiki/headless/number-field';
   const n = createNumberField({ min: 0, max: 10 });
 </script>
 
@@ -717,12 +717,12 @@ console.log(m.state); // 'closed'`,
   ],
 
   'attachment-popover': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-popover' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM (compound)',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createPopover } from '@kumiki/attachment-popover';
+  import { createPopover } from '@kumiki/headless/popover';
   const p = createPopover();
 </script>
 
@@ -777,12 +777,12 @@ console.log(m.context.toasts.length); // 0`,
   ],
 
   'attachment-toast': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-toast' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM (toaster queue)',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createToast } from '@kumiki/attachment-toast';
+  import { createToast } from '@kumiki/headless/toast';
   const t = createToast({ defaultDuration: 4000 });
 
   function notify() {
@@ -853,12 +853,12 @@ console.log(m.context.highlightedId); // 'b'`,
   ],
 
   'attachment-menu': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-menu' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM (compound)',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createMenu } from '@kumiki/attachment-menu';
+  import { createMenu } from '@kumiki/headless/menu';
   const items = [{ id: 'a', label: 'A' }, { id: 'b', label: 'B' }];
   const m = createMenu({ items, onSelect: (it) => console.log(it.id) });
 </script>
@@ -873,12 +873,12 @@ console.log(m.context.highlightedId); // 'b'`,
   ],
 
   'attachment-accordion': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-accordion' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM (compound — root + item + trigger + panel)',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createAccordion } from '@kumiki/attachment-accordion';
+  import { createAccordion } from '@kumiki/headless/accordion';
   const c = createAccordion({ items });
 </script>
 
@@ -951,12 +951,12 @@ console.log(m.state);                // 'mixed'`,
   ],
 
   'attachment-checkbox': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-checkbox' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createCheckbox } from '@kumiki/attachment-checkbox';
+  import { createCheckbox } from '@kumiki/headless/checkbox';
   const c = createCheckbox({ initial: 'unchecked' });
 </script>
 
@@ -1051,12 +1051,12 @@ m.send({
   ],
 
   'attachment-combobox': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-combobox' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive your own DOM',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createCombobox } from '@kumiki/attachment-combobox';
+  import { createCombobox } from '@kumiki/headless/combobox';
   const cb = createCombobox({ options: items });
 </script>
 
@@ -1122,12 +1122,12 @@ console.log(m.context.checked);    // true`,
   ],
 
   'attachment-switch': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/attachment-switch' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
     {
       title: 'Drive a vanilla button',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createSwitch } from '@kumiki/attachment-switch';
+  import { createSwitch } from '@kumiki/headless/switch';
   const s = createSwitch({ initial: false });
 </script>
 
@@ -1186,13 +1186,13 @@ console.log(m.context.checked);    // true`,
     {
       title: 'Install',
       lang: 'bash',
-      code: 'pnpm add @kumiki/attachment-toggle',
+      code: 'pnpm add @kumiki/headless',
     },
     {
       title: 'Drive a vanilla button',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createToggle } from '@kumiki/attachment-toggle';
+  import { createToggle } from '@kumiki/headless/toggle';
   const t = createToggle({ initial: false });
 </script>
 
@@ -1204,7 +1204,7 @@ console.log(m.context.checked);    // true`,
       title: 'Subscribe + react in Svelte',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { createToggle } from '@kumiki/attachment-toggle';
+  import { createToggle } from '@kumiki/headless/toggle';
 
   const t = createToggle({ initial: false });
   let pressed = $state(t.pressed);

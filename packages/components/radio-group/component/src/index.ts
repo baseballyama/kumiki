@@ -32,4 +32,4 @@ export type {
   RadioGroupState,
   RadioItem,
   CreateRadioGroupOptions,
-} from '@kumiki/attachment-radio-group';
+} from '@kumiki/headless/radio-group';

@@ -11,7 +11,7 @@
 -->
 <script lang="ts">
   import { onDestroy, setContext, untrack } from 'svelte';
-  import { createNumberField, type NumberFieldController } from '@kumiki/attachment-number-field';
+  import { createNumberField, type NumberFieldController } from '@kumiki/headless/number-field';
   import type { Snippet } from 'svelte';
   import { NUMBER_FIELD_CONTEXT_KEY, type NumberFieldContextValue } from './context.js';
 

@@ -44,7 +44,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kumiki/attachment-accordion": "workspace:*"
+    "@kumiki/headless": "workspace:*"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "catalog:",

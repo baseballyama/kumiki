@@ -17,7 +17,7 @@
 -->
 <script lang="ts">
   import { onDestroy, setContext, untrack } from 'svelte';
-  import { createPopover, type PopoverController } from '@kumiki/attachment-popover';
+  import { createPopover, type PopoverController } from '@kumiki/headless/popover';
   import type { Snippet } from 'svelte';
   import { POPOVER_CONTEXT_KEY, type PopoverContextValue } from './context.js';
 

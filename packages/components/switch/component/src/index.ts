@@ -25,4 +25,4 @@ export type {
   SwitchEvent,
   SwitchState,
   CreateSwitchOptions,
-} from '@kumiki/attachment-switch';
+} from '@kumiki/headless/switch';

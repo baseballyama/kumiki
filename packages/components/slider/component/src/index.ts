@@ -43,4 +43,4 @@ export type {
   SliderOrientation,
   SliderState,
   CreateSliderOptions,
-} from '@kumiki/attachment-slider';
+} from '@kumiki/headless/slider';

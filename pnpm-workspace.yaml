@@ -5,6 +5,7 @@ packages:
   # the old per-component slices and the new layer packages coexist.
   - 'packages/core/*'
   - 'packages/machines'
+  - 'packages/headless'
   - 'packages/components/*/*'
   - 'packages/recipes/*'
   - 'packages/meta/*'

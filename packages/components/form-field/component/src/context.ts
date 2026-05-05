@@ -5,7 +5,7 @@
  * with a single internal cast (per docs/design/08-typescript.md §8.2).
  */
 
-import type { FormFieldController } from '@kumiki/attachment-form-field';
+import type { FormFieldController } from '@kumiki/headless/form-field';
 
 export const FIELD_CONTEXT_KEY = Symbol('kumiki.form-field');
 
@@ -18,4 +18,4 @@ export type {
   FieldIssue,
   StandardSchemaV1,
   ValidateOn,
-} from '@kumiki/attachment-form-field';
+} from '@kumiki/headless/form-field';

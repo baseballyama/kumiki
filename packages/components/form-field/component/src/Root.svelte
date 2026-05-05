@@ -23,7 +23,7 @@
     type FormFieldState,
     type StandardSchemaV1,
     type ValidateOn,
-  } from '@kumiki/attachment-form-field';
+  } from '@kumiki/headless/form-field';
   import type { Snippet } from 'svelte';
   import { FIELD_CONTEXT_KEY, type FieldContextValue } from './context.js';
 

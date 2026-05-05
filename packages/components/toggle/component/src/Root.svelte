@@ -24,7 +24,7 @@
 -->
 <script lang="ts">
   import { onDestroy, untrack } from 'svelte';
-  import { createToggle, type ToggleController } from '@kumiki/attachment-toggle';
+  import { createToggle, type ToggleController } from '@kumiki/headless/toggle';
   import type { Snippet } from 'svelte';
 
   type ChildPayload = {

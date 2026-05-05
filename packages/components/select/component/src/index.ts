@@ -58,4 +58,4 @@ export type {
   SelectState,
   SelectItem,
   CreateSelectOptions,
-} from '@kumiki/attachment-select';
+} from '@kumiki/headless/select';

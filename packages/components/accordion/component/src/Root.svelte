@@ -19,7 +19,7 @@
     type AccordionController,
     type AccordionItem,
     type AccordionMode,
-  } from '@kumiki/attachment-accordion';
+  } from '@kumiki/headless/accordion';
   import type { Snippet } from 'svelte';
   import { ACCORDION_CONTEXT_KEY, type AccordionContextValue } from './context.js';
 

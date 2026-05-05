@@ -49,4 +49,4 @@ export type {
   DialogMachine,
   DialogState,
   CreateDialogOptions,
-} from '@kumiki/attachment-dialog';
+} from '@kumiki/headless/dialog';

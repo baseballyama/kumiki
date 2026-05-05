@@ -6,7 +6,7 @@
 -->
 <script lang="ts">
   import { onDestroy, setContext, untrack } from 'svelte';
-  import { createMenu, type MenuController, type MenuItem } from '@kumiki/attachment-menu';
+  import { createMenu, type MenuController, type MenuItem } from '@kumiki/headless/menu';
   import type { Snippet } from 'svelte';
   import { MENU_CONTEXT_KEY, type MenuContextValue } from './context.js';
 

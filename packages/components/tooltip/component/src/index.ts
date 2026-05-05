@@ -40,4 +40,4 @@ export type {
   TooltipMachine,
   TooltipState,
   CreateTooltipOptions,
-} from '@kumiki/attachment-tooltip';
+} from '@kumiki/headless/tooltip';

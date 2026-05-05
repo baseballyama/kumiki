@@ -1,6 +1,6 @@
 <script lang="ts">
   // Demonstrates Layer 3 — using `createToggle()` + `{@attach}` directly on a button.
-  import { createToggle } from '@kumiki/attachment-toggle';
+  import { createToggle } from '@kumiki/headless/toggle';
 
   const t = createToggle({ initial: false });
   let pressedDisplay = $state(t.pressed);

@@ -6,7 +6,7 @@
  * so the context is plain (no `<V>` parameterisation needed).
  */
 
-import type { TabItem, TabsController } from '@kumiki/attachment-tabs';
+import type { TabItem, TabsController } from '@kumiki/headless/tabs';
 
 export const TABS_CONTEXT_KEY = Symbol('kumiki.tabs');
 
@@ -14,4 +14,4 @@ export interface TabsContextValue {
   controller: TabsController;
 }
 
-export type { TabItem, TabsController } from '@kumiki/attachment-tabs';
+export type { TabItem, TabsController } from '@kumiki/headless/tabs';

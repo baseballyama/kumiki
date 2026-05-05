@@ -18,7 +18,7 @@
 -->
 <script lang="ts">
   import { onDestroy, untrack } from 'svelte';
-  import { createSwitch, type SwitchController } from '@kumiki/attachment-switch';
+  import { createSwitch, type SwitchController } from '@kumiki/headless/switch';
   import type { Snippet } from 'svelte';
 
   type ChildPayload = {

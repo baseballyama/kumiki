@@ -42,4 +42,4 @@ export type {
   ComboboxStatus,
   CreateComboboxOptions,
   NavigateDirection,
-} from '@kumiki/attachment-combobox';
+} from '@kumiki/headless/combobox';

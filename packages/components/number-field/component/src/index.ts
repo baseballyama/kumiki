@@ -46,4 +46,4 @@ export type {
   NumberFieldMachine,
   NumberFieldState,
   CreateNumberFieldOptions,
-} from '@kumiki/attachment-number-field';
+} from '@kumiki/headless/number-field';
