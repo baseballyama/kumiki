@@ -22,7 +22,7 @@ Zag.js validated option 3 in production (its `@zag-js/core` is "a minimal implem
 
 ## Decision
 
-We **build our own FSM runtime** at `@kumiki/runtime`, targeting ~1 KB gzipped, supporting:
+We **build our own FSM runtime** at `@kumiki/runtime`, targeting ~1 KB brotli (currently 676 B brotli ≤ 1 KB budget), supporting:
 
 - Hierarchical / nested states (required by Combobox).
 - Entry / exit / transition actions.

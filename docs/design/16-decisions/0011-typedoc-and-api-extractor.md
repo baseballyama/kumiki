@@ -17,7 +17,7 @@ They overlap in inputs (TS + JSDoc) but have different outputs and audiences.
 Use **both**, in different roles:
 
 - **TypeDoc + `typedoc-plugin-markdown`**: generates the per-component reference rendered by the SvelteKit docs site. Audience: humans browsing `kumiki.dev/components/<name>`.
-- **api-extractor**: generates `api/<pkg>.api.md` per package, committed to the repo. Diff is reviewed in PRs as part of the SemVer contract. Audience: maintainers, reviewers.
+- **api-extractor**: generates `<pkg>/etc/<unscoped>.api.md` per Layer 1/2/3 package, committed to the repo. Diff is reviewed in PRs as part of the SemVer contract. Audience: maintainers, reviewers. Layer 4/5 (Svelte source) are skipped — `attw` covers them via `pnpm ci:health`.
 
 Both run in CI on every PR. TypeDoc output drives the docs site; api-extractor output is a tracked file under each package.
 
@@ -37,15 +37,18 @@ TypeDoc consumes JSDoc tags (`@when-to-use`, `@anti-pattern`, `@see`) directly. 
 api-extractor produces a file like:
 
 ```ts
-// api/component-combobox.api.md
-@public(undocumented)
-class Combobox {
-  /** @public */
-  static Root: typeof ComboboxRoot;
-  /** @public */
-  static Item: typeof ComboboxItem;
-  // …
+// packages/machines/etc/machines.api.md
+// @public
+export interface ComboboxOption {
+  id: string;
+  label: string;
+  disabled?: boolean;
 }
+// @public
+export function createComboboxMachine<T extends ComboboxOption>(
+  input: CreateComboboxInput<T>,
+): ComboboxMachine<T>;
+// …
 ```
 
 A change to `Combobox.Root`'s public type produces a diff in this file; the PR reviewer sees the surface change at a glance.
@@ -68,10 +71,10 @@ api-extractor does not parse `.svelte` files; it operates on the `.svelte.d.ts` 
 
 ## Phase plan
 
-- **Phase 0a**: TypeDoc working for `@kumiki/primitives` and `@kumiki/components/toggle`. api-extractor wired but not enforcing.
-- **Phase 0b**: api-extractor enforces — PRs that change reports without updating them are rejected.
-- **Phase 0c**: TypeDoc output rendered into the SvelteKit docs site.
-- **Phase 1**: Both tools running over all 9 layer packages (post-ADR-0012).
+- **Phase 0a**: TypeDoc working for `@kumiki/primitives` and `@kumiki/components/toggle`. api-extractor wired but not enforcing. ✅
+- **Phase 0b**: api-extractor enforces — PRs that change reports without updating them are rejected (`pnpm check:api-report`). ✅
+- **Phase 0c**: TypeDoc output (`pnpm typedoc`) generates per-package markdown under `docs/api/` (gitignored, built on demand). ✅
+- **Phase 1**: Both tools running over all Layer 1/2/3 packages (post-ADR-0012). ✅
 
 ## References
 

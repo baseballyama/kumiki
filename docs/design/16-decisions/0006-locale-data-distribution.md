@@ -36,7 +36,7 @@ Locale data ships as a **single npm package** `@kumiki/locale` with **per-langua
 
 A user that imports only `@kumiki/locale/ja` pulls in only Japanese data. Static analysis of `import('@kumiki/locale/${lang}')` produces one chunk per language under Vite/Rollup.
 
-Per-language gzip budget: **≤ 1 KB**.
+Per-language brotli budget: **≤ 1 KB** (gated by `size-limit` per `@kumiki/locale/<lang>` entry).
 
 Initial set: **10 languages** at v1.0 (en/ja/zh-Hans/zh-Hant/ko/es/fr/de/ar/he). Phase 2 expands to 20.
 
