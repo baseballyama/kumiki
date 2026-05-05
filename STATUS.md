@@ -43,24 +43,26 @@ tree-shakable subpaths (1.77 KB total optional surface).
 
 ## What runs (verified end-to-end)
 
-| Component   | Layer 2 (machine) | Layer 3 (attachment) | Layer 4 (component) | Live demo | E2E + axe |
-| ----------- | :---------------: | :------------------: | :-----------------: | :-------: | :-------: |
-| Toggle      |    ✅ 15 tests    |     ✅ 13 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 6  |
-| Switch      |    ✅ 15 tests    |      ✅ 8 tests      |     ✅ 0 errors     |    ✅     | ✅ 7 + 6  |
-| Combobox    |    ✅ 33 tests    |     ✅ 13 tests      |     ✅ 0 errors     |    ✅     | ✅ 11 + 5 |
-| Checkbox    |    ✅ 20 tests    |     ✅ 12 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 8  |
-| RadioGroup  |    ✅ 22 tests    |     ✅ 11 tests      |     ✅ 0 errors     |    ✅     | ✅ 8 + 4  |
-| Tabs        |    ✅ 31 tests    |     ✅ 14 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 8  |
-| Dialog      |    ✅ 20 tests    |     ✅ 15 tests      |     ✅ 0 errors     |    ✅     | ✅ 8 + 4  |
-| Tooltip     |    ✅ 16 tests    |     ✅ 12 tests      |     ✅ 0 errors     |    ✅     | ✅ 7 + 4  |
-| Select      |    ✅ 26 tests    |     ✅ 14 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 4  |
-| Field/Form  |    ✅ 17 tests    |     ✅ 14 tests      |     ✅ 0 errors     |    ✅     | ✅ 9 + 4  |
-| Slider      |    ✅ 20 tests    |     ✅ 12 tests      |     ✅ 0 errors     |    ✅     | ✅ 8 + 6  |
-| Accordion   |    ✅ ✓ tests     |      ✅ ✓ tests      |     ✅ 0 errors     |    ✅     |    ✅     |
-| NumberField |    ✅ 25 tests    |     ✅ 21 tests      |     ✅ 0 errors     |    ✅     | ✅ 12 + 6 |
-| Popover     |    ✅ 18 tests    |     ✅ 16 tests      |     ✅ 0 errors     |    ✅     | ✅ 11 + 4 |
-| Toast       |    ✅ 19 tests    |     ✅ 16 tests      |     ✅ 0 errors     |    ✅     | ✅ 10 + 4 |
-| Menu        |    ✅ 22 tests    |     ✅ 20 tests      |     ✅ 0 errors     |    ✅     | ✅ 13 + 4 |
+| Component   | Layer 2 (machine) |   Layer 3 (headless)   | Layer 4 (component) | Live demo | E2E + axe |
+| ----------- | :---------------: | :--------------------: | :-----------------: | :-------: | :-------: |
+| Toggle      |    ✅ 15 tests    |      ✅ 13 tests       |     ✅ 0 errors     |    ✅     | ✅ 9 + 6  |
+| Switch      |    ✅ 15 tests    |       ✅ 8 tests       |     ✅ 0 errors     |    ✅     | ✅ 7 + 6  |
+| Combobox    |    ✅ 33 tests    | ✅ 63 tests (+with-\*) |     ✅ 0 errors     |    ✅     | ✅ 11 + 5 |
+| Checkbox    |    ✅ 20 tests    |      ✅ 12 tests       |     ✅ 0 errors     |    ✅     | ✅ 9 + 8  |
+| RadioGroup  |    ✅ 22 tests    |      ✅ 11 tests       |     ✅ 0 errors     |    ✅     | ✅ 8 + 4  |
+| Tabs        |    ✅ 31 tests    |      ✅ 14 tests       |     ✅ 0 errors     |    ✅     | ✅ 9 + 8  |
+| Dialog      |    ✅ 20 tests    |      ✅ 15 tests       |     ✅ 0 errors     |    ✅     | ✅ 8 + 4  |
+| Tooltip     |    ✅ 16 tests    |      ✅ 12 tests       |     ✅ 0 errors     |    ✅     | ✅ 7 + 4  |
+| Select      |    ✅ 26 tests    |      ✅ 14 tests       |     ✅ 0 errors     |    ✅     | ✅ 9 + 4  |
+| Field/Form  |    ✅ 17 tests    |      ✅ 14 tests       |     ✅ 0 errors     |    ✅     | ✅ 9 + 4  |
+| Slider      |    ✅ 20 tests    |      ✅ 12 tests       |     ✅ 0 errors     |    ✅     | ✅ 8 + 6  |
+| Accordion   |    ✅ 21 tests    |      ✅ 10 tests       |     ✅ 0 errors     |    ✅     |    ✅     |
+| NumberField |    ✅ 25 tests    |      ✅ 21 tests       |     ✅ 0 errors     |    ✅     | ✅ 12 + 6 |
+| Popover     |    ✅ 18 tests    |      ✅ 16 tests       |     ✅ 0 errors     |    ✅     | ✅ 11 + 4 |
+| Toast       |    ✅ 19 tests    |      ✅ 16 tests       |     ✅ 0 errors     |    ✅     | ✅ 10 + 4 |
+| Menu        |    ✅ 22 tests    |      ✅ 20 tests       |     ✅ 0 errors     |    ✅     | ✅ 13 + 4 |
+
+**Totals:** machines 340, headless 271, runtime 15, primitives 46 — **672 unit tests across 9 packages** (plus 73 APG keyboard cases in Playwright). **109 microbenchmarks** at `/bench`.
 
 | Shared package                   | Status                                   |
 | -------------------------------- | :--------------------------------------- |
