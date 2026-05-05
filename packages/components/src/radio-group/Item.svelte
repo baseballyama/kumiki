@@ -18,6 +18,8 @@
     /** The item this radio represents. Must match an entry in the parent's `items`. */
     value: RadioItem<V>;
     children?: Snippet;
+    /** Extra props (`class`, `style`, `data-*`, …) forwarded to the root `<button>`. */
+    [key: string]: unknown;
   };
 
   let { value, children, ...rest }: Props = $props();
