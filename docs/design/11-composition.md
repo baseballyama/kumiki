@@ -31,7 +31,7 @@ Each `with*`:
 
 - Takes the base controller as the first argument.
 - Returns a new controller with extended state.
-- Lives in its own subpath: `@kumiki/attachment-combobox/with-async-search`, `@kumiki/attachment-combobox/with-virtualization`, etc.
+- Lives in its own subpath: `@kumiki/headless/combobox/with-async-search`, `@kumiki/headless/combobox/with-virtualization`, etc.
 - Is independently typed; the result is a type intersection of the base + the feature.
 
 ## 11.3 Subpath layout for composition functions
@@ -52,7 +52,7 @@ For a Layer 3 package with composition variants:
 }
 ```
 
-A user that imports only `from '@kumiki/attachment-combobox'` does not pull in `with-virtualization` or anything else.
+A user that imports only `from '@kumiki/headless/combobox'` does not pull in `with-virtualization` or anything else.
 
 ## 11.4 The Phase 1 priority list
 
@@ -104,7 +104,7 @@ Same for value. The base controller defaults to internal state; `withControlledV
 Each `with*` is typed precisely so users get autocomplete after composing:
 
 ```ts
-// @kumiki/attachment-combobox/with-validation
+// @kumiki/headless/combobox/with-validation
 import type { ComboboxController, StandardSchemaV1 } from '@kumiki/types';
 
 export interface ValidatedCombobox<T> extends ComboboxController<T> {

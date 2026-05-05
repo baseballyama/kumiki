@@ -54,13 +54,13 @@ Differentiation against Bits UI, Melt UI, and Headless UI. See [`06-i18n.md`](06
 
 Differentiation against Bits UI (which uses runes directly) and from React Aria (which couples logic to React). See [`04-state-machines.md`](04-state-machines.md).
 
-**Acceptance:** every component's logic exists as a pure-TS machine in `@kumiki/machine-*`. Each machine can be exercised in Vitest with no DOM. Each machine exports an XState-compatible JSON config consumable by stately.ai's visualizer.
+**Acceptance:** every component's logic exists as a pure-TS machine in `@kumiki/machines`. Each machine can be exercised in Vitest with no DOM. Each machine exports an XState-compatible JSON config consumable by stately.ai's visualizer.
 
 ### G5 — Form / validation integration via Standard Schema
 
 The form story is the wedge for adoption inside enterprise apps. See [`07-form-validation.md`](07-form-validation.md).
 
-**Acceptance:** `@kumiki/component-form-field` accepts any `StandardSchemaV1` validator; the same code runs against Zod 3.24+, Valibot 1.x, ArkType 2.0+, Effect Schema 3.x without per-validator adapters; `aria-invalid` / `aria-describedby` / live-region wiring is automatic.
+**Acceptance:** `@kumiki/components/form-field` accepts any `StandardSchemaV1` validator; the same code runs against Zod 3.24+, Valibot 1.x, ArkType 2.0+, Effect Schema 3.x without per-validator adapters; `aria-invalid` / `aria-describedby` / live-region wiring is automatic.
 
 ### G6 — Compound API + generic type propagation
 
@@ -90,7 +90,7 @@ Reproduced from the brief Section 3 with rationales:
 
 If Kumiki has achieved the vision, by mid-2027:
 
-- A new Svelte enterprise project's design system starts with `pnpm add @kumiki/component-*` and a `kumiki add` invocation, then layers brand styles on top.
+- A new Svelte enterprise project's design system starts with `pnpm add @kumiki/components` and a `kumiki add` invocation, then layers brand styles on top.
 - The "should we use Bits UI or Kumiki" question reduces to "do you need RTL / non-Gregorian calendars / Standard Schema form integration / a tighter bundle budget?" — if yes, Kumiki.
 - One non-Anthropic / non-author contributor has shipped a non-trivial PR, demonstrating that the contribution model isn't single-maintainer-dependent (the Reach UI failure mode flagged in the user's market research).
 

@@ -68,7 +68,7 @@ api-extractor does not parse `.svelte` files; it operates on the `.svelte.d.ts` 
 
 ## Phase plan
 
-- **Phase 0a**: TypeDoc working for `@kumiki/primitives` and `@kumiki/component-toggle`. api-extractor wired but not enforcing.
+- **Phase 0a**: TypeDoc working for `@kumiki/primitives` and `@kumiki/components/toggle`. api-extractor wired but not enforcing.
 - **Phase 0b**: api-extractor enforces — PRs that change reports without updating them are rejected.
 - **Phase 0c**: TypeDoc output rendered into the SvelteKit docs site.
 - **Phase 1**: Both tools running over all 37 packages.

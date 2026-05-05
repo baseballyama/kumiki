@@ -167,7 +167,7 @@ This is type-safe: the user gets autocomplete on `props.role`, `props.onclick`, 
 Where ARIA requires a name and we can detect its absence at the type level, we make the type require it:
 
 ```ts
-// @kumiki/component-dialog
+// @kumiki/components/dialog
 export type DialogRootProps =
   | { title: string; children: Snippet }
   | { 'aria-label': string; children: Snippet }
@@ -200,7 +200,7 @@ Known gotcha: generic + bindable in **deeply** nested components forces explicit
 Layer 3 controllers live in `*.svelte.ts` files. The Svelte compiler preprocesses runes here. Pattern:
 
 ```ts
-// @kumiki/attachment-combobox/src/controller.svelte.ts
+// @kumiki/headless/combobox/src/controller.svelte.ts
 export class ComboboxController<T> {
   state = $state<'closed' | 'open'>('closed');
   filtered = $state.raw<T[]>([]);

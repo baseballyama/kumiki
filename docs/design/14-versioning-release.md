@@ -44,13 +44,22 @@ The wizard prompts for affected packages and bump types. The file is committed a
 
 ```md
 ---
-'@kumiki/component-combobox': minor
-'@kumiki/attachment-combobox': minor
+'@kumiki/components': minor
+'@kumiki/headless': minor
 ---
 
-Add `withMultiSelect` composition. Combobox now supports an array `value`
-when composed with `withMultiSelect`. See docs/components/combobox.md.
+Add `withMultiSelect` composition for Combobox. Combobox now supports an
+array `value` when composed with `withMultiSelect`. See
+docs/components/combobox.md.
 ```
+
+> **Granularity note (ADR 0012).** Changesets bump _packages_, not
+> subpaths. `@kumiki/components` and `@kumiki/headless` each version as
+> a unit — adding a feature to one component bumps the whole package.
+> A bug fix to one machine changes one line in the changelog for
+> `@kumiki/machines` but doesn't force every consumer to upgrade
+> because `0.y.z` semantics already mean non-breaking. Pre-1.0
+> conventions (§14.4) absorb this.
 
 ### Release flow
 
@@ -89,14 +98,14 @@ While Kumiki is pre-1.0, packages are at `0.y.z`:
 Consumers who can't live with weekly breaking changes should pin tightly:
 
 ```json
-"@kumiki/component-combobox": "0.3.x"
+"@kumiki/components": "0.3.x"
 ```
 
 This is communicated in the README and in the docs install instructions.
 
 ## 14.5 Layer 5 preview policy
 
-`@kumiki/recipes-*` is published as a **preview** during the v1.0 series, per [16-decisions/0010-layer5-preview-in-v1.md](16-decisions/0010-layer5-preview-in-v1.md).
+`@kumiki/recipes` is published with the **`preview`** dist-tag during the v1.0 series, per [16-decisions/0010-layer5-preview-in-v1.md](16-decisions/0010-layer5-preview-in-v1.md).
 
 ### Preview snapshot publishes
 
@@ -110,7 +119,7 @@ pnpm changeset publish --tag preview --no-git-tag
 Versions like `0.0.0-preview-20260601-abcdef0` appear under the `preview` dist-tag. Users who want preview recipes:
 
 ```bash
-pnpm add @kumiki/recipes-dialog@preview
+pnpm add @kumiki/recipes@preview
 ```
 
 ### Stable Layer 5

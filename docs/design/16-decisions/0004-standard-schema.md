@@ -19,7 +19,7 @@ Yup is **not** Standard Schema compliant out-of-the-box.
 
 ## Decision
 
-`@kumiki/component-form-field` accepts **any `StandardSchemaV1` validator** as the `validator` prop. We do not ship per-library adapters. Yup users can write a 20-line wrapper (documented).
+`@kumiki/components/form-field` accepts **any `StandardSchemaV1` validator** as the `validator` prop. We do not ship per-library adapters. Yup users can write a 20-line wrapper (documented).
 
 The library never imports `zod`, `valibot`, or any specific validator. The validation surface is purely the Standard Schema interface.
 

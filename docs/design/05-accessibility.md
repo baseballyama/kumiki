@@ -166,7 +166,7 @@ The component's `.md` (under `docs/components/`) is the canonical evidence.
 We push as much as possible into the type system. Examples:
 
 ```ts
-// @kumiki/component-dialog — Root requires an accessible name.
+// @kumiki/components/dialog — Root requires an accessible name.
 type DialogRootProps =
   | { title: string; children: Snippet }
   | { 'aria-label': string; children: Snippet }
@@ -176,7 +176,7 @@ type DialogRootProps =
 The TS error on `<Dialog.Root>` with neither `title`, `aria-label`, nor `aria-labelledby` is the first-class user feedback. The brief calls this out as a goal in Section 7.4.
 
 ```ts
-// @kumiki/component-tooltip — Tooltip requires a non-empty trigger label.
+// @kumiki/components/tooltip — Tooltip requires a non-empty trigger label.
 // Tooltip itself doesn't add an accessible name; the trigger must already have one.
 type TooltipTriggerProps = {
   children: Snippet; // user controls text or icon+aria-label

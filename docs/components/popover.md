@@ -19,7 +19,7 @@ Popover.Root           (owns the controller; bindable open: boolean)
    └─ Popover.Close          (button that closes the popover)
 ```
 
-Popover differs from Dialog in being **non-modal**: focus is not trapped, the page stays interactive (`Tab` moves out normally). For modal interruptions use `@kumiki/component-dialog`.
+Popover differs from Dialog in being **non-modal**: focus is not trapped, the page stays interactive (`Tab` moves out normally). For modal interruptions use `@kumiki/components/dialog`.
 
 ## Keyboard
 

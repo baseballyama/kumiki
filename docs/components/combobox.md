@@ -191,7 +191,7 @@ type Props<T> = {
 
 ```svelte
 <script lang="ts">
-  import { Combobox } from '@kumiki/component-combobox';
+  import { Combobox } from '@kumiki/components/combobox';
 
   type User = { id: string; name: string };
   const users: User[] = [/* ... */];
@@ -215,7 +215,7 @@ type Props<T> = {
 
 ```svelte
 <script lang="ts">
-  import { Combobox } from '@kumiki/component-combobox';
+  import { Combobox } from '@kumiki/components/combobox';
   import { z } from 'zod';
 
   const schema = z.object({ id: z.string() }).strict();
@@ -228,7 +228,7 @@ type Props<T> = {
 
 ```svelte
 <script lang="ts">
-  import { Combobox } from '@kumiki/component-combobox';
+  import { Combobox } from '@kumiki/components/combobox';
 
   async function fetchUsers(query: string, signal: AbortSignal) {
     const res = await fetch(`/api/users?q=${encodeURIComponent(query)}`, { signal });

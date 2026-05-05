@@ -2,7 +2,7 @@
 
 ## 7.1 Goals
 
-`@kumiki/component-form-field` covers Field, FieldGroup, and Form in one package. Goals:
+`@kumiki/components/form-field` covers Field, FieldGroup, and Form in one package. Goals:
 
 | Goal                                                                                                             | How                                                                                                    |
 | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
@@ -36,7 +36,7 @@ export namespace StandardSchemaV1 {
 }
 ```
 
-`@kumiki/component-form-field` accepts any `StandardSchemaV1<...>` for its `validator` prop. The library does not import `zod` or `valibot`.
+`@kumiki/components/form-field` accepts any `StandardSchemaV1<...>` for its `validator` prop. The library does not import `zod` or `valibot`.
 
 ## 7.3 The Field machine
 
@@ -74,7 +74,7 @@ ARIA wiring derived from state:
 
 ```svelte
 <script lang="ts">
-  import { Field } from '@kumiki/component-form-field';
+  import { Field } from '@kumiki/components/form-field';
   import { z } from 'zod';
 
   const schema = z.string().email('Enter a valid email');
@@ -167,8 +167,8 @@ async function handleSubmit({ values, setErrors }) {
 For headless layouts where the user doesn't want `Field.Root` (e.g., custom DOM, Layer 3 builders), `withValidation` wraps an attachment:
 
 ```ts
-import { createCombobox } from '@kumiki/attachment-combobox';
-import { withValidation } from '@kumiki/attachment-combobox/with-validation';
+import { createCombobox } from '@kumiki/headless/combobox';
+import { withValidation } from '@kumiki/headless/combobox/with-validation';
 import { z } from 'zod';
 
 const cb = createCombobox({ options });
@@ -188,7 +188,7 @@ The Field machine prevents this by:
 2. On `INPUT` (which transitions to `editing`), incrementing the token.
 3. On `VALIDATION_RESOLVE`, comparing the token; if it doesn't match the current one, ignoring the result.
 
-This is encoded in the machine, not the controller. Tests in `@kumiki/machine-form-field` cover the race conditions in pure-TS without any async UI overhead.
+This is encoded in the machine, not the controller. Tests in `@kumiki/machines/form-field` cover the race conditions in pure-TS without any async UI overhead.
 
 ## 7.9 What we do _not_ provide
 

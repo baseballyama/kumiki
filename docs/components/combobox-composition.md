@@ -1,14 +1,14 @@
 # Combobox composition (`with*` API)
 
-> Optional features layered on top of the base `@kumiki/attachment-combobox`. Each is its own subpath — they tree-shake when not imported, so the base bundle never pays for features the consumer didn't ask for.
+> Optional features layered on top of the base `@kumiki/headless/combobox`. Each is its own subpath — they tree-shake when not imported, so the base bundle never pays for features the consumer didn't ask for.
 
-| Subpath                                           |      Brotli | Adds                                                                              |
-| ------------------------------------------------- | ----------: | --------------------------------------------------------------------------------- |
-| `@kumiki/attachment-combobox/with-validation`     |       378 B | Standard Schema validator + `errors / isValid / validation.state`                 |
-| `@kumiki/attachment-combobox/with-async-search`   |       476 B | Abort-aware fetcher reusing the machine's FETCH.\* token protocol                 |
-| `@kumiki/attachment-combobox/with-multi-select`   |       365 B | `selected: T[]` + `toggle / selectAll / clear` + listbox stays open between picks |
-| `@kumiki/attachment-combobox/with-virtualization` |       548 B | Fixed-row windowing (`visibleItems / totalHeight / getItemStyle`) for huge lists  |
-| **Total optional surface**                        | **1.77 KB** | Importing one does not pull in any other.                                         |
+| Subpath                                         |      Brotli | Adds                                                                              |
+| ----------------------------------------------- | ----------: | --------------------------------------------------------------------------------- |
+| `@kumiki/headless/combobox/with-validation`     |       378 B | Standard Schema validator + `errors / isValid / validation.state`                 |
+| `@kumiki/headless/combobox/with-async-search`   |       476 B | Abort-aware fetcher reusing the machine's FETCH.\* token protocol                 |
+| `@kumiki/headless/combobox/with-multi-select`   |       365 B | `selected: T[]` + `toggle / selectAll / clear` + listbox stays open between picks |
+| `@kumiki/headless/combobox/with-virtualization` |       548 B | Fixed-row windowing (`visibleItems / totalHeight / getItemStyle`) for huge lists  |
+| **Total optional surface**                      | **1.77 KB** | Importing one does not pull in any other.                                         |
 
 See [`docs/design/11-composition.md`](../design/11-composition.md) for the architecture rationale.
 
@@ -17,8 +17,8 @@ See [`docs/design/11-composition.md`](../design/11-composition.md) for the archi
 Wraps a Combobox controller with [Standard Schema](https://standardschema.dev) validation. Auto-validates whenever the base value changes; async validators are race-token guarded.
 
 ```ts
-import { createCombobox } from '@kumiki/attachment-combobox';
-import { withValidation } from '@kumiki/attachment-combobox/with-validation';
+import { createCombobox } from '@kumiki/headless/combobox';
+import { withValidation } from '@kumiki/headless/combobox/with-validation';
 import { z } from 'zod';
 
 const schema = z.object({ id: z.string(), value: z.string(), label: z.string() });
@@ -46,15 +46,15 @@ const unsub = cb.subscribeValidation((snap) => {
 });
 ```
 
-**When to use:** combobox values constrained by an external schema (must belong to an active set, must be present, etc.). For free-text validation, use `@kumiki/component-form-field` instead.
+**When to use:** combobox values constrained by an external schema (must belong to an active set, must be present, etc.). For free-text validation, use `@kumiki/components/form-field` instead.
 
 ## `withAsyncSearch(base, fetcher, options?)`
 
 Replaces sync filtering with an async fetcher. Aborts the in-flight request on every new query; the machine's reducers drop stale results via the existing `ctx.token`.
 
 ```ts
-import { createCombobox } from '@kumiki/attachment-combobox';
-import { withAsyncSearch } from '@kumiki/attachment-combobox/with-async-search';
+import { createCombobox } from '@kumiki/headless/combobox';
+import { withAsyncSearch } from '@kumiki/headless/combobox/with-async-search';
 
 const cb = withAsyncSearch(
   createCombobox({ options: [] }),
@@ -81,8 +81,8 @@ cb.error; // Error | null
 Replaces single-value semantics with array-value semantics. The base controller still owns highlight + filter + open state; this wrapper redirects every committed value into a parallel `selected: T[]` array and re-opens the listbox so picks chain naturally.
 
 ```ts
-import { createCombobox } from '@kumiki/attachment-combobox';
-import { withMultiSelect } from '@kumiki/attachment-combobox/with-multi-select';
+import { createCombobox } from '@kumiki/headless/combobox';
+import { withMultiSelect } from '@kumiki/headless/combobox/with-multi-select';
 
 const cb = withMultiSelect(createCombobox({ options: tags }), /* initial */ []);
 
@@ -104,8 +104,8 @@ cb.subscribeMultiSelect(({ selected }) => render(selected));
 Fixed-row-height windowing for large lists. Pure inline math — no `@tanstack/virtual-core` dep.
 
 ```ts
-import { createCombobox } from '@kumiki/attachment-combobox';
-import { withVirtualization } from '@kumiki/attachment-combobox/with-virtualization';
+import { createCombobox } from '@kumiki/headless/combobox';
+import { withVirtualization } from '@kumiki/headless/combobox/with-virtualization';
 
 const cb = withVirtualization(createCombobox({ options: thousands }), {
   itemHeight: 32,

@@ -145,8 +145,8 @@ Events: `INPUT.FOCUS`, `INPUT.BLUR`, `INPUT.CHANGE`, `INPUT.ESCAPE`, `INPUT.ENTE
 Layer 3 wraps a machine in a `.svelte.ts` controller class so that machine state becomes reactive in Svelte:
 
 ```ts
-// @kumiki/attachment-toggle — controller (sketch)
-import { createToggleMachine } from '@kumiki/machine-toggle';
+// @kumiki/headless/toggle — controller (sketch)
+import { createToggleMachine } from '@kumiki/machines/toggle';
 
 export class ToggleController {
   #machine = createToggleMachine();
@@ -226,7 +226,7 @@ Pure-TS, no DOM, no Svelte:
 
 ```ts
 import { describe, it, expect } from 'vitest';
-import { createToggleMachine } from '@kumiki/machine-toggle';
+import { createToggleMachine } from '@kumiki/machines/toggle';
 
 describe('toggle machine', () => {
   it('starts unpressed by default', () => {

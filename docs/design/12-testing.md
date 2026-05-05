@@ -47,7 +47,7 @@ Vitest, no jsdom, no Svelte:
 
 ```ts
 import { describe, it, expect } from 'vitest';
-import { createComboboxMachine } from '@kumiki/machine-combobox';
+import { createComboboxMachine } from '@kumiki/machines/combobox';
 
 describe('combobox machine', () => {
   it('opens on input change', () => {
@@ -162,7 +162,7 @@ Workflow: see [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml).
 pnpm test
 
 # Single component focus
-pnpm --filter @kumiki/machine-combobox test:watch
+pnpm --filter @kumiki/machines/combobox test:watch
 
 # Full sweep (CI parity)
 pnpm test && pnpm typecheck && pnpm lint && pnpm size && pnpm publint && pnpm attw && pnpm agadoo
