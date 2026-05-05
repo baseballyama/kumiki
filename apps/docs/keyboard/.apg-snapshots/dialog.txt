@@ -1,0 +1,69 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+# kb: apps/docs/keyboard/dialog.kb.ts
+
+Keyboard Interaction
+
+In the following description, the term tabbable element refers to any element with a tabindex value of zero or greater.
+Note that values greater than 0 are strongly discouraged.
+
+- 
+When a dialog opens, focus moves to an element inside the dialog.
+See notes below regarding initial focus placement.
+
+- 
+[Tab]:
+
+- Moves focus to the next tabbable element inside the dialog.
+
+- If focus is on the last tabbable element inside the dialog, moves focus to the first tabbable element inside the dialog.
+
+- 
+[Shift] + [Tab]:
+
+- Moves focus to the previous tabbable element inside the dialog.
+
+- If focus is on the first tabbable element inside the dialog, moves focus to the last tabbable element inside the dialog.
+
+- [Escape]: Closes the dialog.
+
+Note
+
+- 
+When a dialog opens, focus moves to an element contained in the dialog.
+Generally, focus is initially set on the first focusable element.
+However, the most appropriate focus placement will depend on the nature and size of the content.
+Examples include:
+
+- 
+If the dialog content includes semantic structures, such as lists, tables, or multiple paragraphs, that need to be perceived in order to easily understand the content, i.e., if the content would be difficult to understand when announced as a single unbroken string, then it is advisable to add tabindex="-1" to a static element at the start of the content and initially focus that element.
+This makes it easier for assistive technology users to read the content by navigating the semantic structures.
+Additionally, it is advisable to omit applying aria-describedby to the dialog container in this scenario.
+
+- If content is large enough that focusing the first interactive element could cause the beginning of content to scroll out of view, it is advisable to add tabindex="-1" to a static element at the top of the dialog, such as the dialog title or first paragraph, and initially focus that element.
+
+- 
+If a dialog contains the final step in a process that is not easily reversible, such as deleting data or completing a financial transaction, it may be advisable to set focus on the least destructive action, especially if undoing the action is difficult or impossible.
+The Alert Dialog Pattern is often employed in such circumstances.
+
+- If a dialog is limited to interactions that either provide additional information or continue processing, it may be advisable to set focus to the element that is likely to be most frequently used, such as an OK or Continue button.
+
+- 
+When a dialog closes, focus returns to the element that invoked the dialog unless either:
+
+- 
+The invoking element no longer exists.
+Then, focus is set on another element that provides logical work flow.
+
+- 
+The work flow design includes the following conditions that can occasionally make focusing a different element a more logical choice:
+
+- It is very unlikely users need to immediately re-invoke the dialog.
+
+- The task completed in the dialog is directly related to a subsequent step in the work flow.
+
+For example, a grid has an associated toolbar with a button for adding rows.
+The Add Rows button opens a dialog that prompts for the number of rows.
+After the dialog closes, focus is placed in the first cell of the first new row.
+
+- It is strongly recommended that the tab sequence of all dialogs include a visible element with role button that closes the dialog, such as a close icon or cancel button.

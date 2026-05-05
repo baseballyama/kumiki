@@ -1,0 +1,42 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/
+# kb: apps/docs/keyboard/number-field.kb.ts
+
+Keyboard Interaction
+
+- [Up Arrow]: Increases the value.
+
+- [Down Arrow]: Decreases the value.
+
+- [Home]: If the spinbutton has a minimum value, sets the value to its minimum.
+
+- [End]: If the spinbutton has a maximum value, sets the value to its maximum.
+
+- [Page Up] (Optional): Increases the value by a larger step than [Up Arrow].
+
+- [Page Down] (Optional): Decreases the value by a larger step than [Down Arrow].
+
+- 
+If the spinbutton text field allows directly editing the value, the following keys are supported:
+
+- Standard single line text editing keys appropriate for the device platform (see note below).
+
+- 
+Printable Characters: Type characters in the textbox.
+Note that many implementations allow only certain characters as part of the value and prevent input of any other characters.
+For example, an hour-and-minute spinner would allow only integer values from 0 to 59, the colon ':', and the letters 'AM' and 'PM'. Any other character input does not change the contents of the text field nor the value of the spinbutton.
+
+Note
+
+- Focus remains on the text field during operation.
+
+- 
+Standard single line text editing keys appropriate for the device platform:
+
+- include keys for input, cursor movement, selection, and text manipulation.
+
+- Standard key assignments for editing functions depend on the device operating system.
+
+- The most robust approach for providing text editing functions is to rely on browsers, which supply them for HTML inputs with type text and for elements with the contenteditable HTML attribute.
+
+- IMPORTANT: Be sure that JavaScript does not interfere with browser-provided text editing functions by capturing key events for the keys used to perform them.

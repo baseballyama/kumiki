@@ -1,0 +1,15 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/
+# kb: apps/docs/keyboard/tooltip.kb.ts
+
+Keyboard Interaction
+
+[Escape]: Dismisses the Tooltip.
+
+Note
+
+- Focus stays on the triggering element while the tooltip is displayed.
+
+- If the tooltip is invoked when the trigger element receives focus, then it is dismissed when it no longer has focus (onBlur).
+
+- If the tooltip is invoked when a pointing cursor moves over the trigger element, then it remains open as long as the cursor is over the trigger or the tooltip.

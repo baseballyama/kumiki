@@ -1,0 +1,9 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/switch/
+# kb: apps/docs/keyboard/switch.kb.ts
+
+Keyboard Interaction
+
+- [Space]: When focus is on the switch, changes the state of the switch.
+
+- [Enter] (Optional): When focus is on the switch, changes the state of the switch.

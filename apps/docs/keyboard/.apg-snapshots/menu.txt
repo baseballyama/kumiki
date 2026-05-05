@@ -1,0 +1,143 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/menubar/
+# kb: apps/docs/keyboard/menu.kb.ts
+
+Keyboard Interaction
+
+The following description of keyboard behaviors assumes:
+
+- A horizontal menubar containing several menuitem, menuitemradio, or menuitemcheckbox elements.
+
+- Some menuitem elements in the menubar have child submenus that contain vertically arranged items.
+
+- Some of the menuitem elements in the submenus have child submenus with items that are also vertically arranged.
+
+When reading the following descriptions, also keep in mind that:
+
+- Focusable elements, which may have role menuitem, menuitemradio, or menuitemcheckbox, are referred to as items.
+
+- If a behavior applies to only certain types of items, e.g., menuitem elements, the specific role name is used.
+
+- Submenus, also known as popup menus, are elements with role menu.
+
+- Except where noted, menus opened from a menubutton behave the same as menus opened from a menubar.
+
+When a menu opens, or when a menubar receives focus, keyboard focus is placed on the first item.
+Because menubar and menu elements are composite widgets as described in the practice for
+Keyboard Navigation Inside Components,
+[Tab] and [Shift] + [Tab] do not move focus among the items in the menu.
+Instead, the keyboard commands described in this section enable users to move focus among the elements in a menubar or menu.
+
+- 
+[Tab] and [Shift] + [Tab]:
+
+- 
+Move focus into a menubar:
+
+- If focus is moving into the menubar for the first time, focus is set on the first menuitem.
+
+- 
+If the menubar has previously contained focus, focus is optionally set on the menuitem that last had focus.
+Otherwise, it is set on the first menuitem that is not disabled.
+
+- When focus is on a menuitem in a menu or menubar, move focus out of the menu or menubar, and close all menus and submenus.
+
+- 
+Note that [Tab] and [Shift] + [Tab] do not move focus into a menu.
+Unlike a menubar, a menu is not visually persistent, and authors are responsible for ensuring focus moves to an item inside of a menu when the menu opens.
+
+- 
+[Enter]:
+
+- When focus is on a menuitem that has a submenu, opens the submenu and places focus on its first item.
+
+- Otherwise, activates the item and closes the menu.
+
+- 
+[Space]:
+
+- (Optional): When focus is on a menuitemcheckbox, changes the state without closing the menu.
+
+- (Optional): When focus is on a menuitemradio that is not checked, without closing the menu, checks the focused menuitemradio and unchecks any other checked menuitemradio element in the same group.
+
+- (Optional): When focus is on a menuitem that has a submenu, opens the submenu and places focus on its first item.
+
+- (Optional): When focus is on a menuitem that does not have a submenu, activates the menuitem and closes the menu.
+
+- 
+[Down Arrow]:
+
+- When focus is on a menuitem in a menubar, and that menuitem has a submenu, opens the submenu and places focus on the first item in the submenu.
+
+- When focus is in a menu, moves focus to the next item, optionally wrapping from the last to the first.
+
+- 
+[Up Arrow]:
+
+- When focus is in a menu, moves focus to the previous item, optionally wrapping from the first to the last.
+
+- (Optional): When focus is on a menuitem in a menubar, and that menuitem has a submenu, opens the submenu and places focus on the last item in the submenu.
+
+- 
+[Right Arrow]:
+
+- When focus is in a menubar, moves focus to the next item, optionally wrapping from the last to the first.
+
+- When focus is in a menu and on a menuitem that has a submenu, opens the submenu and places focus on its first item.
+
+- 
+When focus is in a menu and on an item that does not have a submenu, performs the following 3 actions:
+
+- Closes the submenu and any parent menus.
+
+- Moves focus to the next item in the menubar.
+
+- If focus is now on a menuitem with a submenu, either: (Recommended) opens the submenu of that menuitem without moving focus into the submenu, or opens the submenu of that menuitem and places focus on the first item in the submenu.
+
+Note that if the menubar were not present, e.g., the menus were opened from a menubutton, [Right Arrow] would not do anything when focus is on an item that does not have a submenu.
+
+- 
+[Left Arrow]:
+
+- When focus is in a menubar, moves focus to the previous item, optionally wrapping from the first to the last.
+
+- When focus is in a submenu of an item in a menu, closes the submenu and returns focus to the parent menuitem.
+
+- 
+When focus is in a submenu of an item in a menubar, performs the following 3 actions:
+
+- Closes the submenu.
+
+- Moves focus to the previous item in the menubar.
+
+- If focus is now on a menuitem with a submenu, either: (Recommended) opens the submenu of that menuitem without moving focus into the submenu, or opens the submenu of that menuitem and places focus on the first item in the submenu.
+
+- [Home]: If arrow key wrapping is not supported, moves focus to the first item in the current menu or menubar.
+
+- [End]: If arrow key wrapping is not supported, moves focus to the last item in the current menu or menubar.
+
+- Any key that corresponds to a printable character (Optional): Move focus to the next item in the current menu whose label begins with that printable character.
+
+- [Escape]: Close the menu that contains focus and return focus to the element or context, e.g., menu button or parent menuitem, from which the menu was opened.
+
+Note
+
+- Disabled menu items are focusable but cannot be activated.
+
+- A separator in a menu is not focusable or interactive.
+
+- 
+If a menu is opened or a menubar receives focus as a result of a context action, [Escape] or [Enter] may return focus to the invoking context.
+For example, a rich text editor may have a menubar that receives focus when a shortcut key, e.g., [alt] + [F10], is pressed while editing.
+In this case, pressing [Escape] or activating a command from the menu may return focus to the editor.
+
+- 
+Although it is recommended that authors avoid doing so, some implementations of navigation menubars may have menuitem elements that both perform a function and open a submenu.
+In such implementations, [Enter] and [Space] perform a navigation function, e.g., load new content, while [Down Arrow], in a horizontal menubar, opens the submenu associated with that same menuitem.
+
+- 
+When items in a menubar are arranged vertically and items in menu containers are arranged horizontally:
+
+- [Down Arrow] performs as [Right Arrow] is described above, and vice versa.
+
+- [Up Arrow] performs as [Left Arrow] is described above, and vice versa.

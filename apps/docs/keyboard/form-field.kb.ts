@@ -17,7 +17,11 @@ const ERRORS = '[data-testid="errors"]';
 
 export const formFieldKeyboardContract: KeyboardContract = {
   component: 'form-field',
-  apg: 'https://www.w3.org/WAI/ARIA/apg/practices/forms/',
+  // APG doesn't have a dedicated "form field" pattern; native HTML input
+  // semantics + the broader keyboard-interface practice are the closest
+  // match. The snapshot script will report no Keyboard Interaction h2 on
+  // this page, which is fine — there's nothing component-specific to track.
+  apg: 'https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/',
   sandbox: '/sandbox/form-field',
   hydrationSelector: '[data-testid="input"][id^="kumiki-form-field-"]',
   cases: [

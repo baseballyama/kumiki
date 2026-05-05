@@ -37,6 +37,8 @@
     "check:tree-shake": "node scripts/check-tree-shake.mjs",
     "check:api-report": "node scripts/run-api-extractor.mjs --check",
     "api:report": "node scripts/run-api-extractor.mjs",
+    "check:apg-snapshots": "node scripts/check-apg-snapshots.mjs --check",
+    "apg:snapshot": "node scripts/check-apg-snapshots.mjs",
     "typedoc": "typedoc",
     "gen:meta": "node scripts/build-meta-packages.mjs",
     "build:llms-full": "node apps/docs/scripts/build-llms-full.mjs",

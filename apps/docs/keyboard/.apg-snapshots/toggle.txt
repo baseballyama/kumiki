@@ -1,0 +1,31 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/button/
+# kb: apps/docs/keyboard/toggle.kb.ts
+
+Keyboard Interaction
+
+When the button has focus:
+
+- [Space]: Activates the button.
+
+- [Enter]: Activates the button.
+
+- 
+Following button activation, focus is set depending on the type of action the button performs. For example:
+
+- 
+If activating the button opens a dialog, the focus moves inside the dialog.
+(see dialog pattern)
+
+- 
+If activating the button closes a dialog, focus typically returns to the button that opened the dialog unless the function performed in the dialog context logically leads to a different element.
+For example, activating a cancel button in a dialog returns focus to the button that opened the dialog.
+However, if the dialog were confirming the action of deleting the page from which it was opened, the focus would logically move to a new context.
+
+- If activating the button does not dismiss the current context, then focus typically remains on the button after activation, e.g., an Apply or Recalculate button.
+
+- If the button action indicates a context change, such as move to next step in a wizard or add another search criteria, then it is often appropriate to move focus to the starting point for that action.
+
+- 
+If the button is activated with a shortcut key, the focus usually remains in the context from which the shortcut key was activated.
+For example, if [Alt] + [U] were assigned to an "Up" button that moves the currently focused item in a list one position higher in the list, pressing [Alt] + [U] when the focus is in the list would not move the focus from the list.

@@ -1,0 +1,11 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/
+# kb: apps/docs/keyboard/popover.kb.ts
+
+Keyboard Interaction
+
+When the disclosure control has focus:
+
+- [Enter]: activates the disclosure control and toggles the visibility of the disclosure content.
+
+- [Space]: activates the disclosure control and toggles the visibility of the disclosure content.

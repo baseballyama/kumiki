@@ -1,0 +1,76 @@
+name: APG drift (weekly)
+
+# Compares each kb.ts contract's APG source page against the committed
+# snapshot in apps/docs/keyboard/.apg-snapshots/. Opens an issue on drift
+# so the maintainer can review the upstream change and decide whether to
+# update the local keyboard contract.
+#
+# Runs weekly (Mondays 08:00 UTC). Hits w3.org from the runner — keep it
+# off PRs / pushes so we don't get false flakes from upstream slowness.
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+env:
+  PNPM_VERSION: 9.15.0
+  NODE_VERSION: 22
+
+jobs:
+  drift:
+    name: Compare APG snapshots
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Check APG snapshots
+        id: check
+        continue-on-error: true
+        run: pnpm check:apg-snapshots
+
+      - name: Open issue on drift
+        if: steps.check.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'APG drift detected — keyboard contracts may need refresh';
+            const { data: existing } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'apg-drift',
+            });
+            if (existing.length > 0) {
+              core.info(`Open APG-drift issue #${existing[0].number} already exists; not duplicating.`);
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              labels: ['apg-drift', 'a11y'],
+              body: [
+                'The weekly APG drift check found upstream content changes.',
+                '',
+                'Run `pnpm apg:snapshot` locally, review the diff in',
+                '`apps/docs/keyboard/.apg-snapshots/`, mirror any real',
+                'keyboard-behavior change into the corresponding `*.kb.ts`',
+                'contract, and commit both files together.',
+                '',
+                `Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              ].join('\n'),
+            });

@@ -1,7 +1,9 @@
 /**
  * APG keyboard contract for Popover (non-modal dialog).
  *
- * Source: https://www.w3.org/WAI/ARIA/apg/patterns/dialog/#keyboardinteraction
+ * APG doesn't ship a standalone "popover" pattern — the closest fit is
+ * Disclosure, which describes the Enter/Space activation cycle and how
+ * a triggered widget can be dismissed. We anchor the snapshot there.
  *
  * Trigger button opens via Enter / Space (native button activation).
  * Once open, Escape closes (per closeOnEscape policy). Unlike a modal
@@ -15,7 +17,7 @@ const CONTENT = '[data-testid="content"]';
 
 export const popoverKeyboardContract: KeyboardContract = {
   component: 'popover',
-  apg: 'https://www.w3.org/WAI/ARIA/apg/patterns/dialog/',
+  apg: 'https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/',
   sandbox: '/sandbox/popover',
   hydrationSelector: '[data-testid="trigger"][id^="kumiki-popover-"]',
   cases: [

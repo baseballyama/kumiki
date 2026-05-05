@@ -1,0 +1,296 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
+# kb: apps/docs/keyboard/combobox.kb.ts
+
+Keyboard Interaction
+
+- [Tab]: The combobox is in the page [Tab] sequence.
+
+- Note: The popup indicator icon or button (if present), the popup, and the popup descendants are excluded from the page [Tab] sequence.
+
+Combobox Keyboard Interaction
+
+When focus is in the combobox:
+
+- 
+[Down Arrow]: If the popup is available, moves focus into the popup:
+
+- If the autocomplete behavior automatically selected a suggestion before [Down Arrow] was pressed, focus is placed on the suggestion following the automatically selected suggestion.
+
+- Otherwise, places focus on the first focusable element in the popup.
+
+- [Up Arrow] (Optional): If the popup is available, places focus on the last focusable element in the popup.
+
+- 
+[Escape]: Dismisses the popup if it is visible.
+Optionally, if the popup is hidden before [Escape] is pressed, clears the combobox.
+
+- 
+[Enter]: If the combobox is editable and an autocomplete suggestion is selected in the popup, accepts the suggestion either by placing the input cursor at the end of the accepted value in the combobox or by performing a default action on the value.
+For example, in a messaging application, the default action may be to add the accepted value to a list of message recipients and then clear the combobox so the user can add another recipient.
+
+- 
+Printable Characters:
+
+- 
+If the combobox is editable, type characters in the combobox.
+Note that some implementations may regard certain characters as invalid and prevent their input.
+
+- If the combobox is not editable, optionally moves focus to a value that starts with the typed characters.
+
+- If the combobox is editable, it supports standard single line text editing keys appropriate for the device platform (see note below).
+
+- [Alt] + [Down Arrow] (Optional): If the popup is available but not displayed, displays the popup without moving focus.
+
+- 
+[Alt] + [Up Arrow] (Optional): If the popup is displayed:
+
+- If the popup contains focus, returns focus to the combobox.
+
+- Closes the popup.
+
+Note
+
+Standard single line text editing keys appropriate for the device platform:
+
+- include keys for input, cursor movement, selection, and text manipulation.
+
+- Standard key assignments for editing functions depend on the device operating system.
+
+- The most robust approach for providing text editing functions is to rely on browsers, which supply them for HTML inputs with type text and for elements with the contenteditable HTML attribute.
+
+- IMPORTANT: Ensure JavaScript does not interfere with browser-provided text editing functions by capturing key events for the keys used to perform them.
+
+Listbox Popup Keyboard Interaction
+
+When focus is in a listbox popup:
+
+- [Enter]: Accepts the focused option in the listbox by closing the popup, placing the accepted value in the combobox, and if the combobox is editable, placing the input cursor at the end of the value.
+
+- 
+[Escape]: Closes the popup and returns focus to the combobox.
+Optionally, if the combobox is editable, clears the contents of the combobox.
+
+- 
+[Down Arrow]: Moves focus to and selects the next option.
+If focus is on the last option, either returns focus to the combobox or does nothing.
+
+- 
+[Up Arrow]: Moves focus to and selects the previous option.
+If focus is on the first option, either returns focus to the combobox or does nothing.
+
+- 
+[Right Arrow]: If the combobox is editable, returns focus to the combobox without closing the popup and moves the input cursor one character to the right.
+If the input cursor is on the right-most character, the cursor does not move.
+
+- 
+[Left Arrow]: If the combobox is editable, returns focus to the combobox without closing the popup and moves the input cursor one character to the left.
+If the input cursor is on the left-most character, the cursor does not move.
+
+- [Home] (Optional): Either moves focus to and selects the first option or, if the combobox is editable, returns focus to the combobox and places the cursor on the first character.
+
+- [End] (Optional): Either moves focus to the last option or, if the combobox is editable, returns focus to the combobox and places the cursor after the last character.
+
+- 
+Any printable character:
+
+- If the combobox is editable, returns the focus to the combobox without closing the popup and types the character.
+
+- Otherwise, moves focus to the next option with a name that starts with the characters typed.
+
+- [Backspace] (Optional): If the combobox is editable, returns focus to the combobox and deletes the character prior to the cursor.
+
+- [Delete] (Optional): If the combobox is editable, returns focus to the combobox, removes the selected state if a suggestion was selected, and removes the inline autocomplete string if present.
+
+Note
+
+- 
+DOM Focus is maintained on the combobox and the assistive technology focus is moved within the listbox using aria-activedescendant as described in
+Managing Focus in Composites Using aria-activedescendant.
+
+- Selection follows focus in the listbox; the listbox allows only one suggested value to be selected at a time for the combobox value.
+
+Grid Popup Keyboard Interaction
+
+In a grid popup, each suggested value may be represented by either a single cell or an entire row.
+See notes below for how this aspect of grid design effects the keyboard interaction design and the way that selection moves in response to focus movements.
+
+- [Enter]: Accepts the currently selected suggested value by closing the popup, placing the selected value in the combobox, and if the combobox is editable, placing the input cursor at the end of the value.
+
+- 
+[Escape]: Closes the popup and returns focus to the combobox.
+Optionally, if the combobox is editable, clears the contents of the combobox.
+
+- 
+[Right Arrow]: Moves focus one cell to the right.
+Optionally, if focus is on the right-most cell in the row, focus may move to the first cell in the following row.
+If focus is on the last cell in the grid, either does nothing or returns focus to the combobox.
+
+- 
+[Left Arrow]: Moves focus one cell to the left.
+Optionally, if focus is on the left-most cell in the row, focus may move to the last cell in the previous row.
+If focus is on the first cell in the grid, either does nothing or returns focus to the combobox.
+
+- 
+[Down Arrow]: Moves focus one cell down.
+If focus is in the last row of the grid, either does nothing or returns focus to the combobox.
+
+- 
+[Up Arrow]: Moves focus one cell up.
+If focus is in the first row of the grid, either does nothing or returns focus to the combobox.
+
+- 
+[Page Down] (Optional): Moves focus down an author-determined number of rows, typically scrolling so the bottom row in the currently visible set of rows becomes one of the first visible rows.
+If focus is in the last row of the grid, focus does not move.
+
+- 
+[Page Up] (Optional): Moves focus up an author-determined number of rows, typically scrolling so the top row in the currently visible set of rows becomes one of the last visible rows.
+If focus is in the first row of the grid, focus does not move.
+
+- 
+[Home] (Optional): Either:
+
+- 
+Moves focus to the first cell in the row that contains focus.
+Or, if the grid has fewer than three cells per row or multiple suggested values per row, focus may move to the first cell in the grid.
+
+- If the combobox is editable, returns focus to the combobox and places the cursor on the first character.
+
+- 
+[End] (Optional): Either:
+
+- 
+Moves focus to the last cell in the row that contains focus.
+Or, if the grid has fewer than three cells per row or multiple suggested values per row, focus may move to the last cell in the grid.
+
+- If the combobox is editable, returns focus to the combobox and places the cursor after the last character.
+
+- [Control] + [Home] (optional): moves focus to the first row.
+
+- [Control] + [End] (Optional): moves focus to the last row.
+
+- Any printable character: If the combobox is editable, returns the focus to the combobox without closing the popup and types the character.
+
+- [Backspace] (Optional): If the combobox is editable, returns focus to the combobox and deletes the character prior to the cursor.
+
+- [Delete] (Optional): If the combobox is editable, returns focus to the combobox, removes the selected state if a suggestion was selected, and removes the inline autocomplete string if present.
+
+Note
+
+- 
+DOM Focus is maintained on the combobox and the assistive technology focus is moved within the grid using aria-activedescendant as described in
+Managing Focus in Composites Using aria-activedescendant.
+
+- The grid allows only one suggested value to be selected at a time for the combobox value.
+
+- 
+In a grid popup, each suggested value may be represented by either a single cell or an entire row.
+This aspect of design effects focus and selection movement:
+
+- 
+If every cell contains a different suggested value:
+
+- Selection follows focus so that the cell containing focus is selected.
+
+- Horizontal arrow key navigation typically wraps from one row to another.
+
+- Vertical arrow key navigation typically wraps from one column to another.
+
+- 
+If all cells in a row contain information about the same suggested value:
+
+- Either the row containing focus is selected or a cell containing a suggested value is selected when any cell in the same row contains focus.
+
+- Horizontal key navigation may wrap from one row to another.
+
+- Vertical arrow key navigation does not wrap from one column to another.
+
+Tree Popup Keyboard Interaction
+
+In some implementations of tree popups, some or all parent nodes may serve as suggestion category labels so may not be selectable values.
+See notes below for how this aspect of the design effects the way selection moves in response to focus movements.
+
+When focus is in a vertically oriented tree popup:
+
+- [Enter]: Accepts the currently selected suggested value by closing the popup, placing the selected value in the combobox, and if the combobox is editable, placing the input cursor at the end of the value.
+
+- 
+[Escape]: Closes the popup and returns focus to the combobox.
+Optionally, clears the contents of the combobox.
+
+- 
+[Right arrow]:
+
+- When focus is on a closed node, opens the node; focus and selection do not move.
+
+- When focus is on a open node, moves focus to the first child node and selects it if it is selectable.
+
+- When focus is on an end node, does nothing.
+
+- 
+[Left arrow]:
+
+- When focus is on an open node, closes the node.
+
+- When focus is on a child node that is also either an end node or a closed node, moves focus to its parent node and selects it if it is selectable.
+
+- When focus is on a root node that is also either an end node or a closed node, does nothing.
+
+- [Down Arrow]: Moves focus to the next node that is focusable without opening or closing a node and selects it if it is selectable.
+
+- [Up Arrow]: Moves focus to the previous node that is focusable without opening or closing a node and selects it if it is selectable.
+
+- [Home]: Moves focus to the first focusable node in the tree without opening or closing a node and selects it if it is selectable.
+
+- [End]: Moves focus to the last focusable node in the tree without opening or closing a node and selects it if it is selectable.
+
+- 
+Any printable character:
+
+- If the combobox is editable, returns the focus to the combobox without closing the popup and types the character.
+
+- Otherwise, moves focus to the next suggested value with a name that starts with the characters typed.
+
+Note
+
+- 
+DOM Focus is maintained on the combobox and the assistive technology focus is moved within the tree using aria-activedescendant as described in
+Managing Focus in Composites Using aria-activedescendant.
+
+- The tree allows only one suggested value to be selected at a time for the combobox value.
+
+- 
+In a tree popup, some or all parent nodes may not be selectable values; they may serve as category labels for suggested values.
+If focus moves to a node that is not a selectable value, either:
+
+- The previously selected node, if any, remains selected until focus moves to a node that is selectable.
+
+- There is no selected value.
+
+- In either case, focus is visually distinct from selection so users can readily see if a value is selected or not.
+
+- 
+If nodes in the tree are arranged horizontally (aria-orientation is set to horizontal):
+
+- [Down Arrow] performs as [Right Arrow] is described above, and vice versa.
+
+- [Up Arrow] performs as [Left Arrow] is described above, and vice versa.
+
+Dialog Popup Keyboard Interaction
+
+When focus is in a dialog popup:
+
+- 
+There are two ways to close the popup and return focus to the combobox:
+
+- Perform an action in the dialog, such as activate a button, that specifies a value for the combobox.
+
+- 
+Cancel out of the dialog, e.g., press [Escape] or activate the cancel button in the dialog.
+Canceling either returns focus to the text box without changing the combobox value or returns focus to the combobox and clears the combobox.
+
+- The dialog implements the keyboard interaction defined in the modal dialog pattern.
+
+Note
+
+Unlike other combobox popups, dialogs do not support aria-activedescendant so DOM focus moves into the dialog from the combobox.

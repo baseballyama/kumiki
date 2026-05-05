@@ -1,0 +1,7 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/
+# kb: apps/docs/keyboard/checkbox.kb.ts
+
+Keyboard Interaction
+
+When the checkbox has focus, pressing the [Space] key changes the state of the checkbox.
