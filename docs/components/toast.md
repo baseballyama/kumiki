@@ -42,7 +42,7 @@ Toaster (Root)              (owns the queue + controller; one per app)
 
 ## Source
 
-- Machine: [`packages/components/toast/machine`](../../packages/components/toast/machine)
-- Attachment: [`packages/components/toast/attachment`](../../packages/components/toast/attachment)
-- Component: [`packages/components/toast/component`](../../packages/components/toast/component)
+- Machine: [`packages/machines/src/toast`](../../packages/machines/src/toast)
+- Headless: [`packages/headless/src/toast`](../../packages/headless/src/toast)
+- Component: [`packages/components/src/toast`](../../packages/components/src/toast)
 - Sandbox: [`/sandbox/toast`](../../apps/docs/src/routes/sandbox/toast)

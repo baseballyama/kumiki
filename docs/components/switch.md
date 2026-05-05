@@ -33,7 +33,7 @@ Source: [APG Switch keyboard interaction](https://www.w3.org/WAI/ARIA/apg/patter
 
 ## Source
 
-- Machine: [`packages/components/switch/machine`](../../packages/components/switch/machine)
-- Attachment: [`packages/components/switch/attachment`](../../packages/components/switch/attachment)
-- Component: [`packages/components/switch/component`](../../packages/components/switch/component)
+- Machine: [`packages/machines/src/switch`](../../packages/machines/src/switch)
+- Headless: [`packages/headless/src/switch`](../../packages/headless/src/switch)
+- Component: [`packages/components/src/switch`](../../packages/components/src/switch)
 - Sandbox: [`/sandbox/switch`](../../apps/docs/src/routes/sandbox/switch)

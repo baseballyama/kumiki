@@ -147,6 +147,6 @@ The order matters for two pairs:
 
 ## Source
 
-- Implementations: [`packages/components/combobox/attachment/src/with-*`](../../packages/components/combobox/attachment/src)
+- Implementations: [`packages/headless/src/combobox/with-*`](../../packages/headless/src/combobox)
 - Architecture rationale: [`docs/design/11-composition.md`](../design/11-composition.md)
 - Standard Schema: <https://standardschema.dev>

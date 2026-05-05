@@ -40,7 +40,7 @@ Source: [APG Slider keyboard interaction](https://www.w3.org/WAI/ARIA/apg/patter
 
 ## Source
 
-- Machine: [`packages/components/slider/machine`](../../packages/components/slider/machine)
-- Attachment: [`packages/components/slider/attachment`](../../packages/components/slider/attachment)
-- Component: [`packages/components/slider/component`](../../packages/components/slider/component)
+- Machine: [`packages/machines/src/slider`](../../packages/machines/src/slider)
+- Headless: [`packages/headless/src/slider`](../../packages/headless/src/slider)
+- Component: [`packages/components/src/slider`](../../packages/components/src/slider)
 - Sandbox: [`/sandbox/slider`](../../apps/docs/src/routes/sandbox/slider)

@@ -41,7 +41,7 @@ Source: [APG Accordion keyboard interaction](https://www.w3.org/WAI/ARIA/apg/pat
 
 ## Source
 
-- Machine: [`packages/components/accordion/machine`](../../packages/components/accordion/machine)
-- Attachment: [`packages/components/accordion/attachment`](../../packages/components/accordion/attachment)
-- Component: [`packages/components/accordion/component`](../../packages/components/accordion/component)
+- Machine: [`packages/machines/src/accordion`](../../packages/machines/src/accordion)
+- Headless: [`packages/headless/src/accordion`](../../packages/headless/src/accordion)
+- Component: [`packages/components/src/accordion`](../../packages/components/src/accordion)
 - Sandbox: [`/sandbox/accordion`](../../apps/docs/src/routes/sandbox/accordion)

@@ -43,7 +43,7 @@ Source: [APG Dialog keyboard interaction](https://www.w3.org/WAI/ARIA/apg/patter
 
 ## Source
 
-- Machine: [`packages/components/popover/machine`](../../packages/components/popover/machine)
-- Attachment: [`packages/components/popover/attachment`](../../packages/components/popover/attachment)
-- Component: [`packages/components/popover/component`](../../packages/components/popover/component)
+- Machine: [`packages/machines/src/popover`](../../packages/machines/src/popover)
+- Headless: [`packages/headless/src/popover`](../../packages/headless/src/popover)
+- Component: [`packages/components/src/popover`](../../packages/components/src/popover)
 - Sandbox: [`/sandbox/popover`](../../apps/docs/src/routes/sandbox/popover)

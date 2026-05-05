@@ -1,22 +1,38 @@
-# Field (Form-Field)
+# FormField
 
 > Single-input form field with Standard Schema validation, race-token guarding, and APG-compliant ARIA wiring.
 
-| Field                     | Value                                                                                                |
-| ------------------------- | ---------------------------------------------------------------------------------------------------- |
-| **Validation contract**   | [Standard Schema v1](https://standardschema.dev/) — Zod 3.24+, Valibot 1.x, ArkType 2.0+, Effect 3.x |
-| **Bundle (Layer 4 gzip)** | within `3000 B` budget                                                                               |
-| **Status**                | `preview` (Phase 1)                                                                                  |
-| **Generics**              | `<V>` — input value type                                                                             |
+| Field                       | Value                                                                                                |
+| --------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Validation contract**     | [Standard Schema v1](https://standardschema.dev/) — Zod 3.24+, Valibot 1.x, ArkType 2.0+, Effect 3.x |
+| **Bundle (Layer 4 target)** | 2 kB brotli (informational; Layer 4 is gated indirectly via Layer 3 + Lighthouse)                    |
+| **Status**                  | `preview` (Phase 1)                                                                                  |
+| **Generics**                | `<V>` — input value type                                                                             |
+
+```svelte
+<script lang="ts">
+  import { FormField } from '@kumiki/components';
+  import { z } from 'zod';
+
+  const schema = z.string().email();
+  let email = $state('');
+</script>
+
+<FormField.Root name="email" validator={schema} bind:value={email}>
+  <FormField.Label>Email</FormField.Label>
+  <FormField.Input type="email" />
+  <FormField.Errors />
+</FormField.Root>
+```
 
 ## Anatomy
 
 ```
-Field.Root<V>
-  ├── Field.Label
-  ├── Field.Input
-  ├── Field.Description    (optional; wires aria-describedby automatically)
-  └── Field.Errors          (live-region, role="alert", aria-live="polite")
+FormField.Root<V>
+  ├── FormField.Label
+  ├── FormField.Input
+  ├── FormField.Description    (optional; wires aria-describedby automatically)
+  └── FormField.Errors         (live-region, role="alert", aria-live="polite")
 ```
 
 | Part          | Responsibility                                                         |
@@ -68,7 +84,7 @@ Form-Field uses native HTML input semantics — Tab moves focus, the validator r
 
 ## Source
 
-- Machine: [`packages/components/form-field/machine`](../../packages/components/form-field/machine)
-- Attachment: [`packages/components/form-field/attachment`](../../packages/components/form-field/attachment)
-- Component: [`packages/components/form-field/component`](../../packages/components/form-field/component)
+- Machine: [`packages/machines/src/form-field`](../../packages/machines/src/form-field)
+- Headless: [`packages/headless/src/form-field`](../../packages/headless/src/form-field)
+- Component: [`packages/components/src/form-field`](../../packages/components/src/form-field)
 - Sandbox: [`/sandbox/form-field`](../../apps/docs/src/routes/sandbox/form-field)

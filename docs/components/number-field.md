@@ -43,7 +43,7 @@ Source: [APG Spin Button keyboard interaction](https://www.w3.org/WAI/ARIA/apg/p
 
 ## Source
 
-- Machine: [`packages/components/number-field/machine`](../../packages/components/number-field/machine)
-- Attachment: [`packages/components/number-field/attachment`](../../packages/components/number-field/attachment)
-- Component: [`packages/components/number-field/component`](../../packages/components/number-field/component)
+- Machine: [`packages/machines/src/number-field`](../../packages/machines/src/number-field)
+- Headless: [`packages/headless/src/number-field`](../../packages/headless/src/number-field)
+- Component: [`packages/components/src/number-field`](../../packages/components/src/number-field)
 - Sandbox: [`/sandbox/number-field`](../../apps/docs/src/routes/sandbox/number-field)

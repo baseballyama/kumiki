@@ -53,7 +53,7 @@ Active-descendant pattern: focus stays on the trigger while the listbox is open;
 
 ## Source
 
-- Machine: [`packages/components/select/machine`](../../packages/components/select/machine)
-- Attachment: [`packages/components/select/attachment`](../../packages/components/select/attachment)
-- Component: [`packages/components/select/component`](../../packages/components/select/component)
+- Machine: [`packages/machines/src/select`](../../packages/machines/src/select)
+- Headless: [`packages/headless/src/select`](../../packages/headless/src/select)
+- Component: [`packages/components/src/select`](../../packages/components/src/select)
 - Sandbox: [`/sandbox/select`](../../apps/docs/src/routes/sandbox/select)

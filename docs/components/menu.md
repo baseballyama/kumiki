@@ -47,7 +47,7 @@ Source: [APG Menubar keyboard interaction](https://www.w3.org/WAI/ARIA/apg/patte
 
 ## Source
 
-- Machine: [`packages/components/menu/machine`](../../packages/components/menu/machine)
-- Attachment: [`packages/components/menu/attachment`](../../packages/components/menu/attachment)
-- Component: [`packages/components/menu/component`](../../packages/components/menu/component)
+- Machine: [`packages/machines/src/menu`](../../packages/machines/src/menu)
+- Headless: [`packages/headless/src/menu`](../../packages/headless/src/menu)
+- Component: [`packages/components/src/menu`](../../packages/components/src/menu)
 - Sandbox: [`/sandbox/menu`](../../apps/docs/src/routes/sandbox/menu)

@@ -33,7 +33,7 @@ Per APG: `mixed` represents an indeterminate parent (e.g. "select all" reflectin
 
 ## Source
 
-- Machine: [`packages/components/checkbox/machine`](../../packages/components/checkbox/machine)
-- Attachment: [`packages/components/checkbox/attachment`](../../packages/components/checkbox/attachment)
-- Component: [`packages/components/checkbox/component`](../../packages/components/checkbox/component)
+- Machine: [`packages/machines/src/checkbox`](../../packages/machines/src/checkbox)
+- Headless: [`packages/headless/src/checkbox`](../../packages/headless/src/checkbox)
+- Component: [`packages/components/src/checkbox`](../../packages/components/src/checkbox)
 - Sandbox: [`/sandbox/checkbox`](../../apps/docs/src/routes/sandbox/checkbox)

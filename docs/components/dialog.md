@@ -56,7 +56,7 @@ When `modal: true`, every direct child of `<body>` that doesn't contain the Cont
 
 ## Source
 
-- Machine: [`packages/components/dialog/machine`](../../packages/components/dialog/machine)
-- Attachment: [`packages/components/dialog/attachment`](../../packages/components/dialog/attachment)
-- Component: [`packages/components/dialog/component`](../../packages/components/dialog/component)
+- Machine: [`packages/machines/src/dialog`](../../packages/machines/src/dialog)
+- Headless: [`packages/headless/src/dialog`](../../packages/headless/src/dialog)
+- Component: [`packages/components/src/dialog`](../../packages/components/src/dialog)
 - Sandbox: [`/sandbox/dialog`](../../apps/docs/src/routes/sandbox/dialog)

@@ -39,7 +39,7 @@ Per APG: arrow keys move focus AND select (select-on-focus). Disabled items are 
 
 ## Source
 
-- Machine: [`packages/components/radio-group/machine`](../../packages/components/radio-group/machine)
-- Attachment: [`packages/components/radio-group/attachment`](../../packages/components/radio-group/attachment)
-- Component: [`packages/components/radio-group/component`](../../packages/components/radio-group/component)
+- Machine: [`packages/machines/src/radio-group`](../../packages/machines/src/radio-group)
+- Headless: [`packages/headless/src/radio-group`](../../packages/headless/src/radio-group)
+- Component: [`packages/components/src/radio-group`](../../packages/components/src/radio-group)
 - Sandbox: [`/sandbox/radio-group`](../../apps/docs/src/routes/sandbox/radio-group)

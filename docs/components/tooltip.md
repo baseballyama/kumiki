@@ -40,7 +40,7 @@ Per APG: tooltip content is descriptive and non-interactive. Don't put buttons, 
 
 ## Source
 
-- Machine: [`packages/components/tooltip/machine`](../../packages/components/tooltip/machine)
-- Attachment: [`packages/components/tooltip/attachment`](../../packages/components/tooltip/attachment)
-- Component: [`packages/components/tooltip/component`](../../packages/components/tooltip/component)
+- Machine: [`packages/machines/src/tooltip`](../../packages/machines/src/tooltip)
+- Headless: [`packages/headless/src/tooltip`](../../packages/headless/src/tooltip)
+- Component: [`packages/components/src/tooltip`](../../packages/components/src/tooltip)
 - Sandbox: [`/sandbox/tooltip`](../../apps/docs/src/routes/sandbox/tooltip)

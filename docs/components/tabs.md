@@ -52,7 +52,7 @@ In `automatic` activation mode, focus changes also activate the tab. In `manual`
 
 ## Source
 
-- Machine: [`packages/components/tabs/machine`](../../packages/components/tabs/machine)
-- Attachment: [`packages/components/tabs/attachment`](../../packages/components/tabs/attachment)
-- Component: [`packages/components/tabs/component`](../../packages/components/tabs/component)
+- Machine: [`packages/machines/src/tabs`](../../packages/machines/src/tabs)
+- Headless: [`packages/headless/src/tabs`](../../packages/headless/src/tabs)
+- Component: [`packages/components/src/tabs`](../../packages/components/src/tabs)
 - Sandbox: [`/sandbox/tabs`](../../apps/docs/src/routes/sandbox/tabs)

@@ -33,7 +33,7 @@ Source: [APG Button keyboard interaction](https://www.w3.org/WAI/ARIA/apg/patter
 
 ## Source
 
-- Machine: [`packages/components/toggle/machine`](../../packages/components/toggle/machine)
-- Attachment: [`packages/components/toggle/attachment`](../../packages/components/toggle/attachment)
-- Component: [`packages/components/toggle/component`](../../packages/components/toggle/component)
+- Machine: [`packages/machines/src/toggle`](../../packages/machines/src/toggle)
+- Headless: [`packages/headless/src/toggle`](../../packages/headless/src/toggle)
+- Component: [`packages/components/src/toggle`](../../packages/components/src/toggle)
 - Sandbox: [`/sandbox/toggle`](../../apps/docs/src/routes/sandbox/toggle)
