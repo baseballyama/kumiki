@@ -47,11 +47,11 @@ export const SNIPPETS: Record<string, ReadonlyArray<Snippet>> = {
   ],
 
   'machine-radio-group': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-radio-group' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS — select-on-focus arrow nav',
       lang: 'ts',
-      code: `import { createRadioGroupMachine } from '@kumiki/machine-radio-group';
+      code: `import { createRadioGroupMachine } from '@kumiki/machines/radio-group';
 
 const m = createRadioGroupMachine({
   items: [
@@ -135,11 +135,11 @@ console.log(m.context.value);          // 'cherry' (skipped disabled banana)`,
   ],
 
   'machine-tabs': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-tabs' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS — automatic vs manual activation',
       lang: 'ts',
-      code: `import { createTabsMachine } from '@kumiki/machine-tabs';
+      code: `import { createTabsMachine } from '@kumiki/machines/tabs';
 
 const m = createTabsMachine({
   items: [
@@ -229,11 +229,11 @@ console.log(m.context.value);          // 'team'`,
   ],
 
   'machine-dialog': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-dialog' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS — policy-driven dismissal',
       lang: 'ts',
-      code: `import { createDialogMachine } from '@kumiki/machine-dialog';
+      code: `import { createDialogMachine } from '@kumiki/machines/dialog';
 
 const m = createDialogMachine({ closeOnEscape: false });
 m.send({ type: 'OPEN' });
@@ -292,11 +292,11 @@ console.log(m.state);              // 'closed'`,
   ],
 
   'machine-tooltip': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-tooltip' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS — policy-driven open/close',
       lang: 'ts',
-      code: `import { createTooltipMachine } from '@kumiki/machine-tooltip';
+      code: `import { createTooltipMachine } from '@kumiki/machines/tooltip';
 
 const m = createTooltipMachine({ openDelay: 0, closeDelay: 0 });
 m.send({ type: 'OPEN' });
@@ -360,11 +360,11 @@ console.log(m.state);     // 'closed'`,
   ],
 
   'machine-select': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-select' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS — listbox state machine',
       lang: 'ts',
-      code: `import { createSelectMachine } from '@kumiki/machine-select';
+      code: `import { createSelectMachine } from '@kumiki/machines/select';
 
 const m = createSelectMachine({
   items: [
@@ -449,11 +449,11 @@ const usernameSchema: StandardSchemaV1<string, string> = {
   ],
 
   'machine-form-field': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-form-field' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS — race-token guarding',
       lang: 'ts',
-      code: `import { createFormFieldMachine } from '@kumiki/machine-form-field';
+      code: `import { createFormFieldMachine } from '@kumiki/machines/form-field';
 
 const m = createFormFieldMachine({ initialValue: '' });
 m.send({ type: 'INPUT', value: 'a' });
@@ -531,11 +531,11 @@ console.log(m.state); // 'editing' — not 'invalid'`,
   ],
 
   'machine-accordion': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-accordion' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS — single vs multiple modes',
       lang: 'ts',
-      code: `import { createAccordionMachine } from '@kumiki/machine-accordion';
+      code: `import { createAccordionMachine } from '@kumiki/machines/accordion';
 
 const m = createAccordionMachine({
   items: [
@@ -579,11 +579,11 @@ console.log(m.context.expandedIds); // ['b', 'a']`,
   ],
 
   'machine-slider': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-slider' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS — clamp + snap',
       lang: 'ts',
-      code: `import { createSliderMachine } from '@kumiki/machine-slider';
+      code: `import { createSliderMachine } from '@kumiki/machines/slider';
 
 const m = createSliderMachine({ min: 0, max: 100, step: 5 });
 m.send({ type: 'SET.VALUE', value: 13 });
@@ -648,11 +648,11 @@ console.log(m.context.value); // 100 (clamped)`,
   ],
 
   'machine-number-field': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-number-field' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS — clamp + snap, nullable',
       lang: 'ts',
-      code: `import { createNumberFieldMachine } from '@kumiki/machine-number-field';
+      code: `import { createNumberFieldMachine } from '@kumiki/machines/number-field';
 
 const m = createNumberFieldMachine({ min: 0, max: 10, step: 1 });
 m.send({ type: 'INCREMENT' }); // seeds from min
@@ -702,11 +702,11 @@ console.log(m.context.value); // null`,
   ],
 
   'machine-popover': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-popover' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS — non-modal lifecycle',
       lang: 'ts',
-      code: `import { createPopoverMachine } from '@kumiki/machine-popover';
+      code: `import { createPopoverMachine } from '@kumiki/machines/popover';
 
 const m = createPopoverMachine({ closeOnEscape: true });
 m.send({ type: 'OPEN' });
@@ -762,11 +762,11 @@ console.log(m.state); // 'closed'`,
   ],
 
   'machine-toast': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-toast' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS — toaster queue',
       lang: 'ts',
-      code: `import { createToastMachine } from '@kumiki/machine-toast';
+      code: `import { createToastMachine } from '@kumiki/machines/toast';
 
 const m = createToastMachine({ max: 3 });
 m.send({ type: 'ADD', toast: { id: 'a', title: 'Saved' } });
@@ -838,11 +838,11 @@ console.log(m.context.toasts.length); // 0`,
   ],
 
   'machine-menu': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-menu' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS — single-level menu',
       lang: 'ts',
-      code: `import { createMenuMachine } from '@kumiki/machine-menu';
+      code: `import { createMenuMachine } from '@kumiki/machines/menu';
 
 const m = createMenuMachine({ items: [{ id: 'a', label: 'A' }, { id: 'b', label: 'B' }] });
 m.send({ type: 'OPEN' });
@@ -936,11 +936,11 @@ console.log(m.context.highlightedId); // 'b'`,
   ],
 
   'machine-checkbox': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-checkbox' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS tri-state',
       lang: 'ts',
-      code: `import { createCheckboxMachine } from '@kumiki/machine-checkbox';
+      code: `import { createCheckboxMachine } from '@kumiki/machines/checkbox';
 
 const m = createCheckboxMachine({ initial: 'mixed' });
 m.send({ type: 'TOGGLE' });          // mixed → checked (APG tristate)
@@ -1019,11 +1019,11 @@ console.log(m.state);                // 'mixed'`,
   ],
 
   'machine-combobox': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-combobox' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS usage',
       lang: 'ts',
-      code: `import { createComboboxMachine } from '@kumiki/machine-combobox';
+      code: `import { createComboboxMachine } from '@kumiki/machines/combobox';
 
 const m = createComboboxMachine({
   options: [{ id: '1', label: 'Alice' }],
@@ -1107,11 +1107,11 @@ m.send({
   ],
 
   'machine-switch': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machine-switch' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/machines' },
     {
       title: 'Pure-TS usage — no DOM, no Svelte',
       lang: 'ts',
-      code: `import { createSwitchMachine } from '@kumiki/machine-switch';
+      code: `import { createSwitchMachine } from '@kumiki/machines/switch';
 
 const m = createSwitchMachine({ initial: false });
 console.log(m.state);              // 'off'
@@ -1219,12 +1219,12 @@ console.log(m.context.checked);    // true`,
     {
       title: 'Install',
       lang: 'bash',
-      code: 'pnpm add @kumiki/machine-toggle',
+      code: 'pnpm add @kumiki/machines',
     },
     {
       title: 'Pure-TS usage — no DOM, no Svelte',
       lang: 'ts',
-      code: `import { createToggleMachine } from '@kumiki/machine-toggle';
+      code: `import { createToggleMachine } from '@kumiki/machines/toggle';
 
 const m = createToggleMachine({ initial: false });
 console.log(m.state);              // 'unpressed'
@@ -1235,7 +1235,7 @@ console.log(m.context.toggles);    // 1`,
     {
       title: 'Visualize the statechart',
       lang: 'ts',
-      code: `import { createToggleMachine } from '@kumiki/machine-toggle';
+      code: `import { createToggleMachine } from '@kumiki/machines/toggle';
 
 // Drop the JSON into https://stately.ai/viz to see the statechart.
 console.log(JSON.stringify(createToggleMachine().toJSON(), null, 2));`,

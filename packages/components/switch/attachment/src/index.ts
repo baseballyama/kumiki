@@ -17,7 +17,7 @@ import {
   type SwitchEvent,
   type SwitchMachine,
   type SwitchState,
-} from '@kumiki/machine-switch';
+} from '@kumiki/machines/switch';
 import { uid } from '@kumiki/primitives/id';
 
 export type Attachment = (node: HTMLElement) => void | (() => void);

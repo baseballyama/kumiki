@@ -4,12 +4,12 @@
 
 ```ts
 
-import { CreateRadioGroupInput } from '@kumiki/machine-radio-group';
-import { RadioGroupContext } from '@kumiki/machine-radio-group';
-import { RadioGroupEvent } from '@kumiki/machine-radio-group';
-import { RadioGroupMachine } from '@kumiki/machine-radio-group';
-import { RadioGroupState } from '@kumiki/machine-radio-group';
-import { RadioItem } from '@kumiki/machine-radio-group';
+import { CreateRadioGroupInput } from '@kumiki/machines/radio-group';
+import { RadioGroupContext } from '@kumiki/machines/radio-group';
+import { RadioGroupEvent } from '@kumiki/machines/radio-group';
+import { RadioGroupMachine } from '@kumiki/machines/radio-group';
+import { RadioGroupState } from '@kumiki/machines/radio-group';
+import { RadioItem } from '@kumiki/machines/radio-group';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

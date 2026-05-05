@@ -43,7 +43,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kumiki/machine-popover": "workspace:*",
+    "@kumiki/machines": "workspace:*",
     "@kumiki/primitives": "workspace:*",
     "@kumiki/runtime": "workspace:*"
   },
@@ -66,7 +66,7 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
-        "@kumiki/machine-popover"
+        "@kumiki/machines"
       ]
     },
     {

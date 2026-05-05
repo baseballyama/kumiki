@@ -4,14 +4,14 @@
 
 ```ts
 
-import { ComboboxContext } from '@kumiki/machine-combobox';
-import { ComboboxEvent } from '@kumiki/machine-combobox';
-import { ComboboxMachine } from '@kumiki/machine-combobox';
-import { ComboboxOption } from '@kumiki/machine-combobox';
-import { ComboboxState } from '@kumiki/machine-combobox';
-import { ComboboxStatus } from '@kumiki/machine-combobox';
-import { CreateComboboxInput } from '@kumiki/machine-combobox';
-import { NavigateDirection } from '@kumiki/machine-combobox';
+import { ComboboxContext } from '@kumiki/machines/combobox';
+import { ComboboxEvent } from '@kumiki/machines/combobox';
+import { ComboboxMachine } from '@kumiki/machines/combobox';
+import { ComboboxOption } from '@kumiki/machines/combobox';
+import { ComboboxState } from '@kumiki/machines/combobox';
+import { ComboboxStatus } from '@kumiki/machines/combobox';
+import { CreateComboboxInput } from '@kumiki/machines/combobox';
+import { NavigateDirection } from '@kumiki/machines/combobox';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

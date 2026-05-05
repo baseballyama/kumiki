@@ -4,11 +4,11 @@
 
 ```ts
 
-import { CreateTooltipInput } from '@kumiki/machine-tooltip';
-import { TooltipContext } from '@kumiki/machine-tooltip';
-import { TooltipEvent } from '@kumiki/machine-tooltip';
-import { TooltipMachine } from '@kumiki/machine-tooltip';
-import { TooltipState } from '@kumiki/machine-tooltip';
+import { CreateTooltipInput } from '@kumiki/machines/tooltip';
+import { TooltipContext } from '@kumiki/machines/tooltip';
+import { TooltipEvent } from '@kumiki/machines/tooltip';
+import { TooltipMachine } from '@kumiki/machines/tooltip';
+import { TooltipState } from '@kumiki/machines/tooltip';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

@@ -1,7 +1,7 @@
 {
   "name": "@kumiki/attachment-form-field",
   "version": "0.0.0",
-  "description": "Svelte 5 attachments (Layer 3) for form-field — reactive bindings to @kumiki/machine-form-field.",
+  "description": "Svelte 5 attachments (Layer 3) for form-field — reactive bindings to @kumiki/machines/form-field.",
   "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/form-field/attachment",
   "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
@@ -43,7 +43,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kumiki/machine-form-field": "workspace:*",
+    "@kumiki/machines": "workspace:*",
     "@kumiki/primitives": "workspace:*",
     "@kumiki/runtime": "workspace:*"
   },
@@ -66,7 +66,7 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
-        "@kumiki/machine-form-field"
+        "@kumiki/machines"
       ]
     },
     {

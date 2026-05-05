@@ -1,7 +1,7 @@
 {
   "name": "@kumiki/attachment-radio-group",
   "version": "0.0.0",
-  "description": "Svelte 5 attachments (Layer 3) for radio-group — reactive bindings to @kumiki/machine-radio-group.",
+  "description": "Svelte 5 attachments (Layer 3) for radio-group — reactive bindings to @kumiki/machines/radio-group.",
   "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/radio-group/attachment",
   "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
@@ -43,7 +43,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kumiki/machine-radio-group": "workspace:*",
+    "@kumiki/machines": "workspace:*",
     "@kumiki/primitives": "workspace:*",
     "@kumiki/runtime": "workspace:*"
   },
@@ -66,7 +66,7 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
-        "@kumiki/machine-radio-group"
+        "@kumiki/machines"
       ]
     },
     {

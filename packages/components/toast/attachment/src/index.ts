@@ -28,7 +28,7 @@ import {
   type ToastPoliteness,
   type ToastState,
   type ToastType,
-} from '@kumiki/machine-toast';
+} from '@kumiki/machines/toast';
 import { uid } from '@kumiki/primitives/id';
 
 export type Attachment = (node: HTMLElement) => void | (() => void);

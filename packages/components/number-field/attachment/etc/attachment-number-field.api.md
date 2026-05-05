@@ -4,11 +4,11 @@
 
 ```ts
 
-import { CreateNumberFieldInput } from '@kumiki/machine-number-field';
-import { NumberFieldContext } from '@kumiki/machine-number-field';
-import { NumberFieldEvent } from '@kumiki/machine-number-field';
-import { NumberFieldMachine } from '@kumiki/machine-number-field';
-import { NumberFieldState } from '@kumiki/machine-number-field';
+import { CreateNumberFieldInput } from '@kumiki/machines/number-field';
+import { NumberFieldContext } from '@kumiki/machines/number-field';
+import { NumberFieldEvent } from '@kumiki/machines/number-field';
+import { NumberFieldMachine } from '@kumiki/machines/number-field';
+import { NumberFieldState } from '@kumiki/machines/number-field';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

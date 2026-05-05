@@ -4,11 +4,11 @@
 
 ```ts
 
-import { CreatePopoverInput } from '@kumiki/machine-popover';
-import { PopoverContext } from '@kumiki/machine-popover';
-import { PopoverEvent } from '@kumiki/machine-popover';
-import { PopoverMachine } from '@kumiki/machine-popover';
-import { PopoverState } from '@kumiki/machine-popover';
+import { CreatePopoverInput } from '@kumiki/machines/popover';
+import { PopoverContext } from '@kumiki/machines/popover';
+import { PopoverEvent } from '@kumiki/machines/popover';
+import { PopoverMachine } from '@kumiki/machines/popover';
+import { PopoverState } from '@kumiki/machines/popover';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

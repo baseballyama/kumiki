@@ -4,13 +4,13 @@
 
 ```ts
 
-import { AccordionContext } from '@kumiki/machine-accordion';
-import { AccordionEvent } from '@kumiki/machine-accordion';
-import { AccordionItem } from '@kumiki/machine-accordion';
-import { AccordionMachine } from '@kumiki/machine-accordion';
-import { AccordionMode } from '@kumiki/machine-accordion';
-import { AccordionState } from '@kumiki/machine-accordion';
-import { CreateAccordionInput } from '@kumiki/machine-accordion';
+import { AccordionContext } from '@kumiki/machines/accordion';
+import { AccordionEvent } from '@kumiki/machines/accordion';
+import { AccordionItem } from '@kumiki/machines/accordion';
+import { AccordionMachine } from '@kumiki/machines/accordion';
+import { AccordionMode } from '@kumiki/machines/accordion';
+import { AccordionState } from '@kumiki/machines/accordion';
+import { CreateAccordionInput } from '@kumiki/machines/accordion';
 
 export { AccordionContext }
 

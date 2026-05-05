@@ -21,7 +21,7 @@
  */
 
 import type { ComboboxController } from '../index.js';
-import type { ComboboxOption } from '@kumiki/machine-combobox';
+import type { ComboboxOption } from '@kumiki/machines/combobox';
 
 export interface MultiSelectSnapshot<T extends ComboboxOption> {
   readonly selected: ReadonlyArray<T>;

@@ -27,7 +27,7 @@ import {
   type FormFieldEvent,
   type FormFieldMachine,
   type FormFieldState,
-} from '@kumiki/machine-form-field';
+} from '@kumiki/machines/form-field';
 import { uid } from '@kumiki/primitives/id';
 
 export type Attachment = (node: HTMLElement) => void | (() => void);

@@ -29,7 +29,7 @@ import {
   type TabsEvent,
   type TabsMachine,
   type TabsState,
-} from '@kumiki/machine-tabs';
+} from '@kumiki/machines/tabs';
 import { tabindexFor } from '@kumiki/primitives/collection';
 import { uid } from '@kumiki/primitives/id';
 

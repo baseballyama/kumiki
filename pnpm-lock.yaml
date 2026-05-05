@@ -285,9 +285,9 @@ importers:
 
   packages/components/accordion/attachment:
     dependencies:
-      '@kumiki/machine-accordion':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -351,36 +351,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/accordion/machine:
-    dependencies:
-      '@kumiki/primitives':
-        specifier: workspace:*
-        version: link:../../../core/primitives
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/checkbox/attachment:
     dependencies:
-      '@kumiki/machine-checkbox':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -444,36 +419,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/checkbox/machine:
-    dependencies:
-      '@kumiki/primitives':
-        specifier: workspace:*
-        version: link:../../../core/primitives
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/combobox/attachment:
     dependencies:
-      '@kumiki/machine-combobox':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -537,36 +487,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/combobox/machine:
-    dependencies:
-      '@kumiki/primitives':
-        specifier: workspace:*
-        version: link:../../../core/primitives
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/dialog/attachment:
     dependencies:
-      '@kumiki/machine-dialog':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -630,36 +555,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/dialog/machine:
-    dependencies:
-      '@kumiki/primitives':
-        specifier: workspace:*
-        version: link:../../../core/primitives
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/form-field/attachment:
     dependencies:
-      '@kumiki/machine-form-field':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -723,36 +623,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/form-field/machine:
-    dependencies:
-      '@kumiki/primitives':
-        specifier: workspace:*
-        version: link:../../../core/primitives
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/menu/attachment:
     dependencies:
-      '@kumiki/machine-menu':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -816,36 +691,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/menu/machine:
-    dependencies:
-      '@kumiki/primitives':
-        specifier: workspace:*
-        version: link:../../../core/primitives
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/number-field/attachment:
     dependencies:
-      '@kumiki/machine-number-field':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -909,33 +759,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/number-field/machine:
-    dependencies:
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/popover/attachment:
     dependencies:
-      '@kumiki/machine-popover':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -999,33 +827,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/popover/machine:
-    dependencies:
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/radio-group/attachment:
     dependencies:
-      '@kumiki/machine-radio-group':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -1089,36 +895,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/radio-group/machine:
-    dependencies:
-      '@kumiki/primitives':
-        specifier: workspace:*
-        version: link:../../../core/primitives
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/select/attachment:
     dependencies:
-      '@kumiki/machine-select':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -1182,36 +963,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/select/machine:
-    dependencies:
-      '@kumiki/primitives':
-        specifier: workspace:*
-        version: link:../../../core/primitives
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/slider/attachment:
     dependencies:
-      '@kumiki/machine-slider':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -1275,33 +1031,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/slider/machine:
-    dependencies:
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/switch/attachment:
     dependencies:
-      '@kumiki/machine-switch':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -1365,36 +1099,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/switch/machine:
-    dependencies:
-      '@kumiki/primitives':
-        specifier: workspace:*
-        version: link:../../../core/primitives
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/tabs/attachment:
     dependencies:
-      '@kumiki/machine-tabs':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -1458,36 +1167,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/tabs/machine:
-    dependencies:
-      '@kumiki/primitives':
-        specifier: workspace:*
-        version: link:../../../core/primitives
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/toast/attachment:
     dependencies:
-      '@kumiki/machine-toast':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -1551,33 +1235,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/toast/machine:
-    dependencies:
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/toggle/attachment:
     dependencies:
-      '@kumiki/machine-toggle':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -1641,36 +1303,11 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/toggle/machine:
-    dependencies:
-      '@kumiki/primitives':
-        specifier: workspace:*
-        version: link:../../../core/primitives
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/components/tooltip/attachment:
     dependencies:
-      '@kumiki/machine-tooltip':
+      '@kumiki/machines':
         specifier: workspace:*
-        version: link:../machine
+        version: link:../../../machines
       '@kumiki/primitives':
         specifier: workspace:*
         version: link:../../../core/primitives
@@ -1734,31 +1371,6 @@ importers:
         specifier: 'catalog:'
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
-  packages/components/tooltip/machine:
-    dependencies:
-      '@kumiki/primitives':
-        specifier: workspace:*
-        version: link:../../../core/primitives
-      '@kumiki/runtime':
-        specifier: workspace:*
-        version: link:../../../core/runtime
-    devDependencies:
-      '@size-limit/preset-small-lib':
-        specifier: 'catalog:'
-        version: 12.1.0(size-limit@12.1.0)
-      size-limit:
-        specifier: 'catalog:'
-        version: 12.1.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
-
   packages/core/locale:
     devDependencies:
       '@size-limit/preset-small-lib':
@@ -1814,6 +1426,31 @@ importers:
         version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
 
   packages/core/types:
+    devDependencies:
+      '@size-limit/preset-small-lib':
+        specifier: 'catalog:'
+        version: 12.1.0(size-limit@12.1.0)
+      size-limit:
+        specifier: 'catalog:'
+        version: 12.1.0
+      tsdown:
+        specifier: 'catalog:'
+        version: 0.21.10(@arethetypeswrong/core@0.18.2)(publint@0.3.18)(typescript@5.9.3)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.5(@types/node@22.19.17)(@vitest/coverage-v8@4.1.5)(jsdom@25.0.1)(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
+
+  packages/machines:
+    dependencies:
+      '@kumiki/primitives':
+        specifier: workspace:*
+        version: link:../core/primitives
+      '@kumiki/runtime':
+        specifier: workspace:*
+        version: link:../core/runtime
     devDependencies:
       '@size-limit/preset-small-lib':
         specifier: 'catalog:'

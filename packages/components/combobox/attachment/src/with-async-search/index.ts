@@ -22,7 +22,7 @@
  */
 
 import type { ComboboxController } from '../index.js';
-import type { ComboboxOption, ComboboxStatus } from '@kumiki/machine-combobox';
+import type { ComboboxOption, ComboboxStatus } from '@kumiki/machines/combobox';
 
 export type AsyncFetcher<T extends ComboboxOption> = (
   query: string,

@@ -4,12 +4,12 @@
 
 ```ts
 
-import { CreateSelectInput } from '@kumiki/machine-select';
-import { SelectContext } from '@kumiki/machine-select';
-import { SelectEvent } from '@kumiki/machine-select';
-import { SelectItem } from '@kumiki/machine-select';
-import { SelectMachine } from '@kumiki/machine-select';
-import { SelectState } from '@kumiki/machine-select';
+import { CreateSelectInput } from '@kumiki/machines/select';
+import { SelectContext } from '@kumiki/machines/select';
+import { SelectEvent } from '@kumiki/machines/select';
+import { SelectItem } from '@kumiki/machines/select';
+import { SelectMachine } from '@kumiki/machines/select';
+import { SelectState } from '@kumiki/machines/select';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

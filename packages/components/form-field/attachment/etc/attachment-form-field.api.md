@@ -4,12 +4,12 @@
 
 ```ts
 
-import { CreateFormFieldInput } from '@kumiki/machine-form-field';
-import { FieldIssue } from '@kumiki/machine-form-field';
-import { FormFieldContext } from '@kumiki/machine-form-field';
-import { FormFieldEvent } from '@kumiki/machine-form-field';
-import { FormFieldMachine } from '@kumiki/machine-form-field';
-import { FormFieldState } from '@kumiki/machine-form-field';
+import { CreateFormFieldInput } from '@kumiki/machines/form-field';
+import { FieldIssue } from '@kumiki/machines/form-field';
+import { FormFieldContext } from '@kumiki/machines/form-field';
+import { FormFieldEvent } from '@kumiki/machines/form-field';
+import { FormFieldMachine } from '@kumiki/machines/form-field';
+import { FormFieldState } from '@kumiki/machines/form-field';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

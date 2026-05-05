@@ -28,7 +28,7 @@ import {
   type TooltipEvent,
   type TooltipMachine,
   type TooltipState,
-} from '@kumiki/machine-tooltip';
+} from '@kumiki/machines/tooltip';
 import { uid } from '@kumiki/primitives/id';
 
 export type Attachment = (node: HTMLElement) => void | (() => void);

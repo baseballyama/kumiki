@@ -4,12 +4,12 @@
 
 ```ts
 
-import { CreateSliderInput } from '@kumiki/machine-slider';
-import { SliderContext } from '@kumiki/machine-slider';
-import { SliderEvent } from '@kumiki/machine-slider';
-import { SliderMachine } from '@kumiki/machine-slider';
-import { SliderOrientation } from '@kumiki/machine-slider';
-import { SliderState } from '@kumiki/machine-slider';
+import { CreateSliderInput } from '@kumiki/machines/slider';
+import { SliderContext } from '@kumiki/machines/slider';
+import { SliderEvent } from '@kumiki/machines/slider';
+import { SliderMachine } from '@kumiki/machines/slider';
+import { SliderOrientation } from '@kumiki/machines/slider';
+import { SliderState } from '@kumiki/machines/slider';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

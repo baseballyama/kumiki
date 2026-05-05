@@ -1,7 +1,7 @@
 {
   "name": "@kumiki/attachment-slider",
   "version": "0.0.0",
-  "description": "Svelte 5 attachments (Layer 3) for slider — reactive bindings to @kumiki/machine-slider.",
+  "description": "Svelte 5 attachments (Layer 3) for slider — reactive bindings to @kumiki/machines/slider.",
   "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/slider/attachment",
   "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
@@ -43,7 +43,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kumiki/machine-slider": "workspace:*",
+    "@kumiki/machines": "workspace:*",
     "@kumiki/primitives": "workspace:*",
     "@kumiki/runtime": "workspace:*"
   },
@@ -66,7 +66,7 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
-        "@kumiki/machine-slider"
+        "@kumiki/machines"
       ]
     },
     {

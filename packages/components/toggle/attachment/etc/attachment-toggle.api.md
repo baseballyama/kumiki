@@ -4,11 +4,11 @@
 
 ```ts
 
-import { CreateToggleInput } from '@kumiki/machine-toggle';
-import { ToggleContext } from '@kumiki/machine-toggle';
-import { ToggleEvent as ToggleEvent_2 } from '@kumiki/machine-toggle';
-import { ToggleMachine } from '@kumiki/machine-toggle';
-import { ToggleState } from '@kumiki/machine-toggle';
+import { CreateToggleInput } from '@kumiki/machines/toggle';
+import { ToggleContext } from '@kumiki/machines/toggle';
+import { ToggleEvent as ToggleEvent_2 } from '@kumiki/machines/toggle';
+import { ToggleMachine } from '@kumiki/machines/toggle';
+import { ToggleState } from '@kumiki/machines/toggle';
 
 // @public
 export type Attachment = (node: HTMLElement) => void | (() => void);

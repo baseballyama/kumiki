@@ -17,7 +17,7 @@
  */
 
 import type { ComboboxController } from '../index.js';
-import type { ComboboxOption } from '@kumiki/machine-combobox';
+import type { ComboboxOption } from '@kumiki/machines/combobox';
 
 /**
  * Subset of the Standard Schema v1 type surface we depend on. Standard

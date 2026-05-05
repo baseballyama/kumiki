@@ -17,7 +17,7 @@ import {
   type CheckboxState,
   type CheckboxValue,
   type CreateCheckboxInput,
-} from '@kumiki/machine-checkbox';
+} from '@kumiki/machines/checkbox';
 import { uid } from '@kumiki/primitives/id';
 
 export type Attachment = (node: HTMLElement) => void | (() => void);

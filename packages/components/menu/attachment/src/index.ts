@@ -35,7 +35,7 @@ import {
   type MenuMachine,
   type MenuState,
   lastEnabledId,
-} from '@kumiki/machine-menu';
+} from '@kumiki/machines/menu';
 import { createDismissable, type Dismissable } from '@kumiki/primitives/dismissable';
 import { uid } from '@kumiki/primitives/id';
 

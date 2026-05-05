@@ -25,7 +25,7 @@ import {
   type AccordionMode,
   type AccordionState,
   type CreateAccordionInput,
-} from '@kumiki/machine-accordion';
+} from '@kumiki/machines/accordion';
 import { tabindexFor } from '@kumiki/primitives/collection';
 import { uid } from '@kumiki/primitives/id';
 

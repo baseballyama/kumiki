@@ -27,7 +27,7 @@ import {
   type NumberFieldEvent,
   type NumberFieldMachine,
   type NumberFieldState,
-} from '@kumiki/machine-number-field';
+} from '@kumiki/machines/number-field';
 import { uid } from '@kumiki/primitives/id';
 
 export type Attachment = (node: HTMLElement) => void | (() => void);

@@ -4,13 +4,13 @@
 
 ```ts
 
-import { CreateTabsInput } from '@kumiki/machine-tabs';
-import { TabItem } from '@kumiki/machine-tabs';
-import { TabsActivation } from '@kumiki/machine-tabs';
-import { TabsContext } from '@kumiki/machine-tabs';
-import { TabsEvent } from '@kumiki/machine-tabs';
-import { TabsMachine } from '@kumiki/machine-tabs';
-import { TabsState } from '@kumiki/machine-tabs';
+import { CreateTabsInput } from '@kumiki/machines/tabs';
+import { TabItem } from '@kumiki/machines/tabs';
+import { TabsActivation } from '@kumiki/machines/tabs';
+import { TabsContext } from '@kumiki/machines/tabs';
+import { TabsEvent } from '@kumiki/machines/tabs';
+import { TabsMachine } from '@kumiki/machines/tabs';
+import { TabsState } from '@kumiki/machines/tabs';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

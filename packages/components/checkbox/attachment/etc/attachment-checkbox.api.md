@@ -4,12 +4,12 @@
 
 ```ts
 
-import { CheckboxContext } from '@kumiki/machine-checkbox';
-import { CheckboxEvent } from '@kumiki/machine-checkbox';
-import { CheckboxMachine } from '@kumiki/machine-checkbox';
-import { CheckboxState } from '@kumiki/machine-checkbox';
-import { CheckboxValue } from '@kumiki/machine-checkbox';
-import { CreateCheckboxInput } from '@kumiki/machine-checkbox';
+import { CheckboxContext } from '@kumiki/machines/checkbox';
+import { CheckboxEvent } from '@kumiki/machines/checkbox';
+import { CheckboxMachine } from '@kumiki/machines/checkbox';
+import { CheckboxState } from '@kumiki/machines/checkbox';
+import { CheckboxValue } from '@kumiki/machines/checkbox';
+import { CreateCheckboxInput } from '@kumiki/machines/checkbox';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

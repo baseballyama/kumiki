@@ -4,11 +4,11 @@
 
 ```ts
 
-import { CreateSwitchInput } from '@kumiki/machine-switch';
-import { SwitchContext } from '@kumiki/machine-switch';
-import { SwitchEvent } from '@kumiki/machine-switch';
-import { SwitchMachine } from '@kumiki/machine-switch';
-import { SwitchState } from '@kumiki/machine-switch';
+import { CreateSwitchInput } from '@kumiki/machines/switch';
+import { SwitchContext } from '@kumiki/machines/switch';
+import { SwitchEvent } from '@kumiki/machines/switch';
+import { SwitchMachine } from '@kumiki/machines/switch';
+import { SwitchState } from '@kumiki/machines/switch';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

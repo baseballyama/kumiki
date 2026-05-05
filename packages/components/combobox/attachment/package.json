@@ -1,7 +1,7 @@
 {
   "name": "@kumiki/attachment-combobox",
   "version": "0.0.0",
-  "description": "Svelte 5 attachments (Layer 3) for combobox — reactive bindings to @kumiki/machine-combobox.",
+  "description": "Svelte 5 attachments (Layer 3) for combobox — reactive bindings to @kumiki/machines/combobox.",
   "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/combobox/attachment",
   "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
@@ -59,7 +59,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kumiki/machine-combobox": "workspace:*",
+    "@kumiki/machines": "workspace:*",
     "@kumiki/primitives": "workspace:*",
     "@kumiki/runtime": "workspace:*"
   },
@@ -82,7 +82,7 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
-        "@kumiki/machine-combobox"
+        "@kumiki/machines"
       ]
     },
     {
@@ -97,7 +97,7 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
-        "@kumiki/machine-combobox",
+        "@kumiki/machines",
         "@kumiki/attachment-combobox"
       ]
     },
@@ -108,7 +108,7 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
-        "@kumiki/machine-combobox",
+        "@kumiki/machines",
         "@kumiki/attachment-combobox"
       ]
     },
@@ -119,7 +119,7 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
-        "@kumiki/machine-combobox",
+        "@kumiki/machines",
         "@kumiki/attachment-combobox"
       ]
     },
@@ -130,7 +130,7 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
-        "@kumiki/machine-combobox",
+        "@kumiki/machines",
         "@kumiki/attachment-combobox"
       ]
     }

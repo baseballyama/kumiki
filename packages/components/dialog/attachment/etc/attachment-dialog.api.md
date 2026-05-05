@@ -4,11 +4,11 @@
 
 ```ts
 
-import { CreateDialogInput } from '@kumiki/machine-dialog';
-import { DialogContext } from '@kumiki/machine-dialog';
-import { DialogEvent } from '@kumiki/machine-dialog';
-import { DialogMachine } from '@kumiki/machine-dialog';
-import { DialogState } from '@kumiki/machine-dialog';
+import { CreateDialogInput } from '@kumiki/machines/dialog';
+import { DialogContext } from '@kumiki/machines/dialog';
+import { DialogEvent } from '@kumiki/machines/dialog';
+import { DialogMachine } from '@kumiki/machines/dialog';
+import { DialogState } from '@kumiki/machines/dialog';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

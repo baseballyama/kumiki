@@ -33,7 +33,7 @@ import {
   type SelectItem,
   type SelectMachine,
   type SelectState,
-} from '@kumiki/machine-select';
+} from '@kumiki/machines/select';
 import { createDismissable, type Dismissable } from '@kumiki/primitives/dismissable';
 import { uid } from '@kumiki/primitives/id';
 

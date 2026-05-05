@@ -32,7 +32,7 @@ import {
   type DialogEvent,
   type DialogMachine,
   type DialogState,
-} from '@kumiki/machine-dialog';
+} from '@kumiki/machines/dialog';
 import { createDismissable, type Dismissable } from '@kumiki/primitives/dismissable';
 import { createFocusTrap, type FocusTrap } from '@kumiki/primitives/focus-trap';
 import { uid } from '@kumiki/primitives/id';

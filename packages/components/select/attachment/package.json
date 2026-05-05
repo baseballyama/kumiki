@@ -1,7 +1,7 @@
 {
   "name": "@kumiki/attachment-select",
   "version": "0.0.0",
-  "description": "Svelte 5 attachments (Layer 3) for select — reactive bindings to @kumiki/machine-select.",
+  "description": "Svelte 5 attachments (Layer 3) for select — reactive bindings to @kumiki/machines/select.",
   "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/select/attachment",
   "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
@@ -43,7 +43,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kumiki/machine-select": "workspace:*",
+    "@kumiki/machines": "workspace:*",
     "@kumiki/primitives": "workspace:*",
     "@kumiki/runtime": "workspace:*"
   },
@@ -66,7 +66,7 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
-        "@kumiki/machine-select"
+        "@kumiki/machines"
       ]
     },
     {

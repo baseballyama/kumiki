@@ -4,14 +4,14 @@
 
 ```ts
 
-import { CreateToastInput } from '@kumiki/machine-toast';
-import { ToastContext } from '@kumiki/machine-toast';
-import { ToastEvent } from '@kumiki/machine-toast';
-import { ToastItem } from '@kumiki/machine-toast';
-import { ToastMachine } from '@kumiki/machine-toast';
-import { ToastPoliteness } from '@kumiki/machine-toast';
-import { ToastState } from '@kumiki/machine-toast';
-import { ToastType } from '@kumiki/machine-toast';
+import { CreateToastInput } from '@kumiki/machines/toast';
+import { ToastContext } from '@kumiki/machines/toast';
+import { ToastEvent } from '@kumiki/machines/toast';
+import { ToastItem } from '@kumiki/machines/toast';
+import { ToastMachine } from '@kumiki/machines/toast';
+import { ToastPoliteness } from '@kumiki/machines/toast';
+import { ToastState } from '@kumiki/machines/toast';
+import { ToastType } from '@kumiki/machines/toast';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

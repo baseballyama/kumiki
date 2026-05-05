@@ -24,7 +24,7 @@ import {
   type ComboboxStatus,
   type CreateComboboxInput,
   type NavigateDirection,
-} from '@kumiki/machine-combobox';
+} from '@kumiki/machines/combobox';
 import { uid } from '@kumiki/primitives/id';
 
 export type Attachment = (node: HTMLElement) => void | (() => void);

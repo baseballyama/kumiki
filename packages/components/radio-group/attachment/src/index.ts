@@ -19,7 +19,7 @@ import {
   type RadioGroupMachine,
   type RadioGroupState,
   type RadioItem,
-} from '@kumiki/machine-radio-group';
+} from '@kumiki/machines/radio-group';
 import { tabindexFor } from '@kumiki/primitives/collection';
 import { uid } from '@kumiki/primitives/id';
 

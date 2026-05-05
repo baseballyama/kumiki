@@ -4,12 +4,12 @@
 
 ```ts
 
-import { CreateMenuInput } from '@kumiki/machine-menu';
-import { MenuContext } from '@kumiki/machine-menu';
-import { MenuEvent } from '@kumiki/machine-menu';
-import { MenuItem } from '@kumiki/machine-menu';
-import { MenuMachine } from '@kumiki/machine-menu';
-import { MenuState } from '@kumiki/machine-menu';
+import { CreateMenuInput } from '@kumiki/machines/menu';
+import { MenuContext } from '@kumiki/machines/menu';
+import { MenuEvent } from '@kumiki/machines/menu';
+import { MenuItem } from '@kumiki/machines/menu';
+import { MenuMachine } from '@kumiki/machines/menu';
+import { MenuState } from '@kumiki/machines/menu';
 
 // @public (undocumented)
 export type Attachment = (node: HTMLElement) => void | (() => void);

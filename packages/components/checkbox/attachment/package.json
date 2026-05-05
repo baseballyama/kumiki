@@ -1,7 +1,7 @@
 {
   "name": "@kumiki/attachment-checkbox",
   "version": "0.0.0",
-  "description": "Svelte 5 attachments (Layer 3) for checkbox — reactive bindings to @kumiki/machine-checkbox.",
+  "description": "Svelte 5 attachments (Layer 3) for checkbox — reactive bindings to @kumiki/machines/checkbox.",
   "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/checkbox/attachment",
   "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
@@ -43,7 +43,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kumiki/machine-checkbox": "workspace:*",
+    "@kumiki/machines": "workspace:*",
     "@kumiki/primitives": "workspace:*",
     "@kumiki/runtime": "workspace:*"
   },
@@ -66,7 +66,7 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
-        "@kumiki/machine-checkbox"
+        "@kumiki/machines"
       ]
     },
     {

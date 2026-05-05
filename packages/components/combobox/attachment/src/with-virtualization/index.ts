@@ -24,7 +24,7 @@
  */
 
 import type { ComboboxController } from '../index.js';
-import type { ComboboxOption } from '@kumiki/machine-combobox';
+import type { ComboboxOption } from '@kumiki/machines/combobox';
 
 export interface VirtualizationOptions {
   /** Pixel height of every option row. Required — fixed for now. */

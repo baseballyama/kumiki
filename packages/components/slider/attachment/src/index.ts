@@ -27,7 +27,7 @@ import {
   type SliderMachine,
   type SliderOrientation,
   type SliderState,
-} from '@kumiki/machine-slider';
+} from '@kumiki/machines/slider';
 import { uid } from '@kumiki/primitives/id';
 
 export type Attachment = (node: HTMLElement) => void | (() => void);

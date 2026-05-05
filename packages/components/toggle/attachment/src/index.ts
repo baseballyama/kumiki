@@ -17,7 +17,7 @@ import {
   type ToggleEvent,
   type ToggleMachine,
   type ToggleState,
-} from '@kumiki/machine-toggle';
+} from '@kumiki/machines/toggle';
 import { uid } from '@kumiki/primitives/id';
 
 // ─── Public types ─────────────────────────────────────────────────────────

@@ -26,7 +26,7 @@ import {
   type PopoverEvent,
   type PopoverMachine,
   type PopoverState,
-} from '@kumiki/machine-popover';
+} from '@kumiki/machines/popover';
 import { createDismissable, type Dismissable } from '@kumiki/primitives/dismissable';
 import { uid } from '@kumiki/primitives/id';
 

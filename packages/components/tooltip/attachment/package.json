@@ -1,7 +1,7 @@
 {
   "name": "@kumiki/attachment-tooltip",
   "version": "0.0.0",
-  "description": "Svelte 5 attachments (Layer 3) for tooltip — reactive bindings to @kumiki/machine-tooltip.",
+  "description": "Svelte 5 attachments (Layer 3) for tooltip — reactive bindings to @kumiki/machines/tooltip.",
   "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components/tooltip/attachment",
   "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
@@ -43,7 +43,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kumiki/machine-tooltip": "workspace:*",
+    "@kumiki/machines": "workspace:*",
     "@kumiki/primitives": "workspace:*",
     "@kumiki/runtime": "workspace:*"
   },
@@ -66,7 +66,7 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",
-        "@kumiki/machine-tooltip"
+        "@kumiki/machines"
       ]
     },
     {

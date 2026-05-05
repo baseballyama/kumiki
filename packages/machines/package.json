@@ -1,0 +1,266 @@
+{
+  "name": "@kumiki/machines",
+  "version": "0.0.0",
+  "description": "Layer 2 — pure-TS finite state machines for every Kumiki component. One subpath per component; no DOM, no Svelte.",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/machines",
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
+  "license": "MIT",
+  "author": "Yuichiro Yamashita",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baseballyama/kumiki.git",
+    "directory": "packages/machines"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json",
+    "./accordion": {
+      "types": "./dist/accordion/index.d.mts",
+      "import": "./dist/accordion/index.mjs"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox/index.d.mts",
+      "import": "./dist/checkbox/index.mjs"
+    },
+    "./combobox": {
+      "types": "./dist/combobox/index.d.mts",
+      "import": "./dist/combobox/index.mjs"
+    },
+    "./dialog": {
+      "types": "./dist/dialog/index.d.mts",
+      "import": "./dist/dialog/index.mjs"
+    },
+    "./form-field": {
+      "types": "./dist/form-field/index.d.mts",
+      "import": "./dist/form-field/index.mjs"
+    },
+    "./menu": {
+      "types": "./dist/menu/index.d.mts",
+      "import": "./dist/menu/index.mjs"
+    },
+    "./number-field": {
+      "types": "./dist/number-field/index.d.mts",
+      "import": "./dist/number-field/index.mjs"
+    },
+    "./popover": {
+      "types": "./dist/popover/index.d.mts",
+      "import": "./dist/popover/index.mjs"
+    },
+    "./radio-group": {
+      "types": "./dist/radio-group/index.d.mts",
+      "import": "./dist/radio-group/index.mjs"
+    },
+    "./select": {
+      "types": "./dist/select/index.d.mts",
+      "import": "./dist/select/index.mjs"
+    },
+    "./slider": {
+      "types": "./dist/slider/index.d.mts",
+      "import": "./dist/slider/index.mjs"
+    },
+    "./switch": {
+      "types": "./dist/switch/index.d.mts",
+      "import": "./dist/switch/index.mjs"
+    },
+    "./tabs": {
+      "types": "./dist/tabs/index.d.mts",
+      "import": "./dist/tabs/index.mjs"
+    },
+    "./toast": {
+      "types": "./dist/toast/index.d.mts",
+      "import": "./dist/toast/index.mjs"
+    },
+    "./toggle": {
+      "types": "./dist/toggle/index.d.mts",
+      "import": "./dist/toggle/index.mjs"
+    },
+    "./tooltip": {
+      "types": "./dist/tooltip/index.d.mts",
+      "import": "./dist/tooltip/index.mjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint src",
+    "size": "size-limit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@kumiki/primitives": "workspace:*",
+    "@kumiki/runtime": "workspace:*"
+  },
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "catalog:",
+    "size-limit": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "size-limit": [
+    {
+      "name": "machines/toggle (incremental)",
+      "path": "dist/toggle/index.mjs",
+      "limit": "500 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/switch (incremental)",
+      "path": "dist/switch/index.mjs",
+      "limit": "500 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/checkbox (incremental)",
+      "path": "dist/checkbox/index.mjs",
+      "limit": "600 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/radio-group (incremental)",
+      "path": "dist/radio-group/index.mjs",
+      "limit": "1 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/tabs (incremental)",
+      "path": "dist/tabs/index.mjs",
+      "limit": "1.2 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/dialog (incremental)",
+      "path": "dist/dialog/index.mjs",
+      "limit": "800 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/tooltip (incremental)",
+      "path": "dist/tooltip/index.mjs",
+      "limit": "800 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/combobox (incremental)",
+      "path": "dist/combobox/index.mjs",
+      "limit": "3 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/select (incremental)",
+      "path": "dist/select/index.mjs",
+      "limit": "1.5 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/form-field (incremental)",
+      "path": "dist/form-field/index.mjs",
+      "limit": "1 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/slider (incremental)",
+      "path": "dist/slider/index.mjs",
+      "limit": "1.2 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/accordion (incremental)",
+      "path": "dist/accordion/index.mjs",
+      "limit": "1 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/number-field (incremental)",
+      "path": "dist/number-field/index.mjs",
+      "limit": "1.2 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/popover (incremental)",
+      "path": "dist/popover/index.mjs",
+      "limit": "1.5 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/toast (incremental)",
+      "path": "dist/toast/index.mjs",
+      "limit": "1.2 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/menu (incremental)",
+      "path": "dist/menu/index.mjs",
+      "limit": "1.5 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives"
+      ]
+    }
+  ]
+}
