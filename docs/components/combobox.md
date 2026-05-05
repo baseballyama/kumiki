@@ -56,14 +56,13 @@ In **RTL** (`dir="rtl"`), `ArrowLeft` and `ArrowRight` are handled when the comp
 
 ## ARIA
 
-| Element       | Role       | Attributes (open / closed states)                                                                                                                         |
-| ------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Root`        | —          | `data-state` (`open` / `closed` / `loading`), `data-direction`                                                                                            |
-| `Input`       | `combobox` | `aria-expanded` (`true`/`false`), `aria-controls` (id of Listbox), `aria-activedescendant` (id of focused option), `aria-autocomplete` (`list` or `both`) |
-| `Trigger`     | `button`   | `tabindex="-1"` (handled by parent input), `aria-label` (e.g., "Show options"), `aria-controls`                                                           |
-| `Listbox`     | `listbox`  | `id`, `aria-label` (or `aria-labelledby` if a `<label>` is present)                                                                                       |
-| `Item`        | `option`   | `aria-selected` (`true`/`false`), `id`                                                                                                                    |
-| `ClearButton` | `button`   | `aria-label` ("Clear input")                                                                                                                              |
+| Element   | Role       | Attributes (open / closed states)                                                                                                                         |
+| --------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Root`    | —          | `data-state` (`open` / `closed` / `loading`), `data-direction`                                                                                            |
+| `Input`   | `combobox` | `aria-expanded` (`true`/`false`), `aria-controls` (id of Listbox), `aria-activedescendant` (id of focused option), `aria-autocomplete` (`list` or `both`) |
+| `Trigger` | `button`   | `aria-controls` (id of Listbox), `aria-haspopup="listbox"`, `aria-expanded`, `aria-label` (e.g., "Show options")                                          |
+| `Listbox` | `listbox`  | `id`, `aria-label` (or `aria-labelledby` if a `<label>` is present)                                                                                       |
+| `Item`    | `option`   | `aria-selected` (`true`/`false`), `id`, `aria-disabled` when option is disabled                                                                           |
 
 ## State machine
 
