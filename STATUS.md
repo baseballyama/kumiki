@@ -99,9 +99,11 @@ Total: **73 keyboard cases** all green.
 
 ## Phase 0c QA artifacts
 
-- **`/llms-full.txt`** — apps/docs/scripts/build-llms-full.mjs walks every package, inlines first-JSDoc + exports → 1185-line / 33 KB AI reference.
+- **`/llms-full.txt`** — apps/docs/scripts/build-llms-full.mjs walks every package, inlines first-JSDoc + exports → AI reference, regenerated against the post-ADR-0012 9-package shape.
 - **`/sizes.json`** — apps/docs/scripts/build-sizes.mjs runs `size-limit --json` per layer package, aggregates verified per-subpath brotli measurements.
 - **`/sizes`** — SvelteKit route that renders `/sizes.json` as a per-subpath table with safe / tight / fail color bars.
+- **`/benches.json`** — `pnpm -w run bench:json` (scripts/aggregate-bench.mjs) runs `vitest bench --outputJson` across runtime + primitives + machines and aggregates ops/sec / mean / p99 per benchmark.
+- **`/bench`** — SvelteKit route that renders `/benches.json` as per-package, per-describe-block tables.
 - **`docs/components/<name>.md`** — reference docs for all 10 Phase 1 + 6 Phase 2 components: anatomy, keyboard, ARIA, source links.
 
 ## Quality gates active in CI

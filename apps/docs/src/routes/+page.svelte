@@ -12,6 +12,8 @@
   <p>Status: <strong>pre-alpha</strong>.</p>
   <ul>
     <li><a href="/play">Playground →</a></li>
+    <li><a href="/sizes">Bundle sizes →</a></li>
+    <li><a href="/bench">Benchmarks →</a></li>
     <li><a href="https://github.com/baseballyama/kumiki">GitHub →</a></li>
     <li><a href="/llms.txt">llms.txt →</a></li>
   </ul>
