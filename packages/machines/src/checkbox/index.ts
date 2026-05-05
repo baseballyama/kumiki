@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-checkbox` — pure-TS finite state machine for the Checkbox.
+ * `@kumiki/machines/checkbox` — pure-TS finite state machine for the Checkbox.
  *
  * Tri-state: `unchecked` / `checked` / `mixed` (rendered as `aria-checked="mixed"`,
  * the indeterminate state). Distinct from Toggle/Switch which are strictly
@@ -123,8 +123,8 @@ const factory = /* @__PURE__ */ defineMachine<CheckboxContext, CheckboxEvent, Ch
  * Construct a fresh Checkbox machine.
  *
  * @when-to-use For a form-level boolean (or tri-state) field. Use
- *              `@kumiki/component-switch` for an immediate-effect setting and
- *              `@kumiki/component-toggle` for a "pressed button" command.
+ *              `@kumiki/components/switch` for an immediate-effect setting and
+ *              `@kumiki/components/toggle` for a "pressed button" command.
  *
  * @anti-pattern Don't transition into `'mixed'` from user interaction — `'mixed'`
  *               is set programmatically by the controller (e.g. parent of a

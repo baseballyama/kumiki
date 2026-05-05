@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-radio-group` — pure-TS finite state machine for RadioGroup.
+ * `@kumiki/machines/radio-group` — pure-TS finite state machine for RadioGroup.
  *
  * Models a group of mutually-exclusive items with **roving tabindex** focus
  * management. Per APG RadioGroup pattern, arrow keys move focus AND select

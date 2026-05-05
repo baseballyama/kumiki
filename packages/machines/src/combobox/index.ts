@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-combobox` — pure-TS finite state machine for the Combobox.
+ * `@kumiki/machines/combobox` — pure-TS finite state machine for the Combobox.
  *
  * The Combobox is the design-validation pilot for Kumiki: complex enough to
  * exercise async race-token guarding, generic `<T>` propagation, keyboard

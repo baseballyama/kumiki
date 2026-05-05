@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-menu` — pure-TS FSM for a single-level Menu.
+ * `@kumiki/machines/menu` — pure-TS FSM for a single-level Menu.
  *
  * Trigger button toggles a popup of items. Inside the open menu, a
  * roving active-descendant cursor (`highlightedId`) tracks keyboard focus;
@@ -92,7 +92,7 @@ function navigableItems(items: ReadonlyArray<MenuItem>): ReadonlyArray<MenuItem>
  *
  * @anti-pattern Don't use Menu for picking a value (Select / Combobox)
  *               or for permanent navigation (Tabs / Sidebar). Don't
- *               nest sub-menus until @kumiki/machine-menu adds an explicit
+ *               nest sub-menus until @kumiki/machines/menu adds an explicit
  *               submenu API.
  *
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/menubar/

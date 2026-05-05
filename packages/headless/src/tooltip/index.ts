@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-tooltip` — Layer 3 Svelte 5 attachments for Tooltip.
+ * `@kumiki/headless/tooltip` — Layer 3 Svelte 5 attachments for Tooltip.
  *
  * Two factories:
  * - `trigger` — listens for pointer-enter / pointer-leave / focus / blur and

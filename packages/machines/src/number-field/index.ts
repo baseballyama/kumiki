@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-number-field` — pure-TS FSM for NumberField (spin button).
+ * `@kumiki/machines/number-field` — pure-TS FSM for NumberField (spin button).
  *
  * Linear numeric value, optionally `null` when empty. INCREMENT / DECREMENT
  * arrows by `step`, PageUp / PageDown by `pageStep`, Home / End jump to

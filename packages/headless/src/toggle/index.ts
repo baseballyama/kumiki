@@ -1,8 +1,8 @@
 /**
- * `@kumiki/attachment-toggle` — Layer 3 Svelte 5 attachment for the Toggle machine.
+ * `@kumiki/headless/toggle` — Layer 3 Svelte 5 attachment for the Toggle machine.
  *
  * Strategy: the attachment owns the machine and synchronises ARIA attributes /
- * `data-state` directly on the DOM element. Layer 4 (`@kumiki/component-toggle`)
+ * `data-state` directly on the DOM element. Layer 4 (`@kumiki/components/toggle`)
  * uses `{@attach}` to wire it up. We keep Layer 3 as plain TS — runes-free —
  * so the same code is usable from non-Svelte hosts (vanilla JS, tests with
  * jsdom, server-side validation) without dragging the Svelte runtime.
@@ -78,7 +78,7 @@ export interface CreateToggleOptions extends CreateToggleInput {
  * @example
  * ```svelte
  * <script lang="ts">
- *   import { createToggle } from '@kumiki/attachment-toggle';
+ *   import { createToggle } from '@kumiki/headless/toggle';
  *   const t = createToggle({ initial: false });
  * </script>
  *

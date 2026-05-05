@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-combobox/with-multi-select` — replaces single
+ * `@kumiki/headless/combobox/with-multi-select` — replaces single
  * value with array-value semantics.
  *
  * The base controller still owns option highlight + filter + open state;

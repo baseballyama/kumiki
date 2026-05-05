@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-accordion` — pure-TS FSM for Accordion.
+ * `@kumiki/machines/accordion` — pure-TS FSM for Accordion.
  *
  * APG Accordion pattern: a vertical stack of disclosure regions, each with
  * a header button (`role="button"`, `aria-expanded`) that toggles a panel.

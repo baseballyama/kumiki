@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-toast` — Layer 3 Svelte 5 attachments for the Toast
+ * `@kumiki/headless/toast` — Layer 3 Svelte 5 attachments for the Toast
  * (toaster queue) component.
  *
  * Three factories:

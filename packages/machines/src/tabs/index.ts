@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-tabs` — pure-TS finite state machine for Tabs.
+ * `@kumiki/machines/tabs` — pure-TS finite state machine for Tabs.
  *
  * Models a tablist with **roving tabindex** and two activation modes:
  *
@@ -82,7 +82,7 @@ function idForValue(items: ReadonlyArray<TabItem>, value: string | null): string
  *
  * @when-to-use Switching between mutually-exclusive panels of related content
  *              within a single page region — settings panes, dashboard slices,
- *              docs version pickers. Pair with `@kumiki/component-tabs`.
+ *              docs version pickers. Pair with `@kumiki/components/tabs`.
  *
  * @anti-pattern Don't use Tabs for navigation that changes the URL or page
  *               context — use links / a router. Don't use Tabs to disclose

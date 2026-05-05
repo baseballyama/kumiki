@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-number-field` — Layer 3 Svelte 5 attachments for
+ * `@kumiki/headless/number-field` — Layer 3 Svelte 5 attachments for
  * NumberField (spin button).
  *
  * Factories:

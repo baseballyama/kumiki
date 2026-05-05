@@ -1,7 +1,7 @@
 /**
- * `@kumiki/attachment-switch` — Layer 3 Svelte 5 attachment for the Switch machine.
+ * `@kumiki/headless/switch` — Layer 3 Svelte 5 attachment for the Switch machine.
  *
- * Mirrors `@kumiki/attachment-toggle` but emits `role="switch"` + `aria-checked`
+ * Mirrors `@kumiki/headless/toggle` but emits `role="switch"` + `aria-checked`
  * instead of `aria-pressed`. The DOM contract differs only in those two
  * attributes; everything else (data-state="on|off", data-disabled, click +
  * Space/Enter handling, teardown) is identical.

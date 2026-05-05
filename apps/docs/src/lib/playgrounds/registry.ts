@@ -67,7 +67,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   // ── Layer 2 — Machines ────────────────────────────────────────────────────
   {
     slug: 'machine-toggle',
-    name: '@kumiki/machine-toggle',
+    name: '@kumiki/machines/toggle',
     layer: 2,
     summary: 'Pure-TS FSM for the Toggle component.',
     live: false,
@@ -76,7 +76,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-switch',
-    name: '@kumiki/machine-switch',
+    name: '@kumiki/machines/switch',
     layer: 2,
     summary: 'Pure-TS FSM for the Switch component (on/off setting).',
     live: false,
@@ -85,7 +85,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-combobox',
-    name: '@kumiki/machine-combobox',
+    name: '@kumiki/machines/combobox',
     layer: 2,
     summary:
       'Pure-TS FSM for Combobox: keyboard nav, async race-token guarding, generic over option type T.',
@@ -95,7 +95,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-checkbox',
-    name: '@kumiki/machine-checkbox',
+    name: '@kumiki/machines/checkbox',
     layer: 2,
     summary: 'Pure-TS tri-state FSM (unchecked / checked / mixed) for the Checkbox component.',
     live: false,
@@ -104,7 +104,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-radio-group',
-    name: '@kumiki/machine-radio-group',
+    name: '@kumiki/machines/radio-group',
     layer: 2,
     summary: 'Pure-TS FSM for RadioGroup with roving-tabindex select-on-focus.',
     live: false,
@@ -113,7 +113,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-tabs',
-    name: '@kumiki/machine-tabs',
+    name: '@kumiki/machines/tabs',
     layer: 2,
     summary: 'Pure-TS FSM for Tabs with manual + automatic activation modes.',
     live: false,
@@ -122,7 +122,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-dialog',
-    name: '@kumiki/machine-dialog',
+    name: '@kumiki/machines/dialog',
     layer: 2,
     summary: 'Pure-TS FSM for Dialog with policy-driven Escape / outside-click dismissal.',
     live: false,
@@ -131,7 +131,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-tooltip',
-    name: '@kumiki/machine-tooltip',
+    name: '@kumiki/machines/tooltip',
     layer: 2,
     summary: 'Pure-TS FSM for Tooltip with configurable open / close delays.',
     live: false,
@@ -140,7 +140,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-select',
-    name: '@kumiki/machine-select',
+    name: '@kumiki/machines/select',
     layer: 2,
     summary: 'Pure-TS FSM for Select — listbox without free-text input, with type-ahead.',
     live: false,
@@ -149,7 +149,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-form-field',
-    name: '@kumiki/machine-form-field',
+    name: '@kumiki/machines/form-field',
     layer: 2,
     summary:
       'Pure-TS FSM for Form Field validation — pristine/editing/validating/valid/invalid with race-token guarding.',
@@ -158,7 +158,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-accordion',
-    name: '@kumiki/machine-accordion',
+    name: '@kumiki/machines/accordion',
     layer: 2,
     summary: 'Pure-TS FSM for Accordion — single / multiple expansion modes with focus navigation.',
     live: false,
@@ -167,7 +167,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-slider',
-    name: '@kumiki/machine-slider',
+    name: '@kumiki/machines/slider',
     layer: 2,
     summary: 'Pure-TS FSM for Slider — clamped numeric value with step + pageStep increments.',
     live: false,
@@ -176,7 +176,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-number-field',
-    name: '@kumiki/machine-number-field',
+    name: '@kumiki/machines/number-field',
     layer: 2,
     summary:
       'Pure-TS FSM for NumberField — nullable numeric value with clamp + snap + page-step semantics.',
@@ -186,7 +186,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-popover',
-    name: '@kumiki/machine-popover',
+    name: '@kumiki/machines/popover',
     layer: 2,
     summary:
       'Pure-TS FSM for Popover — non-modal disclosure with closeOnEscape / closeOnOutsideClick policy flags.',
@@ -196,7 +196,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-toast',
-    name: '@kumiki/machine-toast',
+    name: '@kumiki/machines/toast',
     layer: 2,
     summary:
       'Pure-TS FSM for Toast (toaster queue) — ADD/REMOVE/UPDATE/CLEAR with max-size trim, politeness, sticky vs auto-dismiss.',
@@ -206,7 +206,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'machine-menu',
-    name: '@kumiki/machine-menu',
+    name: '@kumiki/machines/menu',
     layer: 2,
     summary:
       'Pure-TS FSM for Menu (single-level) — open/close + active-descendant cursor + arrow / Home / End / typeahead. Submenus deferred.',
@@ -535,7 +535,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   // ── Layer 5 — Recipes (preview) ───────────────────────────────────────────
   {
     slug: 'recipes-toggle',
-    name: '@kumiki/recipes-toggle',
+    name: '@kumiki/recipes/toggle',
     layer: 5,
     summary: 'Layer 5 preview — styled, copy-paste-friendly Toggle templates.',
     live: false,
@@ -543,7 +543,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'recipes-dialog',
-    name: '@kumiki/recipes-dialog',
+    name: '@kumiki/recipes/dialog',
     layer: 5,
     summary: 'Layer 5 preview — styled, copy-paste-friendly Dialog templates.',
     live: false,

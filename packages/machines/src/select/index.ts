@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-select` — pure-TS FSM for Select.
+ * `@kumiki/machines/select` — pure-TS FSM for Select.
  *
  * "Combobox without free-text input": a button trigger that pops up a
  * listbox with one option selected at a time. Generic over the option

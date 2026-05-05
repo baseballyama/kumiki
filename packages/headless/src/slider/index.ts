@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-slider` — Layer 3 Svelte 5 attachments for Slider.
+ * `@kumiki/headless/slider` — Layer 3 Svelte 5 attachments for Slider.
  *
  * Two factories:
  * - `root` — the track container; pointer-down anywhere inside maps the

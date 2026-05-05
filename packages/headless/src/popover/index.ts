@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-popover` — Layer 3 Svelte 5 attachments for Popover.
+ * `@kumiki/headless/popover` — Layer 3 Svelte 5 attachments for Popover.
  *
  * Compound primitive across five factories — `trigger`, `content`,
  * `close`, `title`, `description`.

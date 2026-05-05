@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-tabs` — Layer 3 Svelte 5 attachments for Tabs.
+ * `@kumiki/headless/tabs` — Layer 3 Svelte 5 attachments for Tabs.
  *
  * Tabs is a **compound primitive** spanning three element kinds:
  * - one tablist (`role="tablist"`)

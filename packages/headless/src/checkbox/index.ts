@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-checkbox` — Layer 3 Svelte 5 attachment for the Checkbox.
+ * `@kumiki/headless/checkbox` — Layer 3 Svelte 5 attachment for the Checkbox.
  *
  * Tri-state, per APG: emits `role="checkbox"` + `aria-checked` with one of
  * `'true'`, `'false'`, `'mixed'`. Click and Space/Enter toggle between

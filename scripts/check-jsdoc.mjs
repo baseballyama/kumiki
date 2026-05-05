@@ -1,71 +1,61 @@
 #!/usr/bin/env node
 /**
- * Lint that every public export in every Kumiki package's entry has JSDoc with
- * the three required tags (`@when-to-use`, `@anti-pattern`, `@see`) at least
- * collectively across the export's primary doc block.
+ * Lint that every public Layer 4 component subpath in `@kumiki/components`
+ * references the matching APG pattern URL in its source.
  *
  * Promised in `docs/design/13-docs-strategy.md` §13.6 and used as the seed for
- * `llms-full.txt`. The check is intentionally permissive: it requires SOME of
- * the tags, not all (an internal helper genuinely without an anti-pattern is OK).
+ * `llms-full.txt`. With ADR 0012 the Layer 4 surface is one package
+ * (`@kumiki/components`) with per-component subpaths under `src/<name>/`;
+ * this script walks each subpath's `index.ts` (or the first .svelte file
+ * if index.ts is just a re-export) and asserts at least one `@see` URL
+ * pointing at `w3.org/WAI/ARIA/apg/`.
  *
- * Strict policy: every Layer 4 component package's `dist/index.d.mts` (or
- * `dist/index.d.ts` for Svelte packages) MUST have at least one `@see` URL
- * referencing the matching APG pattern.
+ * Form-field is exempt (no APG pattern; native input semantics — see
+ * `apps/docs/keyboard/form-field.kb.ts` for the same exemption).
  */
 
-import { readdirSync, readFileSync, existsSync } from 'node:fs';
+import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = join(dirname(__filename), '..');
-const PACKAGES = join(ROOT, 'packages');
+const COMPONENTS_SRC = join(ROOT, 'packages/components/src');
 
-function* findPackageJsons(dir) {
-  let entries;
-  try {
-    entries = readdirSync(dir, { withFileTypes: true });
-  } catch {
-    return;
-  }
-  for (const e of entries) {
-    if (e.name === 'node_modules' || e.name === 'dist') continue;
-    const p = join(dir, e.name);
-    if (e.isSymbolicLink()) continue;
-    if (e.isDirectory()) yield* findPackageJsons(p);
-    else if (e.name === 'package.json') yield p;
-  }
+const APG_EXEMPT = new Set(['form-field']);
+
+let errors = 0;
+let warnings = 0;
+
+if (!existsSync(COMPONENTS_SRC)) {
+  console.warn(`⚠ ${COMPONENTS_SRC} not found; skipping JSDoc check.`);
+  process.exit(0);
 }
 
-let warnings = 0;
-let errors = 0;
+const entries = readdirSync(COMPONENTS_SRC, { withFileTypes: true });
+let checked = 0;
+for (const e of entries) {
+  if (!e.isDirectory()) continue;
+  const compName = e.name;
+  if (APG_EXEMPT.has(compName)) continue;
 
-for (const pkgPath of findPackageJsons(PACKAGES)) {
-  const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
-  if (!pkg.name?.startsWith('@kumiki/')) continue;
-
-  // Layer 4 components are the strict tier.
-  const isLayer4 = pkg.name.startsWith('@kumiki/component-');
-  if (!isLayer4) continue;
-
-  // Look at the source — dist may not exist before the first build.
-  const indexTs = join(dirname(pkgPath), 'src', 'index.ts');
-  if (!existsSync(indexTs)) {
-    console.warn(`⚠ ${pkg.name}: missing src/index.ts`);
-    warnings++;
-    continue;
+  const compDir = join(COMPONENTS_SRC, compName);
+  // Concatenate every .ts / .svelte file in the subdir so APG references
+  // anywhere in the component's surface count toward the requirement.
+  let combined = '';
+  for (const f of readdirSync(compDir)) {
+    const p = join(compDir, f);
+    if (!statSync(p).isFile()) continue;
+    if (f.endsWith('.ts') || f.endsWith('.svelte')) {
+      combined += '\n' + readFileSync(p, 'utf8');
+    }
   }
-  const src = readFileSync(indexTs, 'utf8');
 
-  // For unimplemented placeholders (only `export {}`), skip the JSDoc check.
-  if (src.includes('Placeholder') || src.replace(/\s/g, '') === 'export{};') continue;
-
-  // Component packages must reference an APG pattern URL somewhere in their
-  // entry source — typically via `@see https://www.w3.org/WAI/ARIA/apg/...`.
-  if (!/w3\.org\/WAI\/ARIA\/apg\//.test(src)) {
-    console.error(`✘ ${pkg.name}: no APG pattern URL found in src/index.ts`);
+  if (!/w3\.org\/WAI\/ARIA\/apg\//.test(combined)) {
+    console.error(`✘ @kumiki/components/${compName}: no APG pattern URL referenced in source`);
     errors++;
   }
+  checked++;
 }
 
 if (errors > 0) {
@@ -75,4 +65,4 @@ if (errors > 0) {
 if (warnings > 0) {
   console.warn(`\n${warnings} JSDoc warning${warnings === 1 ? '' : 's'}.`);
 }
-console.log('✓ JSDoc requirements OK.');
+console.log(`✓ JSDoc requirements OK (${checked} component subpaths checked).`);

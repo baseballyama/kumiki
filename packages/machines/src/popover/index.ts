@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-popover` — pure-TS FSM for Popover.
+ * `@kumiki/machines/popover` — pure-TS FSM for Popover.
  *
  * Models the open / closed lifecycle of a non-modal popover. DOM concerns
  * — anchor positioning, focus management on open/close, outside-click

@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-combobox/with-async-search` — replaces sync
+ * `@kumiki/headless/combobox/with-async-search` — replaces sync
  * filtering with an abort-aware async fetcher.
  *
  * On every query change, the wrapper:

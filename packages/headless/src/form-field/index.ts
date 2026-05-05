@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-form-field` — Layer 3 Svelte 5 attachments for Form Field.
+ * `@kumiki/headless/form-field` — Layer 3 Svelte 5 attachments for Form Field.
  *
  * Five attachment factories — label, input, errors, description, hint — that
  * together model an accessible form field. The controller runs the

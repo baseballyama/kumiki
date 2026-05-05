@@ -8,12 +8,9 @@
  * digging through `dist/`.
  *
  * Skips:
- * - Layer 4 component packages (`@kumiki/component-*`) — they ship
- *   `.svelte` files; api-extractor doesn't understand the Svelte
- *   compiler. Surface there is the dot-namespace barrel from
- *   `dist/index.d.ts` which `attw` already validates.
- * - Layer 5 recipes packages — same reason.
- * - The umbrella meta packages (no source of their own).
+ * - `@kumiki/components` and `@kumiki/recipes` — they ship `.svelte` files;
+ *   api-extractor doesn't understand the Svelte compiler. Their type
+ *   surface is verified by `pnpm typecheck` (svelte-check) instead.
  * - The CLI and the docs app.
  * - Placeholder packages with no built `dist/index.d.mts` yet.
  *
@@ -84,9 +81,7 @@ function* walkPackageJsons(dir) {
 
 function shouldSkip(pkgName) {
   if (!pkgName?.startsWith('@kumiki/')) return 'not-kumiki';
-  if (pkgName.startsWith('@kumiki/component-')) return 'svelte-source';
-  if (pkgName.startsWith('@kumiki/recipes-')) return 'svelte-source';
-  if (pkgName === '@kumiki/components' || pkgName === '@kumiki/recipes') return 'umbrella';
+  if (pkgName === '@kumiki/components' || pkgName === '@kumiki/recipes') return 'svelte-source';
   if (pkgName === '@kumiki/cli') return 'binary';
   if (pkgName === '@kumiki/docs') return 'app';
   return null;

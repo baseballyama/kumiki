@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-combobox/with-validation` — composes a Combobox
+ * `@kumiki/headless/combobox/with-validation` — composes a Combobox
  * controller with a Standard Schema validator.
  *
  * The base controller's value still drives behaviour; this layer adds
@@ -10,7 +10,7 @@
  * Async validators are race-token guarded: if a new validation starts
  * before the prior one resolves, the prior result is dropped (it cannot
  * stomp the newer one). The token check is the same shape as
- * `@kumiki/machine-form-field`.
+ * `@kumiki/machines/form-field`.
  *
  * @see ../../../../../docs/design/11-composition.md §11.4
  * @see ../../../../../docs/design/07-form-validation.md §7.8 (async correctness)

@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-switch` — pure-TS finite state machine for the Switch component.
+ * `@kumiki/machines/switch` — pure-TS finite state machine for the Switch component.
  *
  * Identical state shape to Toggle, but the consumer-facing semantic is "on/off
  * setting" rather than "pressed/unpressed action button". The ARIA mapping

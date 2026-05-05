@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-toast` — pure-TS FSM for the Toast (toaster queue).
+ * `@kumiki/machines/toast` — pure-TS FSM for the Toast (toaster queue).
  *
  * Models the toaster as an ordered queue of toast items. The machine is
  * queue + metadata only — per-toast auto-dismiss timers, hover-pause

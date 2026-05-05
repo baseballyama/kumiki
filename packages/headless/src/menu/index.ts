@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-menu` — Layer 3 Svelte 5 attachments for a
+ * `@kumiki/headless/menu` — Layer 3 Svelte 5 attachments for a
  * single-level Menu.
  *
  * Three factories: `trigger`, `menu`, `item(item)`. The trigger is a

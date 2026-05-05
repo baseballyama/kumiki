@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-combobox` — Layer 3 Svelte 5 attachments for Combobox.
+ * `@kumiki/headless/combobox` — Layer 3 Svelte 5 attachments for Combobox.
  *
  * Unlike Toggle / Switch, Combobox is a **compound** primitive that spans
  * multiple DOM elements (input, listbox, options, optional trigger). The

@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-form-field` — pure-TS FSM for Form Field validation.
+ * `@kumiki/machines/form-field` — pure-TS FSM for Form Field validation.
  *
  * Tracks one input's lifecycle through Standard Schema validation:
  *

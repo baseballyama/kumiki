@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-slider` — pure-TS FSM for Slider.
+ * `@kumiki/machines/slider` — pure-TS FSM for Slider.
  *
  * Single linear value clamped to `[min, max]` and snapped to a `step`
  * grid. Increment / decrement events accept an optional `pageStep`

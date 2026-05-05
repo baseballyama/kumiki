@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-radio-group` — Layer 3 Svelte 5 attachments for RadioGroup.
+ * `@kumiki/headless/radio-group` — Layer 3 Svelte 5 attachments for RadioGroup.
  *
  * RadioGroup is a **compound primitive** spanning multiple DOM elements:
  * - one group container (`role="radiogroup"`)

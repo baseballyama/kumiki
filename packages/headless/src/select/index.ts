@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-select` — Layer 3 Svelte 5 attachments for Select.
+ * `@kumiki/headless/select` — Layer 3 Svelte 5 attachments for Select.
  *
  * Three factories: trigger, listbox, option. The trigger is a button that
  * pops the listbox; the listbox holds N option elements with the active-

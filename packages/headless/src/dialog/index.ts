@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-dialog` — Layer 3 Svelte 5 attachments for Dialog.
+ * `@kumiki/headless/dialog` — Layer 3 Svelte 5 attachments for Dialog.
  *
  * Compound primitive across **six** factories. Most consumers will use
  * `trigger`, `content`, `overlay`, `close`, plus optional `title` and

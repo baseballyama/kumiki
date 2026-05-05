@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-accordion` — Layer 3 Svelte 5 attachments for Accordion.
+ * `@kumiki/headless/accordion` — Layer 3 Svelte 5 attachments for Accordion.
  *
  * Compound primitive across **four** factories:
  * - `root` — outer container; data-component-host

@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-dialog` — pure-TS FSM for Dialog.
+ * `@kumiki/machines/dialog` — pure-TS FSM for Dialog.
  *
  * Models the open / closed lifecycle of a modal or non-modal dialog.
  * Behavior that needs DOM (focus trapping, outside-click detection, applying

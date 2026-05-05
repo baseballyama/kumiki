@@ -1,5 +1,5 @@
 /**
- * `@kumiki/attachment-combobox/with-virtualization` — windowing layer
+ * `@kumiki/headless/combobox/with-virtualization` — windowing layer
  * for large option lists.
  *
  * Computes the visible slice of `base.filtered` from the consumer's

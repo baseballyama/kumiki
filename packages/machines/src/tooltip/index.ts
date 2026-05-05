@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-tooltip` — pure-TS FSM for Tooltip.
+ * `@kumiki/machines/tooltip` — pure-TS FSM for Tooltip.
  *
  * Models the open / closed lifecycle of an APG tooltip. The **timing**
  * (openDelay / closeDelay) is described as data in context but the timers

@@ -1,5 +1,5 @@
 /**
- * `@kumiki/machine-toggle` — pure-TS finite state machine for the Toggle component.
+ * `@kumiki/machines/toggle` — pure-TS finite state machine for the Toggle component.
  *
  * Behavior matches the WAI-ARIA APG Button (toggle) pattern:
  * https://www.w3.org/WAI/ARIA/apg/patterns/button/
@@ -11,8 +11,8 @@
  * - `SET` is for controlled mode (parent component drives the value); guarded
  *   so an idempotent `SET` doesn't fire a transition.
  *
- * The machine is framework-agnostic. Layer 3 (`@kumiki/attachment-toggle`)
- * binds it to Svelte runes; Layer 4 (`@kumiki/component-toggle`) wraps it in a
+ * The machine is framework-agnostic. Layer 3 (`@kumiki/headless/toggle`)
+ * binds it to Svelte runes; Layer 4 (`@kumiki/components/toggle`) wraps it in a
  * compound component.
  *
  * @see docs/components/toggle.md

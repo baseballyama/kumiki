@@ -48,13 +48,9 @@ for (const pkgPath of findPackageJsons(PACKAGES)) {
   const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
   if (!pkg.name?.startsWith('@kumiki/')) continue;
 
-  // Skip Svelte component packages — they ship `.svelte` source which the
-  // consumer's bundler compiles. Importing dist/index.js in pure Node tries
-  // to evaluate Svelte runtime which expects a DOM-ish lifecycle.
-  if (pkg.name.startsWith('@kumiki/component-') || pkg.name.startsWith('@kumiki/recipes-')) {
-    continue;
-  }
-  // Same applies to the umbrella packages that re-export Layer 4 / Layer 5.
+  // Skip Svelte packages — they ship `.svelte` source which the consumer's
+  // bundler compiles. Importing dist/index.js in pure Node tries to evaluate
+  // Svelte runtime which expects a DOM-ish lifecycle.
   if (pkg.name === '@kumiki/components' || pkg.name === '@kumiki/recipes') continue;
   // Skip cli — it has a bin shebang, separate concern.
   if (pkg.name === '@kumiki/cli') continue;
