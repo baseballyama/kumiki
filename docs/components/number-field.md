@@ -5,7 +5,7 @@
 | Field                               | Value                                                               |
 | ----------------------------------- | ------------------------------------------------------------------- |
 | **APG pattern**                     | [Spin Button](https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/) |
-| **Bundle (Layer 4 target, brotli)** | within `3000 B` budget                                              |
+| **Bundle (Layer 4 target, brotli)** | `2.5 kB` brotli (informational)                                     |
 | **Status**                          | `preview` (Phase 2)                                                 |
 
 ## Anatomy

@@ -6,7 +6,7 @@
 | ----------------------------------- | --------------------------------------------------------------------------- |
 | **APG pattern**                     | [Alert](https://www.w3.org/WAI/ARIA/apg/patterns/alert/)                    |
 | **Live-region pattern**             | [WAI-ARIA Live Regions](https://www.w3.org/TR/wai-aria-practices-1.2/#live) |
-| **Bundle (Layer 4 target, brotli)** | within `3000 B` budget                                                      |
+| **Bundle (Layer 4 target, brotli)** | `3 kB` brotli (informational)                                               |
 | **Status**                          | `preview` (Phase 2)                                                         |
 
 ## Anatomy

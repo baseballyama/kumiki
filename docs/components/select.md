@@ -5,7 +5,7 @@
 | Field                               | Value                                                                      |
 | ----------------------------------- | -------------------------------------------------------------------------- |
 | **APG pattern**                     | [Listbox (collapsible)](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/) |
-| **Bundle (Layer 4 target, brotli)** | within `4500 B` budget                                                     |
+| **Bundle (Layer 4 target, brotli)** | `3 kB` brotli (informational)                                              |
 | **Status**                          | `preview` (Phase 1)                                                        |
 | **Generics**                        | `<V>` — option value type                                                  |
 

@@ -5,7 +5,7 @@
 | Field                               | Value                                                               |
 | ----------------------------------- | ------------------------------------------------------------------- |
 | **APG pattern**                     | [Menu / Menubar](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) |
-| **Bundle (Layer 4 target, brotli)** | within `3500 B` budget                                              |
+| **Bundle (Layer 4 target, brotli)** | `3 kB` brotli (informational)                                       |
 | **Status**                          | `preview` (Phase 2; submenus pending)                               |
 
 ## Anatomy

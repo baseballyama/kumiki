@@ -5,7 +5,7 @@
 | Field                               | Value                                                                                                                                           |
 | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | **APG pattern**                     | [Checkbox](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/) (incl. [tri-state](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox-tristate/)) |
-| **Bundle (Layer 4 target, brotli)** | within `1500 B` budget                                                                                                                          |
+| **Bundle (Layer 4 target, brotli)** | `1.5 kB` brotli (informational)                                                                                                                 |
 | **Status**                          | `preview` (Phase 1)                                                                                                                             |
 | **Tri-state**                       | yes (`mixed` is programmatic-only — keyboard cycles checked ↔ unchecked)                                                                        |
 

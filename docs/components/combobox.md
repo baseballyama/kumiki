@@ -5,8 +5,8 @@
 | Field                               | Value                                                          |
 | ----------------------------------- | -------------------------------------------------------------- |
 | **APG pattern**                     | [Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) |
-| **Bundle (Layer 4 target, brotli)** | TBD / **4500 B**                                               |
-| **Status**                          | `unreleased` (target: Phase 0b)                                |
+| **Bundle (Layer 4 target, brotli)** | `4.5 kB` brotli (informational)                                |
+| **Status**                          | `preview` (Phase 0b shipped — base + 4 with-\* compositions)   |
 | **Phase**                           | 0b — design validation; v1.0 includes                          |
 | **Layer 5 preview**                 | `none` at v1.0 (Toggle and Dialog only)                        |
 

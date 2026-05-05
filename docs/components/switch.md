@@ -5,7 +5,7 @@
 | Field                               | Value                                                      |
 | ----------------------------------- | ---------------------------------------------------------- |
 | **APG pattern**                     | [Switch](https://www.w3.org/WAI/ARIA/apg/patterns/switch/) |
-| **Bundle (Layer 4 target, brotli)** | within `1500 B` budget                                     |
+| **Bundle (Layer 4 target, brotli)** | `1.5 kB` brotli (informational)                            |
 | **Status**                          | `preview` (Phase 1)                                        |
 
 ## Anatomy

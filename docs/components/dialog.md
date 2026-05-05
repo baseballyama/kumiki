@@ -5,7 +5,7 @@
 | Field                               | Value                                                                  |
 | ----------------------------------- | ---------------------------------------------------------------------- |
 | **APG pattern**                     | [Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)       |
-| **Bundle (Layer 4 target, brotli)** | within `3500 B` budget                                                 |
+| **Bundle (Layer 4 target, brotli)** | `3.5 kB` brotli (informational)                                        |
 | **Status**                          | `preview` (Phase 1)                                                    |
 | **Modes**                           | `modal: true` (default, applies `inert` to siblings) \| `modal: false` |
 

@@ -5,7 +5,7 @@
 | Field                               | Value                                                  |
 | ----------------------------------- | ------------------------------------------------------ |
 | **APG pattern**                     | [Tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) |
-| **Bundle (Layer 4 target, brotli)** | within `2500 B` budget                                 |
+| **Bundle (Layer 4 target, brotli)** | `2.5 kB` brotli (informational)                        |
 | **Status**                          | `preview` (Phase 1)                                    |
 | **Activation**                      | `automatic` (default) \| `manual`                      |
 | **Orientation**                     | `horizontal` (default) \| `vertical`                   |

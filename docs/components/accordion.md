@@ -5,7 +5,7 @@
 | Field                               | Value                                                            |
 | ----------------------------------- | ---------------------------------------------------------------- |
 | **APG pattern**                     | [Accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) |
-| **Bundle (Layer 4 target, brotli)** | within budget per `package.json#size-limit`                      |
+| **Bundle (Layer 4 target, brotli)** | `2 kB` brotli (informational)                                    |
 | **Status**                          | `preview` (Phase 2)                                              |
 
 ## Anatomy

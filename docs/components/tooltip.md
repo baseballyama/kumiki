@@ -5,7 +5,7 @@
 | Field                               | Value                                                        |
 | ----------------------------------- | ------------------------------------------------------------ |
 | **APG pattern**                     | [Tooltip](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) |
-| **Bundle (Layer 4 target, brotli)** | within `3500 B` budget (Floating UI not bundled)             |
+| **Bundle (Layer 4 target, brotli)** | `2 kB` brotli (informational) (Floating UI not bundled)      |
 | **Status**                          | `preview` (Phase 1)                                          |
 | **Delays**                          | `openDelay: 700ms`, `closeDelay: 300ms` (defaults)           |
 
