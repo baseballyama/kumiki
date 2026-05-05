@@ -26,21 +26,23 @@ Verified end-to-end (machine + attachment + component + sandbox + e2e + axe + AP
 
 ## Quick start (preview API — not yet on npm)
 
-Install only what you use. The library ships as small per-component packages under the `@kumiki/*` scope, plus a `@kumiki/components` umbrella that re-exports every Layer 4 component as a subpath (each subpath tree-shakes independently).
+Kumiki ships as **9 per-layer packages** with subpaths per component (see [ADR 0012](docs/design/16-decisions/0012-package-consolidation.md)). Most users only need one install:
 
 ```bash
-# One component at a time:
-pnpm add @kumiki/component-combobox
-
-# Or pull every Layer 4 component in one install:
+# Full Svelte UI:
 pnpm add @kumiki/components
-# then `import { Root, Input, Listbox } from '@kumiki/components/combobox'`
+
+# Headless (own DOM markup, just take the behavior):
+pnpm add @kumiki/headless
+
+# Pure FSM, no DOM (server validation, framework ports):
+pnpm add @kumiki/machines
 ```
 
 ```svelte
 <script lang="ts" generics="T extends { id: string; label: string }">
-  import { Combobox } from '@kumiki/component-combobox';
-  import { withValidation } from '@kumiki/component-combobox/with-validation';
+  import { Combobox } from '@kumiki/components';
+  import { withValidation } from '@kumiki/headless/combobox/with-validation';
   import { z } from 'zod';
 
   let { options }: { options: T[] } = $props();
@@ -63,7 +65,7 @@ Want maximum control? Drop down to Layer 3 attachments:
 
 ```svelte
 <script lang="ts">
-  import { createCombobox } from '@kumiki/attachment-combobox';
+  import { createCombobox } from '@kumiki/headless/combobox';
   const cb = createCombobox({ options });
 </script>
 
@@ -78,7 +80,7 @@ Want maximum control? Drop down to Layer 3 attachments:
 Or run the pure machine in any environment:
 
 ```ts
-import { createComboboxMachine } from '@kumiki/machine-combobox';
+import { createComboboxMachine } from '@kumiki/machines/combobox';
 const machine = createComboboxMachine({ options });
 machine.send({ type: 'INPUT.CHANGE', value: 'hello' });
 console.log(machine.state, machine.derived.filtered);
@@ -88,24 +90,22 @@ console.log(machine.state, machine.derived.filtered);
 
 ```text
 packages/
-  core/                       Shared (layers 0–2)
+  core/                       Shared (layers 0–1)
     primitives/               @kumiki/primitives — focus-trap, dismissable, id, locale, …
     locale/                   @kumiki/locale — dynamically importable per language
     runtime/                  @kumiki/runtime — minimal FSM
     types/                    @kumiki/types — shared TS types
-  components/                 One folder per component, all 3 layers co-located
-    toggle/
-      machine/                @kumiki/machine-toggle (Layer 2)
-      attachment/             @kumiki/attachment-toggle (Layer 3)
-      component/              @kumiki/component-toggle (Layer 4)
-    combobox/
-      machine/                @kumiki/machine-combobox
-      attachment/             @kumiki/attachment-combobox
-      component/              @kumiki/component-combobox
-    … (8 more)
-  recipes/                    Layer 5 (preview) — styled, copy-paste templates
-    toggle/                   @kumiki/recipes-toggle
-    dialog/                   @kumiki/recipes-dialog
+  machines/                   @kumiki/machines (Layer 2) — subpath per component
+    src/<name>/index.ts       e.g. @kumiki/machines/toggle, /combobox, …
+  headless/                   @kumiki/headless (Layer 3) — subpath per component
+    src/<name>/index.ts       e.g. @kumiki/headless/toggle
+    src/combobox/with-*/      composition subpaths
+                              (@kumiki/headless/combobox/with-validation, …)
+  components/                 @kumiki/components (Layer 4) — subpath + dot-namespace barrel
+    src/index.ts              { Toggle, Dialog, Combobox, … }
+    src/<name>/               Svelte components (Root.svelte, …)
+  recipes/                    @kumiki/recipes (Layer 5 preview) — subpath per recipe
+    src/<name>/               styled, copy-paste templates
   tooling/
     cli/                      @kumiki/cli — `kumiki add` binary
 apps/
@@ -114,9 +114,10 @@ docs/                         Architecture design documents
 references/                   Competitor source as shallow git submodules (opt-in)
 ```
 
-> Published npm names are flat (`@kumiki/machine-toggle`), not nested
-> (`@kumiki/components/toggle/machine`). The directory shape is purely a
-> developer-ergonomics concern — npm consumers never see it.
+> 9 packages total. Each layer is one published package; components
+> live as subpaths (`@kumiki/machines/toggle`, `@kumiki/components/toggle`,
+> …). Subpath imports tree-shake; the dot-namespace barrel
+> (`import { Toggle } from '@kumiki/components'`) ships alongside.
 
 ## Documentation
 
