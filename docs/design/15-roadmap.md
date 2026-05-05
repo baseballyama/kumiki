@@ -32,7 +32,7 @@ Exit criteria:
 
 - `pnpm install && pnpm build && pnpm test && pnpm size && pnpm ci:health` is green from a clean clone.
 - Toggle component passes axe in LTR + RTL.
-- `@kumiki/component-toggle` measures within budget.
+- `@kumiki/components/toggle` measures within budget.
 
 ## 15.3 Phase 0b — Design validation (+6 weeks)
 
@@ -50,7 +50,7 @@ Exit criteria:
 
 - Combobox passes axe + APG keyboard + Guidepup smoke (manual at this stage) on macOS-VoiceOver.
 - All `with*` compose pairwise with type-correct results.
-- The bundle-budget number for `@kumiki/component-combobox` is achievable (≤ 4.5 KB) — not necessarily achieved yet, but the path is clear.
+- The bundle-budget number for `@kumiki/components/combobox` is achievable (≤ 4.5 KB) — not necessarily achieved yet, but the path is clear.
 
 ## 15.4 Phase 0c — Documentation (+4 weeks)
 
@@ -146,5 +146,5 @@ Plus:
 
 ## 15.10 Open questions
 
-- **TBD:** Should Phase 0a include `@kumiki/component-form-field`? Forms are a heavy part of MVP value; landing them earlier signals the integration story. Lean: no, defer to Phase 1; Toggle is the right "is the build pipeline real" signal.
+- **TBD:** Should Phase 0a include `@kumiki/components/form-field`? Forms are a heavy part of MVP value; landing them earlier signals the integration story. Lean: no, defer to Phase 1; Toggle is the right "is the build pipeline real" signal.
 - **TBD:** Whether v1.0 ships Layer 5 preview for _all_ Phase 1 components or just the two flagged. Lean: just two; the recipes API stabilizes faster with fewer surfaces.
