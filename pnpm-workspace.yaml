@@ -6,7 +6,7 @@ packages:
   - 'packages/core/*'
   - 'packages/machines'
   - 'packages/headless'
-  - 'packages/components/*/*'
+  - 'packages/components'
   - 'packages/recipes/*'
   - 'packages/meta/*'
   - 'packages/tooling/*'

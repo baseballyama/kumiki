@@ -7,7 +7,7 @@
     Description,
     type StandardSchemaV1,
     type ValidateOn,
-  } from '@kumiki/component-form-field';
+  } from '@kumiki/components/form-field';
 
   const emailValidator: StandardSchemaV1<string, string> = {
     '~standard': {

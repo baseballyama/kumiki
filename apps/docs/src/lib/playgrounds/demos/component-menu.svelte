@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Root, Trigger, Menu, Item, Separator, type MenuItem } from '@kumiki/component-menu';
+  import { Root, Trigger, Menu, Item, Separator, type MenuItem } from '@kumiki/components/menu';
 
   const items: MenuItem[] = [
     { id: 'new', label: 'New file' },

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Root, List, Tab, Panel, type TabItem } from '@kumiki/component-tabs';
+  import { Root, List, Tab, Panel, type TabItem } from '@kumiki/components/tabs';
 
   const items: TabItem[] = [
     { id: 't-account', value: 'account', label: 'Account' },

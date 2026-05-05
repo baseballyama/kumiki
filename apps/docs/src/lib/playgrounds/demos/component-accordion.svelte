@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Root, Item, Trigger, Panel, type AccordionItem } from '@kumiki/component-accordion';
+  import { Root, Item, Trigger, Panel, type AccordionItem } from '@kumiki/components/accordion';
 
   const items: AccordionItem<string>[] = [
     { id: 'a-general', value: 'general', label: 'General' },

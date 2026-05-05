@@ -9,7 +9,7 @@
     ?dir=rtl                    wrap in dir="rtl"
 -->
 <script lang="ts">
-  import { Root, Trigger, Content } from '@kumiki/component-tooltip';
+  import { Root, Trigger, Content } from '@kumiki/components/tooltip';
   import { page } from '$app/state';
 
   const dir = $derived(page.url.searchParams.get('dir') === 'rtl' ? 'rtl' : 'ltr');

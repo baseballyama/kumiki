@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Switch } from '@kumiki/component-switch';
+  import { Switch } from '@kumiki/components/switch';
   import { page } from '$app/state';
 
   const initial = $derived(page.url.searchParams.get('initial') === 'on');

@@ -6,7 +6,7 @@
     Item,
     Trigger,
     type ComboboxOption,
-  } from '@kumiki/component-combobox';
+  } from '@kumiki/components/combobox';
   import { page } from '$app/state';
 
   interface User extends ComboboxOption {

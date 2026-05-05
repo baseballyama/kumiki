@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Toggle } from '@kumiki/component-toggle';
+  import { Toggle } from '@kumiki/components/toggle';
 
   let pressed = $state(false);
   let disabled = $state(false);

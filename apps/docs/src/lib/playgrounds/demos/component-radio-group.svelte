@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Root, Item, type RadioItem } from '@kumiki/component-radio-group';
+  import { Root, Item, type RadioItem } from '@kumiki/components/radio-group';
 
   type Plan = 'free' | 'pro' | 'enterprise';
 

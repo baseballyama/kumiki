@@ -11,13 +11,13 @@ Source: `packages/tooling/cli/`
 
 ---
 
-## @kumiki/component-accordion
+## @kumiki/components/accordion
 
 Compound Svelte 5 components (Layer 4) for accordion — Root/Item/Trigger/Panel.
 
 ### Overview
 
-`@kumiki/component-accordion` — Layer 4 compound component for Accordion.
+`@kumiki/components/accordion` — Layer 4 compound component for Accordion.
 
 Generic over the item value type `V`. Pass `V` to `<Root<V>>`; `<Item>`
 receives a typed `AccordionItem<V>` for its `value` prop.
@@ -26,7 +26,7 @@ Minimal usage:
 
 ```svelte
 <script lang="ts">
-  import { Root, Item, Trigger, Panel, type AccordionItem } from '@kumiki/component-accordion';
+  import { Root, Item, Trigger, Panel, type AccordionItem } from '@kumiki/components/accordion';
 
   const items: AccordionItem<string>[] = [
     { id: 'general', value: 'general', label: 'General' },
@@ -65,13 +65,13 @@ Source: `packages/components/accordion/component/`
 
 ---
 
-## @kumiki/component-checkbox
+## @kumiki/components/checkbox
 
 Compound Svelte 5 components (Layer 4) for checkbox — Root/Trigger/Item style API.
 
 ### Overview
 
-`@kumiki/component-checkbox` — Layer 4 compound component for the Checkbox.
+`@kumiki/components/checkbox` — Layer 4 compound component for the Checkbox.
 
 Tri-state form checkbox following WAI-ARIA APG.
 
@@ -95,13 +95,13 @@ Source: `packages/components/checkbox/component/`
 
 ---
 
-## @kumiki/component-combobox
+## @kumiki/components/combobox
 
 Compound Svelte 5 components (Layer 4) for combobox — Root/Trigger/Item style API.
 
 ### Overview
 
-`@kumiki/component-combobox` — Layer 4 compound combobox component.
+`@kumiki/components/combobox` — Layer 4 compound combobox component.
 
 Generic over option type `T extends ComboboxOption`. Pass `T` to
 `<Combobox.Root<T> ...>`; `Combobox.Item`'s `value` prop is then typed.
@@ -128,13 +128,13 @@ Source: `packages/components/combobox/component/`
 
 ---
 
-## @kumiki/component-dialog
+## @kumiki/components/dialog
 
 Compound Svelte 5 components (Layer 4) for dialog — Root/Trigger/Item style API.
 
 ### Overview
 
-`@kumiki/component-dialog` — Layer 4 compound component for Dialog.
+`@kumiki/components/dialog` — Layer 4 compound component for Dialog.
 
 Composes seven sub-components: Root, Trigger, Overlay, Content, Title,
 Description, Close. Root owns the controller and shares it via context.
@@ -143,7 +143,7 @@ Minimal usage:
 
 ```svelte
 <script lang="ts">
-  import * as Dialog from '@kumiki/component-dialog';
+  import * as Dialog from '@kumiki/components/dialog';
   let open = $state(false);
 </script>
 
@@ -180,13 +180,13 @@ Source: `packages/components/dialog/component/`
 
 ---
 
-## @kumiki/component-form-field
+## @kumiki/components/form-field
 
 Compound Svelte 5 components (Layer 4) for form-field — Root/Trigger/Item style API.
 
 ### Overview
 
-`@kumiki/component-form-field` — Layer 4 compound component for Form Field.
+`@kumiki/components/form-field` — Layer 4 compound component for Form Field.
 
 Generic over the input value type `V` (default `string`). Five named
 exports — Root, Label, Input, Errors, Description — composed via Svelte
@@ -197,7 +197,7 @@ Minimal usage:
 
 ```svelte
 <script lang="ts">
-  import * as Field from '@kumiki/component-form-field';
+  import * as Field from '@kumiki/components/form-field';
   import * as v from 'valibot';
 
   const emailSchema = v.pipe(v.string(), v.email());
@@ -234,13 +234,13 @@ Source: `packages/components/form-field/component/`
 
 ---
 
-## @kumiki/component-menu
+## @kumiki/components/menu
 
 Compound Svelte 5 components (Layer 4) for menu — Root/Trigger/Menu/Item/Separator (single-level).
 
 ### Overview
 
-`@kumiki/component-menu` — Layer 4 compound for a single-level Menu.
+`@kumiki/components/menu` — Layer 4 compound for a single-level Menu.
 
 Five named exports — Root + Trigger + Menu + Item + Separator. Root
 owns the controller and exposes its child as a snippet that receives
@@ -260,7 +260,7 @@ Minimal usage:
     Item,
     Separator,
     type MenuItem,
-  } from '@kumiki/component-menu';
+  } from '@kumiki/components/menu';
 
   const items: MenuItem[] = [
     { id: 'new', label: 'New file' },
@@ -307,13 +307,13 @@ Source: `packages/components/menu/component/`
 
 ---
 
-## @kumiki/component-number-field
+## @kumiki/components/number-field
 
 Compound Svelte 5 components (Layer 4) for number-field — Root/Input/Increment/Decrement.
 
 ### Overview
 
-`@kumiki/component-number-field` — Layer 4 compound component for NumberField.
+`@kumiki/components/number-field` — Layer 4 compound component for NumberField.
 
 Four named exports — Root + Input + Increment + Decrement. Root owns
 the controller; the others read it from context.
@@ -327,7 +327,7 @@ Minimal usage:
     Input,
     Increment,
     Decrement,
-  } from '@kumiki/component-number-field';
+  } from '@kumiki/components/number-field';
   let value = $state(5);
 </script>
 
@@ -356,13 +356,13 @@ Source: `packages/components/number-field/component/`
 
 ---
 
-## @kumiki/component-popover
+## @kumiki/components/popover
 
 Compound Svelte 5 components (Layer 4) for popover — Root/Trigger/Content/Close/Title/Description.
 
 ### Overview
 
-`@kumiki/component-popover` — Layer 4 compound for Popover (non-modal disclosure).
+`@kumiki/components/popover` — Layer 4 compound for Popover (non-modal disclosure).
 
 Six named exports — Root + Trigger + Content + Close + Title + Description.
 Root owns the controller; the others read it from context.
@@ -378,7 +378,7 @@ Minimal usage:
     Close,
     Title,
     Description,
-  } from '@kumiki/component-popover';
+  } from '@kumiki/components/popover';
   let open = $state(false);
 </script>
 
@@ -414,13 +414,13 @@ Source: `packages/components/popover/component/`
 
 ---
 
-## @kumiki/component-radio-group
+## @kumiki/components/radio-group
 
 Compound Svelte 5 components (Layer 4) for radio-group — Root/Trigger/Item style API.
 
 ### Overview
 
-`@kumiki/component-radio-group` — Layer 4 compound component for RadioGroup.
+`@kumiki/components/radio-group` — Layer 4 compound component for RadioGroup.
 
 Generic over the item value type `V`. Pass `V` to `<Root<V>>`; `<Item>`
 receives a typed `RadioItem<V>` for its `value` prop.
@@ -445,13 +445,13 @@ Source: `packages/components/radio-group/component/`
 
 ---
 
-## @kumiki/component-select
+## @kumiki/components/select
 
 Compound Svelte 5 components (Layer 4) for select — Root/Trigger/Item style API.
 
 ### Overview
 
-`@kumiki/component-select` — Layer 4 compound component for Select.
+`@kumiki/components/select` — Layer 4 compound component for Select.
 
 Generic over the option value type `V`. Pass `V` to `<Root<V>>`; `<Option>`
 receives a typed `SelectItem<V>` for its `value` prop. Listbox uses the
@@ -462,7 +462,7 @@ Minimal usage:
 
 ```svelte
 <script lang="ts">
-  import { Root, Trigger, Listbox, Option, type SelectItem } from '@kumiki/component-select';
+  import { Root, Trigger, Listbox, Option, type SelectItem } from '@kumiki/components/select';
 
   type Plan = 'free' | 'pro' | 'enterprise';
   const plans: SelectItem<Plan>[] = [
@@ -502,13 +502,13 @@ Source: `packages/components/select/component/`
 
 ---
 
-## @kumiki/component-slider
+## @kumiki/components/slider
 
 Compound Svelte 5 components (Layer 4) for slider — Root/Thumb.
 
 ### Overview
 
-`@kumiki/component-slider` — Layer 4 compound component for Slider.
+`@kumiki/components/slider` — Layer 4 compound component for Slider.
 
 Two named exports — Root + Thumb. Root is the track container; Thumb
 is the focusable indicator with full APG-compliant ARIA value attributes.
@@ -517,7 +517,7 @@ Minimal usage:
 
 ```svelte
 <script lang="ts">
-  import { Root, Thumb } from '@kumiki/component-slider';
+  import { Root, Thumb } from '@kumiki/components/slider';
   let value = $state(50);
 </script>
 
@@ -546,13 +546,13 @@ Source: `packages/components/slider/component/`
 
 ---
 
-## @kumiki/component-switch
+## @kumiki/components/switch
 
 Compound Svelte 5 components (Layer 4) for switch — Root/Trigger/Item style API.
 
 ### Overview
 
-`@kumiki/component-switch` — Layer 4 compound component for the Switch.
+`@kumiki/components/switch` — Layer 4 compound component for the Switch.
 
 Behavior follows the WAI-ARIA APG switch pattern.
 
@@ -560,8 +560,8 @@ Behavior follows the WAI-ARIA APG switch pattern.
              dark-mode toggle, notifications, feature flag).
 
 @anti-pattern For a button that flips a transient pressed state, use
-              `@kumiki/component-toggle`. For a form-level boolean field,
-              use `@kumiki/component-checkbox`.
+              `@kumiki/components/toggle`. For a form-level boolean field,
+              use `@kumiki/components/checkbox`.
 
 @see https://www.w3.org/WAI/ARIA/apg/patterns/switch/
 
@@ -574,13 +574,13 @@ Source: `packages/components/switch/component/`
 
 ---
 
-## @kumiki/component-tabs
+## @kumiki/components/tabs
 
 Compound Svelte 5 components (Layer 4) for tabs — Root/Trigger/Item style API.
 
 ### Overview
 
-`@kumiki/component-tabs` — Layer 4 compound component for Tabs.
+`@kumiki/components/tabs` — Layer 4 compound component for Tabs.
 
 Composes four sub-components: `Root`, `List`, `Tab`, `Panel`. Root owns the
 controller and shares it via context. Tab + Panel pair by `value`.
@@ -605,13 +605,13 @@ Source: `packages/components/tabs/component/`
 
 ---
 
-## @kumiki/component-toast
+## @kumiki/components/toast
 
 Compound Svelte 5 components (Layer 4) for toast — Toaster/Viewport/Item/Title/Description/Close.
 
 ### Overview
 
-`@kumiki/component-toast` — Layer 4 compound for the Toast (toaster queue).
+`@kumiki/components/toast` — Layer 4 compound for the Toast (toaster queue).
 
 Six named exports — Toaster (Root) + Viewport + Item + Title + Description + Close.
 
@@ -630,7 +630,7 @@ Minimal usage:
     Title,
     Description,
     Close,
-  } from '@kumiki/component-toast';
+  } from '@kumiki/components/toast';
 </script>
 
 <Toaster>
@@ -673,23 +673,23 @@ Source: `packages/components/toast/component/`
 
 ---
 
-## @kumiki/component-toggle
+## @kumiki/components/toggle
 
 Compound Svelte 5 components (Layer 4) for toggle — Root/Trigger/Item style API.
 
 ### Overview
 
-`@kumiki/component-toggle` — Layer 4 compound component for the Toggle.
+`@kumiki/components/toggle` — Layer 4 compound component for the Toggle.
 
 Behavior follows the WAI-ARIA APG button (toggle) pattern.
 
 Two ways to import:
 ```ts
-import { Toggle } from '@kumiki/component-toggle';
+import { Toggle } from '@kumiki/components/toggle';
 // <Toggle.Root>...</Toggle.Root>
 
 // or selective:
-import { Root } from '@kumiki/component-toggle';
+import { Root } from '@kumiki/components/toggle';
 // <Root>...</Root>
 ```
 
@@ -697,7 +697,7 @@ import { Root } from '@kumiki/component-toggle';
              (Bold/Italic), feature flags, accordion expanders.
 
 @anti-pattern For a setting that affects whether a related element is rendered,
-              use a Switch (`@kumiki/component-switch`) — it semantically and
+              use a Switch (`@kumiki/components/switch`) — it semantically and
               visually conveys an active/inactive state better than Toggle's
               aria-pressed.
 
@@ -712,13 +712,13 @@ Source: `packages/components/toggle/component/`
 
 ---
 
-## @kumiki/component-tooltip
+## @kumiki/components/tooltip
 
 Compound Svelte 5 components (Layer 4) for tooltip — Root/Trigger/Item style API.
 
 ### Overview
 
-`@kumiki/component-tooltip` — Layer 4 compound component for Tooltip.
+`@kumiki/components/tooltip` — Layer 4 compound component for Tooltip.
 
 Three named exports — Root + Trigger + Content. Root owns the controller
 and shares it via context. Trigger is the focusable element the tooltip
@@ -728,7 +728,7 @@ Minimal usage:
 
 ```svelte
 <script lang="ts">
-  import * as Tooltip from '@kumiki/component-tooltip';
+  import * as Tooltip from '@kumiki/components/tooltip';
 </script>
 
 <Tooltip.Root>

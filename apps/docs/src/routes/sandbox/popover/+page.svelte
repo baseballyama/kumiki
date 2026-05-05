@@ -8,7 +8,7 @@
     ?dir=rtl            wrap in dir="rtl"
 -->
 <script lang="ts">
-  import { Root, Trigger, Content, Title, Description, Close } from '@kumiki/component-popover';
+  import { Root, Trigger, Content, Title, Description, Close } from '@kumiki/components/popover';
   import { page } from '$app/state';
 
   const dir = $derived(page.url.searchParams.get('dir') === 'rtl' ? 'rtl' : 'ltr');

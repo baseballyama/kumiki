@@ -1,0 +1,139 @@
+{
+  "name": "@kumiki/components",
+  "version": "0.0.0",
+  "description": "Layer 4 — every Kumiki Svelte 5 component (Toggle, Dialog, Combobox, …) under a single install. Subpath per component plus a dot-namespace barrel.",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/components",
+  "bugs": "https://github.com/baseballyama/kumiki/issues",
+  "license": "MIT",
+  "author": "Yuichiro Yamashita",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baseballyama/kumiki.git",
+    "directory": "packages/components"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "svelte": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json",
+    "./accordion": {
+      "types": "./dist/accordion/index.d.ts",
+      "svelte": "./dist/accordion/index.js",
+      "import": "./dist/accordion/index.js"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox/index.d.ts",
+      "svelte": "./dist/checkbox/index.js",
+      "import": "./dist/checkbox/index.js"
+    },
+    "./combobox": {
+      "types": "./dist/combobox/index.d.ts",
+      "svelte": "./dist/combobox/index.js",
+      "import": "./dist/combobox/index.js"
+    },
+    "./dialog": {
+      "types": "./dist/dialog/index.d.ts",
+      "svelte": "./dist/dialog/index.js",
+      "import": "./dist/dialog/index.js"
+    },
+    "./form-field": {
+      "types": "./dist/form-field/index.d.ts",
+      "svelte": "./dist/form-field/index.js",
+      "import": "./dist/form-field/index.js"
+    },
+    "./menu": {
+      "types": "./dist/menu/index.d.ts",
+      "svelte": "./dist/menu/index.js",
+      "import": "./dist/menu/index.js"
+    },
+    "./number-field": {
+      "types": "./dist/number-field/index.d.ts",
+      "svelte": "./dist/number-field/index.js",
+      "import": "./dist/number-field/index.js"
+    },
+    "./popover": {
+      "types": "./dist/popover/index.d.ts",
+      "svelte": "./dist/popover/index.js",
+      "import": "./dist/popover/index.js"
+    },
+    "./radio-group": {
+      "types": "./dist/radio-group/index.d.ts",
+      "svelte": "./dist/radio-group/index.js",
+      "import": "./dist/radio-group/index.js"
+    },
+    "./select": {
+      "types": "./dist/select/index.d.ts",
+      "svelte": "./dist/select/index.js",
+      "import": "./dist/select/index.js"
+    },
+    "./slider": {
+      "types": "./dist/slider/index.d.ts",
+      "svelte": "./dist/slider/index.js",
+      "import": "./dist/slider/index.js"
+    },
+    "./switch": {
+      "types": "./dist/switch/index.d.ts",
+      "svelte": "./dist/switch/index.js",
+      "import": "./dist/switch/index.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs/index.d.ts",
+      "svelte": "./dist/tabs/index.js",
+      "import": "./dist/tabs/index.js"
+    },
+    "./toast": {
+      "types": "./dist/toast/index.d.ts",
+      "svelte": "./dist/toast/index.js",
+      "import": "./dist/toast/index.js"
+    },
+    "./toggle": {
+      "types": "./dist/toggle/index.d.ts",
+      "svelte": "./dist/toggle/index.js",
+      "import": "./dist/toggle/index.js"
+    },
+    "./tooltip": {
+      "types": "./dist/tooltip/index.d.ts",
+      "svelte": "./dist/tooltip/index.js",
+      "import": "./dist/tooltip/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "build": "svelte-package -i src -o dist && publint",
+    "dev": "svelte-package -i src -o dist --watch",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "svelte-check --tsconfig ./tsconfig.json",
+    "lint": "oxlint src",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@kumiki/headless": "workspace:*"
+  },
+  "devDependencies": {
+    "@sveltejs/package": "catalog:",
+    "@sveltejs/vite-plugin-svelte": "catalog:",
+    "publint": "catalog:",
+    "svelte": "catalog:",
+    "svelte-check": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "svelte": "catalog:"
+  }
+}

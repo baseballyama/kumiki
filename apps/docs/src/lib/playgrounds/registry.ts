@@ -10,7 +10,7 @@
  *   - `live`: whether the package has a live, interactive demo (Layer 4/5 only)
  *   - `apgUrl`: matching APG pattern URL, if any
  *
- * The slug omits the `@kumiki/` prefix — `@kumiki/component-toggle` → `component-toggle`.
+ * The slug omits the `@kumiki/` prefix — `@kumiki/components/toggle` → `component-toggle`.
  */
 
 import type { Component } from 'svelte';
@@ -376,7 +376,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   // ── Layer 4 — Compound components ────────────────────────────────────────
   {
     slug: 'component-toggle',
-    name: '@kumiki/component-toggle',
+    name: '@kumiki/components/toggle',
     layer: 4,
     summary:
       'Compound `<Toggle.Root>` button — controlled or uncontrolled, with `child` snippet support.',
@@ -386,7 +386,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-switch',
-    name: '@kumiki/component-switch',
+    name: '@kumiki/components/switch',
     layer: 4,
     summary: 'Compound `<Switch.Root>` for an on/off setting (role="switch", aria-checked).',
     live: true,
@@ -395,7 +395,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-combobox',
-    name: '@kumiki/component-combobox',
+    name: '@kumiki/components/combobox',
     layer: 4,
     summary:
       'Compound Combobox — Root / Input / Listbox / Item / Trigger. Generic over option type T.',
@@ -405,7 +405,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-checkbox',
-    name: '@kumiki/component-checkbox',
+    name: '@kumiki/components/checkbox',
     layer: 4,
     summary:
       'Compound `<Checkbox.Root>` for tri-state form checkboxes (role=checkbox, aria-checked).',
@@ -415,7 +415,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-radio-group',
-    name: '@kumiki/component-radio-group',
+    name: '@kumiki/components/radio-group',
     layer: 4,
     summary: 'Compound `<Root>` + `<Item>` for mutually-exclusive option groups.',
     live: true,
@@ -424,7 +424,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-tabs',
-    name: '@kumiki/component-tabs',
+    name: '@kumiki/components/tabs',
     layer: 4,
     summary:
       'Compound `<Root>` / `<List>` / `<Tab>` / `<Panel>` for tabbed interfaces with manual + automatic activation.',
@@ -434,7 +434,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-dialog',
-    name: '@kumiki/component-dialog',
+    name: '@kumiki/components/dialog',
     layer: 4,
     summary:
       'Compound `<Root>` / `<Trigger>` / `<Overlay>` / `<Content>` / `<Title>` / `<Description>` / `<Close>` for modal and non-modal dialogs.',
@@ -444,7 +444,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-tooltip',
-    name: '@kumiki/component-tooltip',
+    name: '@kumiki/components/tooltip',
     layer: 4,
     summary:
       'Compound `<Root>` / `<Trigger>` / `<Content>` for hover/focus tooltips with debounced delays.',
@@ -454,7 +454,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-select',
-    name: '@kumiki/component-select',
+    name: '@kumiki/components/select',
     layer: 4,
     summary:
       'Compound `<Root>` / `<Trigger>` / `<Listbox>` / `<Option>` for picking one of N options. Generic over option value V.',
@@ -464,7 +464,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-form-field',
-    name: '@kumiki/component-form-field',
+    name: '@kumiki/components/form-field',
     layer: 4,
     summary:
       'Compound `<Root>` / `<Label>` / `<Input>` / `<Errors>` / `<Description>` for accessible form fields with Standard Schema validation.',
@@ -473,7 +473,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-accordion',
-    name: '@kumiki/component-accordion',
+    name: '@kumiki/components/accordion',
     layer: 4,
     summary:
       'Compound `<Root>` / `<Item>` / `<Trigger>` / `<Panel>` for stacked disclosure regions. Generic over item value V; single or multiple expansion modes.',
@@ -483,7 +483,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-slider',
-    name: '@kumiki/component-slider',
+    name: '@kumiki/components/slider',
     layer: 4,
     summary:
       'Compound `<Root>` / `<Thumb>` for continuous numeric input with step + pageStep, horizontal/vertical, RTL inversion.',
@@ -493,7 +493,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-number-field',
-    name: '@kumiki/component-number-field',
+    name: '@kumiki/components/number-field',
     layer: 4,
     summary:
       'Compound `<Root>` / `<Input>` / `<Increment>` / `<Decrement>` for precise numeric input with format/parse hooks and boundary-aware step buttons.',
@@ -503,7 +503,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-popover',
-    name: '@kumiki/component-popover',
+    name: '@kumiki/components/popover',
     layer: 4,
     summary:
       'Compound `<Root>` / `<Trigger>` / `<Content>` / `<Close>` / `<Title>` / `<Description>` for click-anchored non-modal disclosure.',
@@ -513,7 +513,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-toast',
-    name: '@kumiki/component-toast',
+    name: '@kumiki/components/toast',
     layer: 4,
     summary:
       'Compound `<Toaster>` / `<Viewport>` / `<Item>` / `<Title>` / `<Description>` / `<Close>` for transient notifications with auto-dismiss + hover-pause.',
@@ -523,7 +523,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
   },
   {
     slug: 'component-menu',
-    name: '@kumiki/component-menu',
+    name: '@kumiki/components/menu',
     layer: 4,
     summary:
       'Compound `<Root>` / `<Trigger>` / `<Menu>` / `<Item>` / `<Separator>` for action menus. Single-level; submenus deferred.',

@@ -7,7 +7,7 @@
     ?duration=N      override defaultDuration ms (default 5000)
 -->
 <script lang="ts">
-  import { Toaster, Viewport, Item, Title, Description, Close } from '@kumiki/component-toast';
+  import { Toaster, Viewport, Item, Title, Description, Close } from '@kumiki/components/toast';
   import { page } from '$app/state';
 
   const dir = $derived(page.url.searchParams.get('dir') === 'rtl' ? 'rtl' : 'ltr');

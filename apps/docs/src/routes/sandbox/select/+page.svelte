@@ -8,7 +8,7 @@
     ?dir=rtl                    wrap in dir="rtl"
 -->
 <script lang="ts">
-  import { Root, Trigger, Listbox, Option, type SelectItem } from '@kumiki/component-select';
+  import { Root, Trigger, Listbox, Option, type SelectItem } from '@kumiki/components/select';
   import { page } from '$app/state';
 
   const items: SelectItem<string>[] = [

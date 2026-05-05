@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Checkbox, type CheckboxValue } from '@kumiki/component-checkbox';
+  import { Checkbox, type CheckboxValue } from '@kumiki/components/checkbox';
   import { page } from '$app/state';
 
   const initial = $derived<CheckboxValue>(

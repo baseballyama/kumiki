@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Toaster, Viewport, Item, Title, Description, Close } from '@kumiki/component-toast';
+  import { Toaster, Viewport, Item, Title, Description, Close } from '@kumiki/components/toast';
 
   let counter = 0;
 </script>

@@ -8,7 +8,7 @@
     ?dir=rtl                    wrap in dir="rtl"
 -->
 <script lang="ts">
-  import { Root, Thumb } from '@kumiki/component-slider';
+  import { Root, Thumb } from '@kumiki/components/slider';
   import { page } from '$app/state';
 
   const dir = $derived(page.url.searchParams.get('dir') === 'rtl' ? 'rtl' : 'ltr');

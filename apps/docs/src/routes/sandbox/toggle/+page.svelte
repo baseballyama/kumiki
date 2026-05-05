@@ -8,7 +8,7 @@
     ?dir=rtl              wrap in dir="rtl"
 -->
 <script lang="ts">
-  import { Toggle } from '@kumiki/component-toggle';
+  import { Toggle } from '@kumiki/components/toggle';
   import { page } from '$app/state';
 
   const initial = $derived(page.url.searchParams.get('initial') === 'on');

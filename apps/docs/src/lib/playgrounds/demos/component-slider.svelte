@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Root, Thumb } from '@kumiki/component-slider';
+  import { Root, Thumb } from '@kumiki/components/slider';
 
   let value = $state(50);
   let orientation = $state<'horizontal' | 'vertical'>('horizontal');

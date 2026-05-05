@@ -9,7 +9,7 @@
     ?dir=rtl                    wrap in dir="rtl" (also reroutes ArrowKeys)
 -->
 <script lang="ts">
-  import { Root, List, Tab, Panel, type TabItem } from '@kumiki/component-tabs';
+  import { Root, List, Tab, Panel, type TabItem } from '@kumiki/components/tabs';
   import { page } from '$app/state';
 
   const items: TabItem[] = [

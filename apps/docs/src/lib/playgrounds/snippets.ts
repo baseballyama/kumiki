@@ -11,12 +11,12 @@ export interface Snippet {
 
 export const SNIPPETS: Record<string, ReadonlyArray<Snippet>> = {
   'component-radio-group': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-radio-group' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/radio-group' },
     {
       title: 'Basic — typed plan picker',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Root, Item, type RadioItem } from '@kumiki/component-radio-group';
+  import { Root, Item, type RadioItem } from '@kumiki/components/radio-group';
 
   type Plan = 'free' | 'pro' | 'enterprise';
   const plans: RadioItem<Plan>[] = [
@@ -86,12 +86,12 @@ console.log(m.context.value);          // 'cherry' (skipped disabled banana)`,
   ],
 
   'component-tabs': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-tabs' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/tabs' },
     {
       title: 'Basic — settings tabs',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Root, List, Tab, Panel, type TabItem } from '@kumiki/component-tabs';
+  import { Root, List, Tab, Panel, type TabItem } from '@kumiki/components/tabs';
 
   const items: TabItem[] = [
     { id: 'account', value: 'account', label: 'Account' },
@@ -179,12 +179,12 @@ console.log(m.context.value);          // 'team'`,
   ],
 
   'component-dialog': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-dialog' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/dialog' },
     {
       title: 'Basic — modal confirmation',
       lang: 'svelte',
       code: `<script lang="ts">
-  import * as Dialog from '@kumiki/component-dialog';
+  import * as Dialog from '@kumiki/components/dialog';
   let open = $state(false);
 </script>
 
@@ -267,12 +267,12 @@ console.log(m.state);              // 'closed'`,
   ],
 
   'component-tooltip': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-tooltip' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/tooltip' },
     {
       title: 'Basic — icon button hint',
       lang: 'svelte',
       code: `<script lang="ts">
-  import * as Tooltip from '@kumiki/component-tooltip';
+  import * as Tooltip from '@kumiki/components/tooltip';
 </script>
 
 <Tooltip.Root>
@@ -322,12 +322,12 @@ console.log(m.state);     // 'closed'`,
   ],
 
   'component-select': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-select' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/select' },
     {
       title: 'Basic — typed plan picker',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Root, Trigger, Listbox, Option, type SelectItem } from '@kumiki/component-select';
+  import { Root, Trigger, Listbox, Option, type SelectItem } from '@kumiki/components/select';
 
   type Plan = 'free' | 'pro' | 'enterprise';
   const plans: SelectItem<Plan>[] = [
@@ -401,12 +401,12 @@ console.log(m.context.value);                       // 'cherry'`,
   ],
 
   'component-form-field': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-form-field' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/form-field' },
     {
       title: 'Basic — email field with Valibot',
       lang: 'svelte',
       code: `<script lang="ts">
-  import * as Field from '@kumiki/component-form-field';
+  import * as Field from '@kumiki/components/form-field';
   import * as v from 'valibot';
 
   const emailSchema = v.pipe(v.string(), v.email('Enter a valid email'));
@@ -490,12 +490,12 @@ console.log(m.state); // 'editing' — not 'invalid'`,
   ],
 
   'component-accordion': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-accordion' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/accordion' },
     {
       title: 'Basic — single-expand FAQ',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Root, Item, Trigger, Panel, type AccordionItem } from '@kumiki/component-accordion';
+  import { Root, Item, Trigger, Panel, type AccordionItem } from '@kumiki/components/accordion';
 
   const items: AccordionItem<string>[] = [
     { id: 'q1', value: 'q1', label: 'How do I cancel?' },
@@ -556,12 +556,12 @@ console.log(m.context.expandedIds); // ['b', 'a']`,
   ],
 
   'component-slider': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-slider' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/slider' },
     {
       title: 'Basic — volume slider',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Root, Thumb } from '@kumiki/component-slider';
+  import { Root, Thumb } from '@kumiki/components/slider';
   let value = $state(50);
 </script>
 
@@ -610,7 +610,7 @@ console.log(m.context.value); // 100 (clamped)`,
   ],
 
   'component-number-field': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-number-field' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/number-field' },
     {
       title: 'Basic — quantity selector',
       lang: 'svelte',
@@ -620,7 +620,7 @@ console.log(m.context.value); // 100 (clamped)`,
     Input,
     Increment,
     Decrement,
-  } from '@kumiki/component-number-field';
+  } from '@kumiki/components/number-field';
   let qty = $state(1);
 </script>
 
@@ -681,12 +681,12 @@ console.log(m.context.value); // null`,
   ],
 
   'component-popover': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-popover' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/popover' },
     {
       title: 'Basic — share menu',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Root, Trigger, Content, Title, Close } from '@kumiki/component-popover';
+  import { Root, Trigger, Content, Title, Close } from '@kumiki/components/popover';
   let open = $state(false);
 </script>
 
@@ -735,12 +735,12 @@ console.log(m.state); // 'closed'`,
   ],
 
   'component-toast': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-toast' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/toast' },
     {
       title: 'Basic — toaster with auto-dismiss',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Toaster, Viewport, Item, Title, Description, Close } from '@kumiki/component-toast';
+  import { Toaster, Viewport, Item, Title, Description, Close } from '@kumiki/components/toast';
 </script>
 
 <Toaster defaultDuration={4000}>
@@ -805,12 +805,12 @@ console.log(m.context.toasts.length); // 0`,
   ],
 
   'component-menu': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-menu' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/menu' },
     {
       title: 'Basic — actions menu',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Root, Trigger, Menu, Item, Separator, type MenuItem } from '@kumiki/component-menu';
+  import { Root, Trigger, Menu, Item, Separator, type MenuItem } from '@kumiki/components/menu';
 
   const items: MenuItem[] = [
     { id: 'new', label: 'New file' },
@@ -894,12 +894,12 @@ console.log(m.context.highlightedId); // 'b'`,
   ],
 
   'component-checkbox': [
-    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/component-checkbox' },
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components/checkbox' },
     {
       title: 'Basic — uncontrolled',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Checkbox } from '@kumiki/component-checkbox';
+  import { Checkbox } from '@kumiki/components/checkbox';
   let value = $state<'unchecked' | 'checked' | 'mixed'>('unchecked');
 </script>
 
@@ -911,7 +911,7 @@ console.log(m.context.highlightedId); // 'b'`,
       title: 'Tri-state parent of a group',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Checkbox } from '@kumiki/component-checkbox';
+  import { Checkbox } from '@kumiki/components/checkbox';
   let items = $state([
     { id: 1, checked: false },
     { id: 2, checked: true },
@@ -970,13 +970,13 @@ console.log(m.state);                // 'mixed'`,
     {
       title: 'Install',
       lang: 'bash',
-      code: 'pnpm add @kumiki/component-combobox',
+      code: 'pnpm add @kumiki/components/combobox',
     },
     {
       title: 'Basic — typed option list',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Root, Input, Listbox, Item, type ComboboxOption } from '@kumiki/component-combobox';
+  import { Root, Input, Listbox, Item, type ComboboxOption } from '@kumiki/components/combobox';
 
   interface User extends ComboboxOption { id: string; label: string; email: string; }
   const users: User[] = [
@@ -1004,7 +1004,7 @@ console.log(m.state);                // 'mixed'`,
       title: 'Namespace import (alternative)',
       lang: 'svelte',
       code: `<script lang="ts">
-  import * as Combobox from '@kumiki/component-combobox';
+  import * as Combobox from '@kumiki/components/combobox';
 </script>
 
 <Combobox.Root options={items}>
@@ -1073,13 +1073,13 @@ m.send({
     {
       title: 'Install',
       lang: 'bash',
-      code: 'pnpm add @kumiki/component-switch',
+      code: 'pnpm add @kumiki/components/switch',
     },
     {
       title: 'Basic — uncontrolled',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Switch } from '@kumiki/component-switch';
+  import { Switch } from '@kumiki/components/switch';
   let checked = $state(false);
 </script>
 
@@ -1139,13 +1139,13 @@ console.log(m.context.checked);    // true`,
     {
       title: 'Install',
       lang: 'bash',
-      code: 'pnpm add @kumiki/component-toggle',
+      code: 'pnpm add @kumiki/components/toggle',
     },
     {
       title: 'Basic — uncontrolled',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Toggle } from '@kumiki/component-toggle';
+  import { Toggle } from '@kumiki/components/toggle';
   let pressed = $state(false);
 </script>
 
@@ -1157,7 +1157,7 @@ console.log(m.context.checked);    // true`,
       title: 'With onPressedChange',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Toggle } from '@kumiki/component-toggle';
+  import { Toggle } from '@kumiki/components/toggle';
 </script>
 
 <Toggle.Root onPressedChange={(p) => console.log('changed:', p)}>

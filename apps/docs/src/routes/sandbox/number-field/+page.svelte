@@ -8,7 +8,7 @@
     ?dir=rtl              wrap in dir="rtl"
 -->
 <script lang="ts">
-  import { Root, Input, Increment, Decrement } from '@kumiki/component-number-field';
+  import { Root, Input, Increment, Decrement } from '@kumiki/components/number-field';
   import { page } from '$app/state';
 
   function parseNum(raw: string | null, fallback: number): number {

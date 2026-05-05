@@ -44,7 +44,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kumiki/component-dialog": "workspace:*"
+    "@kumiki/components": "workspace:*"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "catalog:",

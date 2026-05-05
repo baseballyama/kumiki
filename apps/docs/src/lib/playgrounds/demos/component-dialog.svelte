@@ -7,7 +7,7 @@
     Title,
     Description,
     Close,
-  } from '@kumiki/component-dialog';
+  } from '@kumiki/components/dialog';
 
   let open = $state(false);
   let modal = $state(true);

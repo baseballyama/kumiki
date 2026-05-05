@@ -16,7 +16,7 @@
     Description,
     type StandardSchemaV1,
     type ValidateOn,
-  } from '@kumiki/component-form-field';
+  } from '@kumiki/components/form-field';
   import { page } from '$app/state';
 
   // Sync validator: required, min 3 chars.

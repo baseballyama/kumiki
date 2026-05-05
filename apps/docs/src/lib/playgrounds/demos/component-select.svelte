@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Root, Trigger, Listbox, Option, type SelectItem } from '@kumiki/component-select';
+  import { Root, Trigger, Listbox, Option, type SelectItem } from '@kumiki/components/select';
 
   type Plan = 'free' | 'pro' | 'enterprise';
   const plans: SelectItem<Plan>[] = [

@@ -17,7 +17,7 @@
     Title,
     Description,
     Close,
-  } from '@kumiki/component-dialog';
+  } from '@kumiki/components/dialog';
   import { page } from '$app/state';
 
   const dir = $derived(page.url.searchParams.get('dir') === 'rtl' ? 'rtl' : 'ltr');

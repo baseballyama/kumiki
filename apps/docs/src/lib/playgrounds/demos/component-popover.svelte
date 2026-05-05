@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Root, Trigger, Content, Title, Description, Close } from '@kumiki/component-popover';
+  import { Root, Trigger, Content, Title, Description, Close } from '@kumiki/components/popover';
 
   let open = $state(false);
 </script>

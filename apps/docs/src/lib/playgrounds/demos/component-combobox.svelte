@@ -6,7 +6,7 @@
     Item,
     Trigger,
     type ComboboxOption,
-  } from '@kumiki/component-combobox';
+  } from '@kumiki/components/combobox';
 
   interface Framework extends ComboboxOption {
     id: string;

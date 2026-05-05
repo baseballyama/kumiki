@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Checkbox, type CheckboxValue } from '@kumiki/component-checkbox';
+  import { Checkbox, type CheckboxValue } from '@kumiki/components/checkbox';
 
   let value = $state<CheckboxValue>('unchecked');
   let disabled = $state(false);

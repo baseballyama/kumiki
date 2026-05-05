@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Root, Trigger, Content } from '@kumiki/component-tooltip';
+  import { Root, Trigger, Content } from '@kumiki/components/tooltip';
 
   let openDelay = $state(700);
   let closeDelay = $state(300);

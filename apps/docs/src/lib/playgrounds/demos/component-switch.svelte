@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Switch } from '@kumiki/component-switch';
+  import { Switch } from '@kumiki/components/switch';
 
   let checked = $state(false);
   let disabled = $state(false);

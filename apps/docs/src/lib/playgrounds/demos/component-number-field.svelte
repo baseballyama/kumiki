@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Root, Input, Increment, Decrement } from '@kumiki/component-number-field';
+  import { Root, Input, Increment, Decrement } from '@kumiki/components/number-field';
 
   let qty = $state<number | null>(1);
   let price = $state<number | null>(1500);
