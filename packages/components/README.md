@@ -36,24 +36,24 @@ pnpm add @kumiki/components
 
 ## Available subpaths
 
-| Subpath                           | What it ships                                     |
-| --------------------------------- | ------------------------------------------------- |
-| `@kumiki/components/accordion`    | `Accordion.{Root,Item,Header,Trigger,Content}`    |
-| `@kumiki/components/checkbox`     | `Checkbox.{Root,Label}`                           |
-| `@kumiki/components/combobox`     | `Combobox.{Root,Input,Listbox,Option,…}`          |
-| `@kumiki/components/dialog`       | `Dialog.{Root,Trigger,Overlay,Content,Title,…}`   |
-| `@kumiki/components/form-field`   | `FormField.{Root,Label,Description,Errors,Input}` |
-| `@kumiki/components/menu`         | `Menu.{Root,Trigger,Content,Item,Separator}`      |
-| `@kumiki/components/number-field` | `NumberField.{Root,Input,Increment,Decrement}`    |
-| `@kumiki/components/popover`      | `Popover.{Root,Trigger,Content}`                  |
-| `@kumiki/components/radio-group`  | `RadioGroup.{Root,Item,Indicator}`                |
-| `@kumiki/components/select`       | `Select.{Root,Trigger,Listbox,Option,…}`          |
-| `@kumiki/components/slider`       | `Slider.{Root,Track,Range,Thumb}`                 |
-| `@kumiki/components/switch`       | `Switch.{Root,Label}`                             |
-| `@kumiki/components/tabs`         | `Tabs.{Root,List,Tab,Panel}`                      |
-| `@kumiki/components/toast`        | `Toast.{Toaster,Item,Title,Description,Close,…}`  |
-| `@kumiki/components/toggle`       | `Toggle.{Root}`                                   |
-| `@kumiki/components/tooltip`      | `Tooltip.{Root,Trigger,Content}`                  |
+| Subpath                           | What it ships                                                   |
+| --------------------------------- | --------------------------------------------------------------- |
+| `@kumiki/components/accordion`    | `Accordion.{Root,Item,Trigger,Panel}`                           |
+| `@kumiki/components/checkbox`     | `Checkbox.{Root}`                                               |
+| `@kumiki/components/combobox`     | `Combobox.{Root,Input,Listbox,Item,Trigger}`                    |
+| `@kumiki/components/dialog`       | `Dialog.{Root,Trigger,Overlay,Content,Title,Description,Close}` |
+| `@kumiki/components/form-field`   | `FormField.{Root,Label,Description,Errors,Input}`               |
+| `@kumiki/components/menu`         | `Menu.{Root,Trigger,Menu,Item,Separator}`                       |
+| `@kumiki/components/number-field` | `NumberField.{Root,Input,Increment,Decrement}`                  |
+| `@kumiki/components/popover`      | `Popover.{Root,Trigger,Content,Title,Description,Close}`        |
+| `@kumiki/components/radio-group`  | `RadioGroup.{Root,Item}`                                        |
+| `@kumiki/components/select`       | `Select.{Root,Trigger,Listbox,Option}`                          |
+| `@kumiki/components/slider`       | `Slider.{Root,Thumb}`                                           |
+| `@kumiki/components/switch`       | `Switch.{Root}`                                                 |
+| `@kumiki/components/tabs`         | `Tabs.{Root,List,Tab,Panel}`                                    |
+| `@kumiki/components/toast`        | `Toast.{Toaster,Viewport,Item,Title,Description,Close}`         |
+| `@kumiki/components/toggle`       | `Toggle.{Root}`                                                 |
+| `@kumiki/components/tooltip`      | `Tooltip.{Root,Trigger,Content}`                                |
 
 ## See also
 

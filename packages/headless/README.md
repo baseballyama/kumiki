@@ -16,9 +16,12 @@ pnpm add @kumiki/headless
 ## Use
 
 ```ts
-import { toggle } from '@kumiki/headless/toggle';
-import { combobox } from '@kumiki/headless/combobox';
+import { createToggle } from '@kumiki/headless/toggle';
+import { createCombobox } from '@kumiki/headless/combobox';
 import { withValidation } from '@kumiki/headless/combobox/with-validation';
+
+const t = createToggle({ initial: false });
+// `{@attach t.root}` on a Svelte 5 element wires it up.
 ```
 
 ## Available subpaths
