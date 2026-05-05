@@ -161,8 +161,9 @@ Workflow: see [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml).
 # Fast feedback (machines + controllers)
 pnpm test
 
-# Single component focus
-pnpm --filter @kumiki/machines/combobox test:watch
+# Single component focus (filter by source path within a layer package)
+pnpm --filter @kumiki/machines exec vitest src/combobox
+pnpm --filter @kumiki/headless exec vitest src/combobox
 
 # Full sweep (CI parity)
 pnpm test && pnpm typecheck && pnpm lint && pnpm size && pnpm publint && pnpm attw && pnpm agadoo

@@ -25,9 +25,35 @@ Based on competitor experience and our architecture:
 | **Unmount leaks** from event listeners                | All attachments. Mitigate: every attachment returns a teardown function; tests assert listener count returns to zero.                                          |
 | **Excessive ARIA mutation**                           | Combobox open/close. Mitigate: machines emit _deltas_; controllers `setAttribute` only when value changes.                                                     |
 
-## 10.3 Benchmark suite
+## 10.3 Benchmark suites
 
-`apps/docs/perf/` hosts a benchmark page per Phase 1 component. Scripts there use the [Playwright performance APIs](https://playwright.dev/docs/api/class-page#page-evaluate-handle) to capture:
+Two layers of bench coverage, with different audiences:
+
+### 10.3.1 Unit benches (`pnpm bench`)
+
+vitest-`bench`-based microbenchmarks for the hot paths inside
+`@kumiki/runtime`, `@kumiki/primitives`, and `@kumiki/machines`. Each
+package has its own `*.bench.ts` files that exercise:
+
+- FSM `defineMachine` + `machine.send` cycles per second.
+- `@kumiki/primitives/collection` navigation helpers (`getNextEnabledId`,
+  `findByTypeAhead`, `tabindexFor`) on 100-item fixtures.
+- `@kumiki/primitives/id` (`uid`, `createIdScope.next`) construction
+  costs.
+- Per-machine dispatch — the higher-complexity machines (combobox,
+  dialog, select, tabs, radio-group) bench full event sequences
+  (open + 5× navigate + select etc).
+
+`pnpm bench` runs them all; `pnpm -w run bench:json` aggregates the
+results into `apps/docs/static/benches.json` for trend tracking.
+Numbers are machine-dependent; not a CI gate.
+
+### 10.3.2 Page-level benches (`apps/docs/perf/`)
+
+Playwright-based, captures the real user-perceptible numbers (mount
+time, time-to-first-interactive, heap drift). Uses
+[Playwright performance APIs](https://playwright.dev/docs/api/class-page#page-evaluate-handle)
+for:
 
 - Mount time (ms).
 - Time-to-first-interactive (ms).
