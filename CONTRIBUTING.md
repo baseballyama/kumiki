@@ -49,12 +49,14 @@ pnpm size        # size-limit per package
 
 ## Commit style
 
-[Conventional Commits](https://www.conventionalcommits.org/). Scope is the package name minus `@kumiki/`:
+[Conventional Commits](https://www.conventionalcommits.org/). Scope is either the layer package name minus `@kumiki/`, or — when the change is component-scoped within one of the layer packages — the component slug:
 
 ```
-feat(machine-combobox): add async option fetcher
-fix(component-dialog): focus restore after close
+feat(combobox): add async option fetcher to the machine + headless attachment
+fix(dialog): focus restore after close
+feat(machines): new transition arrays support
 docs(design): clarify Layer 3 vs 4 boundary
+refactor(headless): collapse with-* compositions
 ```
 
 ## Changesets
@@ -67,11 +69,19 @@ pnpm changeset
 
 Pick the affected packages and the bump (`patch` / `minor` / `major`). Commit the generated file alongside your code.
 
-## Running a single component's tests
+## Running tests
 
 ```bash
-pnpm --filter @kumiki/machine-combobox test
-pnpm --filter @kumiki/component-combobox test
+# Whole workspace
+pnpm test
+
+# Just one layer's tests (each layer is now one package — see ADR 0012)
+pnpm --filter @kumiki/machines test
+pnpm --filter @kumiki/headless test
+
+# Just one component's tests within a layer (vitest path filter)
+pnpm --filter @kumiki/machines exec vitest run src/combobox
+pnpm --filter @kumiki/headless exec vitest run src/dialog
 ```
 
 ## a11y testing
