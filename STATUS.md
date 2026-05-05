@@ -62,7 +62,7 @@ tree-shakable subpaths (1.77 KB total optional surface).
 | Toast       |    ✅ 19 tests    |      ✅ 16 tests       |     ✅ 0 errors     |    ✅     | ✅ 10 + 4 |
 | Menu        |    ✅ 22 tests    |      ✅ 20 tests       |     ✅ 0 errors     |    ✅     | ✅ 13 + 4 |
 
-**Totals:** machines 340, headless 271, runtime 15, primitives 46 — **672 unit tests across 9 packages** (plus 73 APG keyboard cases in Playwright). **109 microbenchmarks** at `/bench`.
+**Totals:** machines 340, headless 271, runtime 15, primitives 46 — **672 unit tests across 9 packages** (plus 76 APG keyboard cases in Playwright). **109 microbenchmarks** at `/bench`.
 
 | Shared package                   | Status                                                 |
 | -------------------------------- | :----------------------------------------------------- |
