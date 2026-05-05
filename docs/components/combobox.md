@@ -106,59 +106,54 @@ Visualizer: drop `createComboboxMachine().toJSON()` into [stately.ai/viz](https:
 
 ### `Combobox.Root`
 
+The Root keeps a tight surface — async / validation / multi-select /
+virtualization are **not** prop flags here; they're separate
+composition subpaths under `@kumiki/headless/combobox/with-*` that
+wrap the bare controller. See [combobox-composition.md](combobox-composition.md).
+
 ```ts
 import type { Snippet } from 'svelte';
-import type { StandardSchemaV1 } from '@kumiki/types';
+import type { ComboboxOption } from '@kumiki/machines/combobox';
 
-type Props<T> = {
-  /**
-   * @when-to-use Required. The full set of options to filter against (sync mode), or the initial
-   *              empty set when composed with `withAsyncSearch`.
-   */
-  options: T[];
-
-  /** Bindable. Currently selected option, or `null` if none. */
+type Props<T extends ComboboxOption> = {
+  /** Source list of options. Empty array is fine for async-only mode. */
+  options?: ReadonlyArray<T>;
+  /** Bindable selected value. Pass `null` for "no selection". */
   value?: T | null;
-
-  /** Callback fired when value changes. Use as an alternative to `bind:value`. */
-  onValueChange?: (value: T | null) => void;
-
-  /** Function returning the display label for an option. Default: `String(option)`. */
-  getLabel?: (option: T) => string;
-
-  /** Function returning a stable id for an option. Default: `String(getLabel(option))`. */
-  getId?: (option: T) => string;
-
-  /**
-   * Standard Schema validator. When supplied, the component composes `withValidation` internally.
-   * @see https://standardschema.dev/
-   */
-  validator?: StandardSchemaV1<T>;
-
-  /** Async fetcher. When supplied, composes `withAsyncSearch` internally. */
-  async?: (query: string, signal: AbortSignal) => Promise<T[]>;
-
-  /** Multi-select shorthand. Composes `withMultiSelect`. */
-  multi?: boolean;
-
-  /** Virtualization shorthand. Composes `withVirtualization`. */
-  virtualize?: boolean | { itemHeight: number; overscan?: number };
-
+  /** Initial selection for uncontrolled mode. */
+  defaultValue?: T | null;
+  /** Initial query for uncontrolled mode. */
+  defaultQuery?: string;
   /** Disabled state. */
   disabled?: boolean;
+  /** Page step for PageUp / PageDown navigation. Default: 10. */
+  pageSize?: number;
+  /** Custom sync filter. Default: case-insensitive label substring match. */
+  filter?: (options: ReadonlyArray<T>, query: string) => ReadonlyArray<T>;
+
+  onValueChange?: (value: T | null) => void;
+  onOpenChange?: (open: boolean) => void;
+  onQueryChange?: (query: string) => void;
+
+  /** Stable id override. Auto-generated if omitted. */
+  id?: string;
 
   children: Snippet;
 };
 ```
+
+`ComboboxOption` requires `id: string` (and optionally `disabled?: boolean`,
+`label?: string`) — that's how the controller tracks selection across
+filter results. Use a custom `filter` for cases the default substring
+match doesn't cover (fuzzy match, secondary fields, etc).
 
 ### `Combobox.Input`
 
 ```ts
 type Props = {
   placeholder?: string;
-  /** Render delegation. */
-  child?: Snippet<[payload: { props: InputProps }]>;
-  children?: Snippet;
+  /** Spread onto the underlying <input>. Useful for class, style, etc. */
+  [key: string]: unknown;
 };
 ```
 
@@ -172,6 +167,7 @@ type Props = {
   empty?: Snippet;
   /** Snippet rendered while async fetch in flight. */
   loading?: Snippet;
+  /** Default content; rendered if `item` snippet not provided. */
   children?: Snippet;
 };
 ```
@@ -180,12 +176,14 @@ type Props = {
 
 ```ts
 type Props<T> = {
+  /** The option this item represents. Spread on `data-value`. */
   value: T;
-  disabled?: boolean;
-  child?: Snippet<[payload: { props: ItemProps; state: { selected: boolean; focused: boolean } }]>;
   children: Snippet;
 };
 ```
+
+`disabled` is read from the option's `disabled` field, not from a
+prop; the controller paints `aria-disabled` automatically.
 
 ## Examples
 
@@ -195,16 +193,16 @@ type Props<T> = {
 <script lang="ts">
   import { Combobox } from '@kumiki/components';
 
-  type User = { id: string; name: string };
+  type User = { id: string; label: string };
   const users: User[] = [/* ... */];
   let selected = $state<User | null>(null);
 </script>
 
-<Combobox.Root<User> options={users} bind:value={selected} getLabel={(u) => u.name}>
+<Combobox.Root<User> options={users} bind:value={selected}>
   <Combobox.Input placeholder="Search users…" />
   <Combobox.Listbox>
     {#snippet item(user)}
-      <Combobox.Item value={user}>{user.name}</Combobox.Item>
+      <Combobox.Item value={user}>{user.label}</Combobox.Item>
     {/snippet}
     {#snippet empty()}
       <li>No users found.</li>
@@ -212,6 +210,9 @@ type Props<T> = {
   </Combobox.Listbox>
 </Combobox.Root>
 ```
+
+`ComboboxOption` requires `id` + `label` (the default substring filter
+matches against `label`). For richer types pass a custom `filter` prop.
 
 ### With Standard Schema validation
 
