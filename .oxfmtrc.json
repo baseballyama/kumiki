@@ -11,6 +11,8 @@
     "**/.svelte-kit/**",
     "**/node_modules/**",
     "**/coverage/**",
+    "**/etc/*.api.md",
+    "**/temp/**",
     "references/**",
     "**/*.svelte",
     "pnpm-lock.yaml",

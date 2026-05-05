@@ -10,3 +10,8 @@ pnpm-lock.yaml
 
 # External reference repositories (git submodules) — never touch.
 references/
+
+# api-extractor reports + scratch dir
+etc/*.api.md
+**/etc/*.api.md
+**/temp/
