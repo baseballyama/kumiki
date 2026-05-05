@@ -215,25 +215,24 @@ axe-core catches 30–40% of WCAG violations. The other 60% comes from APG keybo
 - Keyboard logic that depends on physical direction (Tabs `ArrowRight`, Slider) reads `direction` from machine context — RTL inversion lives in the machine, not the controller.
 - New strings touch all 10 locale files (`packages/locale/src/<lang>/index.ts`). CI verifies shape consistency.
 
-## Migration in progress (ADR 0012)
+## Package shape (ADR 0012, complete)
 
-The 37-package shape from ADR 0002 is being collapsed to 9 layer-level
-packages. During the migration:
+Working state: 9 layer-level packages, subpaths per component. The
+37-package per-Layer×component shape from ADR 0002 was collapsed in
+2026-05; the legacy `@kumiki/{machine,attachment,component,recipes}-*`
+package names no longer exist.
 
-- **Old packages** (`@kumiki/machine-*`, `@kumiki/attachment-*`,
-  `@kumiki/component-*`, `@kumiki/recipes-*`, the auto-generated
-  `@kumiki/components` umbrella) are being deleted layer-by-layer.
-- **New packages** (`@kumiki/machines`, `@kumiki/headless`,
-  `@kumiki/components`, `@kumiki/recipes`) hold all components as
-  subpaths.
-- Cross-package imports inside the workspace migrate to the new shape
-  in the same commit that introduces each new package.
-- The `packages/meta/` umbrella + `scripts/build-meta-packages.mjs` +
-  `scripts/check-meta-drift.mjs` are removed once `@kumiki/components`
-  is first-class.
+- `@kumiki/machines/<name>` — Layer 2 FSMs, pure-TS.
+- `@kumiki/headless/<name>` (+ `/combobox/with-*`) — Layer 3 attachments.
+- `@kumiki/components` (subpath + dot-namespace barrel) — Layer 4.
+- `@kumiki/recipes/<name>` — Layer 5 preview.
+- `@kumiki/{runtime,primitives,locale,types}` — foundations (unchanged).
+- `@kumiki/cli` — binary.
 
-If you hit a state where old and new packages coexist, prefer importing
-from the new shape and let the layer migration finish the cleanup.
+If you encounter old package names in any source file or doc, that's
+a leftover — patch to the new shape. ADR 0002 (superseded) and
+ADR 0012 (migration narrative) are the only intentional references
+to the old names.
 
 ## `references/` (competitor source as submodules)
 

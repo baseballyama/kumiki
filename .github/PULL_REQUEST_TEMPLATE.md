@@ -6,7 +6,7 @@
 
 ## Affected packages
 
-<!-- Bullet list. e.g. - @kumiki/machine-combobox -->
+<!-- Bullet list. e.g. - @kumiki/machines, @kumiki/headless -->
 
 ## Type of change
 
