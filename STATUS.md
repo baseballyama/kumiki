@@ -27,8 +27,8 @@ blocked on `@internationalized/date` dep approval.
 builder ✅, sizes.json + /sizes route ✅, per-component reference docs ✅
 (Phase 1 + Phase 2), api-extractor surface reports ✅, tree-shake check ✅,
 coverage aggregation ✅, TypeDoc markdown reference ✅, APG drift
-snapshots ✅. Bundle budgets enforced **per subpath** (one entry per
-component) with brotli measurement.
+snapshots ✅, performance benchmarks ✅. Bundle budgets enforced **per
+subpath** (one entry per component) with brotli measurement.
 
 **Tooling migration (2026-05):** ESLint → oxlint, Prettier → oxfmt for
 non-Svelte files (Svelte stays on prettier-plugin-svelte until oxfmt's
@@ -180,15 +180,15 @@ To preserve the user's "ガッチガチに品質保証" mandate, gaps are explic
 
 ### Phase 0c QA gaps still open
 
-| Item                                  | Status                                                                                                                                                                                                                                                                                                     | Notes                                                                            |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| **api-extractor reports** per package | ✅ shipped (2026-05). `pnpm api:report` generates `<pkg>/etc/<unscoped>.api.md` for every Layer 1/2/3 package. `pnpm check:api-report` is wired into `check:all` and fails CI on drift. Layer 4/5 skipped (Svelte source — `attw` covers them).                                                            | Locked-in via ADR 0011                                                           |
-| **TypeDoc reference site**            | ✅ shipped (2026-05). `pnpm typedoc` generates per-package markdown under `docs/api/` (40 entry points, one file per package). `tsconfig.typedoc.json` excludes tests + tooling. `docs/api/` is gitignored — built on demand for the docs site. Custom `@when-to-use` / `@anti-pattern` block tags render. | Locked-in via ADR 0011                                                           |
-| **Lighthouse CI**                     | Not configured; needs `@lhci/cli` dep                                                                                                                                                                                                                                                                      | For docs site perf budget                                                        |
-| **APG diff-against-published**        | ✅ shipped (2026-05). `pnpm apg:snapshot` fetches each `kb.ts`'s APG URL, extracts the Keyboard Interaction section, snapshots to `apps/docs/keyboard/.apg-snapshots/`. `pnpm check:apg-snapshots` runs weekly via `.github/workflows/scheduled-apg-drift.yml` and opens a labeled issue on drift.         |                                                                                  |
-| **Tree-shake regression tests**       | ✅ shipped (2026-05). `pnpm check:tree-shake` retired together with the auto-generated `@kumiki/components` umbrella under ADR 0012; cross-component leakage is now prevented by-construction (one subdir per component under each layer's `src/`).                                                        | ADR 0012 made this script unnecessary; deleted in `4c6552d`.                     |
-| **Performance benchmarks**            | Not implemented                                                                                                                                                                                                                                                                                            | Phase 0c stretch goal                                                            |
-| **Coverage gate aggregation**         | ✅ shipped (2026-05). `pnpm -w run coverage` runs vitest --coverage workspace-wide; `pnpm coverage:report` rolls per-file counters into one summary table. Not yet a CI gate (some Phase 1 thresholds are aspirational).                                                                                   | Last aggregate (54 pkgs): 88.2% stmts, 77.6% branches, 86.4% funcs, 88.2% lines. |
+| Item                                  | Status                                                                                                                                                                                                                                                                                                                     | Notes                                                                            |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **api-extractor reports** per package | ✅ shipped (2026-05). `pnpm api:report` generates `<pkg>/etc/<unscoped>.api.md` for every Layer 1/2/3 package. `pnpm check:api-report` is wired into `check:all` and fails CI on drift. Layer 4/5 skipped (Svelte source — `attw` covers them).                                                                            | Locked-in via ADR 0011                                                           |
+| **TypeDoc reference site**            | ✅ shipped (2026-05). `pnpm typedoc` generates per-package markdown under `docs/api/` (40 entry points, one file per package). `tsconfig.typedoc.json` excludes tests + tooling. `docs/api/` is gitignored — built on demand for the docs site. Custom `@when-to-use` / `@anti-pattern` block tags render.                 | Locked-in via ADR 0011                                                           |
+| **Lighthouse CI**                     | Not configured; needs `@lhci/cli` dep                                                                                                                                                                                                                                                                                      | For docs site perf budget                                                        |
+| **APG diff-against-published**        | ✅ shipped (2026-05). `pnpm apg:snapshot` fetches each `kb.ts`'s APG URL, extracts the Keyboard Interaction section, snapshots to `apps/docs/keyboard/.apg-snapshots/`. `pnpm check:apg-snapshots` runs weekly via `.github/workflows/scheduled-apg-drift.yml` and opens a labeled issue on drift.                         |                                                                                  |
+| **Tree-shake regression tests**       | ✅ shipped (2026-05). `pnpm check:tree-shake` retired together with the auto-generated `@kumiki/components` umbrella under ADR 0012; cross-component leakage is now prevented by-construction (one subdir per component under each layer's `src/`).                                                                        | ADR 0012 made this script unnecessary; deleted in `4c6552d`.                     |
+| **Performance benchmarks**            | ✅ shipped (2026-05). `pnpm bench` runs vitest's `bench` mode against `@kumiki/runtime` (synthetic 3-state machine) and `@kumiki/machines/{toggle,dialog,combobox}` (real machines, including a 100-option Combobox filter). Not wired into ci:health (numbers are machine-dependent); run on demand to track regressions. | Phase 0c stretch goal                                                            |
+| **Coverage gate aggregation**         | ✅ shipped (2026-05). `pnpm -w run coverage` runs vitest --coverage workspace-wide; `pnpm coverage:report` rolls per-file counters into one summary table. Not yet a CI gate (some Phase 1 thresholds are aspirational).                                                                                                   | Last aggregate (54 pkgs): 88.2% stmts, 77.6% branches, 86.4% funcs, 88.2% lines. |
 
 ### Phase 2 components — remaining
 
@@ -234,9 +234,9 @@ All four `with*` compositions shipped under `@kumiki/headless/combobox`:
 
 The autonomous `/loop` run, since revival on 2026-05-05, has shipped:
 
-- 5 Phase 0c QA gates: tree-shake regression (since retired by ADR 0012),
+- 6 Phase 0c QA gates: tree-shake regression (since retired by ADR 0012),
   coverage aggregation, api-extractor reports, TypeDoc markdown
-  reference, APG drift snapshots.
+  reference, APG drift snapshots, performance benchmarks.
 - ADR 0012 + the 4-phase package consolidation (37 → 9 packages).
 - Design doc + README rewrites following ADR 0012.
 
@@ -248,7 +248,6 @@ maintainer-in-the-loop input:
 | **Calendar / DatePicker**     | Need `@internationalized/date` runtime dep; CLAUDE.md forbids adding deps without confirmation.                             | Maintainer adds the dep to the catalog and confirms the FSM design (Hijri / Buddhist calendar scope).      |
 | **TypeDoc → docs site route** | TypeDoc generation ✅. Not yet wired into a SvelteKit `/api` route — needs maintainer call on URL shape and sidebar layout. | Maintainer confirms whether TypeDoc output should be served at `/api`, `/reference`, or as a sibling site. |
 | **Lighthouse CI**             | `@lhci/cli` not in catalog.                                                                                                 | Maintainer adds the dep and confirms perf budgets per page.                                                |
-| **Performance benchmarks**    | Phase 0c stretch goal; no dep blocker, just scope.                                                                          | Loop can pick this up on the next firing if maintainer wants it.                                           |
 
 ## How to resume
 
