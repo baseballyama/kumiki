@@ -2,12 +2,12 @@
 
 > Pick one option from a known set. Combobox without free-text input.
 
-| Field                     | Value                                                                      |
-| ------------------------- | -------------------------------------------------------------------------- |
-| **APG pattern**           | [Listbox (collapsible)](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/) |
-| **Bundle (Layer 4 gzip)** | within `4500 B` budget                                                     |
-| **Status**                | `preview` (Phase 1)                                                        |
-| **Generics**              | `<V>` — option value type                                                  |
+| Field                               | Value                                                                      |
+| ----------------------------------- | -------------------------------------------------------------------------- |
+| **APG pattern**                     | [Listbox (collapsible)](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/) |
+| **Bundle (Layer 4 target, brotli)** | within `4500 B` budget                                                     |
+| **Status**                          | `preview` (Phase 1)                                                        |
+| **Generics**                        | `<V>` — option value type                                                  |
 
 ## Anatomy
 

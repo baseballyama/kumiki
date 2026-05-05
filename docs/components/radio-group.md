@@ -2,12 +2,12 @@
 
 > Mutually-exclusive option group with arrow-key navigation.
 
-| Field                     | Value                                                    |
-| ------------------------- | -------------------------------------------------------- |
-| **APG pattern**           | [Radio](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) |
-| **Bundle (Layer 4 gzip)** | within `2000 B` budget                                   |
-| **Status**                | `preview` (Phase 1)                                      |
-| **Generics**              | `<V>` — item value type                                  |
+| Field                               | Value                                                    |
+| ----------------------------------- | -------------------------------------------------------- |
+| **APG pattern**                     | [Radio](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) |
+| **Bundle (Layer 4 target, brotli)** | within `2000 B` budget                                   |
+| **Status**                          | `preview` (Phase 1)                                      |
+| **Generics**                        | `<V>` — item value type                                  |
 
 ## Anatomy
 

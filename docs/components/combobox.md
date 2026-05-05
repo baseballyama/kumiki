@@ -2,13 +2,13 @@
 
 > A single-input field with a popup listbox of suggestions. Supports filtering, async option loading, multi-select, and virtualization via composition.
 
-| Field                     | Value                                                          |
-| ------------------------- | -------------------------------------------------------------- |
-| **APG pattern**           | [Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) |
-| **Bundle (Layer 4 gzip)** | TBD / **4500 B**                                               |
-| **Status**                | `unreleased` (target: Phase 0b)                                |
-| **Phase**                 | 0b — design validation; v1.0 includes                          |
-| **Layer 5 preview**       | `none` at v1.0 (Toggle and Dialog only)                        |
+| Field                               | Value                                                          |
+| ----------------------------------- | -------------------------------------------------------------- |
+| **APG pattern**                     | [Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) |
+| **Bundle (Layer 4 target, brotli)** | TBD / **4500 B**                                               |
+| **Status**                          | `unreleased` (target: Phase 0b)                                |
+| **Phase**                           | 0b — design validation; v1.0 includes                          |
+| **Layer 5 preview**                 | `none` at v1.0 (Toggle and Dialog only)                        |
 
 ## Anatomy
 

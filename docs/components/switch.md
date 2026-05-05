@@ -2,11 +2,11 @@
 
 > On/off setting (`role="switch"`, `aria-checked`).
 
-| Field                     | Value                                                      |
-| ------------------------- | ---------------------------------------------------------- |
-| **APG pattern**           | [Switch](https://www.w3.org/WAI/ARIA/apg/patterns/switch/) |
-| **Bundle (Layer 4 gzip)** | within `1500 B` budget                                     |
-| **Status**                | `preview` (Phase 1)                                        |
+| Field                               | Value                                                      |
+| ----------------------------------- | ---------------------------------------------------------- |
+| **APG pattern**                     | [Switch](https://www.w3.org/WAI/ARIA/apg/patterns/switch/) |
+| **Bundle (Layer 4 target, brotli)** | within `1500 B` budget                                     |
+| **Status**                          | `preview` (Phase 1)                                        |
 
 ## Anatomy
 

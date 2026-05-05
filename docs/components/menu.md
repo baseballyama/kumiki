@@ -2,11 +2,11 @@
 
 > Action list invoked from a button. `role="menu"` popup with `role="menuitem"` rows, active-descendant cursor, full APG keyboard navigation, and optional separators. Single-level — submenus are deferred.
 
-| Field                     | Value                                                               |
-| ------------------------- | ------------------------------------------------------------------- |
-| **APG pattern**           | [Menu / Menubar](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) |
-| **Bundle (Layer 4 gzip)** | within `3500 B` budget                                              |
-| **Status**                | `preview` (Phase 2; submenus pending)                               |
+| Field                               | Value                                                               |
+| ----------------------------------- | ------------------------------------------------------------------- |
+| **APG pattern**                     | [Menu / Menubar](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) |
+| **Bundle (Layer 4 target, brotli)** | within `3500 B` budget                                              |
+| **Status**                          | `preview` (Phase 2; submenus pending)                               |
 
 ## Anatomy
 

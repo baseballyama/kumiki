@@ -2,13 +2,13 @@
 
 > One-sentence description of what this component does.
 
-| Field                     | Value                                                                      |
-| ------------------------- | -------------------------------------------------------------------------- |
-| **APG pattern**           | [link to APG pattern](https://www.w3.org/WAI/ARIA/apg/patterns/<pattern>/) |
-| **Bundle (Layer 4 gzip)** | `<measured>` / `<budget>`                                                  |
-| **Status**                | `unreleased` \| `preview` \| `stable`                                      |
-| **Phase**                 | `0a` \| `0b` \| `0c` \| `1` \| `2` \| `3`                                  |
-| **Layer 5 preview**       | `none` \| `tailwind+vanilla`                                               |
+| Field                               | Value                                                                      |
+| ----------------------------------- | -------------------------------------------------------------------------- |
+| **APG pattern**                     | [link to APG pattern](https://www.w3.org/WAI/ARIA/apg/patterns/<pattern>/) |
+| **Bundle (Layer 4 target, brotli)** | `<measured>` / `<budget>`                                                  |
+| **Status**                          | `unreleased` \| `preview` \| `stable`                                      |
+| **Phase**                           | `0a` \| `0b` \| `0c` \| `1` \| `2` \| `3`                                  |
+| **Layer 5 preview**                 | `none` \| `tailwind+vanilla`                                               |
 
 ## Anatomy
 

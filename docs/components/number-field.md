@@ -2,11 +2,11 @@
 
 > Precise numeric input with `role="spinbutton"`. Arrow / page / Home / End keys nudge by `step` / `pageStep`; typing parses on blur with format/parse hooks for currency etc.
 
-| Field                     | Value                                                               |
-| ------------------------- | ------------------------------------------------------------------- |
-| **APG pattern**           | [Spin Button](https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/) |
-| **Bundle (Layer 4 gzip)** | within `3000 B` budget                                              |
-| **Status**                | `preview` (Phase 2)                                                 |
+| Field                               | Value                                                               |
+| ----------------------------------- | ------------------------------------------------------------------- |
+| **APG pattern**                     | [Spin Button](https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/) |
+| **Bundle (Layer 4 target, brotli)** | within `3000 B` budget                                              |
+| **Status**                          | `preview` (Phase 2)                                                 |
 
 ## Anatomy
 

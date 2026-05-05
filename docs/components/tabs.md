@@ -2,13 +2,13 @@
 
 > Switch between mutually-exclusive panels of related content within a single page region.
 
-| Field                     | Value                                                  |
-| ------------------------- | ------------------------------------------------------ |
-| **APG pattern**           | [Tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) |
-| **Bundle (Layer 4 gzip)** | within `2500 B` budget                                 |
-| **Status**                | `preview` (Phase 1)                                    |
-| **Activation**            | `automatic` (default) \| `manual`                      |
-| **Orientation**           | `horizontal` (default) \| `vertical`                   |
+| Field                               | Value                                                  |
+| ----------------------------------- | ------------------------------------------------------ |
+| **APG pattern**                     | [Tabs](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) |
+| **Bundle (Layer 4 target, brotli)** | within `2500 B` budget                                 |
+| **Status**                          | `preview` (Phase 1)                                    |
+| **Activation**                      | `automatic` (default) \| `manual`                      |
+| **Orientation**                     | `horizontal` (default) \| `vertical`                   |
 
 ## Anatomy
 

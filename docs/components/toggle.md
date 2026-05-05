@@ -2,11 +2,11 @@
 
 > Two-state on/off button (`aria-pressed`).
 
-| Field                     | Value                                                               |
-| ------------------------- | ------------------------------------------------------------------- |
-| **APG pattern**           | [Button (toggle)](https://www.w3.org/WAI/ARIA/apg/patterns/button/) |
-| **Bundle (Layer 4 gzip)** | within `1500 B` budget                                              |
-| **Status**                | `preview` (Phase 1; the Phase 0a pilot)                             |
+| Field                               | Value                                                               |
+| ----------------------------------- | ------------------------------------------------------------------- |
+| **APG pattern**                     | [Button (toggle)](https://www.w3.org/WAI/ARIA/apg/patterns/button/) |
+| **Bundle (Layer 4 target, brotli)** | within `1500 B` budget                                              |
+| **Status**                          | `preview` (Phase 1; the Phase 0a pilot)                             |
 
 ## Anatomy
 

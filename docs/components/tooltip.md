@@ -2,12 +2,12 @@
 
 > Brief, non-interactive hint shown on hover or focus of a focusable trigger.
 
-| Field                     | Value                                                        |
-| ------------------------- | ------------------------------------------------------------ |
-| **APG pattern**           | [Tooltip](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) |
-| **Bundle (Layer 4 gzip)** | within `3500 B` budget (Floating UI not bundled)             |
-| **Status**                | `preview` (Phase 1)                                          |
-| **Delays**                | `openDelay: 700ms`, `closeDelay: 300ms` (defaults)           |
+| Field                               | Value                                                        |
+| ----------------------------------- | ------------------------------------------------------------ |
+| **APG pattern**                     | [Tooltip](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) |
+| **Bundle (Layer 4 target, brotli)** | within `3500 B` budget (Floating UI not bundled)             |
+| **Status**                          | `preview` (Phase 1)                                          |
+| **Delays**                          | `openDelay: 700ms`, `closeDelay: 300ms` (defaults)           |
 
 ## Anatomy
 

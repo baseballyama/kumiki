@@ -2,12 +2,12 @@
 
 > Modal or non-modal panel that focus-traps content while open.
 
-| Field                     | Value                                                                  |
-| ------------------------- | ---------------------------------------------------------------------- |
-| **APG pattern**           | [Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)       |
-| **Bundle (Layer 4 gzip)** | within `3500 B` budget                                                 |
-| **Status**                | `preview` (Phase 1)                                                    |
-| **Modes**                 | `modal: true` (default, applies `inert` to siblings) \| `modal: false` |
+| Field                               | Value                                                                  |
+| ----------------------------------- | ---------------------------------------------------------------------- |
+| **APG pattern**                     | [Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)       |
+| **Bundle (Layer 4 target, brotli)** | within `3500 B` budget                                                 |
+| **Status**                          | `preview` (Phase 1)                                                    |
+| **Modes**                           | `modal: true` (default, applies `inert` to siblings) \| `modal: false` |
 
 ## Anatomy
 

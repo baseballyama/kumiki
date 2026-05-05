@@ -2,12 +2,12 @@
 
 > Transient non-modal feedback — "Saved", "Failed to send", "Update available". A `role="region"` viewport with per-toast `role="status"` (polite) or `role="alert"` (assertive) items, auto-dismiss, and hover/focus pause.
 
-| Field                     | Value                                                                       |
-| ------------------------- | --------------------------------------------------------------------------- |
-| **APG pattern**           | [Alert](https://www.w3.org/WAI/ARIA/apg/patterns/alert/)                    |
-| **Live-region pattern**   | [WAI-ARIA Live Regions](https://www.w3.org/TR/wai-aria-practices-1.2/#live) |
-| **Bundle (Layer 4 gzip)** | within `3000 B` budget                                                      |
-| **Status**                | `preview` (Phase 2)                                                         |
+| Field                               | Value                                                                       |
+| ----------------------------------- | --------------------------------------------------------------------------- |
+| **APG pattern**                     | [Alert](https://www.w3.org/WAI/ARIA/apg/patterns/alert/)                    |
+| **Live-region pattern**             | [WAI-ARIA Live Regions](https://www.w3.org/TR/wai-aria-practices-1.2/#live) |
+| **Bundle (Layer 4 target, brotli)** | within `3000 B` budget                                                      |
+| **Status**                          | `preview` (Phase 2)                                                         |
 
 ## Anatomy
 

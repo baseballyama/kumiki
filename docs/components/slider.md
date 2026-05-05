@@ -2,11 +2,11 @@
 
 > Continuous numeric input. A focusable thumb on a track; arrow keys nudge by `step`, page keys by `pageStep`, Home/End jump to the bounds.
 
-| Field                     | Value                                                      |
-| ------------------------- | ---------------------------------------------------------- |
-| **APG pattern**           | [Slider](https://www.w3.org/WAI/ARIA/apg/patterns/slider/) |
-| **Bundle (Layer 4 gzip)** | within `2500 B` budget                                     |
-| **Status**                | `preview` (Phase 2)                                        |
+| Field                               | Value                                                      |
+| ----------------------------------- | ---------------------------------------------------------- |
+| **APG pattern**                     | [Slider](https://www.w3.org/WAI/ARIA/apg/patterns/slider/) |
+| **Bundle (Layer 4 target, brotli)** | within `2500 B` budget                                     |
+| **Status**                          | `preview` (Phase 2)                                        |
 
 ## Anatomy
 

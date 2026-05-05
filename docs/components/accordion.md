@@ -2,11 +2,11 @@
 
 > Stacked disclosure regions. Keyboard navigation across triggers via roving focus; expansion mode is `single` or `multiple` per the consumer's pick.
 
-| Field                     | Value                                                            |
-| ------------------------- | ---------------------------------------------------------------- |
-| **APG pattern**           | [Accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) |
-| **Bundle (Layer 4 gzip)** | within budget per `package.json#size-limit`                      |
-| **Status**                | `preview` (Phase 2)                                              |
+| Field                               | Value                                                            |
+| ----------------------------------- | ---------------------------------------------------------------- |
+| **APG pattern**                     | [Accordion](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) |
+| **Bundle (Layer 4 target, brotli)** | within budget per `package.json#size-limit`                      |
+| **Status**                          | `preview` (Phase 2)                                              |
 
 ## Anatomy
 
