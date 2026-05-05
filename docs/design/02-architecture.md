@@ -54,17 +54,17 @@ Layers also serve a second purpose: they decouple decisions. Replacing the FSM r
 
 Pure utilities. No component awareness. Each primitive is a subpath of `@kumiki/primitives` and individually tree-shakeable.
 
-| Primitive      | What it does                                                                       | Approx gzip |
-| -------------- | ---------------------------------------------------------------------------------- | ----------- |
-| `focus-trap`   | Trap Tab cycle, set initial focus, restore on unmount                              | ≤ 500 B     |
-| `dismissable`  | Outside click + Escape detection                                                   | ≤ 500 B     |
-| `id`           | Stable SSR-safe id generator (uses `crypto.randomUUID` with fallback)              | ≤ 500 B     |
-| `locale`       | `direction()`, `formatter(locale, opts)`, `numberSystem()`                         | ≤ 500 B     |
-| `live-region`  | `announce(message, { politeness })`                                                | ≤ 500 B     |
-| `collection`   | Roving tabindex, type-ahead, `getNextEnabled` helpers                              | ≤ 500 B     |
-| `interactions` | `press(node)`, `hover(node)`, `focus(node)` — React Aria–style normalized handlers | ≤ 500 B     |
-| `motion`       | `prefersReducedMotion()`, `prefersContrast()`                                      | ≤ 500 B     |
-| `portal`       | Svelte 5 portal abstraction (renders in a target node)                             | ≤ 500 B     |
+| Primitive      | Status        | What it does                                                                       | Approx brotli |
+| -------------- | ------------- | ---------------------------------------------------------------------------------- | ------------- |
+| `focus-trap`   | ✅ shipped    | Trap Tab cycle, set initial focus, restore on unmount                              | ≤ 500 B       |
+| `dismissable`  | ✅ shipped    | Outside click + Escape detection                                                   | ≤ 500 B       |
+| `id`           | ✅ shipped    | Stable SSR-safe id generator (uses `crypto.randomUUID` with fallback)              | ≤ 500 B       |
+| `collection`   | ✅ shipped    | Roving tabindex, type-ahead, `getNextEnabled` helpers                              | ≤ 500 B       |
+| `locale`       | ⏳ scaffolded | `direction()`, `formatter(locale, opts)`, `numberSystem()`                         | ≤ 500 B       |
+| `live-region`  | ⏳ scaffolded | `announce(message, { politeness })`                                                | ≤ 500 B       |
+| `interactions` | ⏳ scaffolded | `press(node)`, `hover(node)`, `focus(node)` — React Aria–style normalized handlers | ≤ 500 B       |
+| `motion`       | ⏳ scaffolded | `prefersReducedMotion()`, `prefersContrast()`                                      | ≤ 500 B       |
+| `portal`       | ⏳ scaffolded | Svelte 5 portal abstraction (renders in a target node)                             | ≤ 500 B       |
 
 **API style:** plain functions or classes with `$state` fields where reactivity matters. No global registries.
 

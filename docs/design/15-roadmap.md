@@ -22,11 +22,11 @@ Deliverables:
 - ✅ Monorepo + pnpm workspace + catalog (this scaffolding).
 - ✅ CI workflow (build + test + size + publint + attw + agadoo).
 - ✅ Architecture decisions (ADRs) finalized.
-- 🟡 Layer 1: `focus-trap`, `dismissable`, `id` primitives — implemented + tested + published.
-- 🟡 `@kumiki/runtime` — minimal FSM runtime — implemented + tested.
-- 🟡 Toggle: all four layers (`machine-toggle`, `attachment-toggle`, `component-toggle`, optional `recipes-toggle` preview) — implemented + tested + published.
-- 🟡 SvelteKit docs site running locally with the Toggle component embedded.
-- 🟡 First publish to npm (under `0.0.x`).
+- ✅ Layer 1: `focus-trap`, `dismissable`, `id`, `collection` primitives — implemented + tested.
+- ✅ `@kumiki/runtime` — minimal FSM runtime — implemented + tested (15 tests).
+- ✅ Toggle: all four layers (`@kumiki/machines/toggle`, `@kumiki/headless/toggle`, `@kumiki/components/toggle`, `@kumiki/recipes/toggle` preview) — implemented + tested.
+- ✅ SvelteKit docs site running locally with the Toggle component embedded.
+- ⏳ First publish to npm — pending maintainer-coordinated release.
 
 Exit criteria:
 
@@ -40,11 +40,11 @@ Exit criteria:
 
 Deliverables:
 
-- 🟡 Combobox: all four layers — including `withAsyncSearch`, `withMultiSelect`, `withVirtualization`, `withValidation`.
-- 🟡 APG-driven keyboard test harness — reads `keyboard.yaml`, emits Playwright tests.
-- 🟡 `withX(withY(...))` composition end-to-end with type inference verified.
-- 🟡 Stately.ai visualizer integration — Combobox JSON loadable.
-- 🟡 Performance baseline measurement on Combobox.
+- ✅ Combobox: all four layers — including `withAsyncSearch`, `withMultiSelect`, `withVirtualization`, `withValidation`.
+- ✅ APG-driven keyboard test harness — reads `apps/docs/keyboard/<name>.kb.ts`, runs Playwright cases via `_harness.ts`.
+- ✅ `withX(withY(...))` composition end-to-end with type inference verified.
+- ✅ Stately.ai visualizer integration — Combobox JSON loadable via `toJSON()`.
+- ✅ Performance baseline measurement on Combobox (`pnpm bench`; 109 microbenchmarks total).
 
 Exit criteria:
 
@@ -58,12 +58,12 @@ Exit criteria:
 
 Deliverables:
 
-- 🟡 Per-component reference auto-generated from JSDoc + api-extractor + keyboard YAML.
-- 🟡 Bundle-size badges live, tied to size-limit output.
-- 🟡 `llms.txt` and `llms-full.txt` builders running on every release.
-- 🟡 Size comparison page (`apps/docs/sizes/`): Kumiki vs Bits UI vs Radix vs React Aria vs Zag, on a uniform scale.
-- 🟡 Search (Pagefind) live.
-- 🟡 Cloudflare Pages deploy automated on every `main` push.
+- ✅ Per-component reference auto-generated from JSDoc + api-extractor + typed `.kb.ts` keyboard contracts.
+- ✅ Bundle-size table at `/sizes` tied to size-limit output (`apps/docs/static/sizes.json`).
+- ✅ `llms.txt` and `llms-full.txt` builders (`apps/docs/scripts/build-llms-full.mjs`) — re-runnable on every release.
+- ⏳ Size comparison page: Kumiki vs Bits UI vs Radix vs React Aria vs Zag on a uniform scale (deferred — current `/sizes` covers Kumiki only).
+- ⏳ Search (Pagefind) — deferred.
+- ✅ Cloudflare Pages deploy automated on every `main` push (`docs.yml`).
 
 ## 15.5 Phase 1 — MVP (end of 2026)
 

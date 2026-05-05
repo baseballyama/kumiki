@@ -9,7 +9,7 @@ Specifically, no Svelte library today:
 - ships **per-locale subpath exports** for tree-shakeable i18n (React Aria does; `@kumiki/locale/ja` will);
 - runs **real screen-reader automation** (NVDA / VoiceOver) in CI (Melt UI runs `jest-axe`; React Aria publishes a manual SR matrix; nobody automates it on every PR);
 - uses **finite state machines** that can be inspected, exported to a visualizer, and tested independently of any framework (Zag does in the React/Vue/Solid worlds; nothing does it Svelte-natively);
-- enforces a **hard gzipped bundle budget** per component (per-package `size-limit` config gates every PR).
+- enforces a **hard brotli bundle budget** per subpath (per-package `size-limit` config gates every PR).
 
 **Kumiki's bet:** by combining all four into one Svelte 5 library, we make the design-system layer for ambitious Svelte teams a strictly better choice than mixing Bits UI + hand-rolled a11y plumbing + manual i18n.
 
@@ -36,7 +36,7 @@ The brief enumerates seven (A–G); restated here in priority order with the acc
 
 The headline number for users. Crystallized in [`09-bundle-budget.md`](09-bundle-budget.md).
 
-**Acceptance:** every Phase 1 component's Layer 4 gzipped size at v1.0 release is at or below the published budget. Combobox ≤ 4.5 KB, Dialog ≤ 3.5 KB, Toggle ≤ 1.5 KB. Verified by `size-limit` running in CI and by an independent reproduction in a fresh Vite project published with `apps/docs/sizes/`.
+**Acceptance:** every Phase 1 component's Layer 4 brotli size at v1.0 release is at or below the published budget. Combobox ≤ 4.5 KB, Dialog ≤ 3.5 KB, Toggle ≤ 1.5 KB. Verified by `size-limit` running in CI and surfaced on the docs site at `/sizes` (per-subpath table built from `apps/docs/static/sizes.json`).
 
 ### G2 — A11y depth
 
@@ -48,7 +48,7 @@ The hardest claim to verify and the highest-value differentiation. See [`05-acce
 
 Differentiation against Bits UI, Melt UI, and Headless UI. See [`06-i18n.md`](06-i18n.md).
 
-**Acceptance:** ten locales ship at v1.0; each loads ≤ 1 KB gzipped; RTL navigation tests pass for `ar` and `he`; Calendar/DatePicker (Phase 2) exports Gregorian, Islamic, Buddhist, Japanese, Hebrew calendars as separate dynamic imports.
+**Acceptance:** ten locales ship at v1.0; each loads ≤ 1 KB brotli; RTL navigation tests pass for `ar` and `he`; Calendar/DatePicker (Phase 2) exports Gregorian, Islamic, Buddhist, Japanese, Hebrew calendars as separate dynamic imports.
 
 ### G4 — State machines as the source of truth
 

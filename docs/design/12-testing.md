@@ -16,27 +16,23 @@ Lower layers are run on every PR; higher layers on a schedule (per [05-accessibi
 ## 12.2 Where each test lives
 
 ```
-packages/machine-combobox/
-  src/
-    index.ts
-    transitions.test.ts        ← Vitest, pure machine
-packages/attachment-combobox/
-  src/
-    index.ts
-    controller.svelte.ts
-    controller.test.svelte.ts  ← Vitest + jsdom; controller wiring
-packages/component-combobox/
-  src/
-    Root.svelte
-    Item.svelte
-    Listbox.svelte
-    component.test.svelte      ← Vitest + jsdom; minimal smoke
+packages/machines/src/combobox/
+  index.ts
+  transitions.test.ts          ← Vitest, pure machine
+packages/headless/src/combobox/
+  index.ts
+  attachment.test.ts           ← Vitest + jsdom; controller wiring
+packages/components/src/combobox/
+  Root.svelte
+  Item.svelte
+  Listbox.svelte
+  component.test.svelte.ts     ← Vitest + jsdom; minimal smoke
 apps/docs/
   tests/
     combobox.e2e.test.ts       ← Playwright, e2e
     combobox.a11y.test.ts      ← Playwright + axe
     combobox.sr.test.ts        ← Guidepup, scheduled
-    combobox.kb.test.ts        ← APG-driven keyboard test
+    keyboard/combobox.kb.test.ts ← APG-driven keyboard test
 ```
 
 The split keeps each kind of test fast and focused.
@@ -115,13 +111,13 @@ See [05-accessibility.md §5.3](05-accessibility.md#53-axe-core-in-ci-—-what-i
 
 ## 12.7 APG keyboard tests
 
-The keyboard test harness lives at `packages/tooling-keyboard-test/` (Phase 0c, internal). It:
+The keyboard test harness lives at `apps/docs/tests/keyboard/_harness.ts`. It:
 
-1. Reads `packages/component-<X>/keyboard.yaml`.
-2. Compares against the published APG keyboard table — fails CI if a row is missing.
-3. Emits Playwright tests that drive the sandbox page and assert state changes per row.
+1. Reads each component's typed contract at `apps/docs/keyboard/<name>.kb.ts` (e.g. `combobox.kb.ts`).
+2. Drives the matching `/sandbox/<name>` page in Playwright per case, asserting the state change declared by the contract row.
+3. Pairs with `pnpm apg:snapshot` (a separate scheduled workflow) which fetches the live APG Keyboard Interaction section per pattern and diffs it against `.apg-snapshots/`, opening a labeled issue if upstream drifts.
 
-Adding a new key in the APG → add to YAML → tests update automatically.
+Adding a key → add a case to the `.kb.ts` → tests update automatically.
 
 ## 12.8 Screen-reader tests (Guidepup)
 
