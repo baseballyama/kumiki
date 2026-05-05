@@ -203,7 +203,23 @@ Source: `packages/core/runtime/`
 
 ## @kumiki/types
 
-Shared TypeScript types: Snippet helpers, ARIA props, RTL types, validation result types.
+Shared TypeScript types — Standard Schema v1 contract used across Form Field, Combobox `withValidation`, and any other validator surface. Zero runtime cost.
+
+### Overview
+
+`@kumiki/types` — shared type-only definitions used across Kumiki layers.
+
+Zero runtime cost — every export is `type` or `interface`. Importing from
+here in your own code adds nothing to the bundle. Currently exposes the
+Standard Schema v1 contract that drives validation across Form Field,
+Combobox `withValidation`, and any other surface that takes a validator.
+
+@see https://standardschema.dev/
+
+### Exports
+
+- `StandardSchemaResult`
+- `StandardSchemaV1`
 
 Source: `packages/core/types/`
 

@@ -1,7 +1,7 @@
 {
   "name": "@kumiki/types",
   "version": "0.0.0",
-  "description": "Shared TypeScript types: Snippet helpers, ARIA props, RTL types, validation result types.",
+  "description": "Shared TypeScript types — Standard Schema v1 contract used across Form Field, Combobox `withValidation`, and any other validator surface. Zero runtime cost.",
   "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/core/types",
   "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
