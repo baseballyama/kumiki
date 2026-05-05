@@ -165,4 +165,8 @@ size-snapshot.json
 # direnv local cache (Nix dev shell)
 .direnv/
 
+# api-extractor's scratch directory; the committed report lives in etc/
+temp/
+**/temp/
+
 

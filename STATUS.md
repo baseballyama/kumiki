@@ -167,15 +167,15 @@ To preserve the user's "ガッチガチに品質保証" mandate, gaps are explic
 
 ### Phase 0c QA gaps still open
 
-| Item                                  | Status                                                                                                                                                                                                                   | Notes                                                                            |
-| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
-| **api-extractor reports** per package | Configs not generated. Dep is in catalog (`^7.58.7`); awaiting maintainer to wire `pnpm api:report` + per-package `api-extractor.json`                                                                                   | Locked-in via ADR 0011                                                           |
-| **TypeDoc reference site**            | Not configured. Deps in catalog; awaiting maintainer to wire entry-points + docs site integration                                                                                                                        | Locked-in via ADR 0011                                                           |
-| **Lighthouse CI**                     | Not configured; needs `@lhci/cli` dep                                                                                                                                                                                    | For docs site perf budget                                                        |
-| **APG diff-against-published**        | The harness is in; the scraper that diffs published APG tables isn't                                                                                                                                                     | Hand-transcribed contracts won't drift, but spec changes will go unnoticed       |
-| **Tree-shake regression tests**       | ✅ shipped (2026-05). `pnpm check:tree-shake` validates that every umbrella subpath consists of a single re-export (no cross-component leakage). Wired into `check:all` and `ci:health`.                                 |                                                                                  |
-| **Performance benchmarks**            | Not implemented                                                                                                                                                                                                          | Phase 0c stretch goal                                                            |
-| **Coverage gate aggregation**         | ✅ shipped (2026-05). `pnpm -w run coverage` runs vitest --coverage workspace-wide; `pnpm coverage:report` rolls per-file counters into one summary table. Not yet a CI gate (some Phase 1 thresholds are aspirational). | Last aggregate (54 pkgs): 88.2% stmts, 77.6% branches, 86.4% funcs, 88.2% lines. |
+| Item                                  | Status                                                                                                                                                                                                                                          | Notes                                                                            |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **api-extractor reports** per package | ✅ shipped (2026-05). `pnpm api:report` generates `<pkg>/etc/<unscoped>.api.md` for every Layer 1/2/3 package. `pnpm check:api-report` is wired into `check:all` and fails CI on drift. Layer 4/5 skipped (Svelte source — `attw` covers them). | Locked-in via ADR 0011                                                           |
+| **TypeDoc reference site**            | Not configured. Deps in catalog; awaiting maintainer to wire entry-points + docs site integration                                                                                                                                               | Locked-in via ADR 0011                                                           |
+| **Lighthouse CI**                     | Not configured; needs `@lhci/cli` dep                                                                                                                                                                                                           | For docs site perf budget                                                        |
+| **APG diff-against-published**        | The harness is in; the scraper that diffs published APG tables isn't                                                                                                                                                                            | Hand-transcribed contracts won't drift, but spec changes will go unnoticed       |
+| **Tree-shake regression tests**       | ✅ shipped (2026-05). `pnpm check:tree-shake` validates that every umbrella subpath consists of a single re-export (no cross-component leakage). Wired into `check:all` and `ci:health`.                                                        |                                                                                  |
+| **Performance benchmarks**            | Not implemented                                                                                                                                                                                                                                 | Phase 0c stretch goal                                                            |
+| **Coverage gate aggregation**         | ✅ shipped (2026-05). `pnpm -w run coverage` runs vitest --coverage workspace-wide; `pnpm coverage:report` rolls per-file counters into one summary table. Not yet a CI gate (some Phase 1 thresholds are aspirational).                        | Last aggregate (54 pkgs): 88.2% stmts, 77.6% branches, 86.4% funcs, 88.2% lines. |
 
 ### Phase 2 components — remaining
 
@@ -219,20 +219,17 @@ All four `with*` compositions shipped on `@kumiki/attachment-combobox`:
 
 ## Blocked
 
-The autonomous `/loop` run reached this state on 2026-05-05 after
-shipping Phase 1, Phase 2 (6/7), and Phase 0b (4/4) end-to-end.
-Remaining work needs maintainer-in-the-loop decisions:
+The autonomous `/loop` run, since revival on 2026-05-05, has now also
+shipped tree-shake regression, coverage aggregation, and api-extractor
+reports. Remaining items still need maintainer-in-the-loop input:
 
-| Item                            | Reason                                                                                         | What unblocks it                                                                                           |
-| ------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **Calendar / DatePicker**       | Need `@internationalized/date` runtime dep; CLAUDE.md forbids adding deps without confirmation | Maintainer adds the dep to the catalog and confirms the FSM design (Hijri / Buddhist calendar scope).      |
-| **api-extractor reports**       | Deps in catalog; configs not yet wired into `pnpm api:report` or `ci:health`                   | Maintainer confirms api-extractor's per-package report shape — minimum, recommended, "include all"?        |
-| **TypeDoc reference site**      | Deps in catalog; not yet integrated into apps/docs                                             | Maintainer confirms whether TypeDoc output should be served at `/api`, `/reference`, or as a sibling site. |
-| **Lighthouse CI**               | `@lhci/cli` not in catalog                                                                     | Maintainer adds the dep and confirms perf budgets per page.                                                |
-| **Tree-shake regression tests** | No dep needed; the verification harness is just lower priority than the items above            | Loop can pick this up on the next firing if maintainer wants it before the dep-blocked items.              |
-
-The loop has no further work it can advance without one of these
-inputs. Push notification sent.
+| Item                           | Reason                                                                                          | What unblocks it                                                                                           |
+| ------------------------------ | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Calendar / DatePicker**      | Need `@internationalized/date` runtime dep; CLAUDE.md forbids adding deps without confirmation. | Maintainer adds the dep to the catalog and confirms the FSM design (Hijri / Buddhist calendar scope).      |
+| **TypeDoc reference site**     | Deps in catalog; not yet integrated into apps/docs.                                             | Maintainer confirms whether TypeDoc output should be served at `/api`, `/reference`, or as a sibling site. |
+| **Lighthouse CI**              | `@lhci/cli` not in catalog.                                                                     | Maintainer adds the dep and confirms perf budgets per page.                                                |
+| **APG diff-against-published** | Implementation needs a small HTTP scraper + diff runner; lower priority than the above.         | Loop can pick this up on the next firing if maintainer wants it.                                           |
+| **Performance benchmarks**     | Phase 0c stretch goal; no dep blocker, just scope.                                              | Loop can pick this up on the next firing if maintainer wants it.                                           |
 
 ## How to resume
 
