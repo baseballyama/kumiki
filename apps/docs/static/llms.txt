@@ -2,15 +2,15 @@
 
 > Headless, composable, deeply accessible UI primitives for Svelte 5 — built on framework-agnostic state machines, with surgical bundle sizes.
 
-Kumiki is published as ~30 packages under the `@kumiki/*` scope. Each package targets a single Layer (1–5) and is independently versioned. Layers are described in `docs/design/02-architecture.md`.
+Kumiki ships as 9 layer-level packages under the `@kumiki/*` scope, with subpaths per component. The 5-layer architecture (described in `docs/design/02-architecture.md`) is preserved at the source level; the packaging is collapsed per [ADR 0012](/docs/design/16-decisions/0012-package-consolidation).
 
 ## Layers
 
-- Layer 1 (`@kumiki/primitives`, `@kumiki/locale`): framework-agnostic utilities and locale data.
-- Layer 2 (`@kumiki/runtime`, `@kumiki/machine-*`): pure-TS finite state machines. One package per component.
-- Layer 3 (`@kumiki/attachment-*`): Svelte 5 attachments (`{@attach}`) wrapping Layer 2.
-- Layer 4 (`@kumiki/component-*`): compound components (`Combobox.Root`, `Combobox.Item`, …).
-- Layer 5 (`@kumiki/recipes-*`, preview): styled, copy-paste templates. Preview during the v1.0 series.
+- Layer 1 (`@kumiki/primitives`, `@kumiki/locale`): framework-agnostic utilities and locale data, subpath per primitive / per language.
+- Layer 2 (`@kumiki/runtime` + `@kumiki/machines`): pure-TS finite state machines. `@kumiki/machines/<name>` for each component (toggle, combobox, dialog, …).
+- Layer 3 (`@kumiki/headless`): Svelte 5 attachments (`{@attach}`) wrapping Layer 2. `@kumiki/headless/<name>` per component plus `@kumiki/headless/combobox/with-{validation,async-search,multi-select,virtualization}` composition subpaths.
+- Layer 4 (`@kumiki/components`): compound Svelte components (`Combobox.Root`, `Combobox.Item`, …). Subpath per component plus a dot-namespace barrel at the root (`import { Toggle, Dialog } from '@kumiki/components'`).
+- Layer 5 (`@kumiki/recipes`, preview): styled, copy-paste templates. Preview during the v1.0 series.
 
 ## Core principles
 

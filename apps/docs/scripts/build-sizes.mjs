@@ -15,10 +15,11 @@
  *     "generatedAt": "ISO 8601",
  *     "packages": [
  *       {
- *         "package": "@kumiki/machine-toggle",
- *         "directory": "packages/components/toggle/machine",
+ *         "package": "@kumiki/machines",
+ *         "directory": "packages/machines",
  *         "entries": [
- *           { "name": "...", "size": 399, "sizeLimit": 500, "passed": true }
+ *           { "name": "machines/toggle (incremental)", "size": 399, "sizeLimit": 500, "passed": true },
+ *           { "name": "machines/combobox (incremental)", "size": 1156, "sizeLimit": 3000, "passed": true }
  *         ]
  *       }
  *     ]
@@ -63,9 +64,7 @@ for (const pkgPath of findPackageJsons(PACKAGES)) {
   if (!Array.isArray(pkg['size-limit']) || pkg['size-limit'].length === 0) continue;
   // Skip Layer 4 components and recipes — esbuild can't load `.svelte`
   // imports without the Svelte plugin (kept out of root).
-  if (pkg.name.startsWith('@kumiki/component-') || pkg.name.startsWith('@kumiki/recipes-')) {
-    continue;
-  }
+  if (pkg.name === '@kumiki/components' || pkg.name === '@kumiki/recipes') continue;
   const dir = dirname(pkgPath);
   const distEntry = join(dir, 'dist');
   if (!existsSync(distEntry)) {
