@@ -4,7 +4,7 @@ Instructions for Claude Code when working in this repo. Read this fully before a
 
 ## What is this project
 
-**Kumiki** — a headless, composable, deeply accessible UI primitive library for **Svelte 5 only**. ~30 packages under `@kumiki/*`. Architectural goals: per-component bundle budgets enforced in CI, framework-agnostic state machines, lazy-loaded i18n with non-Gregorian calendars, real screen-reader testing in CI.
+**Kumiki** — a headless, composable, deeply accessible UI primitive library for **Svelte 5 only**. **9 packages** under `@kumiki/*` (per-layer; see ADR 0012). Architectural goals: per-component bundle budgets enforced in CI, framework-agnostic state machines, lazy-loaded i18n with non-Gregorian calendars, real screen-reader testing in CI.
 
 **Status: pre-alpha.** Only design docs + package scaffolding exist. **No runtime implementation yet.** Phase 0a is the first implementation phase; see `docs/design/15-roadmap.md`.
 
@@ -33,19 +33,19 @@ The design is authoritative. Do not re-litigate decisions that already have an A
 
 These have been decided. If a future change requires rethinking one, write a new ADR that supersedes the old.
 
-| Decision                                                                        | Authority |
-| ------------------------------------------------------------------------------- | --------- |
-| Svelte 5 **only** (≥ 5.29 for `{@attach}`); no Svelte 4                         | ADR 0001  |
-| 37 packages: shared (4) + machine/attachment/component × 10 + recipes × 2 + cli | ADR 0002  |
-| Custom minimal FSM at `@kumiki/runtime` (~1 KB), **not XState v5**              | ADR 0003  |
-| Standard Schema only — no per-validator adapters                                | ADR 0004  |
-| Guidepup nightly (macOS-VoiceOver + Windows-NVDA), not per-PR                   | ADR 0005  |
-| Locale subpath exports `@kumiki/locale/<lang>`, lazy                            | ADR 0006  |
-| **`child` snippet replaces `asChild`** (Bits UI v2 pattern)                     | ADR 0007  |
-| **pnpm workspace only** — no Turborepo / Nx                                     | ADR 0008  |
-| **tsdown** for TS-only packages, **svelte-package** for `.svelte`               | ADR 0009  |
-| Layer 5 ships as **`0.x.x-preview`** during v1.0 series                         | ADR 0010  |
-| TypeDoc + api-extractor (both, different roles)                                 | ADR 0011  |
+| Decision                                                                                       | Authority            |
+| ---------------------------------------------------------------------------------------------- | -------------------- |
+| Svelte 5 **only** (≥ 5.29 for `{@attach}`); no Svelte 4                                        | ADR 0001             |
+| 9 packages: shared (4) + machines + headless + components + recipes + cli (subpaths/component) | ADR 0012 (sup. 0002) |
+| Custom minimal FSM at `@kumiki/runtime` (~1 KB), **not XState v5**                             | ADR 0003             |
+| Standard Schema only — no per-validator adapters                                               | ADR 0004             |
+| Guidepup nightly (macOS-VoiceOver + Windows-NVDA), not per-PR                                  | ADR 0005             |
+| Locale subpath exports `@kumiki/locale/<lang>`, lazy                                           | ADR 0006             |
+| **`child` snippet replaces `asChild`** (Bits UI v2 pattern)                                    | ADR 0007             |
+| **pnpm workspace only** — no Turborepo / Nx                                                    | ADR 0008             |
+| **tsdown** for TS-only packages, **svelte-package** for `.svelte`                              | ADR 0009             |
+| Layer 5 ships as **`0.x.x-preview`** during v1.0 series                                        | ADR 0010             |
+| TypeDoc + api-extractor (both, different roles)                                                | ADR 0011             |
 
 ## Repository layout
 
@@ -55,25 +55,30 @@ docs/design/                01-vision … 15-roadmap, 16-decisions/
 docs/components/            Per-component specs (_template.md, combobox.md)
 docs/market-research.md     User-supplied competitor research
 
-packages/                       37 packages, vertically sliced
-  core/
-    primitives/                 @kumiki/primitives — Layer 1 (subpath exports)
-    locale/                     @kumiki/locale — subpath per language
-    runtime/                    @kumiki/runtime — minimal FSM
-    types/                      @kumiki/types — shared TS types
-  components/                   one folder per component, all 3 layers co-located
-    {toggle,switch,checkbox,radio-group,tabs,dialog,tooltip,combobox,select,form-field}/
-      machine/                  @kumiki/machine-{X}     (Layer 2)
-      attachment/               @kumiki/attachment-{X}  (Layer 3)
-      component/                @kumiki/component-{X}   (Layer 4)
-  recipes/
-    toggle/                     @kumiki/recipes-toggle  (Layer 5 preview)
-    dialog/                     @kumiki/recipes-dialog  (Layer 5 preview)
-  tooling/
-    cli/                        @kumiki/cli — `kumiki add` binary
+packages/                       9 packages, layer-level
+  runtime/                      @kumiki/runtime — minimal FSM (single entry)
+  primitives/                   @kumiki/primitives — Layer 1 (subpath exports)
+  locale/                       @kumiki/locale — subpath per language
+  types/                        @kumiki/types — shared TS types
+  machines/                     @kumiki/machines — Layer 2, subpath per component
+    src/
+      <name>/index.ts           one subdir per component (toggle, combobox, …)
+  headless/                     @kumiki/headless — Layer 3, subpath per component
+    src/
+      <name>/index.ts           attachment factories; depends on @kumiki/machines
+  components/                   @kumiki/components — Layer 4, subpath + dot-namespace
+    src/
+      <name>/                   Svelte components (Root.svelte, …)
+      index.ts                  dot-namespace barrel: { Toggle, Dialog, … }
+  recipes/                      @kumiki/recipes — Layer 5 preview
+    src/
+      <name>/                   opinionated recipes
+  cli/                          @kumiki/cli — `kumiki add` binary
 
-# npm package names are flat (`@kumiki/machine-toggle`, not `@kumiki/components/toggle/machine`).
-# The vertical directory structure is for developer ergonomics, not the published surface.
+# Subpath imports are first-class:
+#   import { toggle } from '@kumiki/headless/toggle'
+#   import { Root, Trigger } from '@kumiki/components/toggle'
+#   import { Toggle } from '@kumiki/components'   // dot-namespace barrel
 
 apps/docs/                  SvelteKit docs site → Cloudflare Pages
 
@@ -121,16 +126,19 @@ Ship order from `15-roadmap.md`: **Toggle (Phase 0a) → Combobox (Phase 0b) →
 
 ## Bundle budgets (CI gate — never silently raise)
 
-| Package                      | gzip target |
-| ---------------------------- | ----------- |
-| `@kumiki/primitives/<each>`  | 500 B       |
-| `@kumiki/runtime`            | 1 KB        |
-| `@kumiki/machine-toggle`     | 800 B       |
-| `@kumiki/machine-combobox`   | 3 KB        |
-| `@kumiki/component-toggle`   | 1.5 KB      |
-| `@kumiki/component-dialog`   | 3.5 KB      |
-| `@kumiki/component-combobox` | 4.5 KB      |
-| `@kumiki/locale/<lang>`      | 1 KB        |
+Budgets are now enforced **per subpath**, not per package — one mega-
+package per layer, but each component subpath has its own budget.
+
+| Subpath                       | brotli target |
+| ----------------------------- | ------------- |
+| `@kumiki/primitives/<each>`   | 500 B         |
+| `@kumiki/runtime`             | 1 KB          |
+| `@kumiki/machines/toggle`     | 800 B         |
+| `@kumiki/machines/combobox`   | 3 KB          |
+| `@kumiki/components/toggle`   | 1.5 KB        |
+| `@kumiki/components/dialog`   | 3.5 KB        |
+| `@kumiki/components/combobox` | 4.5 KB        |
+| `@kumiki/locale/<lang>`       | 1 KB          |
 
 Full table: `docs/design/09-bundle-budget.md`. Adjusting a budget requires a new ADR with measurement evidence.
 
@@ -145,13 +153,14 @@ Full table: `docs/design/09-bundle-budget.md`. Adjusting a budget requires a new
 
 ## State machine convention
 
-Each `@kumiki/machine-*`:
+Each component subdir under `@kumiki/machines/src/<name>/`:
 
 - Pure TypeScript, **no `svelte` import**.
 - Uses `defineMachine` from `@kumiki/runtime`.
 - Exports `createXMachine(input)` returning `{ state, context, send, subscribe, toJSON }`.
 - Actions are **described as data** (`{ type: 'name', exec: fn }`) so `toJSON()` produces an XState-compatible config for [stately.ai/viz](https://stately.ai/viz).
 - Tests live next to source as `*.test.ts`, run in pure Vitest (no jsdom).
+- Surfaces as a subpath export: `import { createToggleMachine } from '@kumiki/machines/toggle'`.
 
 ## Code conventions
 
@@ -205,6 +214,26 @@ axe-core catches 30–40% of WCAG violations. The other 60% comes from APG keybo
 - Library code reads `direction` and `messages` from `LocaleProvider` context, never from globals.
 - Keyboard logic that depends on physical direction (Tabs `ArrowRight`, Slider) reads `direction` from machine context — RTL inversion lives in the machine, not the controller.
 - New strings touch all 10 locale files (`packages/locale/src/<lang>/index.ts`). CI verifies shape consistency.
+
+## Migration in progress (ADR 0012)
+
+The 37-package shape from ADR 0002 is being collapsed to 9 layer-level
+packages. During the migration:
+
+- **Old packages** (`@kumiki/machine-*`, `@kumiki/attachment-*`,
+  `@kumiki/component-*`, `@kumiki/recipes-*`, the auto-generated
+  `@kumiki/components` umbrella) are being deleted layer-by-layer.
+- **New packages** (`@kumiki/machines`, `@kumiki/headless`,
+  `@kumiki/components`, `@kumiki/recipes`) hold all components as
+  subpaths.
+- Cross-package imports inside the workspace migrate to the new shape
+  in the same commit that introduces each new package.
+- The `packages/meta/` umbrella + `scripts/build-meta-packages.mjs` +
+  `scripts/check-meta-drift.mjs` are removed once `@kumiki/components`
+  is first-class.
+
+If you hit a state where old and new packages coexist, prefer importing
+from the new shape and let the layer migration finish the cleanup.
 
 ## `references/` (competitor source as submodules)
 

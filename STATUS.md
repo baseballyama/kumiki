@@ -11,6 +11,11 @@ end-to-end (machine + attachment + component + sandbox + e2e + axe +
 Playground + APG keyboard contract). focus-trap + dismissable Layer 1
 primitives shipped.
 
+**Package consolidation in progress (ADR 0012).** Collapsing 37 packages
+to 9 layer-level packages with subpaths per component. Migration is
+phased: machines → headless → components → recipes. Old per-component
+packages are deleted once the new layer package is gate-green.
+
 **Phase 2 components shipped:** Slider, Accordion, NumberField, Popover,
 Toast, Menu — all six landed end-to-end. Menu ships single-level only
 (submenus deferred). Remaining Phase 2 work: Calendar / DatePicker —

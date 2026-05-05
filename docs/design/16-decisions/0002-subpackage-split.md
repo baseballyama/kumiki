@@ -1,7 +1,13 @@
 # ADR 0002 — Subpackage split per Layer × component
 
-**Status:** Accepted
+**Status:** Superseded by [ADR 0012](0012-package-consolidation.md) (2026-05)
 **Date:** 2026-05
+
+> The 37-package shape described below was the v1.0 plan. Six months of
+> implementation surfaced unacceptable scaffolding cost and install
+> ceremony; ADR 0012 collapses to 9 layer-level packages with subpaths
+> per component. Read this ADR for the historical reasoning; build
+> against ADR 0012.
 
 ## Context
 
