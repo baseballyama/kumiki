@@ -96,8 +96,9 @@ each contract under Playwright with a hydration sentinel.
 | NumberField |     6 | Arrow up/down, Page\*, Home/End                                  |
 | Popover     |     4 | Enter/Space open, Escape close (policy-gated)                    |
 | Menu        |     6 | Enter/Space/ArrowDown open, ArrowUp opens last, Escape/Tab close |
+| Toast       |     3 | Enter/Space on Add creates a toast, Enter on Close dismisses it  |
 
-Total: **73 keyboard cases** all green.
+Total: **76 keyboard cases** all green.
 
 ## Phase 0c QA artifacts
 

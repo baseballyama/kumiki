@@ -1,0 +1,7 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/alert/
+# kb: apps/docs/keyboard/toast.kb.ts
+
+Keyboard Interaction
+
+Not applicable.
