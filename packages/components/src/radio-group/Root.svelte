@@ -34,6 +34,8 @@
     onValueChange?: (value: V | null) => void;
     id?: string;
     children: Snippet;
+    /** Extra props (`class`, `style`, `data-*`, …) forwarded to the root element. */
+    [key: string]: unknown;
   };
 
   let {

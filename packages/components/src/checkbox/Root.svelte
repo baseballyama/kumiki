@@ -50,6 +50,8 @@
     id?: string;
     children?: Snippet;
     child?: Snippet<[payload: ChildPayload]>;
+    /** Extra props (`class`, `style`, `data-*`, …) forwarded to the root `<button>`. */
+    [key: string]: unknown;
   };
 
   let {
