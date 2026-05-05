@@ -64,15 +64,15 @@ tree-shakable subpaths (1.77 KB total optional surface).
 
 **Totals:** machines 340, headless 271, runtime 15, primitives 46 — **672 unit tests across 9 packages** (plus 73 APG keyboard cases in Playwright). **109 microbenchmarks** at `/bench`.
 
-| Shared package                   | Status                                   |
-| -------------------------------- | :--------------------------------------- |
-| `@kumiki/runtime`                | ✅ 15 tests, transition arrays supported |
-| `@kumiki/primitives/id`          | ✅ 4 tests, 174 B brotli ≤ 500 B budget  |
-| `@kumiki/primitives/collection`  | ✅ 20 tests, 369 B brotli ≤ 500 B budget |
-| `@kumiki/primitives/focus-trap`  | ✅ 12 tests, 434 B brotli ≤ 500 B budget |
-| `@kumiki/primitives/dismissable` | ✅ 10 tests, 295 B brotli ≤ 500 B budget |
-| `@kumiki/types`                  | placeholder (no exports yet)             |
-| `@kumiki/locale/<lang>`          | placeholders for 10 languages            |
+| Shared package                   | Status                                                 |
+| -------------------------------- | :----------------------------------------------------- |
+| `@kumiki/runtime`                | ✅ 15 tests, transition arrays supported               |
+| `@kumiki/primitives/id`          | ✅ 4 tests, 174 B brotli ≤ 500 B budget                |
+| `@kumiki/primitives/collection`  | ✅ 20 tests, 369 B brotli ≤ 500 B budget               |
+| `@kumiki/primitives/focus-trap`  | ✅ 12 tests, 434 B brotli ≤ 500 B budget               |
+| `@kumiki/primitives/dismissable` | ✅ 10 tests, 295 B brotli ≤ 500 B budget               |
+| `@kumiki/types`                  | ✅ exports `StandardSchemaV1` + `StandardSchemaResult` |
+| `@kumiki/locale/<lang>`          | placeholders for 10 languages                          |
 
 ## APG keyboard harness coverage
 
