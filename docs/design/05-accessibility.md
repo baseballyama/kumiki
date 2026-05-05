@@ -79,39 +79,33 @@ Disabled rules are documented per-component in their `.md` with rationale.
 
 ## 5.4 APG-driven keyboard tests
 
-The APG keyboard tables are HTML, not JSON. We transcribe each Phase 1 component's keyboard table into a structured YAML in the component's package:
+The APG keyboard tables are HTML, not JSON. We transcribe each component's keyboard table into a typed TypeScript contract under `apps/docs/keyboard/<name>.kb.ts`:
 
-```yaml
-# packages/component-combobox/keyboard.yaml
-component: combobox
-apg: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#keyboardinteraction
-on: input
-keys:
-  - key: ArrowDown
-    when: closed
-    expect:
-      open: true
-      focused: option-first
-  - key: ArrowDown
-    when: open
-    expect:
-      focused: option-next
-  - key: Enter
-    when: open && hasFocusedOption
-    expect:
-      selected: focused-option
-      open: false
-  - key: Escape
-    when: open
-    expect:
-      open: false
-      focused: input
-  # ... entire APG keyboard table
+```ts
+// apps/docs/keyboard/combobox.kb.ts (excerpt)
+import type { KeyboardContract } from '../tests/keyboard/_harness.js';
+
+export const comboboxKeyboardContract: KeyboardContract = {
+  component: 'combobox',
+  apg: 'https://www.w3.org/WAI/ARIA/apg/patterns/combobox/',
+  sandbox: '/sandbox/combobox',
+  hydrationSelector: '[data-testid="combobox-host"] ul[role="listbox"]',
+  cases: [
+    {
+      name: 'ArrowDown on closed input opens the listbox',
+      focus: '[role="combobox"]',
+      press: 'ArrowDown',
+      expect: [
+        { selector: 'ul[role="listbox"]', visible: true },
+        { selector: '[role="combobox"]', attribute: 'aria-expanded', value: 'true' },
+      ],
+    },
+    // ...one case per APG keyboard row
+  ],
+};
 ```
 
-A Vitest harness in Phase 0c reads this YAML and emits test cases against the running Combobox in Playwright. Adding a key the APG documents but the YAML omits → CI failure (the harness diffs against the published APG table at build time using a small scraper).
-
-The harness lives in `packages/tooling-keyboard-test/` (Phase 0c) — not shipped to npm.
+A Playwright harness at `apps/docs/tests/keyboard/_harness.ts` walks each case, applies the prelude key sequence, presses the test key, and asserts the declared expectations against the live `/sandbox/<name>` page. A separate weekly job (`pnpm apg:snapshot` → `.github/workflows/scheduled-apg-drift.yml`) fetches each APG URL, snapshots the published Keyboard Interaction section to `apps/docs/keyboard/.apg-snapshots/`, and opens a labeled issue if upstream drifts.
 
 ## 5.5 Screen-reader automation (Guidepup)
 

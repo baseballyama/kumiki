@@ -154,6 +154,6 @@ if ($props().virtualize) cb = withVirtualization(cb, { itemHeight: 32 });
 
 ## 11.9 Open questions
 
-- **TBD:** Does composition order matter for correctness? E.g., `withMultiSelect(withVirtualization(...))` vs the reverse. Tests in `packages/attachment-combobox/composition.test.ts` (Phase 0b) will pin this down.
+- **TBD:** Does composition order matter for correctness? E.g., `withMultiSelect(withVirtualization(...))` vs the reverse. Each `with-*` ships unit tests at `packages/headless/src/combobox/with-*/<name>.test.ts`, but a dedicated cross-composition order matrix is still open — Phase 0b sandboxed each composition individually rather than against every other.
 - **TBD:** Whether `withValidation` should be Layer 4-only. Current design: works at Layer 3 too, since the form story is mature there. Re-evaluate based on real usage.
 - **TBD:** Whether to expose a `compose(...)` helper that's just function composition. Lean: no — explicit `withX(withY(...))` is clearer.

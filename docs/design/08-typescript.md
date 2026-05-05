@@ -225,20 +225,25 @@ Internal types (e.g. `XStateNode`) are not exported. We use `./private/*: null` 
 
 ## 8.9 API report and breaking-change detection
 
-`@microsoft/api-extractor` runs per package in CI ([12-testing.md](12-testing.md)):
+`@microsoft/api-extractor` runs per Layer 1/2/3 package in CI ([12-testing.md](12-testing.md)). Layer 4/5 (Svelte source) are skipped — `attw` covers them via `pnpm ci:health`.
 
 ```jsonc
-// packages/component-combobox/api-extractor.json
+// packages/machines/api-extractor.json
 {
   "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
-  "mainEntryPointFilePath": "<projectFolder>/dist/index.d.ts",
-  "apiReport": { "enabled": true, "reportFolder": "./api/" },
+  "mainEntryPointFilePath": "<projectFolder>/dist/index.d.mts",
+  "apiReport": {
+    "enabled": true,
+    "reportFolder": "<projectFolder>/etc/",
+    "reportFileName": "<unscopedPackageName>.api.md",
+  },
   "docModel": { "enabled": false },
+  "dtsRollup": { "enabled": false },
   "tsdocMetadata": { "enabled": false },
 }
 ```
 
-Each PR that changes a public type updates the corresponding `api/<pkg>.api.md` file. Reviewers see a line-level diff of the public surface — no surprise type changes.
+Each PR that changes a public type updates the corresponding `<pkg>/etc/<unscoped>.api.md` file. Reviewers see a line-level diff of the public surface — no surprise type changes. `pnpm check:api-report` is wired into `check:all` and fails CI on drift.
 
 **Caveat:** api-extractor's d.ts rollup is per-entry-point, and Svelte's namespace-component re-exports have edge cases ([sveltejs/svelte#12785](https://github.com/sveltejs/svelte/issues/12785)). We work around by exporting each `Combobox.Root`, `Combobox.Item` as an additional named export for api-extractor's benefit.
 

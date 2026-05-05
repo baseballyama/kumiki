@@ -158,7 +158,7 @@ git checkout -b feat/combobox-async
 # ... make changes ...
 pnpm test && pnpm typecheck
 pnpm changeset                 # creates .changeset/<random>.md
-git add . && git commit -m 'feat(machine-combobox): async fetcher'
+git add . && git commit -m 'feat(combobox): async fetcher'
 git push --set-upstream origin feat/combobox-async
 gh pr create
 ```
