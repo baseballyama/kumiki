@@ -18,8 +18,9 @@ blocked on `@internationalized/date` dep approval.
 
 **Phase 0c QA gates in flight:** APG keyboard harness ✅, llms-full.txt
 builder ✅, sizes.json + /sizes route ✅, per-component reference docs ✅
-(Phase 1 + Phase 2). Bundle budgets tightened to measured + 12% buffer
-(2026-05).
+(Phase 1 + Phase 2), api-extractor surface reports ✅, tree-shake check ✅,
+coverage aggregation ✅, TypeDoc markdown reference ✅. Bundle budgets
+tightened to measured + 12% buffer (2026-05).
 
 **Tooling migration (2026-05):** ESLint → oxlint, Prettier → oxfmt for
 non-Svelte files (Svelte stays on prettier-plugin-svelte until oxfmt's
@@ -104,8 +105,8 @@ Total: **73 keyboard cases** all green.
 
 | Gate                      | What it catches                             | Where defined                         |
 | ------------------------- | ------------------------------------------- | ------------------------------------- |
-| `pnpm format:check`       | Prettier formatting                         | `.prettierrc`                         |
-| `pnpm lint`               | ESLint flat config across TS / Svelte       | `eslint.config.js`                    |
+| `pnpm format:check`       | oxfmt (TS/JS) + Prettier (Svelte)           | `.oxfmtrc.json` + `.prettierrc`       |
+| `pnpm lint`               | oxlint correctness/suspicious as error      | `.oxlintrc.json`                      |
 | `pnpm typecheck`          | TS strict + svelte-check                    | per-package `tsconfig.json`           |
 | `pnpm check:layering`     | Layer N depending on Layer >N               | `scripts/check-layering.mjs`          |
 | `pnpm check:locale-shape` | locale files diverging in shape             | `scripts/check-locale-shape.mjs`      |
@@ -144,7 +145,7 @@ All workflows in `.github/workflows/`:
 
 ## Git hooks (lefthook)
 
-- **pre-commit**: format check, eslint, layering check, locale-shape check.
+- **pre-commit**: oxfmt + Prettier (Svelte), oxlint, layering check, locale-shape check.
 - **pre-push**: typecheck, test, full ci:health.
 
 Auto-installed via `pnpm install` (root `prepare` script).
@@ -167,15 +168,15 @@ To preserve the user's "ガッチガチに品質保証" mandate, gaps are explic
 
 ### Phase 0c QA gaps still open
 
-| Item                                  | Status                                                                                                                                                                                                                                          | Notes                                                                            |
-| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| **api-extractor reports** per package | ✅ shipped (2026-05). `pnpm api:report` generates `<pkg>/etc/<unscoped>.api.md` for every Layer 1/2/3 package. `pnpm check:api-report` is wired into `check:all` and fails CI on drift. Layer 4/5 skipped (Svelte source — `attw` covers them). | Locked-in via ADR 0011                                                           |
-| **TypeDoc reference site**            | Not configured. Deps in catalog; awaiting maintainer to wire entry-points + docs site integration                                                                                                                                               | Locked-in via ADR 0011                                                           |
-| **Lighthouse CI**                     | Not configured; needs `@lhci/cli` dep                                                                                                                                                                                                           | For docs site perf budget                                                        |
-| **APG diff-against-published**        | The harness is in; the scraper that diffs published APG tables isn't                                                                                                                                                                            | Hand-transcribed contracts won't drift, but spec changes will go unnoticed       |
-| **Tree-shake regression tests**       | ✅ shipped (2026-05). `pnpm check:tree-shake` validates that every umbrella subpath consists of a single re-export (no cross-component leakage). Wired into `check:all` and `ci:health`.                                                        |                                                                                  |
-| **Performance benchmarks**            | Not implemented                                                                                                                                                                                                                                 | Phase 0c stretch goal                                                            |
-| **Coverage gate aggregation**         | ✅ shipped (2026-05). `pnpm -w run coverage` runs vitest --coverage workspace-wide; `pnpm coverage:report` rolls per-file counters into one summary table. Not yet a CI gate (some Phase 1 thresholds are aspirational).                        | Last aggregate (54 pkgs): 88.2% stmts, 77.6% branches, 86.4% funcs, 88.2% lines. |
+| Item                                  | Status                                                                                                                                                                                                                                                                                                     | Notes                                                                            |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **api-extractor reports** per package | ✅ shipped (2026-05). `pnpm api:report` generates `<pkg>/etc/<unscoped>.api.md` for every Layer 1/2/3 package. `pnpm check:api-report` is wired into `check:all` and fails CI on drift. Layer 4/5 skipped (Svelte source — `attw` covers them).                                                            | Locked-in via ADR 0011                                                           |
+| **TypeDoc reference site**            | ✅ shipped (2026-05). `pnpm typedoc` generates per-package markdown under `docs/api/` (40 entry points, one file per package). `tsconfig.typedoc.json` excludes tests + tooling. `docs/api/` is gitignored — built on demand for the docs site. Custom `@when-to-use` / `@anti-pattern` block tags render. | Locked-in via ADR 0011                                                           |
+| **Lighthouse CI**                     | Not configured; needs `@lhci/cli` dep                                                                                                                                                                                                                                                                      | For docs site perf budget                                                        |
+| **APG diff-against-published**        | The harness is in; the scraper that diffs published APG tables isn't                                                                                                                                                                                                                                       | Hand-transcribed contracts won't drift, but spec changes will go unnoticed       |
+| **Tree-shake regression tests**       | ✅ shipped (2026-05). `pnpm check:tree-shake` validates that every umbrella subpath consists of a single re-export (no cross-component leakage). Wired into `check:all` and `ci:health`.                                                                                                                   |                                                                                  |
+| **Performance benchmarks**            | Not implemented                                                                                                                                                                                                                                                                                            | Phase 0c stretch goal                                                            |
+| **Coverage gate aggregation**         | ✅ shipped (2026-05). `pnpm -w run coverage` runs vitest --coverage workspace-wide; `pnpm coverage:report` rolls per-file counters into one summary table. Not yet a CI gate (some Phase 1 thresholds are aspirational).                                                                                   | Last aggregate (54 pkgs): 88.2% stmts, 77.6% branches, 86.4% funcs, 88.2% lines. |
 
 ### Phase 2 components — remaining
 
@@ -215,21 +216,22 @@ All four `with*` compositions shipped on `@kumiki/attachment-combobox`:
 
 5. **Reference submodule `react-spectrum` is 217 MB shallow.** Anyone cloning the repo with `--recurse-submodules` pays the cost. The `update = none` setting in `.gitmodules` plus `submodules: false` in CI means it's opt-in.
 
-6. **Phase 0c needs new devDeps.** `@microsoft/api-extractor`, `typedoc`, `@lhci/cli` are awaiting maintainer dep approval per CLAUDE.md "Things to NOT do without confirmation".
+6. **Phase 0c devDeps.** `@microsoft/api-extractor` ✅ wired. `typedoc` + `typedoc-plugin-markdown` ✅ wired. Only `@lhci/cli` is still awaiting maintainer dep approval.
 
 ## Blocked
 
 The autonomous `/loop` run, since revival on 2026-05-05, has now also
-shipped tree-shake regression, coverage aggregation, and api-extractor
-reports. Remaining items still need maintainer-in-the-loop input:
+shipped tree-shake regression, coverage aggregation, api-extractor
+reports, and TypeDoc markdown reference. Remaining items still need
+maintainer-in-the-loop input:
 
-| Item                           | Reason                                                                                          | What unblocks it                                                                                           |
-| ------------------------------ | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **Calendar / DatePicker**      | Need `@internationalized/date` runtime dep; CLAUDE.md forbids adding deps without confirmation. | Maintainer adds the dep to the catalog and confirms the FSM design (Hijri / Buddhist calendar scope).      |
-| **TypeDoc reference site**     | Deps in catalog; not yet integrated into apps/docs.                                             | Maintainer confirms whether TypeDoc output should be served at `/api`, `/reference`, or as a sibling site. |
-| **Lighthouse CI**              | `@lhci/cli` not in catalog.                                                                     | Maintainer adds the dep and confirms perf budgets per page.                                                |
-| **APG diff-against-published** | Implementation needs a small HTTP scraper + diff runner; lower priority than the above.         | Loop can pick this up on the next firing if maintainer wants it.                                           |
-| **Performance benchmarks**     | Phase 0c stretch goal; no dep blocker, just scope.                                              | Loop can pick this up on the next firing if maintainer wants it.                                           |
+| Item                           | Reason                                                                                                                      | What unblocks it                                                                                           |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Calendar / DatePicker**      | Need `@internationalized/date` runtime dep; CLAUDE.md forbids adding deps without confirmation.                             | Maintainer adds the dep to the catalog and confirms the FSM design (Hijri / Buddhist calendar scope).      |
+| **TypeDoc → docs site route**  | TypeDoc generation ✅. Not yet wired into a SvelteKit `/api` route — needs maintainer call on URL shape and sidebar layout. | Maintainer confirms whether TypeDoc output should be served at `/api`, `/reference`, or as a sibling site. |
+| **Lighthouse CI**              | `@lhci/cli` not in catalog.                                                                                                 | Maintainer adds the dep and confirms perf budgets per page.                                                |
+| **APG diff-against-published** | Implementation needs a small HTTP scraper + diff runner; lower priority than the above.                                     | Loop can pick this up on the next firing if maintainer wants it.                                           |
+| **Performance benchmarks**     | Phase 0c stretch goal; no dep blocker, just scope.                                                                          | Loop can pick this up on the next firing if maintainer wants it.                                           |
 
 ## How to resume
 
