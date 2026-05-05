@@ -1,15 +1,15 @@
 {
-  "name": "@kumiki/recipes-toggle",
-  "version": "0.0.0",
-  "description": "Layer 5 preview: styled toggle templates. Published as 0.x.x-preview during the v1.0 series.",
-  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/recipes/toggle",
+  "name": "@kumiki/recipes",
+  "version": "0.0.0-preview.0",
+  "description": "Layer 5 preview — opinionated, styled recipe templates built on top of @kumiki/components. Ships under the `preview` dist-tag during the v1.0 series.",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/recipes",
   "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
   "author": "Yuichiro Yamashita",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/baseballyama/kumiki.git",
-    "directory": "packages/recipes/toggle"
+    "directory": "packages/recipes"
   },
   "files": [
     "dist",
@@ -27,30 +27,38 @@
       "svelte": "./dist/index.js",
       "import": "./dist/index.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./toggle": {
+      "types": "./dist/toggle/index.d.ts",
+      "svelte": "./dist/toggle/index.js",
+      "import": "./dist/toggle/index.js"
+    },
+    "./dialog": {
+      "types": "./dist/dialog/index.d.ts",
+      "svelte": "./dist/dialog/index.js",
+      "import": "./dist/dialog/index.js"
+    }
   },
   "publishConfig": {
     "access": "public",
-    "provenance": true
+    "provenance": true,
+    "tag": "preview"
   },
   "scripts": {
     "build": "svelte-package -i src -o dist && publint",
     "dev": "svelte-package -i src -o dist --watch",
     "test": "vitest run --passWithNoTests",
-    "test:watch": "vitest",
     "typecheck": "svelte-check --tsconfig ./tsconfig.json",
     "lint": "oxlint src",
-    "size": "size-limit",
     "clean": "rm -rf dist"
   },
   "dependencies": {
     "@kumiki/components": "workspace:*"
   },
   "devDependencies": {
-    "@size-limit/preset-small-lib": "catalog:",
     "@sveltejs/package": "catalog:",
+    "@sveltejs/vite-plugin-svelte": "catalog:",
     "publint": "catalog:",
-    "size-limit": "catalog:",
     "svelte": "catalog:",
     "svelte-check": "catalog:",
     "typescript": "catalog:",
@@ -58,12 +66,5 @@
   },
   "peerDependencies": {
     "svelte": "catalog:"
-  },
-  "size-limit": [
-    {
-      "name": "default",
-      "path": "dist/index.js",
-      "limit": "6 KB"
-    }
-  ]
+  }
 }

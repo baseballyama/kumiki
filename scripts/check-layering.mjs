@@ -35,18 +35,14 @@ function* findPackageJsons(dir) {
   }
 }
 
-/** Map a package name to its Layer (0–5). See ADR 0012 for the new shape. */
+/** Map a package name to its Layer (0–5). ADR 0012 shape. */
 function layerOf(pkgName) {
   if (pkgName === '@kumiki/types') return 0;
   if (pkgName === '@kumiki/primitives' || pkgName === '@kumiki/locale') return 1;
   if (pkgName === '@kumiki/runtime') return 2;
   if (pkgName === '@kumiki/machines') return 2;
-  if (pkgName.startsWith('@kumiki/machine-')) return 2; // legacy, removed in ADR 0012
   if (pkgName === '@kumiki/headless') return 3;
-  if (pkgName.startsWith('@kumiki/attachment-')) return 3; // legacy, removed in ADR 0012
-  if (pkgName.startsWith('@kumiki/component-')) return 4; // legacy, removed in ADR 0012
   if (pkgName === '@kumiki/components') return 4;
-  if (pkgName.startsWith('@kumiki/recipes-')) return 5; // legacy, removed in ADR 0012
   if (pkgName === '@kumiki/recipes') return 5;
   if (pkgName === '@kumiki/cli') return 5; // tooling, treated as Layer 5
   if (pkgName === '@kumiki/docs') return 5; // app

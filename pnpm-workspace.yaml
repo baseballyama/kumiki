@@ -1,14 +1,10 @@
 packages:
-  # Vertical slicing — see docs/design/03-package-structure.md.
-  # ADR 0012 is collapsing per-component packages into per-layer packages
-  # (machines, headless, components, recipes); during the migration both
-  # the old per-component slices and the new layer packages coexist.
+  # Per-layer packages, one folder per layer (ADR 0012).
   - 'packages/core/*'
   - 'packages/machines'
   - 'packages/headless'
   - 'packages/components'
-  - 'packages/recipes/*'
-  - 'packages/meta/*'
+  - 'packages/recipes'
   - 'packages/tooling/*'
   - 'apps/*'
 
