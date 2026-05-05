@@ -18,32 +18,11 @@
 
 import type { ComboboxController } from '../index.js';
 import type { ComboboxOption } from '@kumiki/machines/combobox';
+import type { StandardSchemaV1, StandardSchemaResult } from '@kumiki/types';
 
-/**
- * Subset of the Standard Schema v1 type surface we depend on. Standard
- * Schema is a TYPE contract, not a runtime dependency — see form-field
- * for the same shape.
- */
-export interface StandardSchemaV1<Input = unknown, Output = Input> {
-  readonly '~standard': {
-    readonly version: 1;
-    readonly vendor: string;
-    readonly validate: (
-      value: unknown,
-    ) => StandardSchemaResult<Output> | Promise<StandardSchemaResult<Output>>;
-  };
-  // Phantom for input type narrowing.
-  readonly _input?: Input;
-}
-
-export type StandardSchemaResult<Output> =
-  | { readonly value: Output; readonly issues?: undefined }
-  | {
-      readonly issues: ReadonlyArray<{
-        readonly message: string;
-        readonly path?: ReadonlyArray<PropertyKey>;
-      }>;
-    };
+// Re-export so existing callers importing from this subpath keep working.
+// Canonical definition lives in `@kumiki/types`.
+export type { StandardSchemaV1, StandardSchemaResult };
 
 export type ValidationState = 'pristine' | 'validating' | 'valid' | 'invalid';
 
