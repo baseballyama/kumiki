@@ -86,7 +86,7 @@ jobs:
       - name: agadoo (tree-shake check)
         run: pnpm agadoo
 
-      - name: size-limit (gzip budget)
+      - name: size-limit (brotli budget)
         # Compares against main and posts a comment on PRs.
         uses: andresz1/size-limit-action@v1
         with:
