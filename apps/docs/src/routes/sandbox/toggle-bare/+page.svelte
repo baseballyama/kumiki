@@ -5,7 +5,7 @@
   // is in Root.svelte; otherwise it's in attachment-toggle or upstream.
   import { createToggle } from '@kumiki/headless/toggle';
 
-  const t = createToggle({ initial: false, onPressedChange: (v) => console.log('changed:', v) });
+  const t = createToggle({ initial: false, onPressedChange: (v) => console.info('changed:', v) });
 </script>
 
 <button data-testid="bare-toggle" type="button" {@attach t.root}>{t.pressed ? 'On' : 'Off'}</button>
