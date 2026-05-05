@@ -1,9 +1,12 @@
 # @kumiki/locale
 
-> Dynamically importable locale data.
+> Locale message data — dynamically importable per language. Each language ≤ 1 KB brotli target.
 
-**Layer:** Layer 1 (data)
-**Status:** scaffolding only — no runtime code yet. See [docs/design.md](../../docs/design.md).
+**Layer:** Layer 1 (data).
+
+> **Status:** placeholders for 10 languages (`en`, `ja`, `zh-Hans`,
+> `zh-Hant`, `ko`, `es`, `fr`, `de`, `ar`, `he`). Real strings populate
+> as components and components-with-strings ship.
 
 ## Install
 
@@ -11,6 +14,44 @@
 pnpm add @kumiki/locale
 ```
 
-## Usage
+## Use
 
-API will land in Phase 0/1. Track progress in [docs/design/15-roadmap.md](../../docs/design/15-roadmap.md).
+Static import per language:
+
+```ts
+import { messages } from '@kumiki/locale/ja';
+```
+
+Dynamic import based on the user's language:
+
+```ts
+const lang = await detectLocale(); // 'ja'
+const { messages } = await import(`@kumiki/locale/${lang}`);
+```
+
+The dynamic-import form depends on Vite's static analysis of the
+template literal — only literal language codes that appear in the
+package's `exports` field are bundled.
+
+## Languages at v1.0
+
+| Subpath                  | Language     | Direction |
+| ------------------------ | ------------ | --------- |
+| `@kumiki/locale/en`      | English      | LTR       |
+| `@kumiki/locale/ja`      | 日本語       | LTR       |
+| `@kumiki/locale/zh-Hans` | 中文（简体） | LTR       |
+| `@kumiki/locale/zh-Hant` | 中文（繁體） | LTR       |
+| `@kumiki/locale/ko`      | 한국어       | LTR       |
+| `@kumiki/locale/es`      | Español      | LTR       |
+| `@kumiki/locale/fr`      | Français     | LTR       |
+| `@kumiki/locale/de`      | Deutsch      | LTR       |
+| `@kumiki/locale/ar`      | العربية      | RTL       |
+| `@kumiki/locale/he`      | עברית        | RTL       |
+
+A `pnpm check:locale-shape` CI gate verifies every language exports
+the same key set.
+
+## See also
+
+- [`docs/design/06-i18n.md`](../../../docs/design/06-i18n.md) — i18n + RTL design.
+- [ADR 0006](../../../docs/design/16-decisions/0006-locale-data-distribution.md) — locale data distribution decision.
