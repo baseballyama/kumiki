@@ -1,5 +1,9 @@
 # 09 — Bundle Budget
 
+> **Updated for [ADR 0012](16-decisions/0012-package-consolidation.md).** Budgets are enforced **per subpath** of the new layer packages — `@kumiki/machines/<name>`, `@kumiki/headless/<name>`, etc. — rather than per-package. The numbers below are what the user pays when importing a single subpath.
+>
+> All numbers are **brotli** (not gzip). `size-limit` v12 measures brotli by default; brotli is what edges actually serve.
+
 ## 9.1 Why the budget is a hard CI gate
 
 Bundle size is the single number a user feels every time they ship. It is the most-cited reason teams pick Bits UI over `react-spectrum/react-aria-components` (at 5.6 MB unpacked, RAC alarms many) and the most-cited reason Headless UI loses to Radix on richness. Kumiki's competitive position on bundle size **is the design**, not a refinement.
@@ -17,59 +21,103 @@ The competitor numbers we benchmark against, taken from the user's market resear
 
 Notes on the table:
 
-- These are _gzipped, post-tree-shake_ numbers from a Vite library build importing the named subpath. Methodology is described in §9.6.
-- Kumiki targets a budget tighter than Radix and Zag. We do not promise to beat Bits UI, which has chosen to ship monolithic and so technically benefits from intra-component dedupe; what we promise is that the _user's_ gzipped chunk for a given component is ≤ the budget.
+- The Kumiki target is **gzipped, post-tree-shake** for direct comparison; our internal gates measure brotli, which is typically ~10–15% smaller. Methodology in §9.6.
+- Kumiki targets a budget tighter than Radix and Zag. We do not promise to beat Bits UI, which has chosen to ship monolithic and so technically benefits from intra-component dedupe; what we promise is that the _user's_ chunk for a given component is ≤ the budget.
 
-## 9.2 Component-level budgets (Phase 1)
+## 9.2 Per-subpath budgets (Phase 1)
 
-Per package, gzipped, measured by `size-limit` with `@size-limit/preset-small-lib`:
+All numbers brotli, measured by `size-limit` with `@size-limit/preset-small-lib`.
 
-### Layer 2 — `@kumiki/machine-*`
+The "incremental" column is the cost of importing **one more component** when the foundations (`@kumiki/runtime`, `@kumiki/primitives/*`) are already in the consumer's bundle from a previous component on the same page. This is the typical case and what the CI gate enforces.
 
-| Machine               | Budget | Notes                                                |
-| --------------------- | ------ | ---------------------------------------------------- |
-| `machine-toggle`      | 800 B  | Two states; small.                                   |
-| `machine-switch`      | 800 B  | Same shape as toggle.                                |
-| `machine-checkbox`    | 900 B  | + `mixed` state.                                     |
-| `machine-radio-group` | 1200 B | Roving tabindex via `@kumiki/primitives/collection`. |
-| `machine-tabs`        | 1500 B | Manual + automatic activation modes.                 |
-| `machine-tooltip`     | 1500 B | Open/close delays; `prefers-reduced-motion`.         |
-| `machine-dialog`      | 1800 B | Focus management, dismissable, scroll-lock signals.  |
-| `machine-form-field`  | 2000 B | Validation race tokens, errors lifecycle.            |
-| `machine-select`      | 2500 B | Listbox + popover combination.                       |
-| `machine-combobox`    | 3000 B | Filtering + async + listbox + popover.               |
+### `@kumiki/machines/<name>` — Layer 2
 
-### Layer 3 — `@kumiki/attachment-*`
+Pure-TS FSMs. No DOM, no Svelte. Tested with `environment: 'node'`.
 
-Each attachment package's budget = the matching machine budget + ~500–1500 B for Svelte controller and attachment factories. The Layer 4 budget below absorbs Layer 3 entirely; Layer 3 numbers apply only to users importing Layer 3 directly.
+| Subpath                         | Incremental | Notes                                                |
+| ------------------------------- | ----------- | ---------------------------------------------------- |
+| `@kumiki/machines/toggle`       | 500 B       | Two states; small.                                   |
+| `@kumiki/machines/switch`       | 500 B       | Same shape as toggle.                                |
+| `@kumiki/machines/checkbox`     | 600 B       | + `mixed` state.                                     |
+| `@kumiki/machines/dialog`       | 800 B       | Focus-restore + dismissable policy hooks.            |
+| `@kumiki/machines/tooltip`      | 800 B       | Open/close delays; `prefers-reduced-motion`.         |
+| `@kumiki/machines/accordion`    | 1 kB        | Multi-region open + collection.                      |
+| `@kumiki/machines/form-field`   | 1 kB        | Validation race tokens, errors lifecycle.            |
+| `@kumiki/machines/radio-group`  | 1 kB        | Roving tabindex via `@kumiki/primitives/collection`. |
+| `@kumiki/machines/slider`       | 1.2 kB      | Single-thumb numeric slider.                         |
+| `@kumiki/machines/tabs`         | 1.2 kB      | Manual + automatic activation modes.                 |
+| `@kumiki/machines/toast`        | 1.2 kB      | Per-toast lifecycle inside the toaster.              |
+| `@kumiki/machines/number-field` | 1.2 kB      | Step / page / clamp logic.                           |
+| `@kumiki/machines/menu`         | 1.5 kB      | Single-level menu (submenus deferred).               |
+| `@kumiki/machines/popover`      | 1.5 kB      | Non-modal disclosure.                                |
+| `@kumiki/machines/select`       | 1.5 kB      | Listbox + popover combination.                       |
+| `@kumiki/machines/combobox`     | 3 kB        | Filtering + async + listbox + popover.               |
 
-### Layer 4 — `@kumiki/component-*` (composite — what end-users see)
+### `@kumiki/headless/<name>` — Layer 3
 
-The Layer 4 budget is what a typical SvelteKit consumer's gzipped chunk grows by when they `import * as Combobox from '@kumiki/component-combobox'` and use the entire compound API.
+Svelte 5 attachments wrapping the machines. `peerDependencies: { svelte }`. Tested with `environment: 'jsdom'`.
 
-| Component               | Budget | Status                           |
-| ----------------------- | ------ | -------------------------------- |
-| `component-toggle`      | 1500 B |                                  |
-| `component-switch`      | 1500 B |                                  |
-| `component-checkbox`    | 1500 B |                                  |
-| `component-radio-group` | 2000 B |                                  |
-| `component-tabs`        | 2500 B |                                  |
-| `component-tooltip`     | 3500 B | + Floating UI peer dep amortized |
-| `component-dialog`      | 3500 B |                                  |
-| `component-form-field`  | 3000 B |                                  |
-| `component-select`      | 4500 B | + Floating UI peer dep amortized |
-| `component-combobox`    | 4500 B | + Floating UI peer dep amortized |
+| Subpath                                         | Incremental | Notes                                               |
+| ----------------------------------------------- | ----------- | --------------------------------------------------- |
+| `@kumiki/headless/toggle`                       | 750 B       |                                                     |
+| `@kumiki/headless/switch`                       | 750 B       |                                                     |
+| `@kumiki/headless/checkbox`                     | 850 B       |                                                     |
+| `@kumiki/headless/tooltip`                      | 1 kB        |                                                     |
+| `@kumiki/headless/radio-group`                  | 1.2 kB      |                                                     |
+| `@kumiki/headless/dialog`                       | 1.4 kB      | + focus-trap + dismissable primitives.              |
+| `@kumiki/headless/accordion`                    | 1.4 kB      |                                                     |
+| `@kumiki/headless/form-field`                   | 1.5 kB      | + race-token guarding for async validators.         |
+| `@kumiki/headless/select`                       | 1.5 kB      | + Floating UI peer dep amortized.                   |
+| `@kumiki/headless/slider`                       | 1.5 kB      |                                                     |
+| `@kumiki/headless/tabs`                         | 1.5 kB      |                                                     |
+| `@kumiki/headless/popover`                      | 1.5 kB      | + Floating UI peer dep amortized.                   |
+| `@kumiki/headless/number-field`                 | 1.5 kB      |                                                     |
+| `@kumiki/headless/toast`                        | 1.5 kB      |                                                     |
+| `@kumiki/headless/menu`                         | 1.7 kB      |                                                     |
+| `@kumiki/headless/combobox`                     | 1.7 kB      | + Floating UI peer dep amortized.                   |
+| `@kumiki/headless/combobox/with-validation`     | 750 B       | Standard Schema validator wrapper.                  |
+| `@kumiki/headless/combobox/with-async-search`   | 750 B       | Abort-aware fetcher; reuses FETCH.\* token protocol |
+| `@kumiki/headless/combobox/with-multi-select`   | 750 B       | `selected: T[]` + toggle/selectAll/clear.           |
+| `@kumiki/headless/combobox/with-virtualization` | 750 B       | Fixed-row windowing.                                |
 
-### Layer 5 — `@kumiki/recipes-*` (preview)
+### `@kumiki/components/<name>` — Layer 4
 
-| Recipe           | Budget | Notes                                                           |
-| ---------------- | ------ | --------------------------------------------------------------- |
-| `recipes-toggle` | 6 KB   | Includes Tailwind v4 utility-class strings + scoped CSS variant |
-| `recipes-dialog` | 6 KB   | Same shape                                                      |
+Compound Svelte components. **Not gated by `size-limit`**: svelte-package emits `.svelte` files for the consumer's bundler to compile, and esbuild (the engine behind `@size-limit/preset-small-lib`) cannot load `.svelte`. Layer 4 size enforcement is therefore indirect:
 
-These are larger because they include styles. We don't apologize: that's the value proposition of recipes.
+1. **Layer 3 budgets above** cap the Svelte-runtime-free behavioral surface.
+2. **Lighthouse CI on `apps/docs`** (Phase 0c) catches regressions in real per-page bundle size.
 
-### Layer 1 — `@kumiki/primitives` (per subpath)
+Realistic Layer 4 brotli targets (informational, not gated):
+
+| Subpath                           | Target | Status                           |
+| --------------------------------- | ------ | -------------------------------- |
+| `@kumiki/components/toggle`       | 1.5 kB |                                  |
+| `@kumiki/components/switch`       | 1.5 kB |                                  |
+| `@kumiki/components/checkbox`     | 1.5 kB |                                  |
+| `@kumiki/components/radio-group`  | 2 kB   |                                  |
+| `@kumiki/components/tabs`         | 2.5 kB |                                  |
+| `@kumiki/components/tooltip`      | 2 kB   | + Floating UI peer dep amortized |
+| `@kumiki/components/dialog`       | 3.5 kB |                                  |
+| `@kumiki/components/form-field`   | 2 kB   |                                  |
+| `@kumiki/components/select`       | 3 kB   | + Floating UI peer dep amortized |
+| `@kumiki/components/combobox`     | 4.5 kB | + Floating UI peer dep amortized |
+| `@kumiki/components/accordion`    | 2 kB   |                                  |
+| `@kumiki/components/slider`       | 2 kB   |                                  |
+| `@kumiki/components/number-field` | 2.5 kB |                                  |
+| `@kumiki/components/popover`      | 2.5 kB |                                  |
+| `@kumiki/components/toast`        | 3 kB   |                                  |
+| `@kumiki/components/menu`         | 3 kB   |                                  |
+
+### `@kumiki/recipes/<name>` — Layer 5 preview
+
+| Subpath                  | Target | Notes                                                           |
+| ------------------------ | ------ | --------------------------------------------------------------- |
+| `@kumiki/recipes/toggle` | 6 KB   | Includes Tailwind v4 utility-class strings + scoped CSS variant |
+| `@kumiki/recipes/dialog` | 6 KB   | Same shape                                                      |
+
+These are larger because they include styles. We don't apologize: that's the value proposition of recipes. Same Layer-4 svelte-package caveat: these are targets, not gated.
+
+### `@kumiki/primitives/<each>` — Layer 1
 
 | Subpath        | Budget | Notes                                                        |
 | -------------- | ------ | ------------------------------------------------------------ |
@@ -83,58 +131,63 @@ These are larger because they include styles. We don't apologize: that's the val
 | `motion`       | 500 B  | prefers-reduced-motion / contrast                            |
 | `portal`       | 500 B  | render in target node                                        |
 
-Full barrel `@kumiki/primitives` (everything) ≤ 3 KB.
+Full barrel `@kumiki/primitives` (everything imported) ≤ 3 KB.
 
-### `@kumiki/locale/*`
+### `@kumiki/locale/<lang>`
 
 | Per language                                                         | Budget    | Notes                           |
 | -------------------------------------------------------------------- | --------- | ------------------------------- |
 | `en`, `ja`, `zh-Hans`, `zh-Hant`, `ko`, `es`, `fr`, `de`, `ar`, `he` | 1 KB each | Strings + plural-rule callbacks |
 
-### `@kumiki/runtime`
+### `@kumiki/runtime` and `@kumiki/types`
 
-|             | Budget       |
-| ----------- | ------------ |
-| FSM runtime | 1 KB gzipped |
-
-### `@kumiki/types`
-
-|                             | Budget                       |
-| --------------------------- | ---------------------------- |
-| Shared types (zero runtime) | 300 B (only ambient/`.d.ts`) |
+|                              | Budget                       |
+| ---------------------------- | ---------------------------- |
+| `@kumiki/runtime` (FSM core) | 1 KB                         |
+| `@kumiki/types`              | 300 B (only ambient/`.d.ts`) |
 
 ## 9.3 How budgets are enforced
 
-`size-limit` runs in CI on every PR. The configuration lives in each package's `package.json`:
+`size-limit` runs in CI on every PR. Configuration lives in each layer package's `package.json`, with one entry per subpath:
 
 ```json
 "size-limit": [
-  { "name": "default", "path": "dist/index.js", "limit": "3500 B" }
+  {
+    "name": "machines/toggle (incremental)",
+    "path": "dist/toggle/index.mjs",
+    "limit": "500 B",
+    "ignore": ["@kumiki/runtime", "@kumiki/primitives"]
+  },
+  {
+    "name": "machines/combobox (incremental)",
+    "path": "dist/combobox/index.mjs",
+    "limit": "3 kB",
+    "ignore": ["@kumiki/runtime", "@kumiki/primitives"]
+  }
 ]
 ```
 
-Multi-entry packages (e.g., `@kumiki/primitives`) configure one entry per subpath:
+The `ignore` array marks workspace-internal foundations as already
+present, so the number measures only the per-component cost.
 
-```json
-"size-limit": [
-  { "name": "focus-trap", "path": "dist/focus-trap/index.js", "limit": "500 B" },
-  { "name": "dismissable", "path": "dist/dismissable/index.js", "limit": "500 B" },
-  // …
-  { "name": "full", "path": "dist/index.js", "limit": "3 KB" }
-]
-```
+`size-limit` runs once per package; the GitHub Action
+`andresz1/size-limit-action` posts a comment summarizing changes per PR.
 
-`size-limit` runs once per package; the GitHub Action `andresz1/size-limit-action` posts a comment summarizing changes per PR.
+**Going over budget = CI failure, no merge.** No `--ignore` flags
+allowed on the `size-limit` invocation itself.
 
-**Going over budget = CI failure, no merge.** No `--ignore` allowed.
+`@kumiki/components` and `@kumiki/recipes` are **excluded** from `pnpm
+size`, `pnpm attw`, and `pnpm agadoo` because svelte-package emits
+`.svelte` files that those tools' esbuild loader cannot read. Those
+two packages still pass `pnpm publint` and svelte-check.
 
 ## 9.4 Scaling pressure: what we do when a component starts to overflow
 
-When a component's measurement creeps within 10% of its budget, the response is, in priority order:
+When a subpath's measurement creeps within 10% of its budget, the response is, in priority order:
 
 1. **Find dead code.** Recheck `agadoo`. Often a polyfill or a debug helper has snuck in.
 2. **Inline a primitive vs depending on it.** If a 50-byte usage of `@kumiki/primitives/dismissable` brings 150 bytes of import overhead, inline.
-3. **Extract a `with*`** for the bloating feature. If async support inside Combobox costs 1 KB and 60% of users don't want it, ship it as `withAsyncSearch` ([11-composition.md](11-composition.md)) and lower the base.
+3. **Extract a `with*`** for the bloating feature. If async support inside Combobox costs 1 KB and 60% of users don't want it, ship it as `@kumiki/headless/combobox/with-async-search` ([11-composition.md](11-composition.md)) and lower the base.
 4. **Adjust the budget**, only after (1)–(3) have been exhausted, and only with an ADR documenting the new number and why.
 
 ## 9.5 Pre-1.0 expectation
@@ -150,8 +203,10 @@ The budget number is "what the user sees" — i.e. what gets included in their b
 `size-limit` with `@size-limit/preset-small-lib`:
 
 - Bundles the entry with esbuild in production mode.
-- Marks `peerDependencies` external (so `svelte` is not included in the measurement).
-- Gzips the result and reports the number.
+- Marks `peerDependencies` external (so `svelte` and `@floating-ui/dom` are not included in the measurement).
+- Brotlies the result and reports the number.
+
+The "incremental" budget is computed by listing workspace-internal peers in the `ignore` array, modeling the case where another component has already paid for them on the same page.
 
 ### Tree-shake check
 
@@ -162,22 +217,22 @@ In addition to `size-limit`, we run a **tree-shake regression test** in `apps/do
 import { test, expect } from 'vitest';
 import { build } from 'vite';
 
-test('Combobox.Root only pulls Layer 4 + machines for combobox', async () => {
+test('Combobox.Root only pulls combobox-related machines/headless code', async () => {
   const result = await build({
     build: {
       lib: { entry: './fixture-combobox.svelte', formats: ['es'] },
       // ...
     },
   });
-  // assert no 'machine-dialog' or 'machine-tabs' content in the output bundle
+  // assert no 'machines/dialog' or 'machines/tabs' content in the output bundle
 });
 ```
 
-This catches accidental cross-component imports (e.g., `import { focusTrap } from '@kumiki/component-dialog/internals'`).
+This catches accidental cross-component imports (e.g., a `dialog` subpath unintentionally pulling `tabs` machine code).
 
 ### `agadoo` for `sideEffects: false` honesty
 
-`agadoo` rolls up `pkg.module` and reports any side-effects the bundler can detect. CI rejects.
+`agadoo` rolls up `pkg.module` and reports any side-effects the bundler can detect. CI rejects. Skipped for `@kumiki/components` and `@kumiki/recipes` per §9.3.
 
 ## 9.7 What the budget does not include
 
@@ -187,7 +242,7 @@ This catches accidental cross-component imports (e.g., `import { focusTrap } fro
 - User application styles.
 - Layer 5 recipe CSS for users that copy-paste recipes.
 
-This means: a real-world page using `@kumiki/component-combobox` adds _only_ the budget number above to its JS chunk, _plus_ whatever Floating UI was already included.
+This means: a real-world page using `@kumiki/components/combobox` adds _only_ the Layer 4 target above to its JS chunk, _plus_ whatever Floating UI was already included.
 
 ## 9.8 Why these budgets, not stricter
 
@@ -208,6 +263,7 @@ Filling this in becomes a Phase 0c deliverable. At v1.0 we publish a `apps/docs/
 
 ## 9.10 Open questions
 
-- **TBD:** Should `size-limit` also check per-entry **brotli** sizes? Brotli is what edges actually serve. Adds complexity. Lean: yes, in Phase 0c, alongside gzip.
-- **TBD:** Are the `1 KB / locale` budgets achievable for languages with longer messages (e.g., German, French)? May need to revisit. Likely OK because the message set is tiny (~10 strings).
+- **Resolved:** brotli measurement was made the default in 2026-05 with the move to size-limit v12. Gzip numbers in §9.1's competitor table are kept for like-for-like comparison.
+- **TBD:** Are the `1 KB / locale` budgets achievable for languages with longer messages (e.g., German, French)? Likely OK because the message set is tiny (~10 strings), but worth a Phase 0c verification.
+- **Open:** Should size-limit gain a `.svelte` loader so Layer 4 budgets become first-class CI gates instead of indirect (Lighthouse + Layer 3)? Tracked as a Phase 0c stretch goal.
 - **TBD:** Whether to publish a `kumiki-bundle-report.json` per release for downstream tooling (e.g., bundlephobia ingestion).
