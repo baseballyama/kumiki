@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["packages/**/src/**/*.ts"],
+  "exclude": [
+    "**/node_modules",
+    "**/dist",
+    "**/.svelte-kit",
+    "references",
+    "**/*.test.ts",
+    "**/*.test.svelte.ts",
+    "**/*.svelte",
+    "packages/tooling/**"
+  ]
+}

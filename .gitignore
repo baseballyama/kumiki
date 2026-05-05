@@ -169,4 +169,7 @@ size-snapshot.json
 temp/
 **/temp/
 
+# TypeDoc generated markdown — built on demand for the docs site, not committed.
+docs/api/
+
 

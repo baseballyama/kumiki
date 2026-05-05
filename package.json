@@ -37,6 +37,7 @@
     "check:tree-shake": "node scripts/check-tree-shake.mjs",
     "check:api-report": "node scripts/run-api-extractor.mjs --check",
     "api:report": "node scripts/run-api-extractor.mjs",
+    "typedoc": "typedoc",
     "gen:meta": "node scripts/build-meta-packages.mjs",
     "build:llms-full": "node apps/docs/scripts/build-llms-full.mjs",
     "build:sizes": "node apps/docs/scripts/build-sizes.mjs",
@@ -60,6 +61,8 @@
     "prettier-plugin-svelte": "catalog:",
     "publint": "catalog:",
     "size-limit": "catalog:",
+    "typedoc": "catalog:",
+    "typedoc-plugin-markdown": "catalog:",
     "typescript": "catalog:"
   },
   "engines": {
