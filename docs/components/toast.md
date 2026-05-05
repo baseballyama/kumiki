@@ -40,6 +40,19 @@ Toast.Toaster               (owns the queue + controller; one per app)
 | `politeness`      | `'polite'` → `role="status"` (default); `'assertive'` → `role="alert"`. |
 | `type`            | `'info' / 'success' / 'warning' / 'error'` painted as `data-type`.      |
 
+## Keyboard
+
+Toasts themselves don't capture focus — they're announced by screen
+readers via the live region. The interactive surface is the per-toast
+`Close` button (a native `<button>`):
+
+| Key             | Focus on           | Effect                |
+| --------------- | ------------------ | --------------------- |
+| `Tab`           | (anywhere on page) | Tab into Close button |
+| `Enter` / Space | `Toast.Close`      | Dismiss the toast     |
+
+Test contract: [`apps/docs/keyboard/toast.kb.ts`](../../apps/docs/keyboard/toast.kb.ts) (3 cases).
+
 ## ARIA
 
 | Element    | Role               | aria-\* attributes                                                                   |

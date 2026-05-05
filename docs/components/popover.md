@@ -2,11 +2,11 @@
 
 > Click-anchored non-modal disclosure. Opens to a `role="dialog"` panel; Escape and outside-click dismiss (both gated by policy flags). Focus moves into the content on open and returns to the trigger on close.
 
-| Field                               | Value                                                                  |
-| ----------------------------------- | ---------------------------------------------------------------------- |
-| **APG pattern**                     | [Dialog (non-modal)](https://www.w3.org/WAI/ARIA/apg/patterns/dialog/) |
-| **Bundle (Layer 4 target, brotli)** | `2.5 kB` brotli (informational)                                        |
-| **Status**                          | `preview` (Phase 2)                                                    |
+| Field                               | Value                                                                                                                  |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **APG pattern**                     | [Disclosure](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/) (APG has no dedicated popover pattern; closest fit) |
+| **Bundle (Layer 4 target, brotli)** | `2.5 kB` brotli (informational)                                                                                        |
+| **Status**                          | `preview` (Phase 2)                                                                                                    |
 
 ## Anatomy
 
@@ -23,7 +23,7 @@ Popover differs from Dialog in being **non-modal**: focus is not trapped, the pa
 
 ## Keyboard
 
-Source: [APG Dialog keyboard interaction](https://www.w3.org/WAI/ARIA/apg/patterns/dialog/#keyboardinteraction). See [`apps/docs/keyboard/popover.kb.ts`](../../apps/docs/keyboard/popover.kb.ts).
+Source: [APG Disclosure keyboard interaction](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/#keyboardinteraction). See [`apps/docs/keyboard/popover.kb.ts`](../../apps/docs/keyboard/popover.kb.ts).
 
 | Key               | When       | Effect                                             |
 | ----------------- | ---------- | -------------------------------------------------- |
