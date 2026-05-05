@@ -70,37 +70,37 @@ ARIA wiring derived from state:
 | valid             | `false`        | id of help text                              | —                                                              |
 | invalid           | `true`         | id of help text + id of error                | First error announced via assertive live region (configurable) |
 
-## 7.4 Field API (Layer 4)
+## 7.4 FormField API (Layer 4)
 
 ```svelte
 <script lang="ts">
-  import { Field } from '@kumiki/components/form-field';
+  import { FormField } from '@kumiki/components';
   import { z } from 'zod';
 
   const schema = z.string().email('Enter a valid email');
   let email = $state('');
 </script>
 
-<Field.Root name="email" validator={schema} bind:value={email}>
-  <Field.Label>Email</Field.Label>
-  <Field.Input type="email" />
-  <Field.Description>We'll only contact you about your account.</Field.Description>
-  <Field.ErrorMessage />
-</Field.Root>
+<FormField.Root name="email" validator={schema} bind:value={email}>
+  <FormField.Label>Email</FormField.Label>
+  <FormField.Input type="email" />
+  <FormField.Description>We'll only contact you about your account.</FormField.Description>
+  <FormField.Errors />
+</FormField.Root>
 ```
 
-- `Field.Root` owns the machine, exposes context.
-- `Field.Label` renders a `<label>` with the right `for=`.
-- `Field.Input` is the actual input. Its `aria-invalid`, `aria-describedby`, and `id` are computed.
-- `Field.Description` renders help text, registers its id.
-- `Field.ErrorMessage` renders only when state is `invalid`. Multiple errors render as a list.
+- `FormField.Root` owns the machine, exposes context.
+- `FormField.Label` renders a `<label>` with the right `for=`.
+- `FormField.Input` is the actual input. Its `aria-invalid`, `aria-describedby`, and `id` are computed.
+- `FormField.Description` renders help text, registers its id.
+- `FormField.Errors` renders only when state is `invalid`. Multiple errors render as a list.
 
 **The user does not pass any `id`s manually.** The Root provides them via context.
 
 ### Validation timing
 
 ```svelte
-<Field.Root validator={schema} validateOn={['blur', 'submit']}>
+<FormField.Root validator={schema} validateOn={['blur', 'submit']}>
 ```
 
 - `change` — every keystroke.
@@ -116,26 +116,26 @@ Used for radio groups, checkbox groups, and address-style multi-input fields:
 ```svelte
 <FieldGroup.Root name="shippingAddress" validator={addressSchema}>
   <FieldGroup.Legend>Shipping address</FieldGroup.Legend>
-  <Field.Root name="line1">
-    <Field.Label>Line 1</Field.Label>
-    <Field.Input />
-  </Field.Root>
-  <Field.Root name="postcode">
-    <Field.Label>Postcode</Field.Label>
-    <Field.Input />
-  </Field.Root>
+  <FormField.Root name="line1">
+    <FormField.Label>Line 1</FormField.Label>
+    <FormField.Input />
+  </FormField.Root>
+  <FormField.Root name="postcode">
+    <FormField.Label>Postcode</FormField.Label>
+    <FormField.Input />
+  </FormField.Root>
   <FieldGroup.ErrorMessage />
 </FieldGroup.Root>
 ```
 
-The group's `validator` validates the combined object. Inner `Field.Root` instances may have their own validators for per-field rules.
+The group's `validator` validates the combined object. Inner `FormField.Root` instances may have their own validators for per-field rules.
 
 ## 7.6 Form (top-level orchestrator)
 
 ```svelte
 <Form.Root onsubmit={handleSubmit}>
-  <Field.Root ...>...</Field.Root>
-  <Field.Root ...>...</Field.Root>
+  <FormField.Root ...>...</FormField.Root>
+  <FormField.Root ...>...</FormField.Root>
   <Form.Submit>Save</Form.Submit>
 </Form.Root>
 ```
@@ -164,7 +164,7 @@ async function handleSubmit({ values, setErrors }) {
 
 ## 7.7 Composing validation — `withValidation`
 
-For headless layouts where the user doesn't want `Field.Root` (e.g., custom DOM, Layer 3 builders), `withValidation` wraps an attachment:
+For headless layouts where the user doesn't want `FormField.Root` (e.g., custom DOM, Layer 3 builders), `withValidation` wraps an attachment:
 
 ```ts
 import { createCombobox } from '@kumiki/headless/combobox';
