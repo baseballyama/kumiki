@@ -16,7 +16,7 @@
     "build": "pnpm -r --filter='@kumiki/*' run build",
     "build:docs": "pnpm --filter='@kumiki/docs' run build",
     "test": "pnpm -r run test",
-    "bench": "pnpm -r --filter='@kumiki/runtime' --filter='@kumiki/machines' run bench",
+    "bench": "pnpm -r --filter='@kumiki/runtime' --filter='@kumiki/primitives' --filter='@kumiki/machines' run bench",
     "coverage": "pnpm -r --filter='@kumiki/*' --filter='!@kumiki/components' --filter='!@kumiki/recipes' --filter='!@kumiki/cli' --filter='!@kumiki/docs' exec vitest run --passWithNoTests --coverage --coverage.thresholds.lines=0 --coverage.thresholds.branches=0 --coverage.thresholds.functions=0 --coverage.thresholds.statements=0",
     "coverage:report": "node scripts/aggregate-coverage.mjs",
     "test:e2e": "pnpm --filter='@kumiki/docs' run test:e2e",
