@@ -114,10 +114,10 @@ Auto-generated, much larger. Contains:
 - The complete public API surface (one TypeScript declaration per export, with full JSDoc).
 - The "When to use" / "Anti-pattern" / "APG link" annotations from JSDoc.
 - The machine config JSON for each component (the `toJSON()` output).
-- The keyboard YAML for each component.
+- The keyboard contract for each component (typed `.kb.ts` declaration).
 - Versioned per release.
 
-Source-of-truth: each package's `dist/index.d.ts` plus its `keyboard.yaml`. The build script `apps/docs/scripts/build-llms-full.ts` (Phase 0c) compiles them.
+Source-of-truth: each package's `dist/index.d.ts` plus the per-component `apps/docs/keyboard/<name>.kb.ts`. The build script `apps/docs/scripts/build-llms-full.mjs` (Phase 0c) compiles them.
 
 ### Cloudflare headers
 
@@ -152,9 +152,9 @@ These tags are picked up by:
 Two tools, two purposes:
 
 - **TypeDoc** (with `typedoc-plugin-markdown`) generates a _readable reference_ for humans. Per-package, embedded into the SvelteKit docs site.
-- **api-extractor** generates an _API report_ (`api/<pkg>.api.md` per package). PRs that change public types update the report; reviewers see a line-level diff. This is the breaking-change detection mechanism.
+- **api-extractor** generates an _API report_ at `<pkg>/etc/<unscoped>.api.md` for every Layer 1/2/3 package. PRs that change public types update the report; reviewers see a line-level diff. This is the breaking-change detection mechanism. Layer 4/5 (Svelte source) are skipped — `attw` covers them via `pnpm ci:health`.
 
-The two are complementary: TypeDoc renders the docs people read; api-extractor enforces the SemVer contract. See [16-decisions/0011-typedoc-and-api-extractor.md](16-decisions/0011-typedoc-and-api-extractor.md) (TBD if this needs an ADR; covered in §10.3 of the design tools choice).
+The two are complementary: TypeDoc renders the docs people read; api-extractor enforces the SemVer contract. Decision recorded in [ADR 0011](16-decisions/0011-typedoc-and-api-extractor.md).
 
 ## 13.8 Dev playground
 
