@@ -37,20 +37,22 @@ work just done. The prompt is at the bottom of this file — copy verbatim.
 
 ## What gets done
 
-The loop walks the priority list **in order**, stopping when blocked or when
-all priorities are exhausted:
+Phase 1 (10 components), Phase 2 (6 of 7 — Calendar/DatePicker blocked
+on `@internationalized/date` dep), Phase 0b composition (4 of 4), and
+the actionable Phase 0c QA gates have all shipped. Most firings now
+land in **idle / cleanup** mode.
 
-1. **Phase 1 components remaining** — Checkbox, RadioGroup, Tabs, Dialog,
-   Tooltip, Select, Field/Form. Each lands as machine + attachment +
-   component + sandbox + e2e + axe + Playground demo, mirroring the proven
-   Toggle / Switch / Combobox template.
-2. **Phase 0c QA gates** — APG-driven keyboard test harness, per-package
-   `api-extractor.json`, TypeDoc, `llms-full.txt` builder, Lighthouse CI on
-   the docs site.
-3. **Phase 2 components** — Calendar, DatePicker, NumberField, Slider, Menu,
-   Accordion, Popover, Toast.
-4. **Phase 0b deferred composition** — `withValidation`, `withAsyncSearch`,
-   `withMultiSelect`, `withVirtualization` on Combobox.
+The loop walks the priority list **in order**, stopping when blocked or
+when all priorities are exhausted:
+
+1. **Cleanup + drift fixes** — keep STATUS.md, design docs, and code
+   in sync as the maintainer pushes hotfixes between firings.
+2. **Phase 0c stretch goals** that don't need maintainer dep approval —
+   bench coverage extension, design doc rewrites, prop-forwarding gaps.
+3. **Phase 2 / Phase 0c blockers** — Calendar/DatePicker
+   (`@internationalized/date` dep), Lighthouse CI (`@lhci/cli` dep),
+   TypeDoc → docs-site `/api` route. Loop **does not** pick these up
+   without maintainer input.
 
 ## Stop conditions
 
@@ -94,17 +96,15 @@ START EVERY FIRING WITH:
 3. Run `pnpm install` if pnpm-lock.yaml changed.
 
 PICK THE NEXT SMALLEST END-TO-END DELIVERABLE in this priority order:
-A. Phase 1 components remaining (in order):
-   - Checkbox (machine.context.checked: 'true' | 'false' | 'mixed')
-   - RadioGroup (roving tabindex via @kumiki/primitives/collection — implement that primitive too if needed)
-   - Tabs (manual + automatic activation, RTL keyboard inversion, orientation)
-   - Dialog (focus-trap + dismissable primitives, role=dialog, aria-modal, inert background)
-   - Tooltip (open/close delays, prefers-reduced-motion, Floating UI peer)
-   - Select (Combobox without free-text input)
-   - Field/Form (Standard Schema validator, aria-invalid / aria-describedby / live-region wiring, race-token guarding for async)
-B. Phase 0c QA gates: APG keyboard test harness reading keyboard.yaml, api-extractor.json per package, TypeDoc + typedoc-plugin-markdown integration into the docs site, llms-full.txt builder script at apps/docs/scripts/build-llms-full.ts, Lighthouse CI on docs.
-C. Phase 2 components: Calendar / DatePicker (via @internationalized/date), NumberField, Slider, Menu, Accordion, Popover, Toast.
-D. Phase 0b deferred composition: withValidation / withAsyncSearch / withMultiSelect / withVirtualization on Combobox.
+A. Cleanup / drift fixes — anything STATUS.md, design docs, or source got out of sync since the last firing. Audit `grep -rE "@kumiki/(machine-|attachment-|component-|recipes-)"` for stale ADR-0002-shape references; check the per-component test counts in STATUS match reality; verify benches.json, sizes.json, llms-full.txt are fresh.
+B. Phase 0c stretch goals (no dep blocker): performance benchmarks (`pnpm bench`), bench coverage extension, source / docs polish, lint warning hygiene.
+C. **Maintainer-blocked items** — DO NOT pick these up without explicit direction:
+   - Calendar / DatePicker (`@internationalized/date` runtime dep)
+   - Lighthouse CI (`@lhci/cli` dev dep)
+   - TypeDoc → SvelteKit `/api` route (URL shape + sidebar layout call)
+
+   Phase 1 (10 components) + Phase 2 (6 of 7) + Phase 0b composition (4 of 4)
+   are all complete. Don't re-implement work that's already shipped.
 
 PER COMPONENT (the proven Toggle / Switch / Combobox loop):
 1. machine: pure-TS FSM, /* @__PURE__ */ on factory, tests with ≥15 cases including async race / disabled / keyboard / boundary, vitest.config.ts with coverage thresholds.
