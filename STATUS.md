@@ -220,18 +220,32 @@ All four `with*` compositions shipped on `@kumiki/attachment-combobox`:
 
 ## Blocked
 
-The autonomous `/loop` run, since revival on 2026-05-05, has now also
-shipped tree-shake regression, coverage aggregation, api-extractor
-reports, and TypeDoc markdown reference. Remaining items still need
-maintainer-in-the-loop input:
+The autonomous `/loop` run, since revival on 2026-05-05, has shipped
+tree-shake regression, coverage aggregation, api-extractor reports,
+TypeDoc markdown reference, and APG drift snapshots. Remaining items
+still need maintainer-in-the-loop input:
 
-| Item                           | Reason                                                                                                                      | What unblocks it                                                                                           |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **Calendar / DatePicker**      | Need `@internationalized/date` runtime dep; CLAUDE.md forbids adding deps without confirmation.                             | Maintainer adds the dep to the catalog and confirms the FSM design (Hijri / Buddhist calendar scope).      |
-| **TypeDoc → docs site route**  | TypeDoc generation ✅. Not yet wired into a SvelteKit `/api` route — needs maintainer call on URL shape and sidebar layout. | Maintainer confirms whether TypeDoc output should be served at `/api`, `/reference`, or as a sibling site. |
-| **Lighthouse CI**              | `@lhci/cli` not in catalog.                                                                                                 | Maintainer adds the dep and confirms perf budgets per page.                                                |
-| **APG diff-against-published** | Implementation needs a small HTTP scraper + diff runner; lower priority than the above.                                     | Loop can pick this up on the next firing if maintainer wants it.                                           |
-| **Performance benchmarks**     | Phase 0c stretch goal; no dep blocker, just scope.                                                                          | Loop can pick this up on the next firing if maintainer wants it.                                           |
+| Item                          | Reason                                                                                                                      | What unblocks it                                                                                           |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Calendar / DatePicker**     | Need `@internationalized/date` runtime dep; CLAUDE.md forbids adding deps without confirmation.                             | Maintainer adds the dep to the catalog and confirms the FSM design (Hijri / Buddhist calendar scope).      |
+| **TypeDoc → docs site route** | TypeDoc generation ✅. Not yet wired into a SvelteKit `/api` route — needs maintainer call on URL shape and sidebar layout. | Maintainer confirms whether TypeDoc output should be served at `/api`, `/reference`, or as a sibling site. |
+| **Lighthouse CI**             | `@lhci/cli` not in catalog.                                                                                                 | Maintainer adds the dep and confirms perf budgets per page.                                                |
+| **Performance benchmarks**    | Phase 0c stretch goal; no dep blocker, just scope.                                                                          | Loop can pick this up on the next firing if maintainer wants it.                                           |
+
+### Unpushed local commits (2026-05-04 firing)
+
+Three commits sit on local `main` ahead of `origin/main`. Pushes were
+denied by the permission policy (CLAUDE.md "Things to NOT do without
+confirmation: push to remote"). Run `git push origin main` from the
+maintainer's machine when ready:
+
+```
+0e62b54 feat(qa): APG drift snapshot check (Phase 0c gap closed)
+296e59c docs(status): TypeDoc shipped; refresh stale ESLint/Prettier mentions
+083674a feat(qa): TypeDoc reference docs (Phase 0c gap closed)
+```
+
+All three are gate-green locally (ci:health passed at commit time).
 
 ## How to resume
 
