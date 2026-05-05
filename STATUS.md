@@ -3,6 +3,39 @@
 Snapshot of the most recent autonomous-loop firing. The loop updates this file
 after every successful commit + push.
 
+## Handoff — next maintainer actions (2026-05-05)
+
+The autonomous loop is **paused**. Repo is in a clean, gate-green state
+(`pnpm ci:health` passes, `git status` clean, `origin/main` synced, no
+open PRs). 9 packages, 677 unit tests, 76 APG keyboard cases, 109
+microbenchmarks.
+
+To resume work, the maintainer needs to make the calls below in priority
+order. Each is blocked because it requires a runtime/dev dep approval or
+a design judgment that's not in `docs/design/16-decisions/`:
+
+1. **Calendar / DatePicker (Phase 2 final 1 of 7).** Add
+   `@internationalized/date` to the catalog in `pnpm-workspace.yaml`,
+   confirm scope of non-Gregorian calendars (Hijri / Buddhist /
+   Japanese ship at v1.0?). Once approved the loop can implement
+   machine + headless + component + sandbox + tests in 1–2 firings.
+2. **TypeDoc → SvelteKit `/api` route.** TypeDoc generation is wired
+   (`pnpm typedoc` produces `docs/api/`). Need a call on URL shape:
+   `/api`, `/reference`, or as a sibling docs site? Sidebar layout —
+   one page per package, or per-symbol? Once decided the route is
+   ~1 firing of work.
+3. **Lighthouse CI on the docs site.** Add `@lhci/cli` to the catalog,
+   confirm per-page budgets (LCP, TBT, CLS, etc.) Once approved the
+   loop wires it as an opt-in CI workflow.
+
+After any of those: re-fire `/loop` and the autonomous run picks up
+the now-unblocked work. The loop's priority list lives in
+[`docs/release/autonomous-loop.md`](docs/release/autonomous-loop.md);
+that doc was refreshed in `d79c288` to reflect post-Phase-1 reality.
+
+Nothing on the local machine is unpushed; nothing is half-implemented;
+no failing tests. Safe to walk away.
+
 ## TL;DR
 
 **Phase 1 is complete.** All 10 components — Toggle, Switch, Combobox,
