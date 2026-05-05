@@ -42,6 +42,7 @@
     "typedoc": "typedoc",
     "build:llms-full": "node apps/docs/scripts/build-llms-full.mjs",
     "build:sizes": "node apps/docs/scripts/build-sizes.mjs",
+    "clean": "pnpm -r --filter='@kumiki/*' run clean",
     "check:all": "pnpm check:layering && pnpm check:locale-shape && pnpm check:jsdoc && pnpm check:node-compat && pnpm check:api-report",
     "ci:health": "pnpm check:all && pnpm publint && pnpm attw && pnpm agadoo && pnpm size",
     "prepare": "lefthook install"
