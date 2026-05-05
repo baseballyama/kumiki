@@ -122,7 +122,7 @@ Ship order from `15-roadmap.md`: **Toggle (Phase 0a) → Combobox (Phase 0b) →
 
 ## Phase 1 locales (10)
 
-`en`, `ja`, `zh-Hans`, `zh-Hant`, `ko`, `es`, `fr`, `de`, `ar`, `he`. Each ≤ 1 KB gzip.
+`en`, `ja`, `zh-Hans`, `zh-Hant`, `ko`, `es`, `fr`, `de`, `ar`, `he`. Each ≤ 1 KB brotli.
 
 ## Bundle budgets (CI gate — never silently raise)
 
