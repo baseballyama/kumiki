@@ -31,21 +31,21 @@ This document is the entry point to Kumiki's architecture. It is **the source of
 
 These six numbers, taken together, define what "good" means for Kumiki. They are restated in detail throughout the design but live here as the elevator pitch.
 
-| Metric                              | Target                                                                                         | Source                                            |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| **Combobox bundle (Layer 4, gzip)** | ≤ 4.5 KB                                                                                       | [09-bundle-budget.md](design/09-bundle-budget.md) |
-| **Dialog bundle (Layer 4, gzip)**   | ≤ 3.5 KB                                                                                       | [09-bundle-budget.md](design/09-bundle-budget.md) |
-| **Locale data per language (gzip)** | ≤ 1 KB, dynamically loaded                                                                     | [06-i18n.md](design/06-i18n.md)                   |
-| **Initial languages at v1.0**       | 10 (en, ja, zh-Hans, zh-Hant, ko, es, fr, de, ar, he)                                          | [06-i18n.md](design/06-i18n.md)                   |
-| **axe-core CI gate**                | 0 violations on every component × every state × LTR/RTL                                        | [05-accessibility.md](design/05-accessibility.md) |
-| **Phase 1 components shipped**      | 10 (Toggle, Switch, Checkbox, RadioGroup, Tabs, Dialog, Tooltip, Combobox, Select, Field/Form) | [15-roadmap.md](design/15-roadmap.md)             |
+| Metric                                | Target                                                                                         | Source                                            |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| **Combobox bundle (Layer 4, brotli)** | ≤ 4.5 KB                                                                                       | [09-bundle-budget.md](design/09-bundle-budget.md) |
+| **Dialog bundle (Layer 4, brotli)**   | ≤ 3.5 KB                                                                                       | [09-bundle-budget.md](design/09-bundle-budget.md) |
+| **Locale data per language (brotli)** | ≤ 1 KB, dynamically loaded                                                                     | [06-i18n.md](design/06-i18n.md)                   |
+| **Initial languages at v1.0**         | 10 (en, ja, zh-Hans, zh-Hant, ko, es, fr, de, ar, he)                                          | [06-i18n.md](design/06-i18n.md)                   |
+| **axe-core CI gate**                  | 0 violations on every component × every state × LTR/RTL                                        | [05-accessibility.md](design/05-accessibility.md) |
+| **Phase 1 components shipped**        | 10 (Toggle, Switch, Checkbox, RadioGroup, Tabs, Dialog, Tooltip, Combobox, Select, Field/Form) | [15-roadmap.md](design/15-roadmap.md)             |
 
 ## Design tenets
 
 These appear throughout the docs; collected here for skim-reading.
 
 1. **State machines are the source of truth.** UI logic is a finite state machine in pure TypeScript. Svelte is a thin reactive adapter on top — never the other way around.
-2. **Sub-paths over barrels.** Each Layer × component is its own package. Tree-shaking is a fallback, not the plan.
+2. **Sub-paths over barrels.** One package per layer with subpath exports per component (post-ADR 0012). Tree-shaking is a fallback, not the plan.
 3. **A11y is a type-system concern.** Accessible names, roles, and required ARIA attributes are required at the type level whenever possible. The compiler catches what tests can't.
 4. **i18n is lazy by default.** No locale data ships unless the user imports it. Calendar systems are independent: importing Islamic doesn't pull in Buddhist.
 5. **`child` snippet replaces `asChild`.** Render delegation in Svelte 5 is a snippet that receives `props`; we do not reinvent React's `cloneElement`.

@@ -24,7 +24,7 @@ A short paragraph explaining each part's responsibility.
 
 ## Keyboard
 
-Generated from `keyboard.yaml` in this component's package. Mirrors the APG keyboard interaction table.
+Generated from `apps/docs/keyboard/<name>.kb.ts` (the typed APG contract consumed by `apps/docs/tests/keyboard/_harness.ts`). Mirrors the APG keyboard interaction table.
 
 | Key         | When             | Effect                            |
 | ----------- | ---------------- | --------------------------------- |
