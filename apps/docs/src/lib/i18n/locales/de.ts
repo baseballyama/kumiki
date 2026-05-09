@@ -110,14 +110,9 @@ export const dict: DocDict = {
     filterAll: 'Alle',
     filterLive: 'Live-Demos',
     layerLabel: (n) =>
-      [
-        'Geteilte Typen',
-        'Primitive',
-        'Zustands­automaten',
-        'Attachments',
-        'Komponenten',
-        'Atelier',
-      ][n] ?? `Layer ${n}`,
+      ['Geteilte Typen', 'Primitive', 'Zustands­automaten', 'Attachments', 'Komponenten', 'Atelier'][
+        n
+      ] ?? `Layer ${n}`,
     livePreview: 'Live-Vorschau',
     code: 'Code',
     a11y: 'Barrierefreiheit',
