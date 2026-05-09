@@ -53,6 +53,11 @@
       "svelte": "./dist/dialog/index.js",
       "import": "./dist/dialog/index.js"
     },
+    "./date-picker": {
+      "types": "./dist/date-picker/index.d.ts",
+      "svelte": "./dist/date-picker/index.js",
+      "import": "./dist/date-picker/index.js"
+    },
     "./form-field": {
       "types": "./dist/form-field/index.d.ts",
       "svelte": "./dist/form-field/index.js",
