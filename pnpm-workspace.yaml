@@ -16,6 +16,12 @@ catalog:
   # `{@attach}` requires Svelte 5.29+; we pin the floor accordingly.
   svelte: ^5.55.0
   typescript: ^5.7.0
+  # @internationalized/date — framework-agnostic date primitives from Adobe.
+  # Powers @kumiki/components/calendar + @kumiki/components/date-picker
+  # (Phase 2). Peer dep of those packages so users can pick the calendars
+  # they ship — Gregorian + Japanese imperial at v1.0; Buddhist / Hijri /
+  # Hebrew Phase 2 (see ADR 0013).
+  '@internationalized/date': ^3.12.1
 
   # --- build / publish ---
   # tsdown is pre-1.0 (Rolldown-based, VoidZero); pin tightly and watch the changelog.

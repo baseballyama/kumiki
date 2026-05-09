@@ -46,6 +46,7 @@ These have been decided. If a future change requires rethinking one, write a new
 | **tsdown** for TS-only packages, **svelte-package** for `.svelte`                              | ADR 0009             |
 | Layer 5 ships as **`0.x.x-preview`** during v1.0 series                                        | ADR 0010             |
 | TypeDoc + api-extractor (both, different roles)                                                | ADR 0011             |
+| `@internationalized/date` ^3.12 as peer dep for Calendar / DatePicker                          | ADR 0013             |
 
 ## Repository layout
 

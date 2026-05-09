@@ -28,3 +28,4 @@ ADRs are immutable once accepted. New information leads to a _new_ ADR that supe
 | [0010](0010-layer5-preview-in-v1.md)       | Layer 5 preview during v1.0 series                     | Accepted                   |
 | [0011](0011-typedoc-and-api-extractor.md)  | TypeDoc + api-extractor (both, different roles)        | Accepted                   |
 | [0012](0012-package-consolidation.md)      | Consolidate 37 packages → 9 per-layer packages         | Accepted (supersedes 0002) |
+| [0013](0013-internationalized-date.md)     | `@internationalized/date` for Calendar & DatePicker    | Accepted                   |

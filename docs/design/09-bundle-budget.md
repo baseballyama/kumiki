@@ -89,24 +89,26 @@ Compound Svelte components. **Not gated by `size-limit`**: svelte-package emits 
 
 Realistic Layer 4 brotli targets (informational, not gated):
 
-| Subpath                           | Target | Status                           |
-| --------------------------------- | ------ | -------------------------------- |
-| `@kumiki/components/toggle`       | 1.5 kB |                                  |
-| `@kumiki/components/switch`       | 1.5 kB |                                  |
-| `@kumiki/components/checkbox`     | 1.5 kB |                                  |
-| `@kumiki/components/radio-group`  | 2 kB   |                                  |
-| `@kumiki/components/tabs`         | 2.5 kB |                                  |
-| `@kumiki/components/tooltip`      | 2 kB   | + Floating UI peer dep amortized |
-| `@kumiki/components/dialog`       | 3.5 kB |                                  |
-| `@kumiki/components/form-field`   | 2 kB   |                                  |
-| `@kumiki/components/select`       | 3 kB   | + Floating UI peer dep amortized |
-| `@kumiki/components/combobox`     | 4.5 kB | + Floating UI peer dep amortized |
-| `@kumiki/components/accordion`    | 2 kB   |                                  |
-| `@kumiki/components/slider`       | 2 kB   |                                  |
-| `@kumiki/components/number-field` | 2.5 kB |                                  |
-| `@kumiki/components/popover`      | 2.5 kB |                                  |
-| `@kumiki/components/toast`        | 3 kB   |                                  |
-| `@kumiki/components/menu`         | 3 kB   |                                  |
+| Subpath                           | Target | Status                                                                             |
+| --------------------------------- | ------ | ---------------------------------------------------------------------------------- |
+| `@kumiki/components/toggle`       | 1.5 kB |                                                                                    |
+| `@kumiki/components/switch`       | 1.5 kB |                                                                                    |
+| `@kumiki/components/checkbox`     | 1.5 kB |                                                                                    |
+| `@kumiki/components/radio-group`  | 2 kB   |                                                                                    |
+| `@kumiki/components/tabs`         | 2.5 kB |                                                                                    |
+| `@kumiki/components/tooltip`      | 2 kB   | + Floating UI peer dep amortized                                                   |
+| `@kumiki/components/dialog`       | 3.5 kB |                                                                                    |
+| `@kumiki/components/form-field`   | 2 kB   |                                                                                    |
+| `@kumiki/components/select`       | 3 kB   | + Floating UI peer dep amortized                                                   |
+| `@kumiki/components/combobox`     | 4.5 kB | + Floating UI peer dep amortized                                                   |
+| `@kumiki/components/accordion`    | 2 kB   |                                                                                    |
+| `@kumiki/components/slider`       | 2 kB   |                                                                                    |
+| `@kumiki/components/number-field` | 2.5 kB |                                                                                    |
+| `@kumiki/components/popover`      | 2.5 kB |                                                                                    |
+| `@kumiki/components/toast`        | 3 kB   |                                                                                    |
+| `@kumiki/components/menu`         | 3 kB   |                                                                                    |
+| `@kumiki/components/calendar`     | 5.5 kB | + `@internationalized/date` peer (Gregorian + Japanese imperial at v1.0; ADR 0013) |
+| `@kumiki/components/date-picker`  | 7 kB   | Calendar + Popover composition; same peer dep                                      |
 
 ### `@kumiki/atelier/<name>` — Layer 5 preview
 
