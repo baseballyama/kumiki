@@ -24,4 +24,7 @@ export const messages = {
     requiredError: '此項目為必填。',
     typeMismatch: '請輸入有效的值。',
   },
+  alert: {
+    dismissLabel: '關閉',
+  },
 } satisfies Messages;

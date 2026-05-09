@@ -24,4 +24,7 @@ export const messages = {
     requiredError: '이 항목은 필수입니다.',
     typeMismatch: '올바른 값을 입력하세요.',
   },
+  alert: {
+    dismissLabel: '닫기',
+  },
 } satisfies Messages;

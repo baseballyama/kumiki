@@ -41,6 +41,11 @@ export interface Messages {
     /** Generic error when the value's type is wrong (e.g. text in a number input). */
     typeMismatch: string;
   };
+  /** Alert component messages — close button accessible name. */
+  alert: {
+    /** `aria-label` for the close button on a dismissible alert. */
+    dismissLabel: string;
+  };
 }
 
 /** Layout direction tag exported by every locale subpath. RTL for ar/he, LTR otherwise. */

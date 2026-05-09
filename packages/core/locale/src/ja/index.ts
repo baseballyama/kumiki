@@ -24,4 +24,7 @@ export const messages = {
     requiredError: 'この項目は必須です。',
     typeMismatch: '正しい値を入力してください。',
   },
+  alert: {
+    dismissLabel: '閉じる',
+  },
 } satisfies Messages;

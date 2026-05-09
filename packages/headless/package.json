@@ -31,6 +31,10 @@
       "types": "./dist/accordion/index.d.mts",
       "import": "./dist/accordion/index.mjs"
     },
+    "./alert": {
+      "types": "./dist/alert/index.d.mts",
+      "import": "./dist/alert/index.mjs"
+    },
     "./button": {
       "types": "./dist/button/index.d.mts",
       "import": "./dist/button/index.mjs"
@@ -155,6 +159,16 @@
     }
   },
   "size-limit": [
+    {
+      "name": "headless/alert (incremental)",
+      "path": "dist/alert/index.mjs",
+      "limit": "1 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
     {
       "name": "headless/button (incremental)",
       "path": "dist/button/index.mjs",

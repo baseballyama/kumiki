@@ -27,4 +27,7 @@ export const messages = {
     requiredError: 'This field is required.',
     typeMismatch: 'Please enter a valid value.',
   },
+  alert: {
+    dismissLabel: 'Dismiss',
+  },
 } satisfies Messages;

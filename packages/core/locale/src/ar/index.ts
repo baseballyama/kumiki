@@ -24,4 +24,7 @@ export const messages = {
     requiredError: 'هذا الحقل مطلوب.',
     typeMismatch: 'الرجاء إدخال قيمة صالحة.',
   },
+  alert: {
+    dismissLabel: 'تجاهل',
+  },
 } satisfies Messages;

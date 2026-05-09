@@ -24,4 +24,7 @@ export const messages = {
     requiredError: 'שדה זה הוא חובה.',
     typeMismatch: 'נא להזין ערך חוקי.',
   },
+  alert: {
+    dismissLabel: 'סגירה',
+  },
 } satisfies Messages;

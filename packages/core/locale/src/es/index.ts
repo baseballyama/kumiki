@@ -24,4 +24,7 @@ export const messages = {
     requiredError: 'Este campo es obligatorio.',
     typeMismatch: 'Introduce un valor válido.',
   },
+  alert: {
+    dismissLabel: 'Cerrar',
+  },
 } satisfies Messages;
