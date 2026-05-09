@@ -56,6 +56,9 @@ jobs:
       - name: Unit tests
         run: pnpm test
 
+      - name: Coverage gate (lines ≥ 80, branches ≥ 65, funcs ≥ 60, stmts ≥ 80)
+        run: pnpm coverage:check
+
   # ─── Distribution health: publint, attw, agadoo, size-limit ───
   publish-health:
     name: Publish health

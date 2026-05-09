@@ -1,0 +1,50 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    paths:
+      - 'apps/docs/**'
+      - 'packages/**'
+      - 'lighthouserc.cjs'
+      - '.github/workflows/lighthouse.yml'
+
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PNPM_VERSION: 9.15.0
+  NODE_VERSION: 22
+
+jobs:
+  lighthouse:
+    name: Lighthouse (docs site)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Build docs
+        run: pnpm build:docs
+
+      - name: Lighthouse CI
+        run: pnpm lhci autorun --config=lighthouserc.cjs
+        # Soft-fail at v1.0 — promote to hard-fail after a week of green runs.
+        continue-on-error: true

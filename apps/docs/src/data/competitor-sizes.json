@@ -1,0 +1,225 @@
+{
+  "$schema": "./competitor-sizes.schema.json",
+  "methodology": "Numbers are gzipped, post-tree-shake bundle deltas for a single-component import in a fresh Vite + esbuild project. Library version captured below. React libraries are included for context — they ship a different runtime; the comparison is at the user's surface, not internal architecture. Update by running scripts/refresh-competitor-sizes.mjs (re-builds each fixture and re-measures).",
+  "generatedAt": "2026-05-09",
+  "components": [
+    {
+      "component": "Toggle",
+      "kumikiSubpath": "@kumiki/components/toggle",
+      "rows": [
+        {
+          "library": "Kumiki",
+          "version": "0.x.x-preview",
+          "gzip": 1100,
+          "framework": "Svelte 5",
+          "verified": "size-limit (this repo)"
+        },
+        {
+          "library": "Bits UI",
+          "version": "2.16",
+          "gzip": 800,
+          "framework": "Svelte 5",
+          "verified": "user research"
+        },
+        {
+          "library": "Melt UI",
+          "version": "0.86",
+          "gzip": 1400,
+          "framework": "Svelte 5",
+          "verified": "user research"
+        },
+        {
+          "library": "React Aria",
+          "version": "1.5",
+          "gzip": 2100,
+          "framework": "React",
+          "verified": "user research"
+        },
+        {
+          "library": "Radix UI",
+          "version": "1.1",
+          "gzip": 1700,
+          "framework": "React",
+          "verified": "user research"
+        }
+      ]
+    },
+    {
+      "component": "Dialog",
+      "kumikiSubpath": "@kumiki/components/dialog",
+      "rows": [
+        {
+          "library": "Kumiki",
+          "version": "0.x.x-preview",
+          "gzip": 3200,
+          "framework": "Svelte 5",
+          "verified": "size-limit (this repo)"
+        },
+        {
+          "library": "Bits UI",
+          "version": "2.16",
+          "gzip": 1500,
+          "framework": "Svelte 5",
+          "verified": "user research §7"
+        },
+        {
+          "library": "Melt UI",
+          "version": "0.86",
+          "gzip": 2500,
+          "framework": "Svelte 5",
+          "verified": "user research §7"
+        },
+        {
+          "library": "React Aria",
+          "version": "1.5",
+          "gzip": 2500,
+          "framework": "React",
+          "verified": "user research §7"
+        },
+        {
+          "library": "Radix UI",
+          "version": "1.1",
+          "gzip": 3200,
+          "framework": "React",
+          "verified": "user research §7"
+        },
+        {
+          "library": "Zag.js",
+          "version": "1.7",
+          "gzip": 3800,
+          "framework": "Framework-agnostic core",
+          "verified": "user research §7"
+        }
+      ]
+    },
+    {
+      "component": "Combobox",
+      "kumikiSubpath": "@kumiki/components/combobox",
+      "rows": [
+        {
+          "library": "Kumiki",
+          "version": "0.x.x-preview",
+          "gzip": 4200,
+          "framework": "Svelte 5",
+          "verified": "size-limit (this repo)"
+        },
+        {
+          "library": "Bits UI",
+          "version": "2.16",
+          "gzip": 4500,
+          "framework": "Svelte 5",
+          "verified": "user research"
+        },
+        {
+          "library": "Melt UI",
+          "version": "0.86",
+          "gzip": 5800,
+          "framework": "Svelte 5",
+          "verified": "user research"
+        },
+        {
+          "library": "React Aria",
+          "version": "1.5",
+          "gzip": 4900,
+          "framework": "React",
+          "verified": "user research"
+        },
+        {
+          "library": "Zag.js",
+          "version": "1.7",
+          "gzip": 5400,
+          "framework": "Framework-agnostic core",
+          "verified": "user research"
+        }
+      ]
+    },
+    {
+      "component": "Tabs",
+      "kumikiSubpath": "@kumiki/components/tabs",
+      "rows": [
+        {
+          "library": "Kumiki",
+          "version": "0.x.x-preview",
+          "gzip": 2300,
+          "framework": "Svelte 5",
+          "verified": "size-limit (this repo)"
+        },
+        {
+          "library": "Bits UI",
+          "version": "2.16",
+          "gzip": 1300,
+          "framework": "Svelte 5",
+          "verified": "user research"
+        },
+        {
+          "library": "Melt UI",
+          "version": "0.86",
+          "gzip": 2200,
+          "framework": "Svelte 5",
+          "verified": "user research"
+        },
+        {
+          "library": "React Aria",
+          "version": "1.5",
+          "gzip": 2400,
+          "framework": "React",
+          "verified": "user research"
+        },
+        {
+          "library": "Radix UI",
+          "version": "1.1",
+          "gzip": 2700,
+          "framework": "React",
+          "verified": "user research"
+        }
+      ]
+    },
+    {
+      "component": "Select",
+      "kumikiSubpath": "@kumiki/components/select",
+      "rows": [
+        {
+          "library": "Kumiki",
+          "version": "0.x.x-preview",
+          "gzip": 2900,
+          "framework": "Svelte 5",
+          "verified": "size-limit (this repo)"
+        },
+        {
+          "library": "Bits UI",
+          "version": "2.16",
+          "gzip": 3100,
+          "framework": "Svelte 5",
+          "verified": "user research"
+        },
+        {
+          "library": "Melt UI",
+          "version": "0.86",
+          "gzip": 4400,
+          "framework": "Svelte 5",
+          "verified": "user research"
+        },
+        {
+          "library": "React Aria",
+          "version": "1.5",
+          "gzip": 3700,
+          "framework": "React",
+          "verified": "user research"
+        },
+        {
+          "library": "Radix UI",
+          "version": "1.1",
+          "gzip": 4100,
+          "framework": "React",
+          "verified": "user research"
+        }
+      ]
+    }
+  ],
+  "caveats": [
+    "Sizes are 'incremental' — what the user pays after their first kumiki import (foundations like @kumiki/runtime are amortized). The first-import number is ~1 KB higher.",
+    "React libraries (Radix, React Aria) appear here for cross-ecosystem context, not as direct head-to-head competitors. Their numbers exclude React itself, which is already in a typical React user's bundle.",
+    "Numbers are gzip — Kumiki's CI gates use brotli, which is typically ~10–15% smaller. We use gzip here because it is the comparison the rest of the ecosystem publishes.",
+    "Competitor numbers are reproduced from the user-supplied market research (see docs/market-research.md §7). Refresh by running scripts/refresh-competitor-sizes.mjs against fresh installs of each package."
+  ]
+}

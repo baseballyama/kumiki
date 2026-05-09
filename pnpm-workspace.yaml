@@ -56,6 +56,10 @@ catalog:
   typedoc: ^0.28.19
   'typedoc-plugin-markdown': ^4.11.0
   '@microsoft/api-extractor': ^7.58.7
+  # Lighthouse CI — runs against the built apps/docs to gate perf budgets.
+  '@lhci/cli': ^0.15.1
+  # Pagefind — static-site search index for the docs.
+  pagefind: ^1.4.0
 
   # --- lint / format ---
   # Migrated 2026-05 from ESLint + Prettier to the oxc toolchain. Rust-

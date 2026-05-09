@@ -7,8 +7,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "prebuild": "node scripts/build-llms-full.mjs && node scripts/build-sizes.mjs",
+    "prebuild": "node scripts/build-llms-full.mjs && node scripts/build-sizes.mjs && pnpm -w run typedoc",
     "build": "vite build",
+    "postbuild": "pagefind --site .svelte-kit/cloudflare",
     "preview": "vite preview",
     "test:e2e": "playwright test",
     "test:a11y": "playwright test --project=a11y",
@@ -35,6 +36,7 @@
     "@sveltejs/vite-plugin-svelte": "catalog:",
     "@types/node": "^22.10.0",
     "axe-core": "catalog:",
+    "pagefind": "catalog:",
     "playwright": "catalog:",
     "svelte": "catalog:",
     "svelte-check": "catalog:",
