@@ -1,12 +1,9 @@
 /**
  * Smoke tests for the `kumiki` CLI binary.
  *
- * The CLI is currently a Phase 0a stub — these tests cover the help and
- * unknown-command paths, locking in their exit codes and output shape so
- * we don't accidentally break them when the real `kumiki add` lands in
- * Phase 1.
- *
- * Spawns the built dist binary directly (skipped if dist isn't present).
+ * Programmatic-API tests for `add()` live in `../add.test.ts`; these
+ * tests cover the bin's argv parsing + exit codes by spawning the built
+ * dist binary directly (skipped if dist isn't present).
  */
 
 import { execFileSync } from 'node:child_process';
@@ -64,15 +61,30 @@ describe.skipIf(!distExists)('@kumiki/cli — bin', () => {
     expect(r.stdout).toMatch(/Usage:/);
   });
 
-  it('exits 2 and writes to stderr for an unknown command', () => {
+  it('exits 2 with a usage hint when `add` is invoked without a component arg', () => {
     const r = run(['add']);
     expect(r.status).toBe(2);
-    expect(r.stderr).toMatch(/not implemented yet/);
+    expect(r.stderr).toMatch(/missing <component>/);
   });
 
-  it('exits 2 for a totally bogus command', () => {
+  it('exits 2 for an unknown top-level command', () => {
     const r = run(['xyz-totally-not-a-command']);
     expect(r.status).toBe(2);
-    expect(r.stderr).toMatch(/not implemented yet/);
+    expect(r.stderr).toMatch(/unknown command/);
+  });
+
+  it('exits 2 for an invalid --variant value', () => {
+    const r = run(['add', 'toggle', '--variant=lol']);
+    expect(r.status).toBe(2);
+    expect(r.stderr).toMatch(/invalid --variant/);
+  });
+
+  it('exits 2 for an unknown component', () => {
+    // Project is run from the kumiki repo cwd, so @kumiki/atelier resolves
+    // and the call hits the registry — we just check the registry rejects
+    // a bogus name with a clear message.
+    const r = run(['add', 'bogus-component']);
+    expect(r.status).toBe(2);
+    expect(r.stderr).toMatch(/Unknown component/);
   });
 });

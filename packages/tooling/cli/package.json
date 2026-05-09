@@ -58,7 +58,14 @@
     {
       "name": "default",
       "path": "dist/index.mjs",
-      "limit": "30 KB"
+      "limit": "30 KB",
+      "ignore": [
+        "node:fs",
+        "node:path",
+        "node:os",
+        "node:url",
+        "node:child_process"
+      ]
     }
   ]
 }

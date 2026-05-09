@@ -4,31 +4,63 @@
 
 **Layer:** Tooling.
 
-> **Status:** Phase 0a stub. `--help` and the unknown-command branch
-> are wired (see `packages/tooling/cli/src/bin/kumiki.test.ts`); the
-> real `kumiki add <component>` flow lands in Phase 1 alongside the
-> first stable Atelier components.
-
 ## Install
 
 ```bash
-pnpm add -D @kumiki/cli
+pnpm add -D @kumiki/cli @kumiki/atelier@preview
 # or run on demand without installing:
 npx kumiki --help
 ```
 
-## Use (planned)
+## Use
 
 ```bash
-# Copy a styled Atelier component into ./src/lib/components/ui/
-kumiki add toggle --variant=tailwind
+# Default — Tailwind v4 variant into ./src/lib/components/ui/
+kumiki add toggle
+kumiki add dialog
+
+# Vanilla CSS variant
+kumiki add toggle --variant=vanilla
 kumiki add dialog --variant=vanilla
+
+# Custom destination
+kumiki add toggle --dest=app/widgets
+
+# Overwrite existing files (default refuses to clobber)
+kumiki add toggle --force
+
+# Print actions without writing
+kumiki add toggle --dry-run
 ```
 
-The variants:
+After a successful `add`, `kumiki` prints an import hint:
 
-- `tailwind` — Tailwind v4 utility classes.
-- `vanilla` — CSS modules with custom properties for theming.
+```
+Wrote 1 file for toggle (tailwind):
+  /your-app/src/lib/components/ui/toggle/Toggle.svelte
+
+Import hint:
+  import Toggle from '$lib/components/ui/toggle/Toggle.svelte';
+```
+
+## Programmatic API
+
+The same operation is available as a function for scaffolding scripts:
+
+```ts
+import { add } from '@kumiki/cli';
+
+const { written } = add('toggle', { variant: 'vanilla', force: true });
+console.log(`Copied ${written.length} files`);
+```
+
+Errors thrown:
+
+| Class                      | When                                                   |
+| -------------------------- | ------------------------------------------------------ |
+| `UnknownComponentError`    | `<component>` is not in the registry                   |
+| `AtelierNotInstalledError` | `@kumiki/atelier` is not in `node_modules`             |
+| `FileExistsError`          | A destination file exists and `--force` was not passed |
 
 ## See also
 
