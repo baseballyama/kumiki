@@ -45,8 +45,9 @@
 
   <h2>Sorties de secours par couche</h2>
   <p>
-    Si <code>child</code> ne suffit pas — par exemple il faut coordonner trois nœuds DOM personnalisés —
-    descendez d'une couche. Utilisez les fabriques d'attachments dans <code>@kumiki/headless</code>
+    Si <code>child</code> ne suffit pas — par exemple il faut coordonner trois nœuds DOM
+    personnalisés — descendez d'une couche. Utilisez les fabriques d'attachments dans
+    <code>@kumiki/headless</code>
     et écrivez votre propre JSX/HTML autour.
   </p>
 

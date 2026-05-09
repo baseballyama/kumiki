@@ -47,8 +47,8 @@
   <h2>Geschichtete Notausgänge</h2>
   <p>
     Reicht <code>child</code> nicht — du musst etwa drei eigene DOM-Knoten koordinieren — geh eine
-    Schicht tiefer. Nutze die Headless-Attachment-Fabriken in <code>@kumiki/headless</code> und
-    schreibe dein eigenes JSX/HTML drumherum.
+    Schicht tiefer. Nutze die Headless-Attachment-Fabriken in <code>@kumiki/headless</code> und schreibe
+    dein eigenes JSX/HTML drumherum.
   </p>
 
   <pre><code

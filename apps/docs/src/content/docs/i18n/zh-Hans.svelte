@@ -23,9 +23,7 @@
   </ul>
 
   <h2>运行时切换</h2>
-  <p>
-    包裹你的应用一次,然后随时切换导入的 locale 包。下方组件会在每次变更时重新读取消息。
-  </p>
+  <p>包裹你的应用一次,然后随时切换导入的 locale 包。下方组件会在每次变更时重新读取消息。</p>
   <pre><code
       >{`<script lang="ts">
   import { LocaleProvider } from '@kumiki/components';

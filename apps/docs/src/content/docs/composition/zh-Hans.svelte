@@ -26,8 +26,9 @@
 
   <h2><code>child</code> snippet</h2>
   <p>
-    想渲染 <code>{`<a>`}</code> 而不是 <code>{`<button>`}</code>?使用 <code>child</code> snippet。组件会把它原本要 spread 的 props
-    交给你;你决定放在哪个标签上。这取代了 Radix/Bits v1 的 <code>asChild</code> 模式。
+    想渲染 <code>{`<a>`}</code> 而不是 <code>{`<button>`}</code>?使用 <code>child</code>
+    snippet。组件会把它原本要 spread 的 props 交给你;你决定放在哪个标签上。这取代了 Radix/Bits v1 的
+    <code>asChild</code> 模式。
   </p>
   <pre><code
       >{`<Toggle.Root>

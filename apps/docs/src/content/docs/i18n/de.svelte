@@ -54,8 +54,8 @@
   </p>
 
   <p>
-    Der <strong>Richtungs-Toggle</strong> auf jeder Komponenten-Detailseite lässt dich RTL für jede
-    Locale prüfen, ohne die Sprache zu wechseln. Nutze ihn, um dein Styling zu verifizieren.
+    Der <strong>Richtungs-Toggle</strong> auf jeder Komponenten-Detailseite lässt dich RTL für jede Locale
+    prüfen, ohne die Sprache zu wechseln. Nutze ihn, um dein Styling zu verifizieren.
   </p>
 
   <h2>Was lokalisiert ist</h2>

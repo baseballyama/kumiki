@@ -6,6 +6,7 @@
     ?modal=0                    non-modal (default modal)
     ?escape=0                   disable closeOnEscape (default on)
     ?outside=0                  disable closeOnOutsideClick (default on)
+    ?side=center|left|right|top|bottom (default center; non-center = drawer)
     ?dir=rtl                    wrap in dir="rtl"
 -->
 <script lang="ts">
@@ -17,6 +18,7 @@
     Title,
     Description,
     Close,
+    type DialogSide,
   } from '@kumiki/components/dialog';
   import { page } from '$app/state';
 
@@ -25,6 +27,7 @@
   const closeOnEscape = $derived(page.url.searchParams.get('escape') !== '0');
   const closeOnOutsideClick = $derived(page.url.searchParams.get('outside') !== '0');
   const initialOpen = $derived(page.url.searchParams.get('initial') === 'open');
+  const side = $derived((page.url.searchParams.get('side') ?? 'center') as DialogSide);
 
   // svelte-ignore state_referenced_locally
   let open = $state(initialOpen);
@@ -48,6 +51,7 @@
       {modal}
       {closeOnEscape}
       {closeOnOutsideClick}
+      {side}
       onOpenChange={(v) => append(`onOpenChange(${v})`)}
     >
       <Trigger data-testid="trigger">Open dialog</Trigger>
@@ -69,6 +73,7 @@
     · modal: <strong data-testid="modal">{modal}</strong>
     · escape: <strong data-testid="escape">{closeOnEscape}</strong>
     · outside: <strong data-testid="outside">{closeOnOutsideClick}</strong>
+    · side: <strong data-testid="side">{side}</strong>
     · dir: <strong data-testid="dir">{dir}</strong>
   </p>
 

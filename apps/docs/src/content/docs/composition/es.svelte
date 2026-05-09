@@ -45,9 +45,9 @@
 
   <h2>Salidas escalonadas</h2>
   <p>
-    Si <code>child</code> no basta — por ejemplo, necesitas coordinar tres nodos DOM personalizados —
-    baja una capa. Usa las fábricas de attachments en <code>@kumiki/headless</code> y escribe tu
-    propio JSX/HTML alrededor.
+    Si <code>child</code> no basta — por ejemplo, necesitas coordinar tres nodos DOM personalizados
+    — baja una capa. Usa las fábricas de attachments en <code>@kumiki/headless</code> y escribe tu propio
+    JSX/HTML alrededor.
   </p>
 
   <pre><code

@@ -375,6 +375,120 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
 
   // ── Layer 4 — Compound components ────────────────────────────────────────
   {
+    slug: 'component-button',
+    name: '@kumiki/components/button',
+    layer: 4,
+    summary:
+      'Compound `<Button.Root>` — native `<button>` with loading/disabled semantics, variant + size, and consumer-supplied icon snippets (ADR 0014).',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/button/',
+    status: 'preview',
+  },
+  {
+    slug: 'component-alert',
+    name: '@kumiki/components/alert',
+    layer: 4,
+    summary:
+      'Compound `<Alert.Root>` / `<Title>` / `<Description>` / `<Close>` — page-level message surface with severity-driven role/aria-live.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/alert/',
+    status: 'preview',
+  },
+  {
+    slug: 'component-badge',
+    name: '@kumiki/components/badge',
+    layer: 4,
+    summary:
+      'Compound `<Badge.Root>` — presentational status pill / count indicator with three accessible-name shapes (text, count + aria-label, decorative).',
+    live: true,
+    status: 'preview',
+  },
+  {
+    slug: 'component-loading-spinner',
+    name: '@kumiki/components/loading-spinner',
+    layer: 4,
+    summary:
+      'Compound `<LoadingSpinner.Root>` / `<Label>` — busy indicator wrapped in a polite `role="status"` live region; spinner glyph is consumer-supplied (ADR 0014).',
+    live: true,
+    status: 'preview',
+  },
+  {
+    slug: 'component-horizontal-rule',
+    name: '@kumiki/components/horizontal-rule',
+    layer: 4,
+    summary:
+      'Compound `<HorizontalRule.Root>` — semantic `<hr>` (or `role="separator"` `<div>`) with horizontal/vertical orientation.',
+    live: true,
+    status: 'preview',
+  },
+  {
+    slug: 'component-definition-list',
+    name: '@kumiki/components/definition-list',
+    layer: 4,
+    summary:
+      'Compound `<DefinitionList.Root>` / `<Term>` / `<Description>` — semantic `<dl>` term/value pairing with optional grouped layout.',
+    live: true,
+    status: 'preview',
+  },
+  {
+    slug: 'component-avatar',
+    name: '@kumiki/components/avatar',
+    layer: 4,
+    summary:
+      'Compound `<Avatar.Root>` / `<Image>` / `<Fallback>` — image + initials-fallback with decorative-by-default a11y semantics.',
+    live: true,
+    status: 'preview',
+  },
+  {
+    slug: 'component-avatar-group',
+    name: '@kumiki/components/avatar-group',
+    layer: 4,
+    summary:
+      'Compound `<AvatarGroup.Root>` / `<Item>` / `<Overflow>` — stacked avatar list with `+N` overflow indicator.',
+    live: true,
+    status: 'preview',
+  },
+  {
+    slug: 'component-chips',
+    name: '@kumiki/components/chips',
+    layer: 4,
+    summary:
+      'Compound `<Chips.Root>` / `<Label>` / `<Close>` — three variants (static / dismissible / selectable) for tag rows and filter chips.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/button/',
+    status: 'preview',
+  },
+  {
+    slug: 'component-breadcrumb',
+    name: '@kumiki/components/breadcrumb',
+    layer: 4,
+    summary:
+      'Compound `<Breadcrumb.Root>` / `<Item>` / `<Link>` / `<Separator>` — `nav[aria-label]` wrapping `<ol>` with `aria-current="page"` for the leaf.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/',
+    status: 'preview',
+  },
+  {
+    slug: 'component-pagination',
+    name: '@kumiki/components/pagination',
+    layer: 4,
+    summary:
+      'Compound `<Pagination.Root>` / `<Prev>` / `<PageList>` / `<PageItem>` / `<Next>` / `<Ellipsis>` — page-list math + `<button>` or `<a href>` rendering.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/',
+    status: 'preview',
+  },
+  {
+    slug: 'component-table',
+    name: '@kumiki/components/table',
+    layer: 4,
+    summary:
+      'Semantic `<table>` with sortable headers, row selection (single/multiple/tri-state select-all), and tree-row disclosure. Per ADR 0015: not a Data Grid.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/table/',
+    status: 'preview',
+  },
+  {
     slug: 'component-toggle',
     name: '@kumiki/components/toggle',
     layer: 4,
@@ -581,6 +695,18 @@ export type LivePlaygroundLoader = () => Promise<{ default: Component }>;
  * Add new packages here as they implement live demos.
  */
 export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
+  'component-button': () => import('./demos/component-button.svelte'),
+  'component-alert': () => import('./demos/component-alert.svelte'),
+  'component-badge': () => import('./demos/component-badge.svelte'),
+  'component-loading-spinner': () => import('./demos/component-loading-spinner.svelte'),
+  'component-horizontal-rule': () => import('./demos/component-horizontal-rule.svelte'),
+  'component-definition-list': () => import('./demos/component-definition-list.svelte'),
+  'component-avatar': () => import('./demos/component-avatar.svelte'),
+  'component-avatar-group': () => import('./demos/component-avatar-group.svelte'),
+  'component-chips': () => import('./demos/component-chips.svelte'),
+  'component-breadcrumb': () => import('./demos/component-breadcrumb.svelte'),
+  'component-pagination': () => import('./demos/component-pagination.svelte'),
+  'component-table': () => import('./demos/component-table.svelte'),
   'component-toggle': () => import('./demos/component-toggle.svelte'),
   'attachment-toggle': () => import('./demos/attachment-toggle.svelte'),
   'component-switch': () => import('./demos/component-switch.svelte'),

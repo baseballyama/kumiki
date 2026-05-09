@@ -67,14 +67,16 @@
   <h2>Réduction du mouvement, RTL, fort contraste</h2>
   <ul>
     <li>
-      <code>prefers-reduced-motion</code> réduit toutes les transitions à ~10 ms sur tout le site
-      de docs.
+      <code>prefers-reduced-motion</code> réduit toutes les transitions à ~10 ms sur tout le site de docs.
     </li>
     <li>
       RTL n'est pas une réflexion d'après-coup. Les mappings clavier sensibles au sens (Tabs,
       Slider) lisent le sens dans le contexte de la machine, pas dans le DOM.
     </li>
-    <li>Le mode Forced-colors est respecté — les composants évitent les indices d'état basés uniquement sur le fond.</li>
+    <li>
+      Le mode Forced-colors est respecté — les composants évitent les indices d'état basés
+      uniquement sur le fond.
+    </li>
   </ul>
 
   <h2>La checklist « Kumiki-ready »</h2>

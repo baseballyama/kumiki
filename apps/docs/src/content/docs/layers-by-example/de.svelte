@@ -9,7 +9,13 @@
     { task: 'FSM (Zustandsübergänge)', l2: 'Kumiki', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
     { task: 'Svelte-Reaktivitätsbrücke', l2: 'Du', l3: 'Du*', l4: 'Kumiki', l5: 'Kumiki' },
     { task: '<button>-Element', l2: 'Du', l3: 'Du', l4: 'Kumiki', l5: 'Kopiert' },
-    { task: 'ARIA-Attribute (aria-pressed, …)', l2: 'Du', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
+    {
+      task: 'ARIA-Attribute (aria-pressed, …)',
+      l2: 'Du',
+      l3: 'Kumiki',
+      l4: 'Kumiki',
+      l5: 'Kumiki',
+    },
     { task: 'data-state-Ausgabe', l2: 'Du', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
     { task: 'Klick-/Tasten-Handling', l2: 'Du', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
     { task: 'Zugänglicher Name (aria-label)', l2: 'Du', l3: 'Du', l4: 'Du', l5: 'Kumiki' },
@@ -27,10 +33,11 @@
   lede="Derselbe Toggle, geschrieben in Layer 2, 3, 4 und 5 — nebeneinander beobachtet. Jeder Schritt nach unten im Stack gibt dir etwas mehr Kontrolle und etwas mehr Verantwortung."
 >
   <p>
-    Kumikis Schichten zeigen alle <strong>dasselbe Verhalten auf unterschiedlichen
-    Abstraktionsebenen</strong>. Eine Schicht tiefer: du übernimmst mehr DOM, ARIA und
-    Event-Plumbing — gewinnst aber Freiheit in der Strukturwahl. Eine Schicht höher: weniger Code,
-    dafür akzeptierst du Kumikis strukturelle Entscheidungen.
+    Kumikis Schichten zeigen alle <strong
+      >dasselbe Verhalten auf unterschiedlichen Abstraktionsebenen</strong
+    >. Eine Schicht tiefer: du übernimmst mehr DOM, ARIA und Event-Plumbing — gewinnst aber Freiheit
+    in der Strukturwahl. Eine Schicht höher: weniger Code, dafür akzeptierst du Kumikis strukturelle
+    Entscheidungen.
   </p>
 
   <p>
@@ -78,15 +85,16 @@
     ></pre>
 
   <p>
-    <strong>Wähle das, wenn:</strong> 90 % der Fälle. Der native <code>&lt;button&gt;</code> reicht,
-    du musst die umhüllende Struktur nicht ersetzen.
+    <strong>Wähle das, wenn:</strong> 90 % der Fälle. Der native <code>&lt;button&gt;</code> reicht, du
+    musst die umhüllende Struktur nicht ersetzen.
   </p>
 
   <h2>2. Layer 3 — Headless Attachment</h2>
   <p>
     Wenn du das Element selbst wählen musst (ein <code>&lt;a&gt;</code>, ein
     <code>&lt;div role="button"&gt;</code>, ein eigener Wrapper). <code>createToggle()</code> gibt
-    eine <code>{`{@attach}`}</code>-kompatible Fabrik zurück, die du auf jedem beliebigen Element verteilen kannst.
+    eine <code>{`{@attach}`}</code>-kompatible Fabrik zurück, die du auf jedem beliebigen Element
+    verteilen kannst.
   </p>
 
   <pre><code
@@ -107,23 +115,25 @@
     ></pre>
 
   <p>
-    Beim Mounten schreibt <code>{`{@attach t.root}`}</code> die DOM-seitigen Attribute
-    (<code>type</code>, <code>aria-pressed</code>, <code>data-state</code>, <code>id</code>) und
-    verdrahtet Klick + Tasten (Leertaste / Eingabe). <strong>Was zu deinen Aufgaben hinzukommt:</strong>
-    Element wählen, Styling, sichtbares Label und (nur bei Bedarf) ein <code>subscribe</code>, um den
-    Zustand in reaktive Locals zu spiegeln.
+    Beim Mounten schreibt <code>{`{@attach t.root}`}</code> die DOM-seitigen Attribute (<code
+      >type</code
+    >, <code>aria-pressed</code>, <code>data-state</code>, <code>id</code>) und verdrahtet Klick +
+    Tasten (Leertaste / Eingabe). <strong>Was zu deinen Aufgaben hinzukommt:</strong>
+    Element wählen, Styling, sichtbares Label und (nur bei Bedarf) ein <code>subscribe</code>, um
+    den Zustand in reaktive Locals zu spiegeln.
   </p>
 
   <p>
-    <strong>Wähle das, wenn:</strong> Layer 4s feste Struktur (<code>&lt;button&gt;</code>) nicht passt.
-    Etwa wenn der Toggle in einem <code>&lt;label&gt;</code> stecken oder in eine eigene
-    Higher-Order-Hülle gewickelt werden muss.
+    <strong>Wähle das, wenn:</strong> Layer 4s feste Struktur (<code>&lt;button&gt;</code>) nicht
+    passt. Etwa wenn der Toggle in einem <code>&lt;label&gt;</code> stecken oder in eine eigene Higher-Order-Hülle
+    gewickelt werden muss.
   </p>
 
   <h2>3. Layer 2 — Reine Maschine</h2>
   <p>
-    Gar kein Svelte — eine reine TypeScript-Zustandsautomatik. <strong>Du schreibst DOM, ARIA,
-    Events und Tastatur selbst.</strong>
+    Gar kein Svelte — eine reine TypeScript-Zustandsautomatik. <strong
+      >Du schreibst DOM, ARIA, Events und Tastatur selbst.</strong
+    >
   </p>
 
   <pre><code
@@ -147,7 +157,9 @@
     ></pre>
 
   <p>
-    <strong>Der Grund, auf Layer 2 zu fallen, ist meist nicht UI — sondern Logik-Wiederverwendung:</strong>
+    <strong
+      >Der Grund, auf Layer 2 zu fallen, ist meist nicht UI — sondern Logik-Wiederverwendung:</strong
+    >
   </p>
   <ul>
     <li>Toggle-Logik serverseitig validieren (SvelteKit-Server-Routes / Workers).</li>
@@ -162,8 +174,8 @@
 
   <h2>4. Layer 5 — Atelier (kopierbare gestylte Varianten)</h2>
   <p>
-    Das CLI kopiert die Quellen in dein Repo. Nach dem Kopieren gehören sie <strong>dir</strong> —
-    bearbeite sie nach Belieben.
+    Das CLI kopiert die Quellen in dein Repo. Nach dem Kopieren gehören sie <strong>dir</strong> — bearbeite
+    sie nach Belieben.
   </p>
 
   <pre><code
@@ -193,8 +205,8 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <p>
     <strong>Wähle das, wenn:</strong> du eine funktionierende visuelle Basis willst, ohne erst CSS
-    zu schreiben. Layer 5 wird während der v1.0-Serie als <code>0.x.x-preview</code> ausgeliefert,
-    daher bevorzugen stabilitätssensible Projekte Layer 4 + eigenes Styling.
+    zu schreiben. Layer 5 wird während der v1.0-Serie als <code>0.x.x-preview</code> ausgeliefert, daher
+    bevorzugen stabilitätssensible Projekte Layer 4 + eigenes Styling.
   </p>
 
   <h2>Verantwortungsmatrix</h2>
@@ -261,7 +273,8 @@ npx kumiki add toggle --variant=vanilla`}</code
     </li>
     <li><a href="/docs/architecture">Architektur</a> — das vollständige Fünf-Schichten-Modell.</li>
     <li>
-      <a href="/docs/composition">Komposition</a> — optionale Features per <code>with*</code>-Wrapper hinzufügen.
+      <a href="/docs/composition">Komposition</a> — optionale Features per
+      <code>with*</code>-Wrapper hinzufügen.
     </li>
   </ul>
 </Prose>

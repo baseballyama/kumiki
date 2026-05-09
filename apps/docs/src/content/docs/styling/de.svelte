@@ -6,11 +6,31 @@
   let pressed = $state(false);
 
   const stack = [
-    { layer: 'Produkt-Baseline', tool: 'Globale CSS [data-component*]-Selektoren', use: 'Reset-artige Regeln, geteilt über jedes Dialog' },
-    { layer: 'Design-System-Teile', tool: 'class-Pass-through an Sub-Komponenten', use: 'Strukturelles Styling für <MyDialog>' },
-    { layer: 'Variante / Theme', tool: 'CSS Custom Properties', use: 'Markenfarben, Hell-/Dunkel-Wechsel' },
-    { layer: 'Zustands-Unterschiede', tool: 'data-state-Selektoren (oder Tailwind data-[state=open]:)', use: 'Offen / geschlossen, ausgewählt, deaktiviert, Hover' },
-    { layer: 'Element-Tausch', tool: 'child-Snippet', use: '<a> oder <MyButton> als Wurzelelement rendern' },
+    {
+      layer: 'Produkt-Baseline',
+      tool: 'Globale CSS [data-component*]-Selektoren',
+      use: 'Reset-artige Regeln, geteilt über jedes Dialog',
+    },
+    {
+      layer: 'Design-System-Teile',
+      tool: 'class-Pass-through an Sub-Komponenten',
+      use: 'Strukturelles Styling für <MyDialog>',
+    },
+    {
+      layer: 'Variante / Theme',
+      tool: 'CSS Custom Properties',
+      use: 'Markenfarben, Hell-/Dunkel-Wechsel',
+    },
+    {
+      layer: 'Zustands-Unterschiede',
+      tool: 'data-state-Selektoren (oder Tailwind data-[state=open]:)',
+      use: 'Offen / geschlossen, ausgewählt, deaktiviert, Hover',
+    },
+    {
+      layer: 'Element-Tausch',
+      tool: 'child-Snippet',
+      use: '<a> oder <MyButton> als Wurzelelement rendern',
+    },
   ];
 </script>
 
@@ -35,31 +55,82 @@
   </PreviewFrame>
 
   <h2>Warum Kumiki keine Styles liefert</h2>
-  <p>Layer 4 emittiert nur <strong>semantisches DOM + ARIA + <code>data-*</code>-Attribute</strong>. Bewusst:</p>
+  <p>
+    Layer 4 emittiert nur <strong>semantisches DOM + ARIA + <code>data-*</code>-Attribute</strong>.
+    Bewusst:
+  </p>
   <ul>
-    <li><strong>Bundle-Budgets</strong>: Toggle 1,5 KB / Dialog 3,5 KB / Combobox 4,5 KB lassen keinen Platz für CSS.</li>
-    <li><strong>Design-Systeme variieren</strong>: Tailwind / UnoCSS / Vanilla CSS / CSS-in-JS — indem wir nichts entscheiden, passen wir zu allen.</li>
-    <li><strong>Animation ist auch CSS</strong>: wir emittieren nur <code>data-state="open|closed"</code>; du wählst zwischen CSS-Transitions, View-Transitions oder einer Motion-Library.</li>
+    <li>
+      <strong>Bundle-Budgets</strong>: Toggle 1,5 KB / Dialog 3,5 KB / Combobox 4,5 KB lassen keinen
+      Platz für CSS.
+    </li>
+    <li>
+      <strong>Design-Systeme variieren</strong>: Tailwind / UnoCSS / Vanilla CSS / CSS-in-JS — indem
+      wir nichts entscheiden, passen wir zu allen.
+    </li>
+    <li>
+      <strong>Animation ist auch CSS</strong>: wir emittieren nur
+      <code>data-state="open|closed"</code>; du wählst zwischen CSS-Transitions, View-Transitions
+      oder einer Motion-Library.
+    </li>
   </ul>
 
-  <p>Du komponierst Styling also aus <strong>fünf Techniken</strong>. Hier in der Reihenfolge der Bevorzugung.</p>
+  <p>
+    Du komponierst Styling also aus <strong>fünf Techniken</strong>. Hier in der Reihenfolge der
+    Bevorzugung.
+  </p>
 
   <h2>Rezept 1: <code>data-*</code>-Selektoren (der kanonische Weg für Zustands-Styling)</h2>
-  <p>Lies Kumikis emittierte Attribute über CSS-Selektoren. Bewährtes Muster, etabliert von Radix.</p>
+  <p>
+    Lies Kumikis emittierte Attribute über CSS-Selektoren. Bewährtes Muster, etabliert von Radix.
+  </p>
 
   <table class="attrs">
     <thead>
       <tr><th>Attribut</th><th>Werte</th><th>Wo es erscheint</th></tr>
     </thead>
     <tbody>
-      <tr><td><code>data-state</code></td><td><code>open</code> / <code>closed</code> / <code>opening</code> / <code>closing</code> / <code>on</code> / <code>off</code></td><td>Dialog, Toggle, Tooltip, Popover</td></tr>
-      <tr><td><code>data-orientation</code></td><td><code>horizontal</code> / <code>vertical</code></td><td>Tabs, RadioGroup, Slider</td></tr>
-      <tr><td><code>data-side</code></td><td><code>top</code> / <code>right</code> / <code>bottom</code> / <code>left</code></td><td>Floating-positionierte Elemente</td></tr>
-      <tr><td><code>data-direction</code></td><td><code>ltr</code> / <code>rtl</code></td><td>RTL-Umkehrung</td></tr>
-      <tr><td><code>data-disabled</code></td><td>(leerer String)</td><td>Deaktivierter Zustand</td></tr>
-      <tr><td><code>data-checked</code></td><td><code>true</code> / <code>false</code> / <code>mixed</code></td><td>Checkbox / Toggle / Switch</td></tr>
-      <tr><td><code>data-component</code> / <code>data-component-host</code></td><td><code>combobox</code> / <code>dialog</code> / …</td><td>Identifiziert das Wurzelelement der Komponente</td></tr>
-      <tr><td><code>data-component-part</code></td><td><code>title</code> / <code>close</code> / <code>overlay</code> / …</td><td>Identifiziert Sub-Komponenten-Elemente</td></tr>
+      <tr
+        ><td><code>data-state</code></td><td
+          ><code>open</code> / <code>closed</code> / <code>opening</code> / <code>closing</code> /
+          <code>on</code>
+          / <code>off</code></td
+        ><td>Dialog, Toggle, Tooltip, Popover</td></tr
+      >
+      <tr
+        ><td><code>data-orientation</code></td><td
+          ><code>horizontal</code> / <code>vertical</code></td
+        ><td>Tabs, RadioGroup, Slider</td></tr
+      >
+      <tr
+        ><td><code>data-side</code></td><td
+          ><code>top</code> / <code>right</code> / <code>bottom</code> / <code>left</code></td
+        ><td>Floating-positionierte Elemente</td></tr
+      >
+      <tr
+        ><td><code>data-direction</code></td><td><code>ltr</code> / <code>rtl</code></td><td
+          >RTL-Umkehrung</td
+        ></tr
+      >
+      <tr
+        ><td><code>data-disabled</code></td><td>(leerer String)</td><td>Deaktivierter Zustand</td
+        ></tr
+      >
+      <tr
+        ><td><code>data-checked</code></td><td
+          ><code>true</code> / <code>false</code> / <code>mixed</code></td
+        ><td>Checkbox / Toggle / Switch</td></tr
+      >
+      <tr
+        ><td><code>data-component</code> / <code>data-component-host</code></td><td
+          ><code>combobox</code> / <code>dialog</code> / …</td
+        ><td>Identifiziert das Wurzelelement der Komponente</td></tr
+      >
+      <tr
+        ><td><code>data-component-part</code></td><td
+          ><code>title</code> / <code>close</code> / <code>overlay</code> / …</td
+        ><td>Identifiziert Sub-Komponenten-Elemente</td></tr
+      >
     </tbody>
   </table>
 
@@ -78,7 +149,10 @@
 
   <h2>Rezept 2: <code>class</code> / <code>style</code>-Pass-through</h2>
   <p>
-    Layer-4-Sub-Komponenten sind <strong>dünne Ein-Element-Wrapper, die <code>...rest</code> spreaden</strong>. Was du übergibst — <code>class</code>, <code>style</code>, zusätzliche <code>data-*</code>, weitere ARIA-Attribute — landet auf dem echten DOM-Wurzelelement.
+    Layer-4-Sub-Komponenten sind <strong
+      >dünne Ein-Element-Wrapper, die <code>...rest</code> spreaden</strong
+    >. Was du übergibst — <code>class</code>, <code>style</code>, zusätzliche <code>data-*</code>,
+    weitere ARIA-Attribute — landet auf dem echten DOM-Wurzelelement.
   </p>
 
   <pre><code
@@ -88,12 +162,17 @@
     ></pre>
 
   <p>
-    Implementations-Referenz: <code>packages/components/src/toggle/Root.svelte</code> deklariert <code>[key: string]: unknown</code> in seinem Props-Typ und spreadet <code>...rest</code> direkt auf seinem <code>&lt;button&gt;</code>.
+    Implementations-Referenz: <code>packages/components/src/toggle/Root.svelte</code> deklariert
+    <code>[key: string]: unknown</code>
+    in seinem Props-Typ und spreadet <code>...rest</code> direkt auf seinem
+    <code>&lt;button&gt;</code>.
   </p>
 
   <h2>Rezept 3: CSS Custom Properties (der kanonische Weg für Theme-Propagation)</h2>
   <p>
-    Anders als Sveltes Scoped CSS <strong>fließen CSS-Variablen über die normale Kaskade</strong>. Auf dem Eltern deklariert, erreichen sie das DOM in Kindern — und umgehen die Scope-Barriere von Svelte komplett.
+    Anders als Sveltes Scoped CSS <strong>fließen CSS-Variablen über die normale Kaskade</strong>.
+    Auf dem Eltern deklariert, erreichen sie das DOM in Kindern — und umgehen die Scope-Barriere von
+    Svelte komplett.
   </p>
 
   <pre><code
@@ -113,11 +192,16 @@
 </style>`}</code
     ></pre>
 
-  <p><strong>Verwende es für:</strong> Markenfarben, Dark-Mode-Wechsel, Tokens, die Komponentengrenzen überschreiten müssen.</p>
+  <p>
+    <strong>Verwende es für:</strong> Markenfarben, Dark-Mode-Wechsel, Tokens, die Komponentengrenzen
+    überschreiten müssen.
+  </p>
 
   <h2>Rezept 4: <code>child</code>-Snippet — Element-Tausch</h2>
   <p>
-    Standardmäßig rendert <code>Toggle.Root</code> ein <code>&lt;button&gt;</code>. Der Notausgang für „Ich will hier ein <code>&lt;a&gt;</code>" oder „Ich will mein eigenes <code>&lt;MyButton&gt;</code>".
+    Standardmäßig rendert <code>Toggle.Root</code> ein <code>&lt;button&gt;</code>. Der Notausgang
+    für „Ich will hier ein <code>&lt;a&gt;</code>" oder „Ich will mein eigenes
+    <code>&lt;MyButton&gt;</code>".
   </p>
 
   <pre><code
@@ -131,11 +215,17 @@
     ></pre>
 
   <p>
-    <code>props</code> ist vollständig typisiert: <code>type</code> / <code>aria-pressed</code> / <code>aria-disabled</code> / <code>data-state</code> / <code>onclick</code> / <code>onkeydown</code> / <code>id</code>. Deine Aufgabe ist, sie auf deinem Element zu spreaden.
+    <code>props</code> ist vollständig typisiert: <code>type</code> / <code>aria-pressed</code> /
+    <code>aria-disabled</code>
+    / <code>data-state</code> / <code>onclick</code> / <code>onkeydown</code> / <code>id</code>.
+    Deine Aufgabe ist, sie auf deinem Element zu spreaden.
   </p>
 
   <p class="note">
-    <strong>Greif nicht standardmäßig dazu.</strong> <code>child</code> ist ein Notausgang, nicht der Standard-Styling-Pfad. Wenn ein <code>class</code>-Pass-through reicht, bevorzuge das — und denk daran, dass das erneute Spreaden von <code>props</code> in deiner Verantwortung liegt (vergisst du es, gehen ARIA / Event-Bindungen verloren).
+    <strong>Greif nicht standardmäßig dazu.</strong> <code>child</code> ist ein Notausgang, nicht
+    der Standard-Styling-Pfad. Wenn ein <code>class</code>-Pass-through reicht, bevorzuge das — und
+    denk daran, dass das erneute Spreaden von <code>props</code> in deiner Verantwortung liegt (vergisst
+    du es, gehen ARIA / Event-Bindungen verloren).
   </p>
 
   <h2>Rezept 5: Tailwind / UnoCSS / Vanilla CSS</h2>
@@ -151,11 +241,17 @@
     ></pre>
 
   <h3>UnoCSS (Standardmodus)</h3>
-  <p>Identische Schreiberfahrung wie Tailwind. Die Variante <code>data-[state=on]:</code> ist eingebaut über <code>@unocss/preset-mini</code> / <code>preset-wind3</code>.</p>
+  <p>
+    Identische Schreiberfahrung wie Tailwind. Die Variante <code>data-[state=on]:</code> ist
+    eingebaut über <code>@unocss/preset-mini</code> / <code>preset-wind3</code>.
+  </p>
 
   <h3>UnoCSS svelte-scoped-Modus</h3>
   <p>
-    <code>@unocss/svelte-scoped</code> scannt jedes Eltern-<code>.svelte</code>, dann injiziert es das generierte CSS <strong>verpackt in <code>:global(...)</code></strong> in den <code>&lt;style&gt;</code> dieser Datei. Da die Regeln global sind, erreichen Utilities, die du im Eltern geschrieben hast, das DOM in den Kindern ohne weitere Arbeit.
+    <code>@unocss/svelte-scoped</code> scannt jedes Eltern-<code>.svelte</code>, dann injiziert es
+    das generierte CSS <strong>verpackt in <code>:global(...)</code></strong> in den
+    <code>&lt;style&gt;</code> dieser Datei. Da die Regeln global sind, erreichen Utilities, die du im
+    Eltern geschrieben hast, das DOM in den Kindern ohne weitere Arbeit.
   </p>
 
   <h3>Vanilla CSS / CSS Modules</h3>
@@ -176,7 +272,9 @@
   <pre><code>{`<Toggle.Root class="ds-toggle">Stumm</Toggle.Root>`}</code></pre>
 
   <h2>Pattern: ein Design-System obendrauf bauen</h2>
-  <p>Wickle Kumiki in dein eigenes <code>&lt;MyToggle&gt;</code> für die Wiederverwendung im gesamten Produkt.</p>
+  <p>
+    Wickle Kumiki in dein eigenes <code>&lt;MyToggle&gt;</code> für die Wiederverwendung im gesamten Produkt.
+  </p>
 
   <pre><code
       >{`<!-- src/lib/components/MyToggle.svelte -->
@@ -227,7 +325,11 @@
 
   <h2>Falle: Sveltes scoped <code>&lt;style&gt;</code> propagiert nicht in Kinder</h2>
   <p>
-    Lange bestehende Svelte-Einschränkung: Klassen, die im <code>&lt;style&gt;</code> eines Eltern-<code>.svelte</code> definiert sind, <strong>erreichen nicht die DOM-Elemente innerhalb von Kind-Komponenten</strong>.
+    Lange bestehende Svelte-Einschränkung: Klassen, die im <code>&lt;style&gt;</code> eines Eltern-<code
+      >.svelte</code
+    >
+    definiert sind,
+    <strong>erreichen nicht die DOM-Elemente innerhalb von Kind-Komponenten</strong>.
   </p>
 
   <pre><code
@@ -245,9 +347,20 @@
 
   <p>Vier Auswege:</p>
   <ol>
-    <li><strong>Verwende Tailwind / UnoCSS / ein globales Stylesheet</strong> (Rezepte 1, 5). Von Anfang an nicht scoped, also existiert das Problem nicht. <strong>Erste Empfehlung.</strong></li>
-    <li><strong>Übergib jeder Sub-Komponente eine <code>class</code></strong> (Rezept 2). <code>&lt;Combobox.Input class="ds-input" /&gt;</code> landet die Klasse auf dem Wurzelelement des Kindes. In einem Eltern-<code>&lt;style&gt;</code> würdest du <code>:global(.ds-input)</code> schreiben (oder die Regel nach <code>app.css</code> verschieben).</li>
-    <li><strong>CSS Custom Properties</strong> (Rezept 3). Sie überschreiten Sveltes Scoping. Am besten für Theme-Propagation.</li>
+    <li>
+      <strong>Verwende Tailwind / UnoCSS / ein globales Stylesheet</strong> (Rezepte 1, 5). Von
+      Anfang an nicht scoped, also existiert das Problem nicht. <strong>Erste Empfehlung.</strong>
+    </li>
+    <li>
+      <strong>Übergib jeder Sub-Komponente eine <code>class</code></strong> (Rezept 2).
+      <code>&lt;Combobox.Input class="ds-input" /&gt;</code>
+      landet die Klasse auf dem Wurzelelement des Kindes. In einem Eltern-<code>&lt;style&gt;</code>
+      würdest du <code>:global(.ds-input)</code> schreiben (oder die Regel nach <code>app.css</code> verschieben).
+    </li>
+    <li>
+      <strong>CSS Custom Properties</strong> (Rezept 3). Sie überschreiten Sveltes Scoping. Am besten
+      für Theme-Propagation.
+    </li>
     <li>
       <strong>Durchstoßen mit <code>:global(...)</code></strong>. Letzter Ausweg.
       <pre><code
@@ -257,7 +370,7 @@
   }
 </style>`}</code
         ></pre>
-      Svelte 5 unterstützt auch die Block-Syntax <code>:global &#123; ... &#125;</code>.
+      Svelte 5 unterstützt auch die Block-Syntax<code>:global &#123; ... &#125;</code>.
     </li>
   </ol>
 
@@ -279,9 +392,17 @@
 
   <h2>Was als Nächstes lesen</h2>
   <ul>
-    <li><a href="/docs/layers-by-example">Schichten am Beispiel</a> — wie sich der User-Code in Layer 2/3/4/5 unterscheidet.</li>
-    <li><a href="/docs/composition">Komposition</a> — optionale Features per <code>with*</code>-Wrapper hinzufügen.</li>
-    <li><a href="/docs/i18n">i18n & RTL</a> — <code>data-direction</code> für RTL-Styling nutzen.</li>
+    <li>
+      <a href="/docs/layers-by-example">Schichten am Beispiel</a> — wie sich der User-Code in Layer 2/3/4/5
+      unterscheidet.
+    </li>
+    <li>
+      <a href="/docs/composition">Komposition</a> — optionale Features per
+      <code>with*</code>-Wrapper hinzufügen.
+    </li>
+    <li>
+      <a href="/docs/i18n">i18n & RTL</a> — <code>data-direction</code> für RTL-Styling nutzen.
+    </li>
   </ul>
 </Prose>
 

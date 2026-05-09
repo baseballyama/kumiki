@@ -89,12 +89,12 @@
       <code>&lt;button&gt;</code> טבעי, לא עם עטיפת Svelte.
     </li>
     <li>
-      <strong>Layer 2 (machines)</strong> ל-SSR / ולידציה בצד השרת, או להריץ את הלוגיקה בהקשר שאינו
-      Svelte (Cypress, Vitest, worker).
+      <strong>Layer 2 (machines)</strong> ל-SSR / ולידציה בצד השרת, או להריץ את הלוגיקה בהקשר שאינו Svelte
+      (Cypress, Vitest, worker).
     </li>
     <li>
-      <strong>Layer 1 (primitives)</strong> כשאתה כותב את הרכיב שלך מעל מנועי dismissable /
-      focus-trap / ID.
+      <strong>Layer 1 (primitives)</strong> כשאתה כותב את הרכיב שלך מעל מנועי dismissable / focus-trap
+      / ID.
     </li>
   </ul>
 
@@ -108,8 +108,8 @@
   <h2>קריאת חובה</h2>
   <p>
     מסמכי העיצוב הפנימיים חיים ב-
-    <a href="https://github.com/baseballyama/kumiki/tree/main/docs/design">/docs/design</a>.
-    במיוחד שים לב ל:
+    <a href="https://github.com/baseballyama/kumiki/tree/main/docs/design">/docs/design</a>. במיוחד
+    שים לב ל:
   </p>
   <ul>
     <li><code>02-architecture.md</code> — מודל השכבות הזה, עם תרשימים.</li>

@@ -6,10 +6,26 @@
   let pressed = $state(false);
 
   const stack = [
-    { layer: 'الأساس المنتجي', tool: 'محدّدات CSS عامّة [data-component*]', use: 'قواعد إعادة تعيين تتشاركها كل Dialog' },
-    { layer: 'قطع نظام التصميم', tool: 'تمرير class إلى المكوّنات الفرعية', use: 'تنسيق هيكلي لـ <MyDialog>' },
-    { layer: 'الصيغة / الموضوع', tool: 'CSS Custom Properties', use: 'ألوان العلامة، التبديل بين الفاتح / الداكن' },
-    { layer: 'فروقات الحالة', tool: 'محدّدات data-state (أو Tailwind data-[state=open]:)', use: 'مفتوح / مغلق، مُحدَّد، معطَّل، تحويم' },
+    {
+      layer: 'الأساس المنتجي',
+      tool: 'محدّدات CSS عامّة [data-component*]',
+      use: 'قواعد إعادة تعيين تتشاركها كل Dialog',
+    },
+    {
+      layer: 'قطع نظام التصميم',
+      tool: 'تمرير class إلى المكوّنات الفرعية',
+      use: 'تنسيق هيكلي لـ <MyDialog>',
+    },
+    {
+      layer: 'الصيغة / الموضوع',
+      tool: 'CSS Custom Properties',
+      use: 'ألوان العلامة، التبديل بين الفاتح / الداكن',
+    },
+    {
+      layer: 'فروقات الحالة',
+      tool: 'محدّدات data-state (أو Tailwind data-[state=open]:)',
+      use: 'مفتوح / مغلق، مُحدَّد، معطَّل، تحويم',
+    },
     { layer: 'استبدال العنصر', tool: 'scnippet child', use: 'تصيير <a> أو <MyButton> كعنصر جذر' },
   ];
 </script>
@@ -37,9 +53,18 @@
   <h2>لماذا لا تشحن Kumiki أنماطًا</h2>
   <p>تُصدر Layer 4 فقط <strong>DOM دلاليًّا + ARIA + سمات <code>data-*</code></strong>. بقصد:</p>
   <ul>
-    <li><strong>ميزانيات الحزم</strong>: Toggle 1.5 KB / Dialog 3.5 KB / Combobox 4.5 KB لا تترك مجالًا لـ CSS.</li>
-    <li><strong>أنظمة التصميم تختلف</strong>: Tailwind / UnoCSS / CSS أصيل / CSS-in-JS — بعدم اتّخاذ قرار، نُلائم الجميع.</li>
-    <li><strong>الحركة أيضًا CSS</strong>: نُصدر فقط <code>data-state="open|closed"</code>؛ تختار أنت بين CSS Transitions أو View Transitions أو مكتبة motion.</li>
+    <li>
+      <strong>ميزانيات الحزم</strong>: Toggle 1.5 KB / Dialog 3.5 KB / Combobox 4.5 KB لا تترك
+      مجالًا لـ CSS.
+    </li>
+    <li>
+      <strong>أنظمة التصميم تختلف</strong>: Tailwind / UnoCSS / CSS أصيل / CSS-in-JS — بعدم اتّخاذ
+      قرار، نُلائم الجميع.
+    </li>
+    <li>
+      <strong>الحركة أيضًا CSS</strong>: نُصدر فقط <code>data-state="open|closed"</code>؛ تختار أنت
+      بين CSS Transitions أو View Transitions أو مكتبة motion.
+    </li>
   </ul>
 
   <p>إذًا تُؤلِّف التنسيق من <strong>خمس تقنيات</strong>. مدرَجة بترتيب الأفضليّة.</p>
@@ -52,14 +77,44 @@
       <tr><th>السمة</th><th>القيم</th><th>أين تظهر</th></tr>
     </thead>
     <tbody>
-      <tr><td><code>data-state</code></td><td><code>open</code> / <code>closed</code> / <code>opening</code> / <code>closing</code> / <code>on</code> / <code>off</code></td><td>Dialog وToggle وTooltip وPopover</td></tr>
-      <tr><td><code>data-orientation</code></td><td><code>horizontal</code> / <code>vertical</code></td><td>Tabs وRadioGroup وSlider</td></tr>
-      <tr><td><code>data-side</code></td><td><code>top</code> / <code>right</code> / <code>bottom</code> / <code>left</code></td><td>عناصر طافية الموضع</td></tr>
-      <tr><td><code>data-direction</code></td><td><code>ltr</code> / <code>rtl</code></td><td>قلب RTL</td></tr>
+      <tr
+        ><td><code>data-state</code></td><td
+          ><code>open</code> / <code>closed</code> / <code>opening</code> / <code>closing</code> /
+          <code>on</code>
+          / <code>off</code></td
+        ><td>Dialog وToggle وTooltip وPopover</td></tr
+      >
+      <tr
+        ><td><code>data-orientation</code></td><td
+          ><code>horizontal</code> / <code>vertical</code></td
+        ><td>Tabs وRadioGroup وSlider</td></tr
+      >
+      <tr
+        ><td><code>data-side</code></td><td
+          ><code>top</code> / <code>right</code> / <code>bottom</code> / <code>left</code></td
+        ><td>عناصر طافية الموضع</td></tr
+      >
+      <tr
+        ><td><code>data-direction</code></td><td><code>ltr</code> / <code>rtl</code></td><td
+          >قلب RTL</td
+        ></tr
+      >
       <tr><td><code>data-disabled</code></td><td>(سلسلة فارغة)</td><td>حالة معطَّل</td></tr>
-      <tr><td><code>data-checked</code></td><td><code>true</code> / <code>false</code> / <code>mixed</code></td><td>Checkbox / Toggle / Switch</td></tr>
-      <tr><td><code>data-component</code> / <code>data-component-host</code></td><td><code>combobox</code> / <code>dialog</code> / …</td><td>تُعرّف عنصر جذر المكوّن</td></tr>
-      <tr><td><code>data-component-part</code></td><td><code>title</code> / <code>close</code> / <code>overlay</code> / …</td><td>تُعرّف عناصر المكوّنات الفرعية</td></tr>
+      <tr
+        ><td><code>data-checked</code></td><td
+          ><code>true</code> / <code>false</code> / <code>mixed</code></td
+        ><td>Checkbox / Toggle / Switch</td></tr
+      >
+      <tr
+        ><td><code>data-component</code> / <code>data-component-host</code></td><td
+          ><code>combobox</code> / <code>dialog</code> / …</td
+        ><td>تُعرّف عنصر جذر المكوّن</td></tr
+      >
+      <tr
+        ><td><code>data-component-part</code></td><td
+          ><code>title</code> / <code>close</code> / <code>overlay</code> / …</td
+        ><td>تُعرّف عناصر المكوّنات الفرعية</td></tr
+      >
     </tbody>
   </table>
 
@@ -78,7 +133,9 @@
 
   <h2>الوصفة 2: تمرير <code>class</code> / <code>style</code></h2>
   <p>
-    المكوّنات الفرعية في Layer 4 هي <strong>أغلفة رفيعة بعنصر واحد تنشر <code>...rest</code></strong>. أيّ ما تُمرّره — <code>class</code> أو <code>style</code> أو <code>data-*</code> إضافيّة أو سمات ARIA — يحطّ على جذر DOM الحقيقي.
+    المكوّنات الفرعية في Layer 4 هي <strong>أغلفة رفيعة بعنصر واحد تنشر <code>...rest</code></strong
+    >. أيّ ما تُمرّره — <code>class</code> أو <code>style</code> أو <code>data-*</code> إضافيّة أو سمات
+    ARIA — يحطّ على جذر DOM الحقيقي.
   </p>
 
   <pre><code
@@ -88,12 +145,15 @@
     ></pre>
 
   <p>
-    مرجع التنفيذ: <code>packages/components/src/toggle/Root.svelte</code> يُعلن <code>[key: string]: unknown</code> في نوع Props ويَنشر <code>...rest</code> مباشرةً على <code>&lt;button&gt;</code> الخاصّ به.
+    مرجع التنفيذ: <code>packages/components/src/toggle/Root.svelte</code> يُعلن
+    <code>[key: string]: unknown</code>
+    في نوع Props ويَنشر <code>...rest</code> مباشرةً على <code>&lt;button&gt;</code> الخاصّ به.
   </p>
 
   <h2>الوصفة 3: CSS Custom Properties (المسار القياسي لانتشار الموضوع)</h2>
   <p>
-    خلافًا لـ scoped CSS في Svelte، <strong>تتدفّق متغيّرات CSS عبر السلسلة الطبيعيّة</strong>. مُعلَنة على الأب، تصل إلى DOM داخل المكوّنات الأبناء — متجاوزةً تمامًا حاجز نطاق Svelte.
+    خلافًا لـ scoped CSS في Svelte، <strong>تتدفّق متغيّرات CSS عبر السلسلة الطبيعيّة</strong>.
+    مُعلَنة على الأب، تصل إلى DOM داخل المكوّنات الأبناء — متجاوزةً تمامًا حاجز نطاق Svelte.
   </p>
 
   <pre><code
@@ -113,11 +173,16 @@
 </style>`}</code
     ></pre>
 
-  <p><strong>استخدمها لـ:</strong> ألوان العلامة، تبديل الوضع الداكن، الـ tokens التي يجب أن تعبر حدود المكوّنات.</p>
+  <p>
+    <strong>استخدمها لـ:</strong> ألوان العلامة، تبديل الوضع الداكن، الـ tokens التي يجب أن تعبر حدود
+    المكوّنات.
+  </p>
 
   <h2>الوصفة 4: scnippet <code>child</code> — استبدال العنصر</h2>
   <p>
-    افتراضيًّا يصيّر <code>Toggle.Root</code> <code>&lt;button&gt;</code>. منفذ الهروب لـ«أريد <code>&lt;a&gt;</code> هنا» أو «أريد <code>&lt;MyButton&gt;</code> الخاصّ بي».
+    افتراضيًّا يصيّر <code>Toggle.Root</code> <code>&lt;button&gt;</code>. منفذ الهروب لـ«أريد
+    <code>&lt;a&gt;</code>
+    هنا» أو «أريد <code>&lt;MyButton&gt;</code> الخاصّ بي».
   </p>
 
   <pre><code
@@ -131,11 +196,16 @@
     ></pre>
 
   <p>
-    <code>props</code> مكتوبٌ بالكامل: <code>type</code> / <code>aria-pressed</code> / <code>aria-disabled</code> / <code>data-state</code> / <code>onclick</code> / <code>onkeydown</code> / <code>id</code>. مهمّتك أن تنشره على عنصرك.
+    <code>props</code> مكتوبٌ بالكامل: <code>type</code> / <code>aria-pressed</code> /
+    <code>aria-disabled</code>
+    / <code>data-state</code> / <code>onclick</code> / <code>onkeydown</code> / <code>id</code>.
+    مهمّتك أن تنشره على عنصرك.
   </p>
 
   <p class="note">
-    <strong>لا تلجأ إليه افتراضيًّا.</strong> <code>child</code> منفذ هروب لا مسار تنسيق قياسي. إن غطّى تمرير <code>class</code> الأمر، فضّله — وتذكّر أنّ إعادة نشر <code>props</code> مسؤوليّتك (نسيانه يفقد ARIA / الأحداث).
+    <strong>لا تلجأ إليه افتراضيًّا.</strong> <code>child</code> منفذ هروب لا مسار تنسيق قياسي. إن
+    غطّى تمرير <code>class</code> الأمر، فضّله — وتذكّر أنّ إعادة نشر <code>props</code> مسؤوليّتك (نسيانه
+    يفقد ARIA / الأحداث).
   </p>
 
   <h2>الوصفة 5: Tailwind / UnoCSS / CSS أصيل</h2>
@@ -151,11 +221,18 @@
     ></pre>
 
   <h3>UnoCSS (الوضع الافتراضي)</h3>
-  <p>تجربة كتابة مطابقة لـ Tailwind. صيغة <code>data-[state=on]:</code> مدمَجة عبر <code>@unocss/preset-mini</code> / <code>preset-wind3</code>.</p>
+  <p>
+    تجربة كتابة مطابقة لـ Tailwind. صيغة <code>data-[state=on]:</code> مدمَجة عبر
+    <code>@unocss/preset-mini</code>
+    / <code>preset-wind3</code>.
+  </p>
 
   <h3>UnoCSS وضع svelte-scoped</h3>
   <p>
-    <code>@unocss/svelte-scoped</code> يفحص كلّ <code>.svelte</code> أبًا، ثمّ يحقن CSS المُولَّد <strong>ملفوفًا في <code>:global(...)</code></strong> داخل <code>&lt;style&gt;</code> ذلك الملف. لأنّ القواعد عالميّة، تصل أدوات الـ utility التي كتبتها في الأب إلى DOM داخل المكوّنات الأبناء دون عمل إضافي.
+    <code>@unocss/svelte-scoped</code> يفحص كلّ <code>.svelte</code> أبًا، ثمّ يحقن CSS المُولَّد
+    <strong>ملفوفًا في <code>:global(...)</code></strong>
+    داخل <code>&lt;style&gt;</code> ذلك الملف. لأنّ القواعد عالميّة، تصل أدوات الـ utility التي كتبتها
+    في الأب إلى DOM داخل المكوّنات الأبناء دون عمل إضافي.
   </p>
 
   <h3>CSS أصيل / CSS Modules</h3>
@@ -227,7 +304,8 @@
 
   <h2>الفخّ: <code>&lt;style&gt;</code> ذو النطاق في Svelte لا ينتشر إلى الأبناء</h2>
   <p>
-    قيد قديم في Svelte: الفئات المُعرّفة في <code>&lt;style&gt;</code> أبًا في <code>.svelte</code> <strong>لا تصل إلى عناصر DOM داخل المكوّنات الأبناء</strong>.
+    قيد قديم في Svelte: الفئات المُعرّفة في <code>&lt;style&gt;</code> أبًا في <code>.svelte</code>
+    <strong>لا تصل إلى عناصر DOM داخل المكوّنات الأبناء</strong>.
   </p>
 
   <pre><code
@@ -245,9 +323,20 @@
 
   <p>أربع مخارج:</p>
   <ol>
-    <li><strong>استخدم Tailwind / UnoCSS / ورقة أنماط عامّة</strong> (الوصفتان 1 و5). ليست ذات نطاق أصلًا، فلا توجد المشكلة. <strong>التوصية الأولى.</strong></li>
-    <li><strong>مرّر <code>class</code> لكلّ مكوّن فرعي</strong> (الوصفة 2). <code>&lt;Combobox.Input class="ds-input" /&gt;</code> تُلقي الفئة على عنصر جذر الابن. داخل <code>&lt;style&gt;</code> أبٍ تكتب <code>:global(.ds-input)</code> (أو انقل القاعدة إلى <code>app.css</code>).</li>
-    <li><strong>CSS Custom Properties</strong> (الوصفة 3). تتجاوز نطاق Svelte. الأفضل لانتشار الموضوع.</li>
+    <li>
+      <strong>استخدم Tailwind / UnoCSS / ورقة أنماط عامّة</strong> (الوصفتان 1 و5). ليست ذات نطاق
+      أصلًا، فلا توجد المشكلة. <strong>التوصية الأولى.</strong>
+    </li>
+    <li>
+      <strong>مرّر <code>class</code> لكلّ مكوّن فرعي</strong> (الوصفة 2).
+      <code>&lt;Combobox.Input class="ds-input" /&gt;</code>
+      تُلقي الفئة على عنصر جذر الابن. داخل <code>&lt;style&gt;</code> أبٍ تكتب
+      <code>:global(.ds-input)</code>
+      (أو انقل القاعدة إلى <code>app.css</code>).
+    </li>
+    <li>
+      <strong>CSS Custom Properties</strong> (الوصفة 3). تتجاوز نطاق Svelte. الأفضل لانتشار الموضوع.
+    </li>
     <li>
       <strong>الاختراق بـ <code>:global(...)</code></strong>. الملاذ الأخير.
       <pre><code
@@ -257,7 +346,7 @@
   }
 </style>`}</code
         ></pre>
-      تدعم Svelte 5 أيضًا صيغة الكتلة <code>:global &#123; ... &#125;</code>.
+      تدعم Svelte 5 أيضًا صيغة الكتلة<code>:global &#123; ... &#125;</code>.
     </li>
   </ol>
 
@@ -279,8 +368,13 @@
 
   <h2>ماذا تقرأ بعدها</h2>
   <ul>
-    <li><a href="/docs/layers-by-example">الطبقات بالمثال</a> — كيف يختلف كود المستخدم في Layer 2/3/4/5.</li>
-    <li><a href="/docs/composition">التركيب</a> — إضافة ميزات اختياريّة عبر مغلِّفات <code>with*</code>.</li>
+    <li>
+      <a href="/docs/layers-by-example">الطبقات بالمثال</a> — كيف يختلف كود المستخدم في Layer 2/3/4/5.
+    </li>
+    <li>
+      <a href="/docs/composition">التركيب</a> — إضافة ميزات اختياريّة عبر مغلِّفات
+      <code>with*</code>.
+    </li>
     <li><a href="/docs/i18n">i18n وRTL</a> — استخدام <code>data-direction</code> لتنسيق RTL.</li>
   </ul>
 </Prose>

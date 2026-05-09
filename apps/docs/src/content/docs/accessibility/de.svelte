@@ -70,10 +70,12 @@
       <code>prefers-reduced-motion</code> verkürzt sämtliche Übergänge im Doku-Site auf ~10 ms.
     </li>
     <li>
-      RTL ist kein Nachgedanke. Richtungsabhängige Keymaps (Tabs, Slider) lesen die Richtung aus
-      dem Maschinen-Kontext, nicht aus dem DOM.
+      RTL ist kein Nachgedanke. Richtungsabhängige Keymaps (Tabs, Slider) lesen die Richtung aus dem
+      Maschinen-Kontext, nicht aus dem DOM.
     </li>
-    <li>Forced-Colors-Modus wird respektiert — Komponenten vermeiden reine Hintergrund-Hinweise.</li>
+    <li>
+      Forced-Colors-Modus wird respektiert — Komponenten vermeiden reine Hintergrund-Hinweise.
+    </li>
   </ul>
 
   <h2>Die „Kumiki-ready"-Checkliste</h2>

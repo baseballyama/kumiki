@@ -34,7 +34,8 @@
 
   <p>
     نستخدم <a href="/components/component-toggle">Toggle</a> مثالًا تطبيقيًّا. السلوك بسيط (اضغط
-    لتبديل)، لكنّ التنفيذ موجود في <strong>الطبقات الأربع</strong>، ما يجعله مثاليًّا لمقارنة جنبًا إلى جنب.
+    لتبديل)، لكنّ التنفيذ موجود في <strong>الطبقات الأربع</strong>، ما يجعله مثاليًّا لمقارنة جنبًا
+    إلى جنب.
   </p>
 
   <PreviewFrame>
@@ -51,8 +52,8 @@
   <h2>1. Layer 4 — مكوّن مركّب (نقطة الدخول الافتراضيّة)</h2>
   <p>
     أقصر طريق. <code>Toggle.Root</code> يصيّر <code>&lt;button&gt;</code> ويُدير ARIA و
-    <code>data-state</code> ولوحة المفاتيح وSSR. أنت مسؤول عن <strong>أمرين</strong>: استقبال
-    الحالة عبر <code>bind:pressed</code> وتوفير <code>aria-label</code> (أو تسمية مرئيّة).
+    <code>data-state</code> ولوحة المفاتيح وSSR. أنت مسؤول عن <strong>أمرين</strong>: استقبال الحالة
+    عبر <code>bind:pressed</code> وتوفير <code>aria-label</code> (أو تسمية مرئيّة).
   </p>
 
   <pre><code
@@ -75,13 +76,14 @@
     ></pre>
 
   <p>
-    <strong>اختر هذا حين:</strong> 90% من الحالات. الـ <code>&lt;button&gt;</code> الأصلي يكفي ولا
-    تحتاج إلى تجاوز البنية المغلِّفة.
+    <strong>اختر هذا حين:</strong> 90% من الحالات. الـ <code>&lt;button&gt;</code> الأصلي يكفي ولا تحتاج
+    إلى تجاوز البنية المغلِّفة.
   </p>
 
   <h2>2. Layer 3 — Headless attachment</h2>
   <p>
-    حين تحتاج إلى اختيار العنصر بنفسك (<code>&lt;a&gt;</code> أو <code>&lt;div role="button"&gt;</code>
+    حين تحتاج إلى اختيار العنصر بنفسك (<code>&lt;a&gt;</code> أو
+    <code>&lt;div role="button"&gt;</code>
     أو غلاف مخصّص). <code>createToggle()</code> تعيد مصنعًا متوافقًا مع
     <code>{`{@attach}`}</code> تَنشره على أيّ عنصر تريد.
   </p>
@@ -117,8 +119,9 @@
 
   <h2>3. Layer 2 — آلة خالصة</h2>
   <p>
-    دون Svelte إطلاقًا — آلة حالة منتهية بـ TypeScript خالص. <strong>تكتب أنت DOM وARIA والأحداث
-    والمفاتيح بنفسك.</strong>
+    دون Svelte إطلاقًا — آلة حالة منتهية بـ TypeScript خالص. <strong
+      >تكتب أنت DOM وARIA والأحداث والمفاتيح بنفسك.</strong
+    >
   </p>
 
   <pre><code
@@ -168,8 +171,7 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <p>الملفّات المُضافة:</p>
 
-  <pre><code
-      >{`src/lib/components/Toggle.svelte   # غلاف منمَّق حول Toggle.Root في Layer 4`}</code
+  <pre><code>{`src/lib/components/Toggle.svelte   # غلاف منمَّق حول Toggle.Root في Layer 4`}</code
     ></pre>
 
   <p>استخدمه كأيّ مكوّن Svelte آخر:</p>
@@ -185,8 +187,8 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <p>
     <strong>اختر هذا حين:</strong> تريد قاعدة بصريّة عاملة دون كتابة CSS أوّلًا. تُشحن Layer 5 ضمن
-    <code>0.x.x-preview</code> أثناء سلسلة v1.0، فللمشاريع الحسّاسة للاستقرار يُفضَّل Layer 4 +
-    تنسيقك الخاص.
+    <code>0.x.x-preview</code> أثناء سلسلة v1.0، فللمشاريع الحسّاسة للاستقرار يُفضَّل Layer 4 + تنسيقك
+    الخاص.
   </p>
 
   <h2>مصفوفة المسؤوليّات</h2>
@@ -234,11 +236,12 @@ npx kumiki add toggle --variant=vanilla`}</code
     </li>
     <li>
       <strong>تحتاج إلى اختيار نوع العنصر أو البنية بنفسك؟</strong> → <strong>Layer 3</strong>
-      (<code>{`{@attach t.root}`}</code>). إن غطّى scnippet <code>child</code> الخاص بـ Layer 4
-      حاجتك، ابقَ في Layer 4 — كود أقلّ.
+      (<code>{`{@attach t.root}`}</code>). إن غطّى scnippet <code>child</code> الخاص بـ Layer 4 حاجتك،
+      ابقَ في Layer 4 — كود أقلّ.
     </li>
     <li>
-      <strong>تشغيل خارج Svelte / تحقّق على الخادم / تحتاج FSM فقط؟</strong> → <strong>Layer 2</strong>
+      <strong>تشغيل خارج Svelte / تحقّق على الخادم / تحتاج FSM فقط؟</strong> →
+      <strong>Layer 2</strong>
       (<code>createToggleMachine</code>).
     </li>
   </ul>
@@ -251,7 +254,8 @@ npx kumiki add toggle --variant=vanilla`}</code
     </li>
     <li><a href="/docs/architecture">البنية</a> — نموذج الطبقات الخمس الكامل.</li>
     <li>
-      <a href="/docs/composition">التركيب</a> — إضافة ميزات اختيارية عبر مغلِّفات <code>with*</code>.
+      <a href="/docs/composition">التركيب</a> — إضافة ميزات اختيارية عبر مغلِّفات
+      <code>with*</code>.
     </li>
   </ul>
 </Prose>

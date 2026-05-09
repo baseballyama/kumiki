@@ -32,8 +32,8 @@
   </p>
 
   <p>
-    我们用 <a href="/components/component-toggle">Toggle</a> 作为示例。行为简单(按下翻转),但
-    实现 <strong>四层都有</strong>,非常适合并排比较。
+    我们用 <a href="/components/component-toggle">Toggle</a> 作为示例。行为简单(按下翻转),但 实现
+    <strong>四层都有</strong>,非常适合并排比较。
   </p>
 
   <PreviewFrame>
@@ -73,11 +73,14 @@
 </button>`}</code
     ></pre>
 
-  <p><strong>选择此时机:</strong>90% 的场景。原生 <code>&lt;button&gt;</code> 够用,你不需要覆写包装结构。</p>
+  <p>
+    <strong>选择此时机:</strong>90% 的场景。原生 <code>&lt;button&gt;</code> 够用,你不需要覆写包装结构。
+  </p>
 
   <h2>2. Layer 3 — Headless attachment</h2>
   <p>
-    当你需要自己选择元素时(<code>&lt;a&gt;</code>、<code>&lt;div role="button"&gt;</code>、自定义包装)。
+    当你需要自己选择元素时(<code>&lt;a&gt;</code>、<code>&lt;div role="button"&gt;</code
+    >、自定义包装)。
     <code>createToggle()</code> 返回一个兼容 <code>{`{@attach}`}</code> 的工厂,你可以把它 spread 在你想要的任意元素上。
   </p>
 
@@ -100,9 +103,9 @@
 
   <p>
     在挂载时,<code>{`{@attach t.root}`}</code> 写入 DOM 端属性(<code>type</code>、
-    <code>aria-pressed</code>、<code>data-state</code>、<code>id</code>),并连接点击 + 键盘
-    (Space / Enter)监听器。<strong>多出的责任:</strong>选择元素、样式、可见标签,以及(仅在需要时)
-    通过 <code>subscribe</code> 把状态镜像到响应式本地变量。
+    <code>aria-pressed</code>、<code>data-state</code>、<code>id</code>),并连接点击 + 键盘 (Space /
+    Enter)监听器。<strong>多出的责任:</strong>选择元素、样式、可见标签,以及(仅在需要时) 通过
+    <code>subscribe</code> 把状态镜像到响应式本地变量。
   </p>
 
   <p>
@@ -112,7 +115,9 @@
 
   <h2>3. Layer 2 — 纯状态机</h2>
   <p>
-    完全不依赖 Svelte — 一个纯 TypeScript 有限状态机。<strong>DOM、ARIA、事件、键盘都由你自己写。</strong>
+    完全不依赖 Svelte — 一个纯 TypeScript 有限状态机。<strong
+      >DOM、ARIA、事件、键盘都由你自己写。</strong
+    >
   </p>
 
   <pre><code
@@ -160,8 +165,7 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <p>添加的文件:</p>
 
-  <pre><code
-      >{`src/lib/components/Toggle.svelte   # 包裹 Layer 4 Toggle.Root 的样式化封装`}</code
+  <pre><code>{`src/lib/components/Toggle.svelte   # 包裹 Layer 4 Toggle.Root 的样式化封装`}</code
     ></pre>
 
   <p>像使用其他 Svelte 组件一样使用它:</p>
@@ -225,8 +229,8 @@ npx kumiki add toggle --variant=vanilla`}</code
     </li>
     <li>
       <strong>需要自己选择元素类型或结构?</strong> → <strong>Layer 3</strong>
-      (<code>{`{@attach t.root}`}</code>)。如果 Layer 4 的 <code>child</code> snippet 已能满足,
-      留在 Layer 4 — 代码更少。
+      (<code>{`{@attach t.root}`}</code>)。如果 Layer 4 的 <code>child</code> snippet 已能满足, 留在 Layer
+      4 — 代码更少。
     </li>
     <li>
       <strong>在 Svelte 之外运行 / 服务端校验 / 只要 FSM?</strong> → <strong>Layer 2</strong>

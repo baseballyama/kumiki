@@ -27,14 +27,14 @@
   lede="같은 Toggle 을 Layer 2, 3, 4, 5 에서 각각 작성한 모습을 나란히 비교합니다. 스택을 한 단계 내려갈 때마다 더 많은 제어와 더 많은 책임이 주어집니다."
 >
   <p>
-    Kumiki 의 모든 계층은 <strong>같은 동작을 다른 추상화 수준</strong>으로 노출합니다. 한 계층 내려가면
-    DOM, ARIA, 이벤트 배선의 더 많은 부분을 떠맡지만 — 그만큼 구조를 직접 고를 자유도 얻습니다. 한 계층
-    올라가면 코드는 줄어들지만 Kumiki 의 구조적 선택을 받아들여야 합니다.
+    Kumiki 의 모든 계층은 <strong>같은 동작을 다른 추상화 수준</strong>으로 노출합니다. 한 계층
+    내려가면 DOM, ARIA, 이벤트 배선의 더 많은 부분을 떠맡지만 — 그만큼 구조를 직접 고를 자유도
+    얻습니다. 한 계층 올라가면 코드는 줄어들지만 Kumiki 의 구조적 선택을 받아들여야 합니다.
   </p>
 
   <p>
-    예제로 <a href="/components/component-toggle">Toggle</a> 을 사용합니다. 동작은 단순(눌러 뒤집기)하지만,
-    구현이 <strong>네 계층 모두</strong>에 존재하므로 나란히 비교하기에 이상적입니다.
+    예제로 <a href="/components/component-toggle">Toggle</a> 을 사용합니다. 동작은 단순(눌러
+    뒤집기)하지만, 구현이 <strong>네 계층 모두</strong>에 존재하므로 나란히 비교하기에 이상적입니다.
   </p>
 
   <PreviewFrame>
@@ -51,7 +51,8 @@
   <h2>1. Layer 4 — 복합 컴포넌트(기본 진입점)</h2>
   <p>
     가장 짧은 길. <code>Toggle.Root</code> 가 <code>&lt;button&gt;</code> 을 렌더하고 ARIA,
-    <code>data-state</code>, 키보드, SSR 을 관리합니다. 당신의 책임은 <strong>두 가지</strong>입니다:
+    <code>data-state</code>, 키보드, SSR 을 관리합니다. 당신의 책임은
+    <strong>두 가지</strong>입니다:
     <code>bind:pressed</code> 로 상태 받기, 그리고 <code>aria-label</code>(또는 가시 레이블) 제공.
   </p>
 
@@ -75,12 +76,14 @@
     ></pre>
 
   <p>
-    <strong>이때 선택:</strong> 90% 의 경우. 네이티브 <code>&lt;button&gt;</code> 으로 충분하고, 래핑 구조를 덮어쓸 필요가 없을 때.
+    <strong>이때 선택:</strong> 90% 의 경우. 네이티브 <code>&lt;button&gt;</code> 으로 충분하고, 래핑
+    구조를 덮어쓸 필요가 없을 때.
   </p>
 
   <h2>2. Layer 3 — Headless attachment</h2>
   <p>
-    요소를 직접 골라야 할 때(<code>&lt;a&gt;</code>, <code>&lt;div role="button"&gt;</code>, 사용자 정의 래퍼).
+    요소를 직접 골라야 할 때(<code>&lt;a&gt;</code>, <code>&lt;div role="button"&gt;</code>, 사용자
+    정의 래퍼).
     <code>createToggle()</code> 은 <code>{`{@attach}`}</code> 와 호환되는 팩토리를 반환하며, 원하는 어떤
     요소에도 spread 할 수 있습니다.
   </p>
@@ -104,18 +107,22 @@
 
   <p>
     마운트 시 <code>{`{@attach t.root}`}</code> 가 DOM 측 속성(<code>type</code>,
-    <code>aria-pressed</code>, <code>data-state</code>, <code>id</code>)을 쓰고 클릭 + 키
-    (Space / Enter) 리스너를 연결합니다. <strong>늘어난 책임:</strong> 요소 선택, 스타일링, 가시 레이블,
+    <code>aria-pressed</code>, <code>data-state</code>, <code>id</code>)을 쓰고 클릭 + 키 (Space /
+    Enter) 리스너를 연결합니다. <strong>늘어난 책임:</strong> 요소 선택, 스타일링, 가시 레이블,
     그리고 (필요할 때만) 상태를 반응형 로컬에 미러링하기 위한 <code>subscribe</code>.
   </p>
 
   <p>
-    <strong>이때 선택:</strong> Layer 4 의 고정 구조(<code>&lt;button&gt;</code>)가 맞지 않을 때. 예: toggle
-    을 <code>&lt;label&gt;</code> 안에 넣거나 사용자 정의 상위 셸로 감쌀 때.
+    <strong>이때 선택:</strong> Layer 4 의 고정 구조(<code>&lt;button&gt;</code>)가 맞지 않을 때.
+    예: toggle 을 <code>&lt;label&gt;</code> 안에 넣거나 사용자 정의 상위 셸로 감쌀 때.
   </p>
 
   <h2>3. Layer 2 — 순수 상태 기계</h2>
-  <p>Svelte 가 전혀 없습니다 — 순수 TypeScript 유한 상태 기계. <strong>DOM, ARIA, 이벤트, 키보드를 모두 직접 작성합니다.</strong></p>
+  <p>
+    Svelte 가 전혀 없습니다 — 순수 TypeScript 유한 상태 기계. <strong
+      >DOM, ARIA, 이벤트, 키보드를 모두 직접 작성합니다.</strong
+    >
+  </p>
 
   <pre><code
       >{`<script lang="ts">
@@ -150,7 +157,10 @@
   </ul>
 
   <h2>4. Layer 5 — Atelier (복사·붙여넣기 가능한 스타일 변형)</h2>
-  <p>CLI 가 소스를 당신의 저장소로 복사합니다. 복사 후에는 <strong>당신의 코드</strong>입니다 — 자유롭게 편집하세요.</p>
+  <p>
+    CLI 가 소스를 당신의 저장소로 복사합니다. 복사 후에는 <strong>당신의 코드</strong>입니다 —
+    자유롭게 편집하세요.
+  </p>
 
   <pre><code
       >{`# Tailwind v4 변형
@@ -162,8 +172,7 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <p>추가되는 파일:</p>
 
-  <pre><code
-      >{`src/lib/components/Toggle.svelte   # Layer 4 Toggle.Root 를 감싼 스타일 래퍼`}</code
+  <pre><code>{`src/lib/components/Toggle.svelte   # Layer 4 Toggle.Root 를 감싼 스타일 래퍼`}</code
     ></pre>
 
   <p>다른 Svelte 컴포넌트와 똑같이 사용하세요:</p>
@@ -178,8 +187,8 @@ npx kumiki add toggle --variant=vanilla`}</code
     ></pre>
 
   <p>
-    <strong>이때 선택:</strong> CSS 를 먼저 쓰지 않고도 동작하는 시각 기준선이 필요할 때. Layer 5 는 v1.0
-    동안 <code>0.x.x-preview</code> 로 출시되므로, 안정성에 민감한 프로젝트라면 Layer 4 + 자체 스타일링을
+    <strong>이때 선택:</strong> CSS 를 먼저 쓰지 않고도 동작하는 시각 기준선이 필요할 때. Layer 5 는
+    v1.0 동안 <code>0.x.x-preview</code> 로 출시되므로, 안정성에 민감한 프로젝트라면 Layer 4 + 자체 스타일링을
     선호하세요.
   </p>
 
@@ -211,8 +220,8 @@ npx kumiki add toggle --variant=vanilla`}</code
   </table>
 
   <p class="note">
-    * Svelte 반응 브리지는 L3 에서 <code>controller.pressed</code> 를 텍스트로 표시할 때만 필요합니다.
-    CSS 가 <code>data-state</code> 로 모두 처리한다면 <code>subscribe</code> 는 필요하지 않습니다.
+    * Svelte 반응 브리지는 L3 에서 <code>controller.pressed</code> 를 텍스트로 표시할 때만
+    필요합니다. CSS 가 <code>data-state</code> 로 모두 처리한다면 <code>subscribe</code> 는 필요하지 않습니다.
   </p>
 
   <h2>계층 선택 — 의사결정 트리</h2>
@@ -228,8 +237,8 @@ npx kumiki add toggle --variant=vanilla`}</code
     </li>
     <li>
       <strong>요소 타입이나 구조를 직접 골라야 하는가?</strong> → <strong>Layer 3</strong>
-      (<code>{`{@attach t.root}`}</code>). Layer 4 의 <code>child</code> 스니펫이 충분하다면 Layer 4
-      에 머무르세요 — 코드가 더 적습니다.
+      (<code>{`{@attach t.root}`}</code>). Layer 4 의 <code>child</code> 스니펫이 충분하다면 Layer 4 에
+      머무르세요 — 코드가 더 적습니다.
     </li>
     <li>
       <strong>Svelte 외부 실행 / 서버 검증 / FSM 만 필요?</strong> → <strong>Layer 2</strong>

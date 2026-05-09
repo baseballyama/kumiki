@@ -59,16 +59,14 @@
 
   <h2>键盘契约</h2>
   <p>
-    每个组件在其详情页面(<strong>可访问性</strong> 标签)中记录键盘映射。在 APG 定义模式的地方,Kumiki
-    一字不漏地遵循 — 不作创造性解释。
+    每个组件在其详情页面(<strong>可访问性</strong> 标签)中记录键盘映射。在 APG 定义模式的地方,Kumiki 一字不漏地遵循
+    — 不作创造性解释。
   </p>
 
   <h2>减少动画、RTL、高对比度</h2>
   <ul>
     <li><code>prefers-reduced-motion</code> 在整个文档站点将所有过渡缩短到约 10 毫秒。</li>
-    <li>
-      RTL 并非后补。方向敏感的键盘映射(Tabs、Slider)从机器上下文读取方向,而非 DOM。
-    </li>
+    <li>RTL 并非后补。方向敏感的键盘映射(Tabs、Slider)从机器上下文读取方向,而非 DOM。</li>
     <li>遵循 Forced-colors 模式 — 组件避免仅使用背景表示状态。</li>
   </ul>
 

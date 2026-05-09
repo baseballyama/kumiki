@@ -54,8 +54,8 @@
   </p>
 
   <p>
-    Le <strong>toggle de sens</strong> sur chaque page de détail vous laisse prévisualiser RTL pour
-    n'importe quelle locale, sans changer de langue. Utilisez-le pour vérifier votre style.
+    Le <strong>toggle de sens</strong> sur chaque page de détail vous laisse prévisualiser RTL pour n'importe
+    quelle locale, sans changer de langue. Utilisez-le pour vérifier votre style.
   </p>
 
   <h2>Ce qui est localisé</h2>

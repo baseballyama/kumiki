@@ -57,8 +57,7 @@
   lede="تقع كلّ مكوّنة Kumiki أوّلية في طبقة واحدة بالضبط. اختر الطبقة المناسبة لاحتياجك للتحكّم — وأرسل بايتات تلك الطبقة فقط. الصادرات بمسار فرعي تُبقي إزالة الكود الميت جراحيّة."
 >
   <p>
-    تستعير الأسماء من وصلات <em>Kumiki</em> الخشبيّة. كل طبقة قطعة تتعشّق مع التالية دون مسامير
-    أو غراء.
+    تستعير الأسماء من وصلات <em>Kumiki</em> الخشبيّة. كل طبقة قطعة تتعشّق مع التالية دون مسامير أو غراء.
   </p>
 
   <table class="layers">
@@ -90,26 +89,27 @@
       <code>&lt;button&gt;</code> أصليًا لا غلافًا من Svelte.
     </li>
     <li>
-      <strong>Layer 2 (machines)</strong> للتحقق على الـ SSR / الخادم، أو لتشغيل المنطق في سياق
-      ليس Svelte (Cypress أو Vitest أو worker).
+      <strong>Layer 2 (machines)</strong> للتحقق على الـ SSR / الخادم، أو لتشغيل المنطق في سياق ليس Svelte
+      (Cypress أو Vitest أو worker).
     </li>
     <li>
-      <strong>Layer 1 (primitives)</strong> عند تأليف مكوّنك الخاصّ فوق محرّكات dismissable / focus-trap / ID.
+      <strong>Layer 1 (primitives)</strong> عند تأليف مكوّنك الخاصّ فوق محرّكات dismissable / focus-trap
+      / ID.
     </li>
   </ul>
 
   <h2>لماذا لا نسحب كلّ شيء؟</h2>
   <p>
-    ميزانيات الحزم. لكل مسار فرعي ميزانية brotli تفرضها CI — يُشحن Toggle بـ 1.5 KB وCombobox بـ
-    4.5 KB. سحب خيارات Layer 5 المنمَّقة إلى مشروع يملك بالفعل tokens تصميمه هو هدر للبايتات؛ حزمة
+    ميزانيات الحزم. لكل مسار فرعي ميزانية brotli تفرضها CI — يُشحن Toggle بـ 1.5 KB وCombobox بـ 4.5
+    KB. سحب خيارات Layer 5 المنمَّقة إلى مشروع يملك بالفعل tokens تصميمه هو هدر للبايتات؛ حزمة
     Atelier اختيارية، ليست الافتراضي.
   </p>
 
   <h2>قراءة موثوقة</h2>
   <p>
     تعيش وثائق التصميم الداخلية في
-    <a href="https://github.com/baseballyama/kumiki/tree/main/docs/design">/docs/design</a>.
-    لاحظ خاصّةً:
+    <a href="https://github.com/baseballyama/kumiki/tree/main/docs/design">/docs/design</a>. لاحظ
+    خاصّةً:
   </p>
   <ul>
     <li><code>02-architecture.md</code> — نموذج الطبقات هذا مع رسوم.</li>

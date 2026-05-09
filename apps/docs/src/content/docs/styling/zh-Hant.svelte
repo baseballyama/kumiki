@@ -6,10 +6,18 @@
   let pressed = $state(false);
 
   const stack = [
-    { layer: '產品基線', tool: '全域 CSS [data-component*] 選擇器', use: '所有 Dialog 共用的重置樣式' },
+    {
+      layer: '產品基線',
+      tool: '全域 CSS [data-component*] 選擇器',
+      use: '所有 Dialog 共用的重置樣式',
+    },
     { layer: '設計系統部件', tool: '透傳 class 給子元件', use: '<MyDialog> 的結構樣式' },
     { layer: '變體 / 主題', tool: 'CSS 自訂屬性', use: '品牌色、深 / 淺切換' },
-    { layer: '狀態差異', tool: 'data-state 選擇器(或 Tailwind data-[state=open]:)', use: '開啟 / 關閉、選取、停用、懸停' },
+    {
+      layer: '狀態差異',
+      tool: 'data-state 選擇器(或 Tailwind data-[state=open]:)',
+      use: '開啟 / 關閉、選取、停用、懸停',
+    },
     { layer: '元素替換', tool: 'child snippet', use: '把根元素換成 <a> 或 <MyButton>' },
   ];
 </script>
@@ -38,9 +46,13 @@
   <p>Layer 4 僅輸出 <strong>語意化 DOM + ARIA + <code>data-*</code> 屬性</strong>。這是有意的:</p>
   <ul>
     <li><strong>體積預算</strong>:Toggle 1.5 KB / Dialog 3.5 KB / Combobox 4.5 KB,容不下 CSS。</li>
-    <li><strong>設計系統各異</strong>:Tailwind / UnoCSS / 原生 CSS / CSS-in-JS — 不替你決定就能適配所有。</li>
     <li>
-      <strong>動畫亦由 CSS 驅動</strong>:我們僅輸出 <code>data-state="open|closed"</code>,你選擇 CSS Transitions、View Transitions 或 motion 函式庫。
+      <strong>設計系統各異</strong>:Tailwind / UnoCSS / 原生 CSS / CSS-in-JS —
+      不替你決定就能適配所有。
+    </li>
+    <li>
+      <strong>動畫亦由 CSS 驅動</strong>:我們僅輸出 <code>data-state="open|closed"</code>,你選擇 CSS
+      Transitions、View Transitions 或 motion 函式庫。
     </li>
   </ul>
 
@@ -54,14 +66,44 @@
       <tr><th>屬性</th><th>值</th><th>出現位置</th></tr>
     </thead>
     <tbody>
-      <tr><td><code>data-state</code></td><td><code>open</code> / <code>closed</code> / <code>opening</code> / <code>closing</code> / <code>on</code> / <code>off</code></td><td>Dialog、Toggle、Tooltip、Popover</td></tr>
-      <tr><td><code>data-orientation</code></td><td><code>horizontal</code> / <code>vertical</code></td><td>Tabs、RadioGroup、Slider</td></tr>
-      <tr><td><code>data-side</code></td><td><code>top</code> / <code>right</code> / <code>bottom</code> / <code>left</code></td><td>浮動定位元素</td></tr>
-      <tr><td><code>data-direction</code></td><td><code>ltr</code> / <code>rtl</code></td><td>RTL 反轉</td></tr>
+      <tr
+        ><td><code>data-state</code></td><td
+          ><code>open</code> / <code>closed</code> / <code>opening</code> / <code>closing</code> /
+          <code>on</code>
+          / <code>off</code></td
+        ><td>Dialog、Toggle、Tooltip、Popover</td></tr
+      >
+      <tr
+        ><td><code>data-orientation</code></td><td
+          ><code>horizontal</code> / <code>vertical</code></td
+        ><td>Tabs、RadioGroup、Slider</td></tr
+      >
+      <tr
+        ><td><code>data-side</code></td><td
+          ><code>top</code> / <code>right</code> / <code>bottom</code> / <code>left</code></td
+        ><td>浮動定位元素</td></tr
+      >
+      <tr
+        ><td><code>data-direction</code></td><td><code>ltr</code> / <code>rtl</code></td><td
+          >RTL 反轉</td
+        ></tr
+      >
       <tr><td><code>data-disabled</code></td><td>(空字串)</td><td>停用狀態</td></tr>
-      <tr><td><code>data-checked</code></td><td><code>true</code> / <code>false</code> / <code>mixed</code></td><td>Checkbox / Toggle / Switch</td></tr>
-      <tr><td><code>data-component</code> / <code>data-component-host</code></td><td><code>combobox</code> / <code>dialog</code> / …</td><td>標識元件根元素</td></tr>
-      <tr><td><code>data-component-part</code></td><td><code>title</code> / <code>close</code> / <code>overlay</code> / …</td><td>標識子元件元素</td></tr>
+      <tr
+        ><td><code>data-checked</code></td><td
+          ><code>true</code> / <code>false</code> / <code>mixed</code></td
+        ><td>Checkbox / Toggle / Switch</td></tr
+      >
+      <tr
+        ><td><code>data-component</code> / <code>data-component-host</code></td><td
+          ><code>combobox</code> / <code>dialog</code> / …</td
+        ><td>標識元件根元素</td></tr
+      >
+      <tr
+        ><td><code>data-component-part</code></td><td
+          ><code>title</code> / <code>close</code> / <code>overlay</code> / …</td
+        ><td>標識子元件元素</td></tr
+      >
     </tbody>
   </table>
 
@@ -80,7 +122,8 @@
 
   <h2>食譜 2:<code>class</code> / <code>style</code> 透傳</h2>
   <p>
-    Layer 4 子元件是 <strong>spread <code>...rest</code> 的薄薄一層單元素包裝</strong>。傳入的 <code>class</code>、<code>style</code>、額外 <code>data-*</code>、ARIA 都會落到真實 DOM 根上。
+    Layer 4 子元件是 <strong>spread <code>...rest</code> 的薄薄一層單元素包裝</strong>。傳入的
+    <code>class</code>、<code>style</code>、額外 <code>data-*</code>、ARIA 都會落到真實 DOM 根上。
   </p>
 
   <pre><code
@@ -90,12 +133,15 @@
     ></pre>
 
   <p>
-    實作參考:<code>packages/components/src/toggle/Root.svelte</code> 在 Props 型別中宣告 <code>[key: string]: unknown</code>,並把 <code>...rest</code> 直接 spread 到 <code>&lt;button&gt;</code>。
+    實作參考:<code>packages/components/src/toggle/Root.svelte</code> 在 Props 型別中宣告
+    <code>[key: string]: unknown</code>,並把 <code>...rest</code> 直接 spread 到
+    <code>&lt;button&gt;</code>。
   </p>
 
   <h2>食譜 3:CSS 自訂屬性(主題傳播的標準途徑)</h2>
   <p>
-    與 Svelte 的 scoped CSS 不同,<strong>CSS 變數沿正常層疊流動</strong>。在父層宣告即可到達子元件內部 DOM — 完全繞過 Svelte 的作用域屏障。
+    與 Svelte 的 scoped CSS 不同,<strong>CSS 變數沿正常層疊流動</strong
+    >。在父層宣告即可到達子元件內部 DOM — 完全繞過 Svelte 的作用域屏障。
   </p>
 
   <pre><code
@@ -119,7 +165,8 @@
 
   <h2>食譜 4:<code>child</code> snippet — 元素替換</h2>
   <p>
-    預設 <code>Toggle.Root</code> 渲染 <code>&lt;button&gt;</code>。「我這裡要 <code>&lt;a&gt;</code>」或「我要用自己的 <code>&lt;MyButton&gt;</code>」的逃生口。
+    預設 <code>Toggle.Root</code> 渲染 <code>&lt;button&gt;</code>。「我這裡要
+    <code>&lt;a&gt;</code>」或「我要用自己的 <code>&lt;MyButton&gt;</code>」的逃生口。
   </p>
 
   <pre><code
@@ -133,11 +180,16 @@
     ></pre>
 
   <p>
-    <code>props</code> 完整型別化:<code>type</code> / <code>aria-pressed</code> / <code>aria-disabled</code> / <code>data-state</code> / <code>onclick</code> / <code>onkeydown</code> / <code>id</code>。你的工作是把它 spread 到自己的元素上。
+    <code>props</code> 完整型別化:<code>type</code> / <code>aria-pressed</code> /
+    <code>aria-disabled</code>
+    / <code>data-state</code> / <code>onclick</code> / <code>onkeydown</code> /
+    <code>id</code>。你的工作是把它 spread 到自己的元素上。
   </p>
 
   <p class="note">
-    <strong>不要預設就用這個。</strong><code>child</code> 是逃生口而非常規樣式路徑。能用 <code>class</code> 透傳就用 — 並記住,重新 spread <code>props</code> 是你的責任(忘了會丟失 ARIA / 事件)。
+    <strong>不要預設就用這個。</strong><code>child</code> 是逃生口而非常規樣式路徑。能用
+    <code>class</code>
+    透傳就用 — 並記住,重新 spread <code>props</code> 是你的責任(忘了會丟失 ARIA / 事件)。
   </p>
 
   <h2>食譜 5:Tailwind / UnoCSS / 原生 CSS</h2>
@@ -153,11 +205,17 @@
     ></pre>
 
   <h3>UnoCSS(預設模式)</h3>
-  <p>與 Tailwind 寫法一致。<code>data-[state=on]:</code> 變體由 <code>@unocss/preset-mini</code> / <code>preset-wind3</code> 內建。</p>
+  <p>
+    與 Tailwind 寫法一致。<code>data-[state=on]:</code> 變體由 <code>@unocss/preset-mini</code> /
+    <code>preset-wind3</code> 內建。
+  </p>
 
   <h3>UnoCSS svelte-scoped 模式</h3>
   <p>
-    <code>@unocss/svelte-scoped</code> 掃描每個父層 <code>.svelte</code>,然後把產生的 CSS <strong>包在 <code>:global(...)</code></strong> 注入到該檔案的 <code>&lt;style&gt;</code>。因為規則是全域的,父層寫的 utility 不需額外處理就能觸達子元件內部 DOM。
+    <code>@unocss/svelte-scoped</code> 掃描每個父層 <code>.svelte</code>,然後把產生的 CSS
+    <strong>包在 <code>:global(...)</code></strong>
+    注入到該檔案的 <code>&lt;style&gt;</code>。因為規則是全域的,父層寫的 utility
+    不需額外處理就能觸達子元件內部 DOM。
   </p>
 
   <h3>原生 CSS / CSS Modules</h3>
@@ -229,7 +287,8 @@
 
   <h2>陷阱:Svelte 的 scoped <code>&lt;style&gt;</code> 不會傳播到子元件</h2>
   <p>
-    Svelte 長期以來的限制:在父 <code>.svelte</code> 的 <code>&lt;style&gt;</code> 定義的 class <strong>不會到達子元件內部的 DOM 元素</strong>。
+    Svelte 長期以來的限制:在父 <code>.svelte</code> 的 <code>&lt;style&gt;</code> 定義的 class
+    <strong>不會到達子元件內部的 DOM 元素</strong>。
   </p>
 
   <pre><code
@@ -248,10 +307,15 @@
   <p>四種解法:</p>
   <ol>
     <li>
-      <strong>使用 Tailwind / UnoCSS / 全域樣式表</strong>(食譜 1、5)。本來就不是 scoped,問題不存在。<strong>首選建議。</strong>
+      <strong>使用 Tailwind / UnoCSS / 全域樣式表</strong>(食譜 1、5)。本來就不是
+      scoped,問題不存在。<strong>首選建議。</strong>
     </li>
     <li>
-      <strong>對每個子元件傳 <code>class</code></strong>(食譜 2)。<code>&lt;Combobox.Input class="ds-input" /&gt;</code> 會把 class 落到子元件根元素。在父 <code>&lt;style&gt;</code> 你會寫 <code>:global(.ds-input)</code>(或把規則搬到 <code>app.css</code>)。
+      <strong>對每個子元件傳 <code>class</code></strong>(食譜 2)。<code
+        >&lt;Combobox.Input class="ds-input" /&gt;</code
+      >
+      會把 class 落到子元件根元素。在父 <code>&lt;style&gt;</code> 你會寫
+      <code>:global(.ds-input)</code>(或把規則搬到 <code>app.css</code>)。
     </li>
     <li><strong>CSS 自訂屬性</strong>(食譜 3)。它們越過 Svelte 作用域層疊。最適合主題傳播。</li>
     <li>
@@ -263,7 +327,7 @@
   }
 </style>`}</code
         ></pre>
-      Svelte 5 也支援 <code>:global &#123; ... &#125;</code> 區塊語法。
+      Svelte 5 也支援<code>:global &#123; ... &#125;</code> 區塊語法。
     </li>
   </ol>
 

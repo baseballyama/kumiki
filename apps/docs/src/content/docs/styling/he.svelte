@@ -6,10 +6,22 @@
   let pressed = $state(false);
 
   const stack = [
-    { layer: 'בסיס מוצר', tool: 'סלקטורי CSS גלובליים [data-component*]', use: 'כללי reset משותפים לכל Dialog' },
+    {
+      layer: 'בסיס מוצר',
+      tool: 'סלקטורי CSS גלובליים [data-component*]',
+      use: 'כללי reset משותפים לכל Dialog',
+    },
     { layer: 'חלקי מערכת עיצוב', tool: 'העברת class לסאב-רכיבים', use: 'עיצוב מבני ל-<MyDialog>' },
-    { layer: 'וריאציה / ערכת נושא', tool: 'CSS Custom Properties', use: 'צבעי מותג, החלפה בהיר / כהה' },
-    { layer: 'הבדלי מצב', tool: 'סלקטורי data-state (או Tailwind data-[state=open]:)', use: 'פתוח / סגור, נבחר, מושבת, ריחוף' },
+    {
+      layer: 'וריאציה / ערכת נושא',
+      tool: 'CSS Custom Properties',
+      use: 'צבעי מותג, החלפה בהיר / כהה',
+    },
+    {
+      layer: 'הבדלי מצב',
+      tool: 'סלקטורי data-state (או Tailwind data-[state=open]:)',
+      use: 'פתוח / סגור, נבחר, מושבת, ריחוף',
+    },
     { layer: 'החלפת אלמנט', tool: 'snippet child', use: 'רנדר <a> או <MyButton> כאלמנט שורש' },
   ];
 </script>
@@ -37,9 +49,18 @@
   <h2>למה Kumiki לא שולחת סגנונות</h2>
   <p>Layer 4 פולטת רק <strong>DOM סמנטי + ARIA + תכונות <code>data-*</code></strong>. בכוונה:</p>
   <ul>
-    <li><strong>תקציבי בנדל</strong>: Toggle 1.5 KB / Dialog 3.5 KB / Combobox 4.5 KB לא משאירים מקום ל-CSS.</li>
-    <li><strong>מערכות עיצוב משתנות</strong>: Tailwind / UnoCSS / CSS גולמי / CSS-in-JS — בכך שאיננו מחליטים דבר, אנו מתאימים לכולן.</li>
-    <li><strong>אנימציה היא גם CSS</strong>: אנו פולטים רק <code>data-state="open|closed"</code>; אתם בוחרים בין CSS Transitions, View Transitions או ספריית motion.</li>
+    <li>
+      <strong>תקציבי בנדל</strong>: Toggle 1.5 KB / Dialog 3.5 KB / Combobox 4.5 KB לא משאירים מקום
+      ל-CSS.
+    </li>
+    <li>
+      <strong>מערכות עיצוב משתנות</strong>: Tailwind / UnoCSS / CSS גולמי / CSS-in-JS — בכך שאיננו
+      מחליטים דבר, אנו מתאימים לכולן.
+    </li>
+    <li>
+      <strong>אנימציה היא גם CSS</strong>: אנו פולטים רק <code>data-state="open|closed"</code>; אתם
+      בוחרים בין CSS Transitions, View Transitions או ספריית motion.
+    </li>
   </ul>
 
   <p>אז אתם מחברים עיצוב מ<strong>חמש טכניקות</strong>. רשומות בסדר עדיפות.</p>
@@ -52,14 +73,44 @@
       <tr><th>תכונה</th><th>ערכים</th><th>איפה מופיע</th></tr>
     </thead>
     <tbody>
-      <tr><td><code>data-state</code></td><td><code>open</code> / <code>closed</code> / <code>opening</code> / <code>closing</code> / <code>on</code> / <code>off</code></td><td>Dialog, Toggle, Tooltip, Popover</td></tr>
-      <tr><td><code>data-orientation</code></td><td><code>horizontal</code> / <code>vertical</code></td><td>Tabs, RadioGroup, Slider</td></tr>
-      <tr><td><code>data-side</code></td><td><code>top</code> / <code>right</code> / <code>bottom</code> / <code>left</code></td><td>אלמנטים ממוקמים-צף</td></tr>
-      <tr><td><code>data-direction</code></td><td><code>ltr</code> / <code>rtl</code></td><td>היפוך RTL</td></tr>
+      <tr
+        ><td><code>data-state</code></td><td
+          ><code>open</code> / <code>closed</code> / <code>opening</code> / <code>closing</code> /
+          <code>on</code>
+          / <code>off</code></td
+        ><td>Dialog, Toggle, Tooltip, Popover</td></tr
+      >
+      <tr
+        ><td><code>data-orientation</code></td><td
+          ><code>horizontal</code> / <code>vertical</code></td
+        ><td>Tabs, RadioGroup, Slider</td></tr
+      >
+      <tr
+        ><td><code>data-side</code></td><td
+          ><code>top</code> / <code>right</code> / <code>bottom</code> / <code>left</code></td
+        ><td>אלמנטים ממוקמים-צף</td></tr
+      >
+      <tr
+        ><td><code>data-direction</code></td><td><code>ltr</code> / <code>rtl</code></td><td
+          >היפוך RTL</td
+        ></tr
+      >
       <tr><td><code>data-disabled</code></td><td>(מחרוזת ריקה)</td><td>מצב מושבת</td></tr>
-      <tr><td><code>data-checked</code></td><td><code>true</code> / <code>false</code> / <code>mixed</code></td><td>Checkbox / Toggle / Switch</td></tr>
-      <tr><td><code>data-component</code> / <code>data-component-host</code></td><td><code>combobox</code> / <code>dialog</code> / …</td><td>מזהה את אלמנט שורש הרכיב</td></tr>
-      <tr><td><code>data-component-part</code></td><td><code>title</code> / <code>close</code> / <code>overlay</code> / …</td><td>מזהה אלמנטים של סאב-רכיב</td></tr>
+      <tr
+        ><td><code>data-checked</code></td><td
+          ><code>true</code> / <code>false</code> / <code>mixed</code></td
+        ><td>Checkbox / Toggle / Switch</td></tr
+      >
+      <tr
+        ><td><code>data-component</code> / <code>data-component-host</code></td><td
+          ><code>combobox</code> / <code>dialog</code> / …</td
+        ><td>מזהה את אלמנט שורש הרכיב</td></tr
+      >
+      <tr
+        ><td><code>data-component-part</code></td><td
+          ><code>title</code> / <code>close</code> / <code>overlay</code> / …</td
+        ><td>מזהה אלמנטים של סאב-רכיב</td></tr
+      >
     </tbody>
   </table>
 
@@ -78,7 +129,9 @@
 
   <h2>מתכון 2: העברת <code>class</code> / <code>style</code></h2>
   <p>
-    סאב-רכיבי Layer 4 הם <strong>עטיפות דקות חד-אלמנטיות שמפזרות <code>...rest</code></strong>. כל מה שתעבירו — <code>class</code>, <code>style</code>, <code>data-*</code> נוספים, תכונות ARIA נוספות — נוחת על שורש ה-DOM האמיתי.
+    סאב-רכיבי Layer 4 הם <strong>עטיפות דקות חד-אלמנטיות שמפזרות <code>...rest</code></strong>. כל
+    מה שתעבירו — <code>class</code>, <code>style</code>, <code>data-*</code> נוספים, תכונות ARIA נוספות
+    — נוחת על שורש ה-DOM האמיתי.
   </p>
 
   <pre><code
@@ -88,12 +141,15 @@
     ></pre>
 
   <p>
-    הפניית מימוש: <code>packages/components/src/toggle/Root.svelte</code> מצהיר על <code>[key: string]: unknown</code> בטיפוס Props ומפזר <code>...rest</code> ישירות על ה-<code>&lt;button&gt;</code> שלו.
+    הפניית מימוש: <code>packages/components/src/toggle/Root.svelte</code> מצהיר על
+    <code>[key: string]: unknown</code>
+    בטיפוס Props ומפזר <code>...rest</code> ישירות על ה-<code>&lt;button&gt;</code> שלו.
   </p>
 
   <h2>מתכון 3: CSS Custom Properties (הדרך הקאנונית להפצת ערכת נושא)</h2>
   <p>
-    בשונה מה-CSS הסקופי של Svelte, <strong>משתני CSS זורמים דרך הקסקייד הרגיל</strong>. כשמוצהרים על האב, הם מגיעים ל-DOM בתוך רכיבים-בנים — ועוקפים לחלוטין את חסם הסקופ של Svelte.
+    בשונה מה-CSS הסקופי של Svelte, <strong>משתני CSS זורמים דרך הקסקייד הרגיל</strong>. כשמוצהרים על
+    האב, הם מגיעים ל-DOM בתוך רכיבים-בנים — ועוקפים לחלוטין את חסם הסקופ של Svelte.
   </p>
 
   <pre><code
@@ -113,11 +169,15 @@
 </style>`}</code
     ></pre>
 
-  <p><strong>השתמשו בזה ל:</strong> צבעי מותג, החלפת מצב כהה, טוקנים שצריכים לחצות גבולות רכיבים.</p>
+  <p>
+    <strong>השתמשו בזה ל:</strong> צבעי מותג, החלפת מצב כהה, טוקנים שצריכים לחצות גבולות רכיבים.
+  </p>
 
   <h2>מתכון 4: snippet <code>child</code> — החלפת אלמנט</h2>
   <p>
-    כברירת מחדל <code>Toggle.Root</code> מרנדר <code>&lt;button&gt;</code>. פתח החירום ל"אני רוצה <code>&lt;a&gt;</code> כאן" או "אני רוצה את <code>&lt;MyButton&gt;</code> שלי".
+    כברירת מחדל <code>Toggle.Root</code> מרנדר <code>&lt;button&gt;</code>. פתח החירום ל"אני רוצה
+    <code>&lt;a&gt;</code>
+    כאן" או "אני רוצה את <code>&lt;MyButton&gt;</code> שלי".
   </p>
 
   <pre><code
@@ -131,11 +191,16 @@
     ></pre>
 
   <p>
-    <code>props</code> מטופס במלואו: <code>type</code> / <code>aria-pressed</code> / <code>aria-disabled</code> / <code>data-state</code> / <code>onclick</code> / <code>onkeydown</code> / <code>id</code>. תפקידכם לפזר אותו על האלמנט שלכם.
+    <code>props</code> מטופס במלואו: <code>type</code> / <code>aria-pressed</code> /
+    <code>aria-disabled</code>
+    / <code>data-state</code> / <code>onclick</code> / <code>onkeydown</code> / <code>id</code>.
+    תפקידכם לפזר אותו על האלמנט שלכם.
   </p>
 
   <p class="note">
-    <strong>אל תשלפו את זה כברירת מחדל.</strong> <code>child</code> הוא פתח חירום, לא נתיב עיצוב סטנדרטי. אם העברת <code>class</code> מכסה זאת, העדיפו אותה — וזכרו שפיזור מחדש של <code>props</code> הוא באחריותכם (שכחה מאבדת חיווט ARIA / אירועים).
+    <strong>אל תשלפו את זה כברירת מחדל.</strong> <code>child</code> הוא פתח חירום, לא נתיב עיצוב
+    סטנדרטי. אם העברת <code>class</code> מכסה זאת, העדיפו אותה — וזכרו שפיזור מחדש של
+    <code>props</code> הוא באחריותכם (שכחה מאבדת חיווט ARIA / אירועים).
   </p>
 
   <h2>מתכון 5: Tailwind / UnoCSS / CSS גולמי</h2>
@@ -151,11 +216,18 @@
     ></pre>
 
   <h3>UnoCSS (מצב ברירת מחדל)</h3>
-  <p>חוויית כתיבה זהה ל-Tailwind. הווריאנט <code>data-[state=on]:</code> מובנה דרך <code>@unocss/preset-mini</code> / <code>preset-wind3</code>.</p>
+  <p>
+    חוויית כתיבה זהה ל-Tailwind. הווריאנט <code>data-[state=on]:</code> מובנה דרך
+    <code>@unocss/preset-mini</code>
+    / <code>preset-wind3</code>.
+  </p>
 
   <h3>UnoCSS מצב svelte-scoped</h3>
   <p>
-    <code>@unocss/svelte-scoped</code> סורק כל <code>.svelte</code> אב, ואז מזריק את ה-CSS שיצר <strong>עטוף ב-<code>:global(...)</code></strong> לתוך ה-<code>&lt;style&gt;</code> של אותו קובץ. מכיוון שהכללים גלובליים, ה-utilities שכתבתם באב מגיעים ל-DOM בתוך רכיבים-בנים בלי עבודה נוספת.
+    <code>@unocss/svelte-scoped</code> סורק כל <code>.svelte</code> אב, ואז מזריק את ה-CSS שיצר
+    <strong>עטוף ב-<code>:global(...)</code></strong>
+    לתוך ה-<code>&lt;style&gt;</code> של אותו קובץ. מכיוון שהכללים גלובליים, ה-utilities שכתבתם באב מגיעים
+    ל-DOM בתוך רכיבים-בנים בלי עבודה נוספת.
   </p>
 
   <h3>CSS גולמי / CSS Modules</h3>
@@ -227,7 +299,8 @@
 
   <h2>מלכודת: ה-<code>&lt;style&gt;</code> הסקופי של Svelte לא מתפשט לבנים</h2>
   <p>
-    מגבלה ארוכת שנים של Svelte: מחלקות שהוגדרו ב-<code>&lt;style&gt;</code> של <code>.svelte</code> אב <strong>לא מגיעות לאלמנטי DOM בתוך רכיבים-בנים</strong>.
+    מגבלה ארוכת שנים של Svelte: מחלקות שהוגדרו ב-<code>&lt;style&gt;</code> של <code>.svelte</code>
+    אב <strong>לא מגיעות לאלמנטי DOM בתוך רכיבים-בנים</strong>.
   </p>
 
   <pre><code
@@ -245,9 +318,21 @@
 
   <p>ארבע יציאות:</p>
   <ol>
-    <li><strong>השתמשו ב-Tailwind / UnoCSS / גיליון סגנונות גלובלי</strong> (מתכונים 1, 5). לא סקופי מלכתחילה, אז הבעיה לא קיימת. <strong>המלצת קו ראשון.</strong></li>
-    <li><strong>העבירו <code>class</code> לכל סאב-רכיב</strong> (מתכון 2). <code>&lt;Combobox.Input class="ds-input" /&gt;</code> מנחית את המחלקה על אלמנט השורש של הילד. בתוך <code>&lt;style&gt;</code> אב תכתבו <code>:global(.ds-input)</code> (או העבירו את הכלל ל-<code>app.css</code>).</li>
-    <li><strong>CSS Custom Properties</strong> (מתכון 3). הם חוצים את הסקופינג של Svelte. הכי טוב להפצת ערכת נושא.</li>
+    <li>
+      <strong>השתמשו ב-Tailwind / UnoCSS / גיליון סגנונות גלובלי</strong> (מתכונים 1, 5). לא סקופי
+      מלכתחילה, אז הבעיה לא קיימת. <strong>המלצת קו ראשון.</strong>
+    </li>
+    <li>
+      <strong>העבירו <code>class</code> לכל סאב-רכיב</strong> (מתכון 2).
+      <code>&lt;Combobox.Input class="ds-input" /&gt;</code>
+      מנחית את המחלקה על אלמנט השורש של הילד. בתוך <code>&lt;style&gt;</code> אב תכתבו
+      <code>:global(.ds-input)</code>
+      (או העבירו את הכלל ל-<code>app.css</code>).
+    </li>
+    <li>
+      <strong>CSS Custom Properties</strong> (מתכון 3). הם חוצים את הסקופינג של Svelte. הכי טוב להפצת
+      ערכת נושא.
+    </li>
     <li>
       <strong>חדירה עם <code>:global(...)</code></strong>. מוצא אחרון.
       <pre><code
@@ -257,7 +342,7 @@
   }
 </style>`}</code
         ></pre>
-      Svelte 5 תומכת גם בתחביר הבלוק <code>:global &#123; ... &#125;</code>.
+      Svelte 5 תומכת גם בתחביר הבלוק<code>:global &#123; ... &#125;</code>.
     </li>
   </ol>
 
@@ -280,7 +365,9 @@
   <h2>מה לקרוא בהמשך</h2>
   <ul>
     <li><a href="/docs/layers-by-example">שכבות לדוגמה</a> — איך הקוד שלך שונה ב-Layer 2/3/4/5.</li>
-    <li><a href="/docs/composition">הרכבה</a> — הוספת תכונות אופציונליות דרך עוטפי <code>with*</code>.</li>
+    <li>
+      <a href="/docs/composition">הרכבה</a> — הוספת תכונות אופציונליות דרך עוטפי <code>with*</code>.
+    </li>
     <li><a href="/docs/i18n">i18n ו-RTL</a> — שימוש ב-<code>data-direction</code> לעיצוב RTL.</li>
   </ul>
 </Prose>

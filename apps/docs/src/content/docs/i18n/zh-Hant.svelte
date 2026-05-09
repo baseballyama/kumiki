@@ -23,9 +23,7 @@
   </ul>
 
   <h2>執行時切換</h2>
-  <p>
-    將應用程式包裹一次,然後隨時切換匯入的 locale 套件。其下的元件會在每次變動時重讀訊息。
-  </p>
+  <p>將應用程式包裹一次,然後隨時切換匯入的 locale 套件。其下的元件會在每次變動時重讀訊息。</p>
   <pre><code
       >{`<script lang="ts">
   import { LocaleProvider } from '@kumiki/components';
@@ -64,7 +62,8 @@
     <li><code>formField</code>:必填標記、「必填」/「型別不符」錯誤。</li>
   </ul>
   <p>
-    Form Field 組合的驗證訊息可以整體替換,或透過 Standard Schema 擴充 — 不需要逐個 validator 的轉接層。
+    Form Field 組合的驗證訊息可以整體替換,或透過 Standard Schema 擴充 — 不需要逐個 validator
+    的轉接層。
   </p>
 </Prose>
 

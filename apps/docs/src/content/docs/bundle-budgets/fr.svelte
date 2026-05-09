@@ -54,8 +54,8 @@
       <code>sideEffects: false</code> et est contrôlé.
     </li>
     <li>
-      <code>publint</code> + <code>arethetypeswrong</code> vérifient que la forme publiée
-      correspond aux <code>exports</code> déclarés.
+      <code>publint</code> + <code>arethetypeswrong</code> vérifient que la forme publiée correspond
+      aux <code>exports</code> déclarés.
     </li>
   </ol>
 

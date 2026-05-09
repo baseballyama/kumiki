@@ -6,10 +6,22 @@
   let pressed = $state(false);
 
   const matrix = [
-    { task: 'FSM (transiciones de estado)', l2: 'Kumiki', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
+    {
+      task: 'FSM (transiciones de estado)',
+      l2: 'Kumiki',
+      l3: 'Kumiki',
+      l4: 'Kumiki',
+      l5: 'Kumiki',
+    },
     { task: 'Puente de reactividad de Svelte', l2: 'Tú', l3: 'Tú*', l4: 'Kumiki', l5: 'Kumiki' },
     { task: 'Elemento <button>', l2: 'Tú', l3: 'Tú', l4: 'Kumiki', l5: 'Copiado' },
-    { task: 'Atributos ARIA (aria-pressed, …)', l2: 'Tú', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
+    {
+      task: 'Atributos ARIA (aria-pressed, …)',
+      l2: 'Tú',
+      l3: 'Kumiki',
+      l4: 'Kumiki',
+      l5: 'Kumiki',
+    },
     { task: 'Salida de data-state', l2: 'Tú', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
     { task: 'Manejo de clic / teclas', l2: 'Tú', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
     { task: 'Nombre accesible (aria-label)', l2: 'Tú', l3: 'Tú', l4: 'Tú', l5: 'Kumiki' },
@@ -27,16 +39,17 @@
   lede="El mismo Toggle, escrito en Layer 2, 3, 4 y 5 — observado lado a lado. Cada paso hacia abajo del stack te da un poco más de control y un poco más de responsabilidad."
 >
   <p>
-    Las capas de Kumiki exponen <strong>el mismo comportamiento en distintos niveles de abstracción</strong>.
-    Bajar una capa: asumes más DOM, ARIA y plomería de eventos — pero ganas libertad para elegir la
-    estructura. Subir una capa: escribes menos código a cambio de aceptar las elecciones estructurales
-    de Kumiki.
+    Las capas de Kumiki exponen <strong
+      >el mismo comportamiento en distintos niveles de abstracción</strong
+    >. Bajar una capa: asumes más DOM, ARIA y plomería de eventos — pero ganas libertad para elegir
+    la estructura. Subir una capa: escribes menos código a cambio de aceptar las elecciones
+    estructurales de Kumiki.
   </p>
 
   <p>
-    Usamos <a href="/components/component-toggle">Toggle</a> como ejemplo trabajado. El comportamiento
-    es simple (pulsar para alternar) pero la implementación está en <strong>las cuatro capas</strong>,
-    ideal para una comparativa lado a lado.
+    Usamos <a href="/components/component-toggle">Toggle</a> como ejemplo trabajado. El
+    comportamiento es simple (pulsar para alternar) pero la implementación está en
+    <strong>las cuatro capas</strong>, ideal para una comparativa lado a lado.
   </p>
 
   <PreviewFrame>
@@ -77,15 +90,16 @@
     ></pre>
 
   <p>
-    <strong>Elige esto cuando:</strong> el 90 % de los casos. El <code>&lt;button&gt;</code> nativo
-    sirve y no necesitas sobrescribir la estructura envolvente.
+    <strong>Elige esto cuando:</strong> el 90 % de los casos. El <code>&lt;button&gt;</code> nativo sirve
+    y no necesitas sobrescribir la estructura envolvente.
   </p>
 
   <h2>2. Layer 3 — Attachment headless</h2>
   <p>
     Cuando necesitas elegir el elemento tú mismo (un <code>&lt;a&gt;</code>, un
     <code>&lt;div role="button"&gt;</code>, un wrapper personalizado). <code>createToggle()</code>
-    devuelve una fábrica compatible con <code>{`{@attach}`}</code> que puedes propagar sobre el elemento que quieras.
+    devuelve una fábrica compatible con <code>{`{@attach}`}</code> que puedes propagar sobre el elemento
+    que quieras.
   </p>
 
   <pre><code
@@ -107,22 +121,23 @@
 
   <p>
     Al montar, <code>{`{@attach t.root}`}</code> escribe atributos del lado DOM (<code>type</code>,
-    <code>aria-pressed</code>, <code>data-state</code>, <code>id</code>) y conecta listeners de clic +
-    tecla (Espacio / Enter). <strong>Lo que se añade a tus responsabilidades:</strong> elegir el
-    elemento, los estilos, la etiqueta visible y (solo si hace falta) un <code>subscribe</code> para
-    reflejar el estado en variables reactivas.
+    <code>aria-pressed</code>, <code>data-state</code>, <code>id</code>) y conecta listeners de clic
+    + tecla (Espacio / Enter). <strong>Lo que se añade a tus responsabilidades:</strong> elegir el
+    elemento, los estilos, la etiqueta visible y (solo si hace falta) un <code>subscribe</code> para reflejar
+    el estado en variables reactivas.
   </p>
 
   <p>
-    <strong>Elige esto cuando:</strong> la estructura fija de Layer 4 (<code>&lt;button&gt;</code>) no
-    encaja. Por ejemplo, cuando necesitas el toggle dentro de un <code>&lt;label&gt;</code> o envuelto
+    <strong>Elige esto cuando:</strong> la estructura fija de Layer 4 (<code>&lt;button&gt;</code>)
+    no encaja. Por ejemplo, cuando necesitas el toggle dentro de un <code>&lt;label&gt;</code> o envuelto
     en una shell de orden superior.
   </p>
 
   <h2>3. Layer 2 — Máquina pura</h2>
   <p>
-    Sin Svelte en absoluto — una máquina de estados finitos en TypeScript puro. <strong>Tú escribes
-    el DOM, ARIA, eventos y teclado.</strong>
+    Sin Svelte en absoluto — una máquina de estados finitos en TypeScript puro. <strong
+      >Tú escribes el DOM, ARIA, eventos y teclado.</strong
+    >
   </p>
 
   <pre><code
@@ -146,7 +161,8 @@
     ></pre>
 
   <p>
-    <strong>La razón para bajar a Layer 2 normalmente no es UI — es reutilización de lógica:</strong>
+    <strong>La razón para bajar a Layer 2 normalmente no es UI — es reutilización de lógica:</strong
+    >
   </p>
   <ul>
     <li>Validar la lógica del Toggle en el servidor (server routes de SvelteKit / Workers).</li>
@@ -191,8 +207,8 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <p>
     <strong>Elige esto cuando:</strong> quieres una base visual funcional sin escribir CSS primero.
-    Layer 5 se publica bajo <code>0.x.x-preview</code> durante la serie v1.0, así que para proyectos
-    sensibles a la estabilidad prefiere Layer 4 + tu propio styling.
+    Layer 5 se publica bajo <code>0.x.x-preview</code> durante la serie v1.0, así que para proyectos sensibles
+    a la estabilidad prefiere Layer 4 + tu propio styling.
   </p>
 
   <h2>Matriz de responsabilidades</h2>
@@ -236,7 +252,8 @@ npx kumiki add toggle --variant=vanilla`}</code
       (<code>npx kumiki add</code>). Nota: etiquetada como preview durante v1.0.
     </li>
     <li>
-      <strong>¿El &lt;button&gt; estándar te vale y lo estilas tú?</strong> → <strong>Layer 4</strong>
+      <strong>¿El &lt;button&gt; estándar te vale y lo estilas tú?</strong> →
+      <strong>Layer 4</strong>
       (<code>{`<Toggle.Root>`}</code>). Punto de entrada por defecto.
     </li>
     <li>

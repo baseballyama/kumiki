@@ -49,13 +49,13 @@
   <h2>RTL no es algo añadido</h2>
   <p>
     La dirección de lectura se propaga desde <code>LocaleProvider</code> a través del contexto. Los
-    mapeos de teclas sensibles a la dirección (Tabs <code>ArrowRight</code>, Slider, RadioGroup) leen
-    la dirección del contexto de la máquina — el controlador no sabe nada de RTL.
+    mapeos de teclas sensibles a la dirección (Tabs <code>ArrowRight</code>, Slider, RadioGroup)
+    leen la dirección del contexto de la máquina — el controlador no sabe nada de RTL.
   </p>
 
   <p>
-    El <strong>toggle de dirección</strong> de cada página de detalle te deja previsualizar RTL para
-    cualquier locale, sin cambiar de idioma. Úsalo para verificar tu styling.
+    El <strong>toggle de dirección</strong> de cada página de detalle te deja previsualizar RTL para cualquier
+    locale, sin cambiar de idioma. Úsalo para verificar tu styling.
   </p>
 
   <h2>Qué se localiza</h2>

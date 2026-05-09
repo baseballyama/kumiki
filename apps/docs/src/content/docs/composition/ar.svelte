@@ -45,8 +45,8 @@
 
   <h2>منافذ هروب طبقيّة</h2>
   <p>
-    إن لم يكفِ <code>child</code> — مثلًا تحتاج إلى تنسيق ثلاث عُقد DOM مخصّصة — انزل طبقةً.
-    استخدم مصانع attachment في <code>@kumiki/headless</code> واكتب JSX/HTML الخاصّ بك حولها.
+    إن لم يكفِ <code>child</code> — مثلًا تحتاج إلى تنسيق ثلاث عُقد DOM مخصّصة — انزل طبقةً. استخدم
+    مصانع attachment في <code>@kumiki/headless</code> واكتب JSX/HTML الخاصّ بك حولها.
   </p>
 
   <pre><code

@@ -59,15 +59,14 @@
 
   <h2>鍵盤契約</h2>
   <p>
-    每個元件在其詳細頁面(<strong>無障礙</strong> 分頁)中記錄鍵盤對應。當 APG 定義模式時,Kumiki 一字不漏地遵循 — 不做創造性詮釋。
+    每個元件在其詳細頁面(<strong>無障礙</strong> 分頁)中記錄鍵盤對應。當 APG 定義模式時,Kumiki 一字不漏地遵循
+    — 不做創造性詮釋。
   </p>
 
   <h2>減少動態、RTL、高對比</h2>
   <ul>
     <li><code>prefers-reduced-motion</code> 在整個文件站點將所有過渡縮短至約 10 毫秒。</li>
-    <li>
-      RTL 並非後補。方向敏感的鍵盤對應(Tabs、Slider)從機器內容讀取方向,而非 DOM。
-    </li>
+    <li>RTL 並非後補。方向敏感的鍵盤對應(Tabs、Slider)從機器內容讀取方向,而非 DOM。</li>
     <li>尊重 Forced-colors 模式 — 元件避免僅以背景表達狀態。</li>
   </ul>
 

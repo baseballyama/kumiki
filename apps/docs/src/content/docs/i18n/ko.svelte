@@ -24,8 +24,8 @@
 
   <h2>런타임에 전환</h2>
   <p>
-    앱을 한 번 감싸세요. 이후 언제든 import 한 로케일 번들을 교체할 수 있고, 그 아래 컴포넌트는 변경마다
-    메시지를 다시 읽습니다.
+    앱을 한 번 감싸세요. 이후 언제든 import 한 로케일 번들을 교체할 수 있고, 그 아래 컴포넌트는
+    변경마다 메시지를 다시 읽습니다.
   </p>
   <pre><code
       >{`<script lang="ts">
@@ -48,9 +48,10 @@
 
   <h2>RTL 은 사후 처리가 아닙니다</h2>
   <p>
-    읽기 방향은 <code>LocaleProvider</code> 에서 컨텍스트를 통해 전파됩니다. 방향에 민감한 키맵(Tabs 의
-    <code>ArrowRight</code>, Slider, RadioGroup)은 머신 컨텍스트에서 방향을 읽으며 — 컨트롤러는
-    RTL 을 모릅니다.
+    읽기 방향은 <code>LocaleProvider</code> 에서 컨텍스트를 통해 전파됩니다. 방향에 민감한 키맵(Tabs
+    의
+    <code>ArrowRight</code>, Slider, RadioGroup)은 머신 컨텍스트에서 방향을 읽으며 — 컨트롤러는 RTL
+    을 모릅니다.
   </p>
 
   <p>
@@ -67,7 +68,8 @@
     <li><code>formField</code>: 필수 표시, "필수"/"타입 불일치" 에러.</li>
   </ul>
   <p>
-    Form Field 가 구성하는 검증 메시지는 통째로 교체하거나 Standard Schema 로 확장할 수 있습니다 — 검증기마다 어댑터가 필요하지 않습니다.
+    Form Field 가 구성하는 검증 메시지는 통째로 교체하거나 Standard Schema 로 확장할 수 있습니다 —
+    검증기마다 어댑터가 필요하지 않습니다.
   </p>
 </Prose>
 

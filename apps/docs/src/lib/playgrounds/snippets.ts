@@ -1293,6 +1293,267 @@ scope.next('title')    // "kumiki-dialog-1-title"
 scope.next('desc')     // "kumiki-dialog-2-desc"`,
     },
   ],
+  'component-button': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
+    {
+      title: 'Basic — variant + loading',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Button } from '@kumiki/components/button';
+  let busy = $state(false);
+  async function save() {
+    busy = true;
+    await fetch('/save', { method: 'POST' });
+    busy = false;
+  }
+</script>
+
+<Button.Root variant="primary" loading={busy} onclick={save}>
+  Save
+</Button.Root>`,
+    },
+    {
+      title: 'Icon-only — accessible name required',
+      lang: 'svelte',
+      code: `<Button.Root aria-label="Add item">
+  {#snippet icon()}<PlusIcon />{/snippet}
+</Button.Root>`,
+    },
+  ],
+
+  'component-alert': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
+    {
+      title: 'Severity-driven role + live',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Alert } from '@kumiki/components/alert';
+</script>
+
+<Alert.Root severity="error">
+  <Alert.Title>Something went wrong</Alert.Title>
+  <Alert.Description>Please retry in a moment.</Alert.Description>
+</Alert.Root>`,
+    },
+    {
+      title: 'Dismissible',
+      lang: 'svelte',
+      code: `<Alert.Root severity="info" dismissible onDismiss={() => (open = false)}>
+  <Alert.Title>Heads up</Alert.Title>
+  <Alert.Close>×</Alert.Close>
+</Alert.Root>`,
+    },
+  ],
+
+  'component-badge': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
+    {
+      title: 'Three accessible-name shapes',
+      lang: 'svelte',
+      code: `<Badge.Root variant="success">New</Badge.Root>
+
+<Badge.Root aria-label="3 unread notifications">3</Badge.Root>
+
+<Badge.Root decorative variant="error" />`,
+    },
+  ],
+
+  'component-loading-spinner': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
+    {
+      title: 'Polite role="status" with label',
+      lang: 'svelte',
+      code: `<LoadingSpinner.Root>
+  <LoadingSpinner.Label>Loading…</LoadingSpinner.Label>
+</LoadingSpinner.Root>`,
+    },
+    {
+      title: 'Inline (label visually hidden)',
+      lang: 'svelte',
+      code: `<Button.Root loading>
+  <LoadingSpinner.Root mode="inline">
+    <LoadingSpinner.Label>Saving</LoadingSpinner.Label>
+  </LoadingSpinner.Root>
+  Save
+</Button.Root>`,
+    },
+  ],
+
+  'component-horizontal-rule': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
+    {
+      title: 'Default <hr>',
+      lang: 'svelte',
+      code: `<HorizontalRule.Root />`,
+    },
+    {
+      title: 'Vertical separator (role="separator" div)',
+      lang: 'svelte',
+      code: `<HorizontalRule.Root orientation="vertical" />`,
+    },
+  ],
+
+  'component-definition-list': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
+    {
+      title: 'Term / Description',
+      lang: 'svelte',
+      code: `<DefinitionList.Root grouped>
+  <DefinitionList.Term>Status</DefinitionList.Term>
+  <DefinitionList.Description>Active</DefinitionList.Description>
+  <DefinitionList.Term>Owner</DefinitionList.Term>
+  <DefinitionList.Description>baseballyama</DefinitionList.Description>
+</DefinitionList.Root>`,
+    },
+  ],
+
+  'component-avatar': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
+    {
+      title: 'Meaningful (alt = name)',
+      lang: 'svelte',
+      code: `<Avatar.Root name="Aiko Tanaka">
+  <Avatar.Image src={user.photo} />
+  <Avatar.Fallback />
+</Avatar.Root>`,
+    },
+    {
+      title: 'Decorative (alt = "")',
+      lang: 'svelte',
+      code: `<Avatar.Root decorative>
+  <Avatar.Image src={user.photo} />
+  <Avatar.Fallback>{initials(user.name)}</Avatar.Fallback>
+</Avatar.Root>`,
+    },
+  ],
+
+  'component-avatar-group': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
+    {
+      title: 'Stacked with overflow',
+      lang: 'svelte',
+      code: `<AvatarGroup.Root max={3} total={users.length} aria-label="Project members">
+  {#each users.slice(0, 3) as u (u.id)}
+    <AvatarGroup.Item>
+      <Avatar.Root decorative>
+        <Avatar.Image src={u.photo} />
+        <Avatar.Fallback>{u.name[0]}</Avatar.Fallback>
+      </Avatar.Root>
+    </AvatarGroup.Item>
+  {/each}
+  <AvatarGroup.Overflow />
+</AvatarGroup.Root>`,
+    },
+  ],
+
+  'component-chips': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
+    {
+      title: 'Dismissible tag',
+      lang: 'svelte',
+      code: `<Chips.Root variant="dismissible" label="design" onDismiss={remove}>
+  <Chips.Label>design</Chips.Label>
+  <Chips.Close />
+</Chips.Root>`,
+    },
+    {
+      title: 'Selectable filter',
+      lang: 'svelte',
+      code: `<Chips.Root variant="selectable" pressed={onlyMine} onPressedChange={(v) => (onlyMine = v)}>
+  <Chips.Label>Only mine</Chips.Label>
+</Chips.Root>`,
+    },
+  ],
+
+  'component-breadcrumb': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
+    {
+      title: 'Trail with current page',
+      lang: 'svelte',
+      code: `<Breadcrumb.Root>
+  <Breadcrumb.Item>
+    <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
+  </Breadcrumb.Item>
+  <Breadcrumb.Separator />
+  <Breadcrumb.Item>
+    <Breadcrumb.Link href="/components">Components</Breadcrumb.Link>
+  </Breadcrumb.Item>
+  <Breadcrumb.Separator />
+  <Breadcrumb.Item>
+    <Breadcrumb.Link current>Breadcrumb</Breadcrumb.Link>
+  </Breadcrumb.Item>
+</Breadcrumb.Root>`,
+    },
+  ],
+
+  'component-pagination': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
+    {
+      title: 'Buttons',
+      lang: 'svelte',
+      code: `<Pagination.Root page={p} pageCount={pages} onPageChange={(n) => (p = n)}>
+  <Pagination.Prev />
+  <Pagination.PageList>
+    {#snippet item({ page, isCurrent, isEllipsis })}
+      {#if isEllipsis}
+        <Pagination.Ellipsis />
+      {:else}
+        <Pagination.PageItem {page}>{page}</Pagination.PageItem>
+      {/if}
+    {/snippet}
+  </Pagination.PageList>
+  <Pagination.Next />
+</Pagination.Root>`,
+    },
+    {
+      title: 'SSR-friendly links',
+      lang: 'svelte',
+      code: `<Pagination.Root
+  page={p}
+  pageCount={pages}
+  asLinks={{ href: (n) => \`?p=\${n}\` }}
+>
+  <!-- … -->
+</Pagination.Root>`,
+    },
+  ],
+
+  'component-table': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
+    {
+      title: 'Sortable headers + selection',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Table, type SortState } from '@kumiki/components/table';
+  let sort = $state<SortState | null>(null);
+  let selection = $state(new Set<string>());
+</script>
+
+<Table.Root
+  {sort}
+  onSortChange={(s) => (sort = s)}
+  {selection}
+  onSelectionChange={(s) => (selection = s)}
+  selectionMode="multiple"
+>
+  <Table.Caption>Members</Table.Caption>
+  <Table.Header>
+    <Table.HeaderRow>
+      <Table.SelectAllCell />
+      <Table.HeaderCell column="name" sortable>Name</Table.HeaderCell>
+    </Table.HeaderRow>
+  </Table.Header>
+  <Table.Body>
+    {#each rows as row (row.id)}
+      <Table.Row rowId={row.id} selectable>
+        <Table.SelectCell />
+        <Table.Cell>{row.name}</Table.Cell>
+      </Table.Row>
+    {/each}
+  </Table.Body>
+</Table.Root>`,
+    },
+  ],
 };
 
 /** Default placeholder snippet for packages without authored snippets yet. */

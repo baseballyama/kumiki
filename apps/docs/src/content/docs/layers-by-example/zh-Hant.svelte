@@ -32,8 +32,8 @@
   </p>
 
   <p>
-    我們以 <a href="/components/component-toggle">Toggle</a> 作為實例。行為簡單(按下翻轉),但
-    實作 <strong>四層皆有</strong>,非常適合並排比較。
+    我們以 <a href="/components/component-toggle">Toggle</a> 作為實例。行為簡單(按下翻轉),但 實作
+    <strong>四層皆有</strong>,非常適合並排比較。
   </p>
 
   <PreviewFrame>
@@ -73,11 +73,14 @@
 </button>`}</code
     ></pre>
 
-  <p><strong>適用時機:</strong>90% 場景。原生 <code>&lt;button&gt;</code> 即可,你不需覆寫包裝結構。</p>
+  <p>
+    <strong>適用時機:</strong>90% 場景。原生 <code>&lt;button&gt;</code> 即可,你不需覆寫包裝結構。
+  </p>
 
   <h2>2. Layer 3 — Headless attachment</h2>
   <p>
-    當你需要自行選擇元素時(<code>&lt;a&gt;</code>、<code>&lt;div role="button"&gt;</code>、自訂包裝)。
+    當你需要自行選擇元素時(<code>&lt;a&gt;</code>、<code>&lt;div role="button"&gt;</code
+    >、自訂包裝)。
     <code>createToggle()</code> 回傳一個相容 <code>{`{@attach}`}</code> 的工廠,你可以將其 spread 到任意元素。
   </p>
 
@@ -100,19 +103,21 @@
 
   <p>
     掛載時,<code>{`{@attach t.root}`}</code> 寫入 DOM 端屬性(<code>type</code>、
-    <code>aria-pressed</code>、<code>data-state</code>、<code>id</code>),並接上點擊 + 鍵盤
-    (Space / Enter)監聽。<strong>多出的責任:</strong>挑選元素、樣式、可見標籤,以及(必要時)
-    透過 <code>subscribe</code> 映射狀態到反應式區域變數。
+    <code>aria-pressed</code>、<code>data-state</code>、<code>id</code>),並接上點擊 + 鍵盤 (Space /
+    Enter)監聽。<strong>多出的責任:</strong>挑選元素、樣式、可見標籤,以及(必要時) 透過
+    <code>subscribe</code> 映射狀態到反應式區域變數。
   </p>
 
   <p>
-    <strong>適用時機:</strong>Layer 4 的固定結構(<code>&lt;button&gt;</code>)不合適時。例如,
-    需要把 toggle 放進 <code>&lt;label&gt;</code>,或包進自訂高階外殼。
+    <strong>適用時機:</strong>Layer 4 的固定結構(<code>&lt;button&gt;</code>)不合適時。例如, 需要把
+    toggle 放進 <code>&lt;label&gt;</code>,或包進自訂高階外殼。
   </p>
 
   <h2>3. Layer 2 — 純狀態機</h2>
   <p>
-    完全不依賴 Svelte — 一個純 TypeScript 有限狀態機。<strong>DOM、ARIA、事件、鍵盤都由你自行撰寫。</strong>
+    完全不依賴 Svelte — 一個純 TypeScript 有限狀態機。<strong
+      >DOM、ARIA、事件、鍵盤都由你自行撰寫。</strong
+    >
   </p>
 
   <pre><code
@@ -160,8 +165,7 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <p>新增的檔案:</p>
 
-  <pre><code
-      >{`src/lib/components/Toggle.svelte   # 包裹 Layer 4 Toggle.Root 的樣式封裝`}</code
+  <pre><code>{`src/lib/components/Toggle.svelte   # 包裹 Layer 4 Toggle.Root 的樣式封裝`}</code
     ></pre>
 
   <p>像其他 Svelte 元件一樣使用:</p>
@@ -225,8 +229,8 @@ npx kumiki add toggle --variant=vanilla`}</code
     </li>
     <li>
       <strong>需要自選元素類型或結構?</strong> → <strong>Layer 3</strong>
-      (<code>{`{@attach t.root}`}</code>)。若 Layer 4 的 <code>child</code> snippet
-      已足夠,留在 Layer 4 — 程式更少。
+      (<code>{`{@attach t.root}`}</code>)。若 Layer 4 的 <code>child</code> snippet 已足夠,留在 Layer
+      4 — 程式更少。
     </li>
     <li>
       <strong>在 Svelte 之外執行 / 伺服器驗證 / 只要 FSM?</strong> → <strong>Layer 2</strong>

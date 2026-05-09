@@ -42,8 +42,8 @@
 
   <h2>Nombres requeridos a nivel de tipo</h2>
   <p>
-    Donde la WAI-ARIA APG exige un nombre accesible (piensa en diálogos), TypeScript hace cumplir
-    el requisito. <code>{`<Dialog.Root>`}</code> no compila sin uno de
+    Donde la WAI-ARIA APG exige un nombre accesible (piensa en diálogos), TypeScript hace cumplir el
+    requisito. <code>{`<Dialog.Root>`}</code> no compila sin uno de
     <code>title</code>, <code>aria-label</code> o <code>aria-labelledby</code>.
   </p>
 
@@ -67,14 +67,15 @@
   <h2>Movimiento reducido, RTL, alto contraste</h2>
   <ul>
     <li>
-      <code>prefers-reduced-motion</code> reduce todas las transiciones a ~10 ms en todo el sitio
-      de docs.
+      <code>prefers-reduced-motion</code> reduce todas las transiciones a ~10 ms en todo el sitio de docs.
     </li>
     <li>
       RTL no es un añadido. Los mapas de teclas sensibles a la dirección (Tabs, Slider) leen la
       dirección del contexto de la máquina, no del DOM.
     </li>
-    <li>Se respeta el modo Forced-colors — los componentes evitan señalar estado solo con fondo.</li>
+    <li>
+      Se respeta el modo Forced-colors — los componentes evitan señalar estado solo con fondo.
+    </li>
   </ul>
 
   <h2>La lista «Kumiki-ready»</h2>

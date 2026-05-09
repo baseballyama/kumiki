@@ -38,7 +38,8 @@
     전체 표 — 모든 서브패스와 그 근거 — 는
     <a href="https://github.com/baseballyama/kumiki/blob/main/docs/design/09-bundle-budget.md"
       >docs/design/09-bundle-budget.md</a
-    > 에 있습니다. 현재 측정값은
+    >
+    에 있습니다. 현재 측정값은
     <a href="/sizes">/sizes</a> 에서 확인 가능하며, 경쟁 제품과의 비교는
     <a href="/sizes/compare">/sizes/compare</a> 에 있습니다.
   </p>
@@ -59,8 +60,9 @@
 
   <h2>왜 문서에 두는가</h2>
   <p>
-    리뷰어가 알아야 하기 때문입니다. Combobox 를 4.5 KB 에서 4.8 KB 로 올리는 PR 은 작은 변경이 아닙니다 —
-    그에 상응하는 ADR 이 필요한 결정입니다. 숫자는 소비자에게 보이고, 규율도 보여야 합니다.
+    리뷰어가 알아야 하기 때문입니다. Combobox 를 4.5 KB 에서 4.8 KB 로 올리는 PR 은 작은 변경이
+    아닙니다 — 그에 상응하는 ADR 이 필요한 결정입니다. 숫자는 소비자에게 보이고, 규율도 보여야
+    합니다.
   </p>
 </Prose>
 

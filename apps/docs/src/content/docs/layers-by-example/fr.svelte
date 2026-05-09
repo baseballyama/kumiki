@@ -6,10 +6,16 @@
   let pressed = $state(false);
 
   const matrix = [
-    { task: 'FSM (transitions d\'état)', l2: 'Kumiki', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
+    { task: "FSM (transitions d'état)", l2: 'Kumiki', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
     { task: 'Pont de réactivité Svelte', l2: 'Vous', l3: 'Vous*', l4: 'Kumiki', l5: 'Kumiki' },
     { task: 'Élément <button>', l2: 'Vous', l3: 'Vous', l4: 'Kumiki', l5: 'Copié' },
-    { task: 'Attributs ARIA (aria-pressed, …)', l2: 'Vous', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
+    {
+      task: 'Attributs ARIA (aria-pressed, …)',
+      l2: 'Vous',
+      l3: 'Kumiki',
+      l4: 'Kumiki',
+      l5: 'Kumiki',
+    },
     { task: 'Sortie data-state', l2: 'Vous', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
     { task: 'Gestion clic / clavier', l2: 'Vous', l3: 'Kumiki', l4: 'Kumiki', l5: 'Kumiki' },
     { task: 'Nom accessible (aria-label)', l2: 'Vous', l3: 'Vous', l4: 'Vous', l5: 'Kumiki' },
@@ -27,10 +33,11 @@
   lede="Le même Toggle, écrit en Layer 2, 3, 4, et 5 — observé côte à côte. Chaque pas en bas du stack vous donne un peu plus de contrôle et un peu plus de responsabilité."
 >
   <p>
-    Les couches Kumiki exposent toutes <strong>le même comportement à différents niveaux d'abstraction</strong>.
-    Descendre d'une couche : vous reprenez plus de DOM, ARIA et plomberie d'événements — mais vous
-    gagnez la liberté de choisir la structure. Monter d'une couche : vous écrivez moins de code au
-    prix d'accepter les choix structurels de Kumiki.
+    Les couches Kumiki exposent toutes <strong
+      >le même comportement à différents niveaux d'abstraction</strong
+    >. Descendre d'une couche : vous reprenez plus de DOM, ARIA et plomberie d'événements — mais
+    vous gagnez la liberté de choisir la structure. Monter d'une couche : vous écrivez moins de code
+    au prix d'accepter les choix structurels de Kumiki.
   </p>
 
   <p>
@@ -52,7 +59,8 @@
 
   <h2>1. Layer 4 — Composant composé (le point d'entrée par défaut)</h2>
   <p>
-    Le chemin le plus court. <code>Toggle.Root</code> rend le <code>&lt;button&gt;</code>, gère ARIA,
+    Le chemin le plus court. <code>Toggle.Root</code> rend le <code>&lt;button&gt;</code>, gère
+    ARIA,
     <code>data-state</code>, le clavier et le SSR. Vous êtes responsable de
     <strong>deux choses</strong> : recevoir l'état via <code>bind:pressed</code> et fournir un
     <code>aria-label</code> (ou un libellé visible).
@@ -86,8 +94,8 @@
   <p>
     Quand vous devez choisir l'élément vous-même (un <code>&lt;a&gt;</code>, un
     <code>&lt;div role="button"&gt;</code>, un wrapper personnalisé). <code>createToggle()</code>
-    retourne une fabrique compatible avec <code>{`{@attach}`}</code> que vous propagez sur l'élément
-    de votre choix.
+    retourne une fabrique compatible avec <code>{`{@attach}`}</code> que vous propagez sur l'élément de
+    votre choix.
   </p>
 
   <pre><code
@@ -110,21 +118,24 @@
   <p>
     Au montage, <code>{`{@attach t.root}`}</code> écrit les attributs côté DOM (<code>type</code>,
     <code>aria-pressed</code>, <code>data-state</code>, <code>id</code>) et branche les listeners
-    clic + touche (Espace / Entrée). <strong>Ce qui s'ajoute à vos responsabilités :</strong> le choix
-    de l'élément, le style, le libellé visible, et (si nécessaire) un <code>subscribe</code> pour
+    clic + touche (Espace / Entrée). <strong>Ce qui s'ajoute à vos responsabilités :</strong> le
+    choix de l'élément, le style, le libellé visible, et (si nécessaire) un <code>subscribe</code> pour
     miroiter l'état dans des locales réactives.
   </p>
 
   <p>
-    <strong>Choisissez ceci quand :</strong> la structure fixe de Layer 4 (<code>&lt;button&gt;</code>)
-    ne convient pas. Par exemple, quand le toggle doit être à l'intérieur d'un <code>&lt;label&gt;</code>
+    <strong>Choisissez ceci quand :</strong> la structure fixe de Layer 4 (<code
+      >&lt;button&gt;</code
+    >) ne convient pas. Par exemple, quand le toggle doit être à l'intérieur d'un
+    <code>&lt;label&gt;</code>
     ou enveloppé dans une coquille d'ordre supérieur.
   </p>
 
   <h2>3. Layer 2 — Machine pure</h2>
   <p>
-    Pas de Svelte du tout — une machine à états finis en TypeScript pur. <strong>Vous écrivez DOM,
-    ARIA, événements et clavier vous-même.</strong>
+    Pas de Svelte du tout — une machine à états finis en TypeScript pur. <strong
+      >Vous écrivez DOM, ARIA, événements et clavier vous-même.</strong
+    >
   </p>
 
   <pre><code
@@ -148,8 +159,10 @@
     ></pre>
 
   <p>
-    <strong>La raison de descendre en Layer 2 n'est généralement pas l'UI — c'est la réutilisation
-    de logique :</strong>
+    <strong
+      >La raison de descendre en Layer 2 n'est généralement pas l'UI — c'est la réutilisation de
+      logique :</strong
+    >
   </p>
   <ul>
     <li>Valider la logique du Toggle côté serveur (server routes SvelteKit / Workers).</li>
@@ -164,8 +177,8 @@
 
   <h2>4. Layer 5 — Atelier (variantes stylées copier-coller)</h2>
   <p>
-    Le CLI copie les sources dans votre repo. Après copie, c'est <strong>votre code</strong> —
-    éditez librement.
+    Le CLI copie les sources dans votre repo. Après copie, c'est <strong>votre code</strong> — éditez
+    librement.
   </p>
 
   <pre><code
@@ -195,13 +208,16 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <p>
     <strong>Choisissez ceci quand :</strong> vous voulez une base visuelle fonctionnelle sans écrire
-    de CSS d'abord. Layer 5 est livré sous <code>0.x.x-preview</code> pendant la série v1.0, donc
-    pour les projets sensibles à la stabilité, préférez Layer 4 + votre propre style.
+    de CSS d'abord. Layer 5 est livré sous <code>0.x.x-preview</code> pendant la série v1.0, donc pour
+    les projets sensibles à la stabilité, préférez Layer 4 + votre propre style.
   </p>
 
   <h2>Matrice de responsabilités</h2>
 
-  <p>Ce que vous écrivez à chaque couche. « Kumiki » = la librairie s'en charge ; « Vous » = votre code.</p>
+  <p>
+    Ce que vous écrivez à chaque couche. « Kumiki » = la librairie s'en charge ; « Vous » = votre
+    code.
+  </p>
 
   <table class="matrix">
     <thead>
@@ -248,8 +264,8 @@ npx kumiki add toggle --variant=vanilla`}</code
     <li>
       <strong>Besoin de choisir vous-même le type ou la structure de l'élément ?</strong> →
       <strong>Layer 3</strong>
-      (<code>{`{@attach t.root}`}</code>). Si le snippet <code>child</code> de Layer 4 couvre votre
-      besoin, restez en Layer 4 — c'est moins de code.
+      (<code>{`{@attach t.root}`}</code>). Si le snippet <code>child</code> de Layer 4 couvre votre besoin,
+      restez en Layer 4 — c'est moins de code.
     </li>
     <li>
       <strong>Exécution hors-Svelte / validation côté serveur / juste la FSM ?</strong> →

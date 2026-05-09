@@ -6,10 +6,18 @@
   let pressed = $state(false);
 
   const stack = [
-    { layer: '产品基线', tool: '全局 CSS [data-component*] 选择器', use: '所有 Dialog 共用的重置样式' },
+    {
+      layer: '产品基线',
+      tool: '全局 CSS [data-component*] 选择器',
+      use: '所有 Dialog 共用的重置样式',
+    },
     { layer: '设计系统部件', tool: '向子组件透传 class', use: '<MyDialog> 的结构化样式' },
     { layer: '变体 / 主题', tool: 'CSS 自定义属性', use: '品牌色、深 / 浅切换' },
-    { layer: '状态差异', tool: 'data-state 选择器(或 Tailwind data-[state=open]:)', use: '打开 / 关闭、选中、禁用、悬停' },
+    {
+      layer: '状态差异',
+      tool: 'data-state 选择器(或 Tailwind data-[state=open]:)',
+      use: '打开 / 关闭、选中、禁用、悬停',
+    },
     { layer: '元素替换', tool: 'child snippet', use: '把根元素换成 <a> 或 <MyButton>' },
   ];
 </script>
@@ -41,7 +49,8 @@
   <ul>
     <li><strong>体积预算</strong>:Toggle 1.5 KB / Dialog 3.5 KB / Combobox 4.5 KB,容不下 CSS。</li>
     <li>
-      <strong>设计系统千差万别</strong>:Tailwind / UnoCSS / 原生 CSS / CSS-in-JS — 不替你做决定就能适配所有人。
+      <strong>设计系统千差万别</strong>:Tailwind / UnoCSS / 原生 CSS / CSS-in-JS —
+      不替你做决定就能适配所有人。
     </li>
     <li>
       <strong>动画也由 CSS 驱动</strong>:我们只输出
@@ -119,7 +128,8 @@
 
   <p>
     Layer 4 的子组件是 <strong>spread <code>...rest</code> 的薄薄一层单元素包装</strong>。你传入的
-    <code>class</code>、<code>style</code>、额外 <code>data-*</code>、附加的 ARIA 都会落到真实 DOM 根上。
+    <code>class</code>、<code>style</code>、额外 <code>data-*</code>、附加的 ARIA 都会落到真实 DOM
+    根上。
   </p>
 
   <pre><code
@@ -137,8 +147,8 @@
   <h2>配方 3:CSS 自定义属性(主题传播的标准做法)</h2>
 
   <p>
-    与 Svelte 的作用域 CSS 不同,<strong>CSS 变量沿正常级联流动</strong>。在父级声明,会到达子组件内部的 DOM —
-    完全绕开 Svelte 的作用域屏障。
+    与 Svelte 的作用域 CSS 不同,<strong>CSS 变量沿正常级联流动</strong
+    >。在父级声明,会到达子组件内部的 DOM — 完全绕开 Svelte 的作用域屏障。
   </p>
 
   <pre><code
@@ -163,8 +173,8 @@
   <h2>配方 4:<code>child</code> snippet — 元素替换</h2>
 
   <p>
-    默认 <code>Toggle.Root</code> 渲染 <code>&lt;button&gt;</code>。这是「我这里要个 <code>&lt;a&gt;</code>」
-    或「我要用自己的 <code>&lt;MyButton&gt;</code>」的逃生口。
+    默认 <code>Toggle.Root</code> 渲染 <code>&lt;button&gt;</code>。这是「我这里要个
+    <code>&lt;a&gt;</code>」 或「我要用自己的 <code>&lt;MyButton&gt;</code>」的逃生口。
   </p>
 
   <pre><code
@@ -185,7 +195,8 @@
 
   <p class="note">
     <strong>不要默认就用这个。</strong><code>child</code> 是逃生口,不是常规样式路径。能用
-    <code>class</code> 透传就用 — 而且记住,重新 spread <code>props</code> 是你的责任(忘了会丢失 ARIA / 事件)。
+    <code>class</code> 透传就用 — 而且记住,重新 spread <code>props</code> 是你的责任(忘了会丢失 ARIA /
+    事件)。
   </p>
 
   <h2>配方 5:Tailwind / UnoCSS / 原生 CSS</h2>
@@ -210,8 +221,9 @@
   <h3>UnoCSS svelte-scoped 模式</h3>
   <p>
     <code>@unocss/svelte-scoped</code> 扫描每个父级 <code>.svelte</code>,然后把生成的 CSS
-    <strong>包裹在 <code>:global(...)</code> 中</strong>注入到该文件的 <code>&lt;style&gt;</code>。由于
-    规则是全局的,父级写的 utility 类无需额外动作即可触达子组件内部 DOM。
+    <strong>包裹在 <code>:global(...)</code> 中</strong>注入到该文件的
+    <code>&lt;style&gt;</code>。由于 规则是全局的,父级写的 utility 类无需额外动作即可触达子组件内部
+    DOM。
   </p>
 
   <h3>原生 CSS / CSS Modules</h3>
@@ -307,7 +319,8 @@
 
   <ol>
     <li>
-      <strong>使用 Tailwind / UnoCSS / 全局样式表</strong>(配方 1、5)。本来就不是 scoped,问题不存在。
+      <strong>使用 Tailwind / UnoCSS / 全局样式表</strong>(配方 1、5)。本来就不是
+      scoped,问题不存在。
       <strong>首选建议。</strong>
     </li>
     <li>
@@ -328,7 +341,7 @@
   }
 </style>`}</code
         ></pre>
-      Svelte 5 也支持 <code>:global &#123; ... &#125;</code> 块语法。
+      Svelte 5 也支持<code>:global &#123; ... &#125;</code> 块语法。
     </li>
   </ol>
 

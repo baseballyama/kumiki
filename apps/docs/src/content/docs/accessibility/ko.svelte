@@ -42,7 +42,8 @@
 
   <h2>타입 수준에서 강제되는 접근 가능한 이름</h2>
   <p>
-    WAI-ARIA APG 가 접근 가능한 이름을 요구하는 곳(예: 대화 상자)에서 TypeScript 가 그 요구를 강제합니다.
+    WAI-ARIA APG 가 접근 가능한 이름을 요구하는 곳(예: 대화 상자)에서 TypeScript 가 그 요구를
+    강제합니다.
     <code>{`<Dialog.Root>`}</code> 는 <code>title</code>, <code>aria-label</code>,
     <code>aria-labelledby</code> 중 하나 없이 컴파일되지 않습니다.
   </p>
@@ -59,16 +60,18 @@
 
   <h2>키보드 계약</h2>
   <p>
-    각 컴포넌트는 상세 페이지의 <strong>접근성</strong> 탭에서 키맵을 문서화합니다. APG 가 패턴을
-    정의한 곳에서는 Kumiki 가 이를 그대로 따릅니다 — 창의적 해석은 하지 않습니다.
+    각 컴포넌트는 상세 페이지의 <strong>접근성</strong> 탭에서 키맵을 문서화합니다. APG 가 패턴을 정의한
+    곳에서는 Kumiki 가 이를 그대로 따릅니다 — 창의적 해석은 하지 않습니다.
   </p>
 
   <h2>모션 줄이기, RTL, 고대비</h2>
   <ul>
-    <li><code>prefers-reduced-motion</code> 은 문서 사이트 전반에서 모든 트랜지션을 약 10 ms 로 줄입니다.</li>
     <li>
-      RTL 은 사후 처리가 아닙니다. 방향에 민감한 키맵(Tabs, Slider)은 DOM 이 아니라 머신 컨텍스트에서
-      방향을 읽습니다.
+      <code>prefers-reduced-motion</code> 은 문서 사이트 전반에서 모든 트랜지션을 약 10 ms 로 줄입니다.
+    </li>
+    <li>
+      RTL 은 사후 처리가 아닙니다. 방향에 민감한 키맵(Tabs, Slider)은 DOM 이 아니라 머신
+      컨텍스트에서 방향을 읽습니다.
     </li>
     <li>Forced-colors 모드를 존중합니다 — 컴포넌트는 배경만으로 상태를 표현하지 않습니다.</li>
   </ul>

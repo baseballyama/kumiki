@@ -46,7 +46,9 @@
   <h2>Wie Budgets erzwungen werden</h2>
   <ol>
     <li><code>size-limit</code> misst jeden Subpath bei jedem CI-Lauf.</li>
-    <li>Überschreitet eine Messung das Limit, schlägt der Build fehl. Kein <code>--ignore</code>.</li>
+    <li>
+      Überschreitet eine Messung das Limit, schlägt der Build fehl. Kein <code>--ignore</code>.
+    </li>
     <li>
       <code>agadoo</code> verifiziert das Tree-Shaking — jedes Paket deklariert
       <code>sideEffects: false</code> und wird geprüft.
