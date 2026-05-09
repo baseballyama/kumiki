@@ -19,6 +19,7 @@ export default defineConfig({
     'src/toast/index.ts',
     'src/toggle/index.ts',
     'src/tooltip/index.ts',
+    'src/calendar/index.ts',
   ],
   format: ['esm'],
   dts: true,

@@ -24,6 +24,9 @@ catalogs:
     '@guidepup/playwright':
       specifier: ^0.15.0
       version: 0.15.0
+    '@internationalized/date':
+      specifier: ^3.12.1
+      version: 3.12.1
     '@microsoft/api-extractor':
       specifier: ^7.58.7
       version: 7.58.7
@@ -170,6 +173,9 @@ importers:
 
   apps/docs:
     dependencies:
+      '@internationalized/date':
+        specifier: 'catalog:'
+        version: 3.12.1
       '@kumiki/atelier':
         specifier: workspace:*
         version: link:../../packages/atelier
@@ -272,6 +278,9 @@ importers:
         specifier: workspace:*
         version: link:../core/primitives
     devDependencies:
+      '@internationalized/date':
+        specifier: 'catalog:'
+        version: 3.12.1
       '@sveltejs/package':
         specifier: 'catalog:'
         version: 2.5.7(svelte@5.55.5(@typescript-eslint/types@8.59.1))(typescript@5.9.3)
@@ -384,6 +393,9 @@ importers:
         specifier: 'catalog:'
         version: 5.55.5(@typescript-eslint/types@8.59.1)
     devDependencies:
+      '@internationalized/date':
+        specifier: 'catalog:'
+        version: 3.12.1
       '@size-limit/preset-small-lib':
         specifier: 'catalog:'
         version: 12.1.0(size-limit@12.1.0)
@@ -412,6 +424,9 @@ importers:
         specifier: workspace:*
         version: link:../core/runtime
     devDependencies:
+      '@internationalized/date':
+        specifier: 'catalog:'
+        version: 3.12.1
       '@size-limit/preset-small-lib':
         specifier: 'catalog:'
         version: 12.1.0(size-limit@12.1.0)
@@ -1142,6 +1157,9 @@ packages:
       '@types/node':
         optional: true
 
+  '@internationalized/date@3.12.1':
+    resolution: {integrity: sha512-6IedsVWXyq4P9Tj+TxuU8WGWM70hYLl12nbYU8jkikVpa6WXapFazPUcHUMDMoWftIDE2ILDkFFte6W2nFCkRQ==}
+
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
 
@@ -1673,6 +1691,9 @@ packages:
     peerDependencies:
       svelte: ^5.46.4
       vite: ^8.0.0-beta.7 || ^8.0.0
+
+  '@swc/helpers@0.5.21':
+    resolution: {integrity: sha512-jI/VAmtdjB/RnI8GTnokyX7Ug8c+g+ffD6QRLa6XQewtnGyukKkKSk3wLTM3b5cjt1jNh9x0jfVlagdN2gDKQg==}
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
@@ -4000,6 +4021,10 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.19.17
 
+  '@internationalized/date@3.12.1':
+    dependencies:
+      '@swc/helpers': 0.5.21
+
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
@@ -4426,6 +4451,10 @@ snapshots:
       svelte: 5.55.5(@typescript-eslint/types@8.59.1)
       vite: 8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4)
       vitefu: 1.1.3(vite@8.0.10(@types/node@22.19.17)(esbuild@0.28.0)(yaml@2.8.4))
+
+  '@swc/helpers@0.5.21':
+    dependencies:
+      tslib: 2.8.1
 
   '@tybys/wasm-util@0.10.1':
     dependencies:
@@ -5873,8 +5902,7 @@ snapshots:
       - synckit
       - vue-tsc
 
-  tslib@2.8.1:
-    optional: true
+  tslib@2.8.1: {}
 
   typedoc-plugin-markdown@4.11.0(typedoc@0.28.19(typescript@5.9.3)):
     dependencies:

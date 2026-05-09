@@ -26,3 +26,4 @@ export * as tabs from './tabs/index.js';
 export * as toast from './toast/index.js';
 export * as toggle from './toggle/index.js';
 export * as tooltip from './tooltip/index.js';
+export * as calendar from './calendar/index.js';

@@ -10,6 +10,11 @@ export namespace accordion {
 }
 
 // @public (undocumented)
+export namespace calendar {
+    export { Attachment, CalendarContext, CalendarController, CalendarEvent, CalendarMachine, CalendarState, CreateCalendarInput, CreateCalendarOptions, IsDateUnavailable, createCalendar };
+}
+
+// @public (undocumented)
 export namespace checkbox {
     export { Attachment, CheckboxContext, CheckboxController, CheckboxEvent, CheckboxMachine, CheckboxState, CheckboxValue, CreateCheckboxOptions, createCheckbox };
 }

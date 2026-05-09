@@ -17,6 +17,7 @@
     "lint": "oxlint src"
   },
   "dependencies": {
+    "@internationalized/date": "catalog:",
     "@kumiki/atelier": "workspace:*",
     "@kumiki/components": "workspace:*",
     "@kumiki/headless": "workspace:*",

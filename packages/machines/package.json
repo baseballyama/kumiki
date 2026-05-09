@@ -90,6 +90,10 @@
     "./tooltip": {
       "types": "./dist/tooltip/index.d.mts",
       "import": "./dist/tooltip/index.mjs"
+    },
+    "./calendar": {
+      "types": "./dist/calendar/index.d.mts",
+      "import": "./dist/calendar/index.mjs"
     }
   },
   "publishConfig": {
@@ -112,11 +116,20 @@
     "@kumiki/runtime": "workspace:*"
   },
   "devDependencies": {
+    "@internationalized/date": "catalog:",
     "@size-limit/preset-small-lib": "catalog:",
     "size-limit": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "@internationalized/date": "catalog:"
+  },
+  "peerDependenciesMeta": {
+    "@internationalized/date": {
+      "optional": true
+    }
   },
   "size-limit": [
     {
@@ -261,6 +274,16 @@
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives"
+      ]
+    },
+    {
+      "name": "machines/calendar (incremental)",
+      "path": "dist/calendar/index.mjs",
+      "limit": "1.5 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@internationalized/date"
       ]
     }
   ]

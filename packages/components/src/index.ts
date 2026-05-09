@@ -23,6 +23,7 @@
  */
 
 export * as Accordion from './accordion/index.js';
+export * as Calendar from './calendar/index.js';
 export * as Checkbox from './checkbox/index.js';
 export * as Combobox from './combobox/index.js';
 export * as Dialog from './dialog/index.js';
