@@ -16,6 +16,7 @@ export default defineConfig({
     'src/form-field/index.ts',
     'src/menu/index.ts',
     'src/number-field/index.ts',
+    'src/pagination/index.ts',
     'src/popover/index.ts',
     'src/radio-group/index.ts',
     'src/select/index.ts',

@@ -123,6 +123,11 @@
       "svelte": "./dist/number-field/index.js",
       "import": "./dist/number-field/index.js"
     },
+    "./pagination": {
+      "types": "./dist/pagination/index.d.ts",
+      "svelte": "./dist/pagination/index.js",
+      "import": "./dist/pagination/index.js"
+    },
     "./popover": {
       "types": "./dist/popover/index.d.ts",
       "svelte": "./dist/popover/index.js",

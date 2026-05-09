@@ -12,6 +12,9 @@ export interface Messages {
     alert: {
         dismissLabel: string;
     };
+    breadcrumb: {
+        label: string;
+    };
     combobox: {
         listboxLabel: string; /** Status text + SR announcement when the filtered set is empty. */
         noResults: string; /** SR announcement for the result count after filtering. */
@@ -26,6 +29,24 @@ export interface Messages {
         required: string; /** Generic error when a required field is empty. */
         requiredError: string; /** Generic error when the value's type is wrong (e.g. text in a number input). */
         typeMismatch: string;
+    };
+    pagination: {
+        label: string; /** `aria-label` for the previous-page button. */
+        prev: string; /** `aria-label` for the next-page button. */
+        next: string; /** `aria-label` for the first-page button. */
+        first: string; /** `aria-label` for the last-page button. */
+        last: string; /** `aria-label` for an inactive page button (`{n}` is the page number). */
+        page: (n: number) => string; /** `aria-label` for the current-page indicator. */
+        currentPage: (n: number) => string;
+    };
+    table: {
+        sortAscending: string;
+        sortDescending: string;
+        sortClear: string;
+        rowExpand: string;
+        rowCollapse: string;
+        rowSelect: string;
+        selectAll: string;
     };
     tabs: {
         tablistLabel: string;

@@ -79,6 +79,10 @@
       "types": "./dist/number-field/index.d.mts",
       "import": "./dist/number-field/index.mjs"
     },
+    "./pagination": {
+      "types": "./dist/pagination/index.d.mts",
+      "import": "./dist/pagination/index.mjs"
+    },
     "./popover": {
       "types": "./dist/popover/index.d.mts",
       "import": "./dist/popover/index.mjs"
@@ -333,6 +337,16 @@
       "name": "headless/menu (incremental)",
       "path": "dist/menu/index.mjs",
       "limit": "1.7 kB",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
+    {
+      "name": "headless/pagination (incremental)",
+      "path": "dist/pagination/index.mjs",
+      "limit": "700 B",
       "ignore": [
         "@kumiki/runtime",
         "@kumiki/primitives",

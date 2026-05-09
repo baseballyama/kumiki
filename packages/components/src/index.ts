@@ -41,6 +41,7 @@ export * as Dialog from './dialog/index.js';
 export * as FormField from './form-field/index.js';
 export * as Menu from './menu/index.js';
 export * as NumberField from './number-field/index.js';
+export * as Pagination from './pagination/index.js';
 export * as Popover from './popover/index.js';
 export * as RadioGroup from './radio-group/index.js';
 export * as Select from './select/index.js';

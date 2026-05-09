@@ -56,6 +56,11 @@ export namespace numberField {
 }
 
 // @public (undocumented)
+export namespace pagination {
+    export { CalculatePagesInput, PaginationItem, PaginationItemEllipsis, PaginationItemPage, calculatePages };
+}
+
+// @public (undocumented)
 export namespace popover {
     export { Attachment, CreatePopoverOptions, PopoverContext, PopoverController, PopoverEvent, PopoverMachine, PopoverState, createPopover };
 }
