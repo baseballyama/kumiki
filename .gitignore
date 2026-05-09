@@ -147,6 +147,9 @@ test-results/
 playwright-report/
 playwright/.cache/
 
+# Playwright MCP debug logs (browser console captures)
+.playwright-mcp/
+
 # Wrangler / Cloudflare local dev cache
 .wrangler/
 
