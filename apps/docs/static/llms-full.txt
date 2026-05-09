@@ -24,7 +24,7 @@ Source: `packages/atelier/`
 
 ## @kumiki/cli
 
-Kumiki CLI: copy Layer 5 recipes into a project.
+Kumiki CLI: copy Layer 5 Atelier components (@kumiki/atelier) into a project.
 
 Source: `packages/tooling/cli/`
 
@@ -109,6 +109,21 @@ Source: `packages/headless/`
 
 Locale data — dynamically importable per language. Initial set: en, ja, zh-Hans, zh-Hant, ko, es, fr, de, ar, he.
 
+### Overview
+
+`@kumiki/locale` — type-only barrel.
+
+This entry exports the `Messages` shape and `Direction` tag. Per-language
+data is **not** re-exported here — consumers import from the per-language
+subpath (`@kumiki/locale/en`, `@kumiki/locale/ja`, …) so only the locale
+they actually use ends up in their bundle.
+
+@see docs/design/06-i18n.md
+
+### Exports
+
+- `Direction`
+
 Source: `packages/core/locale/`
 
 ---
@@ -169,11 +184,13 @@ See `docs/design/02-architecture.md` §2.3.
 ### Exports
 
 - `CollectionItem`
+- `LOCALE_CONTEXT_KEY`
 - `createDismissable`
 - `createFocusTrap`
 - `createIdScope`
 - `findByTypeAhead`
 - `getNextEnabledId`
+- `inferDirection`
 - `tabindexFor`
 - `uid`
 

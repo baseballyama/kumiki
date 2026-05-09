@@ -262,6 +262,12 @@ importers:
       '@kumiki/headless':
         specifier: workspace:*
         version: link:../headless
+      '@kumiki/locale':
+        specifier: workspace:*
+        version: link:../core/locale
+      '@kumiki/primitives':
+        specifier: workspace:*
+        version: link:../core/primitives
     devDependencies:
       '@sveltejs/package':
         specifier: 'catalog:'

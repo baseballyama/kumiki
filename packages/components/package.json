@@ -107,6 +107,11 @@
       "types": "./dist/tooltip/index.d.ts",
       "svelte": "./dist/tooltip/index.js",
       "import": "./dist/tooltip/index.js"
+    },
+    "./locale-provider": {
+      "types": "./dist/locale-provider/index.d.ts",
+      "svelte": "./dist/locale-provider/index.js",
+      "import": "./dist/locale-provider/index.js"
     }
   },
   "publishConfig": {
@@ -122,7 +127,9 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kumiki/headless": "workspace:*"
+    "@kumiki/headless": "workspace:*",
+    "@kumiki/locale": "workspace:*",
+    "@kumiki/primitives": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/package": "catalog:",

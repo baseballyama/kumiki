@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T07:47:05.424Z",
+  "generatedAt": "2026-05-09T08:19:00.598Z",
   "packages": [
     {
       "package": "@kumiki/cli",
@@ -145,61 +145,61 @@
       "entries": [
         {
           "name": "en",
-          "size": 13,
+          "size": 197,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "ja",
-          "size": 13,
+          "size": 285,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "zh-Hans",
-          "size": 13,
+          "size": 252,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "zh-Hant",
-          "size": 13,
+          "size": 257,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "ko",
-          "size": 13,
+          "size": 283,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "es",
-          "size": 13,
+          "size": 238,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "fr",
-          "size": 13,
+          "size": 242,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "de",
-          "size": 13,
+          "size": 266,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "ar",
-          "size": 13,
+          "size": 289,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "he",
-          "size": 13,
+          "size": 270,
           "sizeLimit": 1000,
           "passed": true
         }
@@ -331,7 +331,7 @@
         },
         {
           "name": "locale",
-          "size": 13,
+          "size": 133,
           "sizeLimit": 500,
           "passed": true
         },
@@ -367,7 +367,7 @@
         },
         {
           "name": "full",
-          "size": 1032,
+          "size": 1125,
           "sizeLimit": 1200,
           "passed": true
         }

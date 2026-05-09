@@ -38,3 +38,4 @@ export * as Tabs from './tabs/index.js';
 export * as Toast from './toast/index.js';
 export * as Toggle from './toggle/index.js';
 export * as Tooltip from './tooltip/index.js';
+export * as LocaleProvider from './locale-provider/index.js';

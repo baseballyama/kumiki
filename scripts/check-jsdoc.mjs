@@ -22,7 +22,10 @@ const __filename = fileURLToPath(import.meta.url);
 const ROOT = join(dirname(__filename), '..');
 const COMPONENTS_SRC = join(ROOT, 'packages/components/src');
 
-const APG_EXEMPT = new Set(['form-field']);
+// Subpaths that ship infrastructure rather than a UI pattern with an APG
+// equivalent. Form-field is native-input semantics; locale-provider is a
+// context wrapper. Neither has an APG entry to point at.
+const APG_EXEMPT = new Set(['form-field', 'locale-provider']);
 
 let errors = 0;
 let warnings = 0;

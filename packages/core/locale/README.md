@@ -4,9 +4,8 @@
 
 **Layer:** Layer 1 (data).
 
-> **Status:** placeholders for 10 languages (`en`, `ja`, `zh-Hans`,
-> `zh-Hant`, `ko`, `es`, `fr`, `de`, `ar`, `he`). Real strings populate
-> as components and components-with-strings ship.
+> **Status:** real `messages` bundles for all 10 v1.0 languages. Each
+> subpath also exports a `direction: 'ltr' | 'rtl'` constant.
 
 ## Install
 
@@ -19,7 +18,20 @@ pnpm add @kumiki/locale
 Static import per language:
 
 ```ts
-import { messages } from '@kumiki/locale/ja';
+import { messages, direction } from '@kumiki/locale/ja';
+```
+
+Pair with `<LocaleProvider>` from `@kumiki/components/locale-provider`:
+
+```svelte
+<script lang="ts">
+  import { LocaleProvider } from '@kumiki/components/locale-provider';
+  import { messages, direction } from '@kumiki/locale/ja';
+</script>
+
+<LocaleProvider.Root locale="ja" {messages} dir={direction}>
+  <!-- your app -->
+</LocaleProvider.Root>
 ```
 
 Dynamic import based on the user's language:

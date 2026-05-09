@@ -25,6 +25,9 @@ export function createIdScope(scope: string): {
     next(suffix?: string): string;
 };
 
+// @public
+export type Direction = 'ltr' | 'rtl';
+
 // @public (undocumented)
 export interface Dismissable {
     // (undocumented)
@@ -69,6 +72,12 @@ export interface FocusTrapOptions {
 
 // @public
 export function getNextEnabledId<T extends CollectionItem>(items: ReadonlyArray<T>, fromId: string | null, direction: NavigateDirection, options?: NavigateOptions): string | null;
+
+// @public
+export function inferDirection(localeCode: string): Direction;
+
+// @public
+export const LOCALE_CONTEXT_KEY: unique symbol;
 
 // @public
 export type NavigateDirection = 'next' | 'prev' | 'first' | 'last' | 'page-next' | 'page-prev';

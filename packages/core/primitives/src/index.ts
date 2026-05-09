@@ -29,3 +29,4 @@ export {
   type DismissableOptions,
   type ElementTarget,
 } from './dismissable/index.ts';
+export { inferDirection, LOCALE_CONTEXT_KEY, type Direction } from './locale/index.ts';
