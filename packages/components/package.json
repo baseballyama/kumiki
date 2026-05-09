@@ -73,6 +73,21 @@
       "svelte": "./dist/date-picker/index.js",
       "import": "./dist/date-picker/index.js"
     },
+    "./definition-list": {
+      "types": "./dist/definition-list/index.d.ts",
+      "svelte": "./dist/definition-list/index.js",
+      "import": "./dist/definition-list/index.js"
+    },
+    "./horizontal-rule": {
+      "types": "./dist/horizontal-rule/index.d.ts",
+      "svelte": "./dist/horizontal-rule/index.js",
+      "import": "./dist/horizontal-rule/index.js"
+    },
+    "./loading-spinner": {
+      "types": "./dist/loading-spinner/index.d.ts",
+      "svelte": "./dist/loading-spinner/index.js",
+      "import": "./dist/loading-spinner/index.js"
+    },
     "./form-field": {
       "types": "./dist/form-field/index.d.ts",
       "svelte": "./dist/form-field/index.js",
