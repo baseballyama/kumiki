@@ -10,6 +10,17 @@ export namespace accordion {
 }
 
 // @public (undocumented)
+namespace alert_2 {
+    export { AlertController, AlertLive, AlertSeverity, Attachment, CreateAlertOptions, createAlert };
+}
+export { alert_2 as alert }
+
+// @public (undocumented)
+export namespace button {
+    export { Attachment, ButtonController, CreateButtonOptions, createButton };
+}
+
+// @public (undocumented)
 export namespace calendar {
     export { Attachment, CalendarContext, CalendarController, CalendarEvent, CalendarMachine, CalendarState, CreateCalendarInput, CreateCalendarOptions, IsDateUnavailable, createCalendar };
 }

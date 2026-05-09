@@ -38,6 +38,11 @@
       "svelte": "./dist/alert/index.js",
       "import": "./dist/alert/index.js"
     },
+    "./badge": {
+      "types": "./dist/badge/index.d.ts",
+      "svelte": "./dist/badge/index.js",
+      "import": "./dist/badge/index.js"
+    },
     "./button": {
       "types": "./dist/button/index.d.ts",
       "svelte": "./dist/button/index.js",

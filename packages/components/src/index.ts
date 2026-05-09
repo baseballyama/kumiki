@@ -24,6 +24,7 @@
 
 export * as Accordion from './accordion/index.js';
 export * as Alert from './alert/index.js';
+export * as Badge from './badge/index.js';
 export * as Button from './button/index.js';
 export * as Calendar from './calendar/index.js';
 export * as DatePicker from './date-picker/index.js';

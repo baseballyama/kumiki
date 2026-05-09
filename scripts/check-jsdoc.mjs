@@ -24,8 +24,18 @@ const COMPONENTS_SRC = join(ROOT, 'packages/components/src');
 
 // Subpaths that ship infrastructure rather than a UI pattern with an APG
 // equivalent. Form-field is native-input semantics; locale-provider is a
-// context wrapper. Neither has an APG entry to point at.
-const APG_EXEMPT = new Set(['form-field', 'locale-provider']);
+// context wrapper. The Phase 1.5 primitives without an APG row (Badge,
+// Avatar, semantic-only markup) are also exempt.
+const APG_EXEMPT = new Set([
+  'form-field',
+  'locale-provider',
+  // Phase 1.5 — semantic-only primitives, no APG pattern.
+  'badge',
+  'definition-list',
+  'horizontal-rule',
+  'avatar',
+  'loading-spinner',
+]);
 
 let errors = 0;
 let warnings = 0;

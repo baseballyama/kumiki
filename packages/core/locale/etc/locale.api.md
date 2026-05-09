@@ -9,6 +9,9 @@ export type Direction = 'ltr' | 'rtl';
 
 // @public
 export interface Messages {
+    alert: {
+        dismissLabel: string;
+    };
     combobox: {
         listboxLabel: string; /** Status text + SR announcement when the filtered set is empty. */
         noResults: string; /** SR announcement for the result count after filtering. */
