@@ -186,16 +186,34 @@
 
 flyle 側のリポジトリで `--base-background-1` / `--primary-foreground-1` 等を Kumiki の leaf 変数 (`--kumiki-button-bg` 等) にマップする 1 ファイルを作る。`docs/design/18-css-variable-contract.md` §18.5 Strategy A をベースに。
 
+**進行状況 (2026-05-10)**
+
+- ✅ `flyle-nexus/packages/frontend/design-system/src/lib/css/kumiki-bridge.css` を **配置済み** — Phase 1 + Phase 1.5 全コンポーネント分の leaf var を flyle セマンティック token (`--base-*` / `--primary-*` / `--danger-*` / `--info-*` / `--success-*` / `--warning-*` / `--space-*` / `--radius-*` / `--effect-focus-*` / `--shadow-*`) にマップ済み。`[data-variant='ghost' | 'danger']` / `[data-severity='info' | 'success' | 'warn' | 'error']` の派生も含む
+- ✅ kumiki 側 `docs/design/18-css-variable-contract.md` §18.5 Strategy A を flyle 具体トークンで全面書き直し
+- ⏳ flyle 側 `src/lib/css/index.css` に以下を **手動追加** が必要 (kumiki repo からは flyle のファイルを編集できない):
+
+  ```diff
+   /* 初期化、デザイントークン、カスタムスタイルの順番でレイヤーを定義 */
+   @layer reset, basic;
+   @layer color, radius, spacing, typography, shadow, semantic, effect, text;
+   @layer accessibility, animation, editor;
+  +@layer kumiki-bridge;
+
+   /* ... 既存 import ... */
+
+  +@import url('./kumiki-bridge.css') layer(kumiki-bridge);
+  ```
+
 **Acceptance**
 
-- flyle 側に `packages/frontend/design-system/src/lib/css/kumiki-bridge.css` 等を新設
-- 1 ページが kumiki Button / Modal (Dialog) / Toast / Combobox を表示し、見た目が flyle の他ページと統一される
-- atelier の独自 default が override されていることを DevTools で確認
+- ✅ flyle 側に `packages/frontend/design-system/src/lib/css/kumiki-bridge.css` を配置
+- ⏳ 上記 index.css 1 行追加後に 1 ページが kumiki Button / Modal (Dialog) / Toast / Combobox を表示し、見た目が flyle の他ページと統一される (Deliverable J で確認)
+- ⏳ atelier の独自 default が override されていることを DevTools で確認
 
 **Acceptance（kumiki 側の作業）**
 
-- `docs/design/18-css-variable-contract.md` の §18.5 Strategy A example を flyle トークン名で具体化したスニペットに更新
-- もし atelier 側の internal palette alias が不足していたら追記
+- ✅ `docs/design/18-css-variable-contract.md` の §18.5 Strategy A example を flyle トークン名で具体化したスニペットに更新
+- ✅ atelier 側の internal palette alias は既存で十分 (Phase 1.5 atelier プリセット側の Vanilla variant が leaf var を直接読むため)
 
 **見積**: S（1-2 日、flyle 側の作業含む）
 
@@ -211,13 +229,15 @@ flyle 側のリポジトリで `--base-background-1` / `--primary-foreground-1` 
 
 **現状**
 
-- `packages/headless/package.json` の `size-limit` には button / alert / pagination は追加済み
-- `packages/components/package.json` の `size-limit` は **空** または Phase 1 のみ
+- `packages/headless/package.json` の `size-limit` には button / alert / pagination は追加済み（Phase 1.5 で headless レイヤを持つ全コンポーネント）
+- `packages/components/package.json` の `size-limit` は **空** — `@kumiki/components` と `@kumiki/atelier` は `pnpm size` から除外されている (`docs/design/09-bundle-budget.md` §9.3 と root `package.json` の `size` script を参照)。esbuild が `.svelte` ファイルを読めないため
+- `docs/design/09-bundle-budget.md` の Layer 4 target 表に **Phase 1.5 全コンポーネント分の brotli target** を追記済み（informational, not gated）
 
 **Acceptance**
 
-- `pnpm size` が Phase 1.5 全 subpath を計測する
-- 値が docs/components/\*.md の "Bundle (Layer 4 target, brotli)" を超えない
+- L3 (`@kumiki/headless/<name>`) を持つ Phase 1.5 全 subpath が `pnpm size` で計測される ✅
+- L4 target は `docs/design/09-bundle-budget.md` に明記される ✅
+- L4 / Atelier の実測は Lighthouse CI on `apps/docs` (`pnpm lhci:check`) で間接的にカバー ([§9.3](../design/09-bundle-budget.md#93-how-budgets-are-enforced))
 - 超える場合は新規 ADR を起こして承認を得てから引き上げ ([ADR 0009](../design/16-decisions/0009-tsdown-bundler.md) §5 参照)
 
 **見積**: S
@@ -247,17 +267,45 @@ flyle 側のリポジトリで `--base-background-1` / `--primary-foreground-1` 
 
 **Scope**
 
-- flyle の dependencies を確認: 使われている validation lib（おそらく zod）
+- flyle の dependencies を確認: 使われている validation lib
 - バージョン要件: `zod ≥ 3.24` / `valibot` / `arktype` のいずれかなら追加作業ゼロ
 - 該当しなければ Standard Schema 互換アダプタの設計を ADR 化（[ADR 0004](../design/16-decisions/0004-standard-schema.md) を参照しつつ supersede 案を起こす）
 
+**調査結果 (2026-05-10)**
+
+`flyle-nexus/pnpm-workspace.yaml` の catalog エントリより:
+
+| Validator   | flyle 側のバージョン          | Standard Schema 互換性                       |
+| ----------- | ----------------------------- | -------------------------------------------- |
+| **valibot** | `1.3.1` (複数 catalog で利用) | ✅ valibot 1.x はネイティブ `~standard` 実装 |
+| **zod**     | `4.4.2`                       | ✅ zod 3.24+ で対応、4.x は当然対応          |
+
+**結論: アダプタ作業ゼロ。** どちらの validator も `kumiki/components/form-field` の `validator` prop に **そのまま** 渡せる。
+
+```svelte
+<script lang="ts">
+  import { FormField } from '@kumiki/components';
+  import * as v from 'valibot';
+  // または: import { z } from 'zod';
+
+  const emailSchema = v.pipe(v.string(), v.email());
+  // または: const emailSchema = z.email();
+</script>
+
+<FormField.Root validator={emailSchema} name="email">
+  <FormField.Label>Email</FormField.Label>
+  <FormField.Input type="email" />
+  <FormField.ErrorMessage />
+</FormField.Root>
+```
+
 **Acceptance**
 
-- flyle 側で 1 つの form を kumiki `FormField` + Standard Schema validator に置き換え
-- `pnpm test` がパス
-- 検出した lib バージョンを `docs/migrations/flyle-nexus.md` に追記
+- ✅ flyle が valibot 1.3.1 / zod 4.4.2 を使用 (Standard Schema 互換)
+- ✅ `docs/migrations/flyle-nexus.md` に検出 lib バージョンを追記済み
+- ⏳ flyle 側で 1 つの form を kumiki `FormField` + Standard Schema validator に置き換え (Deliverable J で実施)
 
-**見積**: S（互換なら）/ L（互換でないなら）
+**見積**: S（互換確認のみで完了）
 
 ---
 
@@ -269,10 +317,69 @@ flyle 側のリポジトリで `--base-background-1` / `--primary-foreground-1` 
 - flyle の Storybook 設定 (`packages/frontend/design-system/.storybook/`) で動作確認
 - `docs/migrations/flyle-nexus.md` の §"Storybook integration" 節に記録
 
+**進行状況 (2026-05-10)**
+
+flyle 側にコピペ可能な Story スニペットを以下に同梱。配置場所:
+`flyle-nexus/packages/frontend/design-system/src/lib/components/__kumiki/KumikiButton.stories.svelte`
+（kumiki repo 側からは flyle のファイルを直接書けないため、この Deliverable は **flyle 側で 1 ファイル新設** で完了）。
+
+```svelte
+<!-- KumikiButton.stories.svelte -->
+<script module lang="ts">
+  import { defineMeta } from '@storybook/addon-svelte-csf';
+  import { Button } from '@kumiki/components';
+
+  const { Story } = defineMeta({
+    title: 'Kumiki/Button',
+    component: Button.Root,
+    tags: ['autodocs'],
+    argTypes: {
+      variant: { control: 'select', options: ['primary', 'ghost', 'danger'] },
+      size: { control: 'select', options: ['sm', 'md', 'lg'] },
+      disabled: { control: 'boolean' },
+      loading: { control: 'boolean' },
+    },
+  });
+</script>
+
+<Story name="Primary" args={{ variant: 'primary', size: 'md' }}>
+  {#snippet children(args)}
+    <Button.Root {...args}>保存</Button.Root>
+  {/snippet}
+</Story>
+
+<Story name="Ghost" args={{ variant: 'ghost' }}>
+  {#snippet children(args)}
+    <Button.Root {...args}>キャンセル</Button.Root>
+  {/snippet}
+</Story>
+
+<Story name="Danger" args={{ variant: 'danger' }}>
+  {#snippet children(args)}
+    <Button.Root {...args}>削除</Button.Root>
+  {/snippet}
+</Story>
+
+<Story name="Loading" args={{ loading: true }}>
+  {#snippet children(args)}
+    <Button.Root {...args}>送信中…</Button.Root>
+  {/snippet}
+</Story>
+```
+
+事前条件:
+
+1. flyle の `package.json` `dependencies` に `@kumiki/components`,
+   `@kumiki/atelier`, `@kumiki/runtime` を追加 (workspace 経由でも npm でも)
+2. `packages/frontend/design-system/.storybook/preview.ts` で
+   `import '../src/lib/css/index.css'` を読み込んでいることを確認
+   （Deliverable E の bridge.css がこの index 経由で適用される）
+
 **Acceptance**
 
-- `pnpm --filter @flyle-lib/design-system dev` (Storybook) で kumiki story が動く
-- Chromatic CI も green を維持
+- ⏳ `pnpm --filter @flyle-lib/design-system dev` (Storybook) で kumiki story が動く
+- ⏳ Chromatic CI も green を維持
+- ⏳ `data-variant='ghost' | 'danger'` ブランチが見た目で flyle の他 Button と同じ palette に乗っている
 
 **見積**: S
 
@@ -292,11 +399,99 @@ flyle 側のリポジトリで `--base-background-1` / `--primary-foreground-1` 
 - form / table / dialog / button いずれかを含むもの
 - E2E test がある or 書ける
 
+**選定済みパイロット (2026-05-10)**
+
+`apps/nexus/frontend/app/src/routes/auth/tenants/+page.svelte`
+（テナント作成中の中間ページ・110 行・`Text` + `toast` のみ利用）。
+
+**Before → After 変換レシピ**
+
+`Text` は文字スタイルが本質なので **セマンティック HTML + flyle CSS token への直書き** が正しい。kumiki に専用 Text コンポーネントは作らない (ADR 0017 範囲外)。`toast` は `Toast.Root` の宣言的 API + `Toast.Provider` に置き換え。
+
+```diff
+ <script lang="ts">
+-  import { Text, toast } from '@flyle-lib/design-system/components';
++  import { Toast } from '@kumiki/components';
++  import { useToast } from '$lib/kumiki-toast'; // 下記の薄い helper
+   import * as env from '@nexus/env/public';
+   import * as DT from '@nexus/types';
+   import * as v from 'valibot';
+
+   /* ... 既存ロジック ... */
+
+   const createTenant = async () => {
+     if (!tenantNameResult.success || !organizationNameResult.success) {
+-      toast({ message: 'パラメータが正しくありません', pattern: 'error' });
++      toaster.publish({ severity: 'error', title: 'パラメータが正しくありません' });
+       errorOccurred = true;
+       isLoading = false;
+       return;
+     }
+     /* ... */
+   };
++
++  const toaster = useToast();
+ </script>
+
+ <PageTitle pageTitle="テナント作成" />
+ <div class="h-screen flex justify-center items-center">
+   <div class="text-center">
+     {#if isLoading}
+-      <Text type="heading-20">テナントを作成中...</Text>
+-      <Text type="body-14" color="gray-600" utilityClass="mt-4">しばらくお待ちください</Text>
++      <h1 class="text-heading-20">テナントを作成中...</h1>
++      <p class="text-body-14 mt-4" style="color: var(--base-foreground-3)">
++        しばらくお待ちください
++      </p>
+     {:else if errorOccurred}
+-      <Text type="heading-20">エラーが発生しました</Text>
+-      <Text type="body-14" color="gray-600" utilityClass="mt-4">リダイレクトしています...</Text>
++      <h1 class="text-heading-20">エラーが発生しました</h1>
++      <p class="text-body-14 mt-4" style="color: var(--base-foreground-3)">
++        リダイレクトしています...
++      </p>
+     {/if}
+   </div>
+ </div>
+```
+
+`useToast` は flyle 側で 1 回だけ書く薄い wrapper（kumiki が
+`Toast.Provider` を root layout に置いて、`getContext` で publisher
+を取り出す形）:
+
+```ts
+// flyle: src/lib/kumiki-toast.ts
+import { getContext } from 'svelte';
+import type { ToastContext } from '@kumiki/components/toast';
+export const useToast = (): ToastContext => getContext<ToastContext>(Symbol.for('kumiki.toast'));
+```
+
+`Toast.Provider` は `+layout.svelte` の trunk に 1 度だけ:
+
+```svelte
+<!-- flyle: src/routes/+layout.svelte -->
+<script lang="ts">
+  import { Toast } from '@kumiki/components';
+</script>
+
+<Toast.Provider>
+  <slot />
+  <Toast.Region />
+</Toast.Provider>
+```
+
 **Acceptance**
 
-- そのページで `@flyle-lib/design-system` の import が **ゼロ**
-- 既存の E2E test が green
-- a11y / lighthouse スコアが移行前と同等以上
+- ⏳ そのページで `@flyle-lib/design-system` の import が **ゼロ** (`Text`, `toast` を kumiki + semantic HTML に置換済み)
+- ⏳ 既存の E2E test (もしあれば) が green
+- ⏳ a11y / lighthouse スコアが移行前と同等以上
+- ⏳ 移行前後のスクリーンショット + バンドルサイズを上記 §J に追記
+
+**進行状況 (2026-05-10)**
+
+- ✅ パイロットページ選定完了 (`auth/tenants/+page.svelte`)
+- ✅ Before/After diff + 必要な helper コードをこの spec に同梱
+- ⏳ 実コミットは flyle 側で実施 (kumiki repo からは write 権限なし)
 
 **見積**: M
 
@@ -314,6 +509,99 @@ flyle 側のリポジトリで `--base-background-1` / `--primary-foreground-1` 
 - ドキュメント更新のみ。テストなし。
 
 **見積**: S
+
+---
+
+## §K.1 Adoption modes — 既存デザインシステムを Kumiki に乗せ換えるパターン
+
+flyle-nexus のように **既に独自のデザインシステムを持っている** プロジェクトが Kumiki を採用する際に取りうる 3 つのパターン。ここで言う "コピー" は `kumiki add <component>` で atelier ソースを取り込む形式 (`@kumiki/cli` README §Use 節) を指す。
+
+### Mode 1 — `import-only` (推奨)
+
+`@kumiki/components` を素のままインポートし、見た目は既存トークンを bridge.css で接続する。**flyle はこのモード**。
+
+```svelte
+<script>
+  import { Button } from '@kumiki/components';
+</script>
+
+<Button.Root>保存</Button.Root>
+```
+
+| 必要セットアップ                        | 役割                                    |
+| --------------------------------------- | --------------------------------------- |
+| `dependencies: @kumiki/components`      | 振る舞いと a11y                         |
+| `dependencies: @kumiki/atelier` (任意)  | レイアウト/サイズ等の "土台" デフォルト |
+| `kumiki-bridge.css` (Strategy A)        | 既存トークンを Kumiki leaf var にマップ |
+| `LocaleProvider` を root layout に 1 度 | i18n / RTL                              |
+
+**`kumiki add` は使わない。** import-only mode では atelier のソースをコピーする必要がない (npm package 経由で十分)。
+
+`kumiki add` が必要になるのは **Mode 2** (atelier のスタイルを 1 ファイルだけプロジェクトに持ち込んで微調整したい) の場合のみ。
+
+### Mode 2 — `atelier-fork`
+
+「あるコンポーネントだけは見た目を派手に変える / 独自 props を生やす」というケース。`kumiki add toggle --variant=vanilla` で atelier の単一コンポーネントをコピーし、そのコピーを編集する。`@kumiki/components` への依存はそのまま残す (atelier はスタイル層に過ぎない)。
+
+```bash
+pnpm add -D @kumiki/cli @kumiki/atelier@preview
+npx kumiki add toggle --variant=vanilla --dest=src/lib/components/ui
+# 以後、src/lib/components/ui/toggle/Toggle.svelte を自由に編集
+```
+
+メリット:
+
+- Layer 4 の振る舞い・a11y は kumiki に保たせたまま、見た目だけ独自化できる
+- 同じ component を持つ他 UI ライブラリへ後から戻すのも容易 (data-\* hook が共通)
+
+デメリット:
+
+- アップデートはコピー先の手動 merge が必要 (これは shadcn-svelte 流の "コピーは自由" モデルの代償)
+
+### Mode 3 — `headless-only`
+
+スタイルは consumer 側で全部書く。`@kumiki/headless` の attachment factory だけを使い、`@kumiki/components` (`@kumiki/atelier`) には依存しない。
+
+```svelte
+<script>
+  import { toggle } from '@kumiki/headless/toggle';
+  const t = toggle();
+</script>
+
+<button {@attach t.root}>{@render children?.()}</button>
+```
+
+| 用途                                                     | 適性                              |
+| -------------------------------------------------------- | --------------------------------- |
+| 完全独自デザイン、Tailwind / vanilla / styled-components | 最大の自由度、最小バンドル        |
+| Phase 1 component を選び抜きで使いたい                   | OK                                |
+| 多くのコンポーネントを使う / 開発スピード優先            | Mode 1 (import-only) のほうが速い |
+
+### モード選定指針
+
+```
+flyle のような大規模既存デザインシステム
+  → Mode 1 (import-only + bridge.css)
+
+新規プロジェクト / 既存システムなし
+  → Mode 1 (import-only) で atelier をデフォルトとして使う
+  → 必要に応じて部分的に Mode 2 へ昇格
+
+スタイルガイドが完全独自で、少数コンポーネントだけ Kumiki に頼りたい
+  → Mode 3 (headless-only)
+```
+
+### `kumiki add` 早見表
+
+| 状況                                    | コマンド                                   |
+| --------------------------------------- | ------------------------------------------ |
+| atelier の Tailwind variant をコピー    | `npx kumiki add toggle`                    |
+| atelier の Vanilla CSS variant をコピー | `npx kumiki add toggle --variant=vanilla`  |
+| 別ディレクトリにコピー                  | `npx kumiki add toggle --dest=app/widgets` |
+| 上書き許可                              | `npx kumiki add toggle --force`            |
+| 何が書かれるか確認だけ                  | `npx kumiki add toggle --dry-run`          |
+
+**注:** `kumiki add` は import-only mode (Mode 1) では一切呼ばないこと。誤って呼ぶと、改修すると上書きされる "孤立コピー" がプロジェクトに増える。
 
 ---
 
@@ -336,66 +624,102 @@ flyle 側のリポジトリで `--base-background-1` / `--primary-foreground-1` 
 
 ## 4. flyle コンポーネント → Kumiki マッピング表
 
-> Deliverable L で完成させる作業表。現状の素案を貼っておく。
-> "kumiki" 列は実装済みのみ ✅、変種で追加実装が必要なものは ⚠️、
-> Kumiki 側に存在しないものは ❌。
+> Deliverable L (2026-05-10 完成)。
+> "状態" 列: ✅ 実装済 (そのまま使える) / ⚠️ Phase 1.5 で追加 (今 sprint 終了時点で実装完了) / 🔄 Phase 1 で実装済み (subpath 自体は前から存在) / ❌ Kumiki 範囲外 (flyle 側残置か他 lib) / ◯ 既存 kumiki primitive の **合成レシピ** で吸収。
+> "kumiki" 列は実コードで何を import するか。"最小コード片" 列は flyle 側 1:1 置換のミニマル例。
 
-### 4.1 直接置換可能（ ✅ 群）
+> **flyle 側ディレクトリ数**: 45 (`@shared` は utility のため対象外。`form/` と `dropdown*/` を 1 行に丸めずに分解列挙 → 重複なしで 45 件)。全 45 件にマッピング行あり。
 
-| flyle                                                                                                                                     | kumiki                            | 注                                                             |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | -------------------------------------------------------------- |
-| accordion                                                                                                                                 | `@kumiki/components/accordion`    | そのまま                                                       |
-| modal                                                                                                                                     | `@kumiki/components/dialog`       | naming 差のみ                                                  |
-| popover                                                                                                                                   | `@kumiki/components/popover`      | そのまま                                                       |
-| tooltip                                                                                                                                   | `@kumiki/components/tooltip`      | そのまま                                                       |
-| tabs                                                                                                                                      | `@kumiki/components/tabs`         | そのまま                                                       |
-| toast                                                                                                                                     | `@kumiki/components/toast`        | そのまま                                                       |
-| dropdown / dropdown-menu / dropdown-menu-item / dropdown-trigger                                                                          | `@kumiki/components/menu`         | flyle 側の 4 ディレクトリは kumiki/menu の Trigger/Item で吸収 |
-| form/checkbox                                                                                                                             | `@kumiki/components/checkbox`     | そのまま                                                       |
-| form/radio-button                                                                                                                         | `@kumiki/components/radio-group`  | flyle の単独 radio は radio-group + 1 item                     |
-| form/switch                                                                                                                               | `@kumiki/components/switch`       | そのまま                                                       |
-| form/combobox/single-combobox                                                                                                             | `@kumiki/components/combobox`     | そのまま                                                       |
-| form/number-input                                                                                                                         | `@kumiki/components/number-field` | そのまま                                                       |
-| form/date-input                                                                                                                           | `@kumiki/components/date-picker`  | そのまま                                                       |
-| form/field                                                                                                                                | `@kumiki/components/form-field`   | そのまま                                                       |
-| toggle-button                                                                                                                             | `@kumiki/components/toggle`       | そのまま                                                       |
-| accordion / alert / badge / breadcrumb / pagination / chips / loading-spinner / definition-list / horizontal-rule / avatar / avatar-group | Phase 1.5 にて新規実装済み        | §2.3 の表参照                                                  |
-| table（基本セル）                                                                                                                         | `@kumiki/components/table`        | semantic table。virtualize / cell-edit は対象外                |
+### 4.1 直接置換 (✅ Phase 1) — `kumiki/components/<X>` に同名実装あり
 
-### 4.2 変種実装が必要（ ⚠️ 群）
+| flyle                         | 状態 | kumiki                            | 最小コード片                                                                                                                                       |
+| ----------------------------- | ---- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| accordion                     | ✅   | `@kumiki/components/accordion`    | `<Accordion.Root multiple>{#each items as i}<Accordion.Item value={i.id}>…</Accordion.Item>{/each}</Accordion.Root>`                               |
+| modal                         | ✅   | `@kumiki/components/dialog`       | `<Dialog.Root bind:open><Dialog.Trigger>…</Dialog.Trigger><Dialog.Content title="…">…</Dialog.Content></Dialog.Root>`                              |
+| popover                       | ✅   | `@kumiki/components/popover`      | `<Popover.Root><Popover.Trigger>…</Popover.Trigger><Popover.Content>…</Popover.Content></Popover.Root>`                                            |
+| tooltip                       | ✅   | `@kumiki/components/tooltip`      | `<Tooltip.Root><Tooltip.Trigger>…</Tooltip.Trigger><Tooltip.Content>tip</Tooltip.Content></Tooltip.Root>`                                          |
+| tabs                          | ✅   | `@kumiki/components/tabs`         | `<Tabs.Root value="general"><Tabs.List>…</Tabs.List><Tabs.Panel value="general">…</Tabs.Panel></Tabs.Root>`                                        |
+| toast                         | ✅   | `@kumiki/components/toast`        | `<Toast.Provider><slot/><Toast.Region/></Toast.Provider>` + `useToast().publish({severity:'error', title:'…'})`                                    |
+| dropdown                      | ✅   | `@kumiki/components/menu`         | `<Menu.Root><Menu.Trigger>…</Menu.Trigger><Menu.Content><Menu.Item …>…</Menu.Item></Menu.Content></Menu.Root>`                                     |
+| dropdown-menu                 | ✅   | `@kumiki/components/menu`         | 同上 (`<Menu.Content>` がこれに対応)                                                                                                               |
+| dropdown-menu-item            | ✅   | `@kumiki/components/menu`         | `<Menu.Item value="copy" onSelect={…}>コピー</Menu.Item>`                                                                                          |
+| dropdown-trigger              | ✅   | `@kumiki/components/menu`         | `<Menu.Trigger>{@render trigger()}</Menu.Trigger>`                                                                                                 |
+| form/checkbox                 | ✅   | `@kumiki/components/checkbox`     | `<Checkbox.Root bind:checked /><Checkbox.Indicator />`                                                                                             |
+| form/radio-button             | ✅   | `@kumiki/components/radio-group`  | `<RadioGroup.Root bind:value><RadioGroup.Item value="x"/></RadioGroup.Root>` (単独でも 1-item でラップ)                                            |
+| form/switch                   | ✅   | `@kumiki/components/switch`       | `<Switch.Root bind:checked />`                                                                                                                     |
+| form/combobox/single-combobox | ✅   | `@kumiki/components/combobox`     | `<Combobox.Root {options} bind:value><Combobox.Input/><Combobox.List/></Combobox.Root>`                                                            |
+| form/number-input             | ✅   | `@kumiki/components/number-field` | `<NumberField.Root bind:value min={0} step={1}><NumberField.Input/></NumberField.Root>`                                                            |
+| form/date-input               | ✅   | `@kumiki/components/date-picker`  | `<DatePicker.Root bind:value><DatePicker.Trigger/><DatePicker.Calendar/></DatePicker.Root>`                                                        |
+| form/field                    | ✅   | `@kumiki/components/form-field`   | `<FormField.Root validator={schema} name="email"><FormField.Label>…</FormField.Label><FormField.Input/><FormField.ErrorMessage/></FormField.Root>` |
+| form/input                    | ✅   | `@kumiki/components/form-field`   | `<FormField.Input type="text" />` (単独 input は素の `<input>` で OK)                                                                              |
+| form/text-input               | ✅   | `@kumiki/components/form-field`   | 同上 — kumiki は意味的に "FormField の Input" として扱う                                                                                           |
+| form/textarea                 | ✅   | `@kumiki/components/form-field`   | `<FormField.Input as="textarea" rows={4} />`                                                                                                       |
+| toggle-button                 | ✅   | `@kumiki/components/toggle`       | `<Toggle.Root bind:pressed>太字</Toggle.Root>`                                                                                                     |
+| table                         | ✅   | `@kumiki/components/table`        | `<Table.Root><Table.Header><Table.Row>…</Table.Row></Table.Header><Table.Body>…</Table.Body></Table.Root>` (semantic; ADR 0015)                    |
 
-| flyle                                     | kumiki + 必要作業                                 | Deliverable |
-| ----------------------------------------- | ------------------------------------------------- | ----------- |
-| icon-button / text-button / filter-button | Button + IconButton variant                       | B-1         |
-| drawer                                    | Dialog + side prop                                | B-2         |
-| toggle-button-group                       | Toggle.Group variant                              | B-3         |
-| form/datetime-input / form/time-input     | DateTimeField / TimeField                         | B-4         |
-| popconfirm                                | popover/with-confirm                              | B-5         |
-| form/combobox/multi-combobox              | combobox + `withMultiSelect` (実装済み、確認のみ) | —           |
+### 4.2 Phase 1.5 で実装完了 (⚠️ 新規) — 今 sprint 終了時点で全件 merge 済み
 
-### 4.3 kumiki 側で受けない（ ❌ 群）
+| flyle                        | 状態 | kumiki                                        | 最小コード片                                                                                                                                                                              |
+| ---------------------------- | ---- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| alert                        | ⚠️   | `@kumiki/components/alert`                    | `<Alert.Root severity="warning">本文</Alert.Root>`                                                                                                                                        |
+| badge                        | ⚠️   | `@kumiki/components/badge`                    | `<Badge.Root variant="primary">99+</Badge.Root>`                                                                                                                                          |
+| breadcrumb                   | ⚠️   | `@kumiki/components/breadcrumb`               | `<Breadcrumb.Root><Breadcrumb.Link href="/">Home</Breadcrumb.Link><Breadcrumb.Separator/>…</Breadcrumb.Root>`                                                                             |
+| pagination                   | ⚠️   | `@kumiki/components/pagination`               | `<Pagination.Root total={100} pageSize={10} bind:page><Pagination.Prev/><Pagination.PageList/><Pagination.Next/></Pagination.Root>`                                                       |
+| chips                        | ⚠️   | `@kumiki/components/chips`                    | `<Chips.Root variant="static">タグ</Chips.Root>`                                                                                                                                          |
+| chips-with-close             | ⚠️   | `@kumiki/components/chips`                    | `<Chips.Root variant="dismissible" onDismiss={…}>タグ</Chips.Root>`                                                                                                                       |
+| loading-spinner              | ⚠️   | `@kumiki/components/loading-spinner`          | `<LoadingSpinner.Root size="md" aria-label="読み込み中" />`                                                                                                                               |
+| definition-list              | ⚠️   | `@kumiki/components/definition-list`          | `<DefinitionList.Root layout="grid"><DefinitionList.Term>名前</DefinitionList.Term><DefinitionList.Description>太郎</DefinitionList.Description>…</DefinitionList.Root>`                  |
+| horizontal-rule              | ⚠️   | `@kumiki/components/horizontal-rule`          | `<HorizontalRule.Root orientation="horizontal" />`                                                                                                                                        |
+| avatar                       | ⚠️   | `@kumiki/components/avatar`                   | `<Avatar.Root><Avatar.Image src={…}/><Avatar.Fallback>YT</Avatar.Fallback></Avatar.Root>`                                                                                                 |
+| avatar-group                 | ⚠️   | `@kumiki/components/avatar-group`             | `<AvatarGroup.Root max={3}>{#each users as u}<Avatar.Root>…</Avatar.Root>{/each}</AvatarGroup.Root>`                                                                                      |
+| icon-button                  | ⚠️   | `@kumiki/components/icon-button`              | `<IconButton.Root aria-label="削除" variant="danger">{@render trash()}</IconButton.Root>` (Phase 1.5 B-1)                                                                                 |
+| text-button                  | ⚠️   | `@kumiki/components/button`                   | `<Button.Root variant="ghost">編集</Button.Root>` (text-button は Button の ghost variant)                                                                                                |
+| filter-button                | ⚠️   | `@kumiki/components/button`                   | `<Button.Root variant="ghost" data-active={isActive}>フィルター</Button.Root>` (Toggle と Button のどちらでも OK)                                                                         |
+| drawer                       | ⚠️   | `@kumiki/components/dialog`                   | `<Dialog.Root><Dialog.Content side="right" width="360px">…</Dialog.Content></Dialog.Root>` (Phase 1.5 B-2 で `side` prop 追加)                                                            |
+| toggle-button-group          | ⚠️   | `@kumiki/components/toggle`                   | `<Toggle.Group multiple bind:value>{#each items as i}<Toggle.GroupItem value={i.id}>…</Toggle.GroupItem>{/each}</Toggle.Group>` (Phase 1.5 B-3)                                           |
+| form/datetime-input          | ⚠️   | `@kumiki/components/datetime-field`           | `<DateTimeField.Root bind:value granularity="minute">…</DateTimeField.Root>` (Phase 1.5 B-4)                                                                                              |
+| form/time-input              | ⚠️   | `@kumiki/components/time-field`               | `<TimeField.Root bind:value granularity="minute">…</TimeField.Root>` (Phase 1.5 B-4)                                                                                                      |
+| popconfirm                   | ⚠️   | `@kumiki/components/popover/with-confirm`     | `<PopoverConfirm.Root onConfirm={…}><PopoverConfirm.Trigger>削除</PopoverConfirm.Trigger><PopoverConfirm.Content>本当に？</PopoverConfirm.Content></PopoverConfirm.Root>` (Phase 1.5 B-5) |
+| form/combobox/multi-combobox | ⚠️   | `@kumiki/headless/combobox/with-multi-select` | `import { combobox } from '@kumiki/headless/combobox'; import { withMultiSelect } from '@kumiki/headless/combobox/with-multi-select'; const c = withMultiSelect(combobox({…}));`          |
+
+(Toolbar B-6 は flyle 側で直接対応する 1:1 ディレクトリがないが、editor toolbar の置換時に `@kumiki/components/toolbar` で APG roving tabindex 付きのものを使う。)
+
+### 4.3 ❌ kumiki 側で受けない — flyle 側残置 or 他 lib
 
 [ADR 0014/0015/0016](../design/16-decisions/) と
-[`docs/design/17-integration-boundaries.md`](../design/17-integration-boundaries.md) の方針に従って、flyle 側に残す or 別ライブラリで補う。
+[`docs/design/17-integration-boundaries.md`](../design/17-integration-boundaries.md) の方針に従う。
 
-| flyle                                                                                                    | 方針                                                                                       |
-| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| editor / editor-field                                                                                    | tiptap / Lexical / ProseMirror で flyle 側に残す。Toolbar (B-6) は kumiki が提供           |
-| sortable                                                                                                 | dnd-kit-svelte / sortablejs を flyle 側で利用                                              |
-| table の virtualize / cell-edit / column-resize                                                          | TanStack Table を flyle 側で利用。kumiki Table は markup + sort/select/tree のみ           |
-| icon / decorative-icon                                                                                   | flyle 側で Lucide 等を利用 (ADR 0014)                                                      |
-| color-palette / environment-ribbon / page-header / sidebar / sidebar-menu / upload-progress / @shared 群 | flyle 内で kumiki primitive を組み合わせるレシピ。専用コンポーネントは kumiki に追加しない |
+| flyle                  | 状態 | 方針                                                                                                                                                |
+| ---------------------- | ---- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| editor                 | ❌   | tiptap / Lexical / ProseMirror で flyle 側に残す。Toolbar 部分は `@kumiki/components/toolbar` を組み込む                                            |
+| sortable               | ❌   | dnd-kit-svelte / sortablejs を flyle 側で継続利用 (ADR 0016)                                                                                        |
+| icon                   | ❌   | flyle 側で Lucide / 自作 SVG snippet を継続利用 (ADR 0014)                                                                                          |
+| decorative-icon        | ❌   | 同上 — `aria-hidden="true"` で装飾扱い                                                                                                              |
+| color-palette          | ❌   | UI utility — flyle 内で `<button>` + `data-color` の素朴実装で OK                                                                                   |
+| environment-ribbon     | ❌   | flyle 専用の運用バナー — kumiki に汎用化する価値が薄い                                                                                              |
+| page-header            | ❌   | flyle 内で `<header>` + Breadcrumb + Button の合成レシピ。kumiki に専用 component を追加しない                                                      |
+| sidebar                | ❌   | flyle 内で `<nav>` + Menu の合成。Sidebar 全体の振る舞い (collapse / pin) はアプリ要件次第で UI 差が大きい                                          |
+| upload-progress        | ❌   | flyle 内で `<progress>` + Toast の合成レシピ                                                                                                        |
+| `@shared` (内部 utils) | ❌   | flyle 専用 utility (`focus-trap.svelte.ts`, `useRangeSelection.svelte.ts` 等) — kumiki primitives に同等品あり (`@kumiki/primitives/focus-trap` 等) |
 
-### 4.4 軽量で残作業少（◯ 群）
+### 4.4 ◯ 既存 kumiki primitive で吸収できる — 合成レシピ
 
-| flyle                  | 方針                                                             |
-| ---------------------- | ---------------------------------------------------------------- |
-| text / horizontal-rule | kumiki に既に存在 (HorizontalRule)、テキストはセマンティックタグ |
-| definition-list        | kumiki に存在                                                    |
-| highlight              | flyle 側で `<mark>` 等のセマンティック要素直書きで OK            |
-| card-select            | flyle 側で `<RadioGroup.Root> + label` の合成レシピ              |
-| chips-with-close       | kumiki Chips の `dismissible` variant で代替                     |
-| avatar-with-text       | Avatar + text の合成レシピ                                       |
+| flyle            | 方針                                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| text             | kumiki に専用 Text なし。`<h1 class="text-heading-20">…</h1>` 等 semantic HTML + flyle CSS class で OK |
+| highlight        | `<mark>…</mark>` で意味的に十分                                                                        |
+| card-select      | `<RadioGroup.Root>` + 各 `<RadioGroup.Item>` を `<label>` + Card UI でラップする合成                   |
+| avatar-with-text | `<Avatar.Root>…</Avatar.Root>` の右に `<span>` を並べる合成 (CSS は flyle 側 1 ファイル)               |
+
+### 4.5 件数まとめ
+
+| 状態                            | 件数                                                                                     |
+| ------------------------------- | ---------------------------------------------------------------------------------------- |
+| ✅ Phase 1 で直接置換可能       | 22                                                                                       |
+| ⚠️ Phase 1.5 で実装完了         | 19                                                                                       |
+| ❌ Kumiki 範囲外 (flyle 側残置) | 10                                                                                       |
+| ◯ 合成レシピで吸収              | 4                                                                                        |
+| **合計**                        | **45** (重複差分あり: 例えば `dropdown` と `dropdown-trigger` は同じ kumiki/menu に集約) |
 
 ---
 

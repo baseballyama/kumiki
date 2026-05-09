@@ -358,22 +358,81 @@ flyle-nexus `--base-background-1` / `--primary-background-inverse-1` /
 ### Strategy A — bridge to atelier
 
 Use atelier defaults for layout/sizing, override colors via the
-component-facing leaves:
+component-facing leaves. The full mapping for the flyle-nexus token
+system (`--base-*`, `--primary-*`, `--danger-*`, `--info-*`,
+`--success-*`, `--warning-*`, `--space-*`, `--radius-*`,
+`--effect-focus-*`, `--shadow-*`) lives in
+`packages/frontend/design-system/src/lib/css/kumiki-bridge.css` of
+flyle-nexus. The shape is one block per component / per state, e.g.:
 
 ```css
 :root {
-  /* flyle palette already defined above */
+  /* Button — primary variant default */
   --kumiki-button-bg: var(--primary-background-inverse-1);
   --kumiki-button-bg-hover: var(--primary-background-inverse-2);
-  --kumiki-button-fg: var(--primary-foreground-on-inverse-1);
+  --kumiki-button-bg-active: var(--primary-background-inverse-3);
   --kumiki-button-bg-disabled: var(--disabled-background-1);
+  --kumiki-button-fg: var(--primary-foreground-on-inverse-1);
   --kumiki-button-fg-disabled: var(--disabled-foreground-1);
-  /* ... etc per component ... */
+  --kumiki-button-radius: var(--radius-m);
+  --kumiki-button-padding-x: var(--space-16);
+  --kumiki-button-padding-y: var(--space-8);
+  --kumiki-button-outline-focus: 0 0 0 var(--effect-focus-strong-default-spread)
+    var(--effect-focus-strong-default-color);
+
+  /* Toast / Alert — base; per-severity overrides via [data-severity] */
+  --kumiki-toast-bg: var(--base-background-1);
+  --kumiki-toast-fg: var(--base-foreground-1);
+  --kumiki-toast-border: var(--base-border-1);
+  --kumiki-toast-radius: var(--radius-m);
+  --kumiki-toast-padding: var(--space-12) var(--space-16);
+  --kumiki-toast-shadow: var(--shadow-2);
+
+  /* Form-Field error / required — danger palette */
+  --kumiki-form-field-label-fg-required: var(--danger-foreground-1);
+  --kumiki-form-field-error-fg: var(--danger-foreground-1);
+}
+
+[data-variant='ghost'] {
+  --kumiki-button-bg: transparent;
+  --kumiki-button-bg-hover: var(--base-background-2);
+  --kumiki-button-fg: var(--base-foreground-1);
+  --kumiki-button-border: var(--base-border-1);
+}
+
+[data-variant='danger'] {
+  --kumiki-button-bg: var(--danger-background-inverse-1);
+  --kumiki-button-bg-hover: var(--danger-background-inverse-2);
+  --kumiki-button-fg: var(--danger-foreground-on-inverse-1);
+  --kumiki-button-outline-focus: 0 0 0 var(--effect-focus-strong-destructive-spread)
+    var(--effect-focus-strong-destructive-color);
+}
+
+[data-severity='error'] {
+  --kumiki-toast-bg: var(--danger-background-1);
+  --kumiki-toast-fg: var(--danger-foreground-1);
+  --kumiki-toast-border: var(--danger-border-1);
 }
 ```
 
+Wire the bridge into the cascade as its own `@layer` so consumers can
+override individual leaves higher up without specificity battles:
+
+```css
+/* in flyle's design-system index.css */
+@layer reset, basic;
+@layer color, radius, spacing, typography, shadow, semantic, effect, text;
+@layer accessibility, animation, editor;
+@layer kumiki-bridge;
+
+@import url('./kumiki-bridge.css') layer(kumiki-bridge);
+```
+
 The atelier stylesheet still contributes radii, shadows, paddings,
-typography. Only colors are remapped.
+typography defaults — Strategy A only remaps the color-bearing leaves
+plus the focus-ring. Discriminator selectors
+(`[data-variant]`, `[data-severity]`, `[data-state]`) are matched
+against the same `data-*` hooks Layer 4 emits — see §18.1.
 
 ### Strategy B — skip atelier, drive Layer 4 directly
 

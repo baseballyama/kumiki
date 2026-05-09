@@ -110,12 +110,37 @@ Realistic Layer 4 brotli targets (informational, not gated):
 | `@kumiki/components/calendar`     | 5.5 kB | + `@internationalized/date` peer (Gregorian + Japanese imperial at v1.0; ADR 0013) |
 | `@kumiki/components/date-picker`  | 7 kB   | Calendar + Popover composition; same peer dep                                      |
 
+#### Phase 1.5 additions (Layer 4 targets, brotli)
+
+Numbers track each component's `docs/components/<name>.md` "Bundle (Layer 4 target, brotli)" row. Same Layer-4 svelte-package caveat: targets, not gated.
+
+| Subpath                                   | Target | Notes                                                           |
+| ----------------------------------------- | ------ | --------------------------------------------------------------- |
+| `@kumiki/components/badge`                | 0.5 kB |                                                                 |
+| `@kumiki/components/horizontal-rule`      | 0.3 kB |                                                                 |
+| `@kumiki/components/definition-list`      | 0.4 kB |                                                                 |
+| `@kumiki/components/loading-spinner`      | 0.6 kB |                                                                 |
+| `@kumiki/components/breadcrumb`           | 0.8 kB |                                                                 |
+| `@kumiki/components/button`               | 0.8 kB |                                                                 |
+| `@kumiki/components/avatar`               | 1.0 kB |                                                                 |
+| `@kumiki/components/avatar-group`         | 1.0 kB | Composes Avatar; shared layout primitive                        |
+| `@kumiki/components/icon-button`          | 1.0 kB | Reuses Button machinery; consumer-supplied icon snippet         |
+| `@kumiki/components/alert`                | 1.0 kB |                                                                 |
+| `@kumiki/components/chips`                | 1.2 kB |                                                                 |
+| `@kumiki/components/pagination`           | 1.4 kB |                                                                 |
+| `@kumiki/components/toolbar`              | 1.8 kB | APG roving tabindex; depends on `@kumiki/primitives/collection` |
+| `@kumiki/components/table`                | 2.5 kB | Semantic table; ADR 0015 (no virtualize / cell-edit)            |
+| `@kumiki/components/time-field`           | 2.5 kB | + `@internationalized/date` peer (`Time`)                       |
+| `@kumiki/components/datetime-field`       | 4.0 kB | + `@internationalized/date` peer (`CalendarDateTime`)           |
+| `@kumiki/components/popover/with-confirm` | 1.0 kB | Popconfirm subpath; reuses `popover` core                       |
+
 ### `@kumiki/atelier/<name>` — Layer 5 preview
 
-| Subpath                  | Target | Notes                                                           |
-| ------------------------ | ------ | --------------------------------------------------------------- |
-| `@kumiki/atelier/toggle` | 6 KB   | Includes Tailwind v4 utility-class strings + scoped CSS variant |
-| `@kumiki/atelier/dialog` | 6 KB   | Same shape                                                      |
+| Subpath                       | Target | Notes                                                                |
+| ----------------------------- | ------ | -------------------------------------------------------------------- |
+| `@kumiki/atelier/toggle`      | 6 KB   | Includes Tailwind v4 utility-class strings + scoped CSS variant      |
+| `@kumiki/atelier/dialog`      | 6 KB   | Same shape                                                           |
+| `@kumiki/atelier/<phase-1.5>` | ≤ 8 KB | Each Phase 1.5 atelier subpath ships both Tailwind + vanilla variant |
 
 These are larger because they include styles. We don't apologize: that's the value proposition of the Atelier. Same Layer-4 svelte-package caveat: these are targets, not gated.
 
