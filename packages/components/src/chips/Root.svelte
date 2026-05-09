@@ -64,12 +64,6 @@
     if (p.disabled) return;
     p.onPressedChange(!p.pressed);
   }
-
-  function handleSelectableKey(event: KeyboardEvent): void {
-    // Native <button> already handles Space/Enter; this is here for non-button hosts in the future.
-    if (event.key !== ' ' && event.key !== 'Enter') return;
-    handleSelectableClick();
-  }
 </script>
 
 {#if variant === 'selectable'}
@@ -83,7 +77,6 @@
     aria-disabled={p.disabled ? 'true' : undefined}
     disabled={p.disabled}
     onclick={handleSelectableClick}
-    onkeydown={handleSelectableKey}
   >
     {@render props.children()}
   </button>

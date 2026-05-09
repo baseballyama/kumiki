@@ -78,6 +78,30 @@ export interface Messages {
     rowSelect: string;
     selectAll: string;
   };
+  /** Popconfirm recipe messages — default labels for the two action buttons. */
+  popconfirm: {
+    /** Default label for the confirm button. Override via `confirmLabel` prop. */
+    confirm: string;
+    /** Default label for the cancel button. Override via `cancelLabel` prop. */
+    cancel: string;
+  };
+  /** TimeField segmented-input messages. */
+  timeField: {
+    /** `aria-label` for the hour spinbutton. */
+    hour: string;
+    /** `aria-label` for the minute spinbutton. */
+    minute: string;
+    /** `aria-label` for the second spinbutton. */
+    second: string;
+    /** `aria-label` for the AM/PM spinbutton. */
+    dayPeriod: string;
+    /** Visible glyph for an empty (unset) numeric segment. */
+    placeholder: string;
+    /** Visible label for AM (12-hour cycle). */
+    am: string;
+    /** Visible label for PM (12-hour cycle). */
+    pm: string;
+  };
 }
 
 /** Layout direction tag exported by every locale subpath. RTL for ar/he, LTR otherwise. */

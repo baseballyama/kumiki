@@ -48,4 +48,17 @@ export const messages = {
     rowSelect: '行を選択',
     selectAll: 'すべての行を選択',
   },
+  popconfirm: {
+    confirm: '確認',
+    cancel: 'キャンセル',
+  },
+  timeField: {
+    hour: '時',
+    minute: '分',
+    second: '秒',
+    dayPeriod: '午前/午後',
+    placeholder: '––',
+    am: '午前',
+    pm: '午後',
+  },
 } satisfies Messages;

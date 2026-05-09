@@ -48,4 +48,17 @@ export const messages = {
     rowSelect: 'בחר שורה',
     selectAll: 'בחר את כל השורות',
   },
+  popconfirm: {
+    confirm: 'אישור',
+    cancel: 'ביטול',
+  },
+  timeField: {
+    hour: 'שעה',
+    minute: 'דקה',
+    second: 'שנייה',
+    dayPeriod: 'AM/PM',
+    placeholder: '––',
+    am: 'AM',
+    pm: 'PM',
+  },
 } satisfies Messages;

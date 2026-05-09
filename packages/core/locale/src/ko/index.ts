@@ -48,4 +48,17 @@ export const messages = {
     rowSelect: '행 선택',
     selectAll: '모든 행 선택',
   },
+  popconfirm: {
+    confirm: '확인',
+    cancel: '취소',
+  },
+  timeField: {
+    hour: '시',
+    minute: '분',
+    second: '초',
+    dayPeriod: '오전/오후',
+    placeholder: '––',
+    am: '오전',
+    pm: '오후',
+  },
 } satisfies Messages;

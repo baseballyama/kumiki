@@ -48,4 +48,17 @@ export const messages = {
     rowSelect: 'تحديد الصف',
     selectAll: 'تحديد جميع الصفوف',
   },
+  popconfirm: {
+    confirm: 'تأكيد',
+    cancel: 'إلغاء',
+  },
+  timeField: {
+    hour: 'ساعة',
+    minute: 'دقيقة',
+    second: 'ثانية',
+    dayPeriod: 'ص/م',
+    placeholder: '––',
+    am: 'ص',
+    pm: 'م',
+  },
 } satisfies Messages;

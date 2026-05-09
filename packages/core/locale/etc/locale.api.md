@@ -39,6 +39,10 @@ export interface Messages {
         page: (n: number) => string; /** `aria-label` for the current-page indicator. */
         currentPage: (n: number) => string;
     };
+    popconfirm: {
+        confirm: string; /** Default label for the cancel button. Override via `cancelLabel` prop. */
+        cancel: string;
+    };
     table: {
         sortAscending: string;
         sortDescending: string;
@@ -50,6 +54,15 @@ export interface Messages {
     };
     tabs: {
         tablistLabel: string;
+    };
+    timeField: {
+        hour: string; /** `aria-label` for the minute spinbutton. */
+        minute: string; /** `aria-label` for the second spinbutton. */
+        second: string; /** `aria-label` for the AM/PM spinbutton. */
+        dayPeriod: string; /** Visible glyph for an empty (unset) numeric segment. */
+        placeholder: string; /** Visible label for AM (12-hour cycle). */
+        am: string; /** Visible label for PM (12-hour cycle). */
+        pm: string;
     };
 }
 

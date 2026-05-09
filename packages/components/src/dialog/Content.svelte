@@ -17,7 +17,8 @@
 
   let { children, ...rest }: Props = $props();
 
-  const { controller } = getContext<DialogContextValue>(DIALOG_CONTEXT_KEY);
+  const ctx = getContext<DialogContextValue>(DIALOG_CONTEXT_KEY);
+  const { controller } = ctx;
   const initialOpen = controller.open;
   const initialModal = controller.context.modal;
 </script>
@@ -29,6 +30,7 @@
   aria-labelledby={controller.titleId}
   data-component-host="dialog"
   data-state={initialOpen ? 'open' : 'closed'}
+  data-side={ctx.side}
   hidden={!initialOpen || undefined}
   {@attach controller.content}
 >

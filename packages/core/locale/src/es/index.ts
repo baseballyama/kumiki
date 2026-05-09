@@ -48,4 +48,17 @@ export const messages = {
     rowSelect: 'Seleccionar fila',
     selectAll: 'Seleccionar todas las filas',
   },
+  popconfirm: {
+    confirm: 'Confirmar',
+    cancel: 'Cancelar',
+  },
+  timeField: {
+    hour: 'Hora',
+    minute: 'Minuto',
+    second: 'Segundo',
+    dayPeriod: 'AM/PM',
+    placeholder: '––',
+    am: 'AM',
+    pm: 'PM',
+  },
 } satisfies Messages;

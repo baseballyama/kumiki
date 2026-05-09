@@ -42,6 +42,8 @@ import Close from './Close.svelte';
 
 export { Root, Trigger, Overlay, Content, Title, Description, Close };
 
+export type { DialogSide } from './context.js';
+
 export type {
   DialogContext,
   DialogController,

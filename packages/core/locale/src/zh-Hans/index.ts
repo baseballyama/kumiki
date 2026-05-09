@@ -48,4 +48,17 @@ export const messages = {
     rowSelect: '选择行',
     selectAll: '选择所有行',
   },
+  popconfirm: {
+    confirm: '确认',
+    cancel: '取消',
+  },
+  timeField: {
+    hour: '时',
+    minute: '分',
+    second: '秒',
+    dayPeriod: '上午/下午',
+    placeholder: '––',
+    am: '上午',
+    pm: '下午',
+  },
 } satisfies Messages;

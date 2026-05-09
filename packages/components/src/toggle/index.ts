@@ -25,10 +25,15 @@
  */
 
 import Root from './Root.svelte';
+import Group from './Group.svelte';
+import GroupItem from './GroupItem.svelte';
 
-export { Root };
+export { Root, Group, GroupItem };
 
-export const Toggle = { Root };
+export const Toggle = { Root, Group, GroupItem };
+
+export type { Props as ToggleGroupProps } from './Group.svelte';
+export type { ToggleGroupMode } from './group-context.js';
 
 // Re-export controller type for users that wire `bind:pressed` etc. with strict types.
 export type {
