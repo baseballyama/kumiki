@@ -38,6 +38,16 @@
       "svelte": "./dist/alert/index.js",
       "import": "./dist/alert/index.js"
     },
+    "./avatar": {
+      "types": "./dist/avatar/index.d.ts",
+      "svelte": "./dist/avatar/index.js",
+      "import": "./dist/avatar/index.js"
+    },
+    "./avatar-group": {
+      "types": "./dist/avatar-group/index.d.ts",
+      "svelte": "./dist/avatar-group/index.js",
+      "import": "./dist/avatar-group/index.js"
+    },
     "./badge": {
       "types": "./dist/badge/index.d.ts",
       "svelte": "./dist/badge/index.js",
@@ -47,6 +57,11 @@
       "types": "./dist/button/index.d.ts",
       "svelte": "./dist/button/index.js",
       "import": "./dist/button/index.js"
+    },
+    "./chips": {
+      "types": "./dist/chips/index.d.ts",
+      "svelte": "./dist/chips/index.js",
+      "import": "./dist/chips/index.js"
     },
     "./calendar": {
       "types": "./dist/calendar/index.d.ts",

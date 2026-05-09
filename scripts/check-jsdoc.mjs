@@ -34,6 +34,7 @@ const APG_EXEMPT = new Set([
   'definition-list',
   'horizontal-rule',
   'avatar',
+  'avatar-group',
   'loading-spinner',
 ]);
 
