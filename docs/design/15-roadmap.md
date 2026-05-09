@@ -102,6 +102,8 @@ Exit criteria for v1.0:
 business design system" bar. Driven by an external migration target
 that exposed the gaps in the Phase 1 set (see
 [`docs/design/17-integration-boundaries.md`](17-integration-boundaries.md)).
+The full handoff for the migration work is at
+[`docs/migrations/flyle-nexus.md`](../migrations/flyle-nexus.md).
 
 Components added (priority order):
 

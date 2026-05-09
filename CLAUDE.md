@@ -28,6 +28,7 @@ The design is authoritative. Do not re-litigate decisions that already have an A
 | Architecture decisions (numbered ADRs)                       | `docs/design/16-decisions/`                   |
 | **Integration boundaries (what kumiki does NOT ship)**       | `docs/design/17-integration-boundaries.md`    |
 | **CSS variable contract (Layer 4 token surface)**            | `docs/design/18-css-variable-contract.md`     |
+| **flyle-nexus migration handoff (Phase 1.5 follow-up work)** | `docs/migrations/flyle-nexus.md`              |
 | Per-component spec template + Combobox example               | `docs/components/_template.md`, `combobox.md` |
 | User-supplied competitor research                            | `docs/market-research.md`                     |
 
