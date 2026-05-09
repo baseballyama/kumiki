@@ -28,15 +28,175 @@
       "import": "./dist/index.js"
     },
     "./package.json": "./package.json",
-    "./toggle": {
-      "types": "./dist/toggle/index.d.ts",
-      "svelte": "./dist/toggle/index.js",
-      "import": "./dist/toggle/index.js"
+    "./accordion": {
+      "types": "./dist/accordion/index.d.ts",
+      "svelte": "./dist/accordion/index.js",
+      "import": "./dist/accordion/index.js"
+    },
+    "./alert": {
+      "types": "./dist/alert/index.d.ts",
+      "svelte": "./dist/alert/index.js",
+      "import": "./dist/alert/index.js"
+    },
+    "./avatar": {
+      "types": "./dist/avatar/index.d.ts",
+      "svelte": "./dist/avatar/index.js",
+      "import": "./dist/avatar/index.js"
+    },
+    "./avatar-group": {
+      "types": "./dist/avatar-group/index.d.ts",
+      "svelte": "./dist/avatar-group/index.js",
+      "import": "./dist/avatar-group/index.js"
+    },
+    "./badge": {
+      "types": "./dist/badge/index.d.ts",
+      "svelte": "./dist/badge/index.js",
+      "import": "./dist/badge/index.js"
+    },
+    "./breadcrumb": {
+      "types": "./dist/breadcrumb/index.d.ts",
+      "svelte": "./dist/breadcrumb/index.js",
+      "import": "./dist/breadcrumb/index.js"
+    },
+    "./button": {
+      "types": "./dist/button/index.d.ts",
+      "svelte": "./dist/button/index.js",
+      "import": "./dist/button/index.js"
+    },
+    "./calendar": {
+      "types": "./dist/calendar/index.d.ts",
+      "svelte": "./dist/calendar/index.js",
+      "import": "./dist/calendar/index.js"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox/index.d.ts",
+      "svelte": "./dist/checkbox/index.js",
+      "import": "./dist/checkbox/index.js"
+    },
+    "./chips": {
+      "types": "./dist/chips/index.d.ts",
+      "svelte": "./dist/chips/index.js",
+      "import": "./dist/chips/index.js"
+    },
+    "./combobox": {
+      "types": "./dist/combobox/index.d.ts",
+      "svelte": "./dist/combobox/index.js",
+      "import": "./dist/combobox/index.js"
+    },
+    "./date-picker": {
+      "types": "./dist/date-picker/index.d.ts",
+      "svelte": "./dist/date-picker/index.js",
+      "import": "./dist/date-picker/index.js"
+    },
+    "./datetime-field": {
+      "types": "./dist/datetime-field/index.d.ts",
+      "svelte": "./dist/datetime-field/index.js",
+      "import": "./dist/datetime-field/index.js"
+    },
+    "./definition-list": {
+      "types": "./dist/definition-list/index.d.ts",
+      "svelte": "./dist/definition-list/index.js",
+      "import": "./dist/definition-list/index.js"
     },
     "./dialog": {
       "types": "./dist/dialog/index.d.ts",
       "svelte": "./dist/dialog/index.js",
       "import": "./dist/dialog/index.js"
+    },
+    "./form-field": {
+      "types": "./dist/form-field/index.d.ts",
+      "svelte": "./dist/form-field/index.js",
+      "import": "./dist/form-field/index.js"
+    },
+    "./horizontal-rule": {
+      "types": "./dist/horizontal-rule/index.d.ts",
+      "svelte": "./dist/horizontal-rule/index.js",
+      "import": "./dist/horizontal-rule/index.js"
+    },
+    "./icon-button": {
+      "types": "./dist/icon-button/index.d.ts",
+      "svelte": "./dist/icon-button/index.js",
+      "import": "./dist/icon-button/index.js"
+    },
+    "./loading-spinner": {
+      "types": "./dist/loading-spinner/index.d.ts",
+      "svelte": "./dist/loading-spinner/index.js",
+      "import": "./dist/loading-spinner/index.js"
+    },
+    "./menu": {
+      "types": "./dist/menu/index.d.ts",
+      "svelte": "./dist/menu/index.js",
+      "import": "./dist/menu/index.js"
+    },
+    "./number-field": {
+      "types": "./dist/number-field/index.d.ts",
+      "svelte": "./dist/number-field/index.js",
+      "import": "./dist/number-field/index.js"
+    },
+    "./pagination": {
+      "types": "./dist/pagination/index.d.ts",
+      "svelte": "./dist/pagination/index.js",
+      "import": "./dist/pagination/index.js"
+    },
+    "./popover": {
+      "types": "./dist/popover/index.d.ts",
+      "svelte": "./dist/popover/index.js",
+      "import": "./dist/popover/index.js"
+    },
+    "./radio-group": {
+      "types": "./dist/radio-group/index.d.ts",
+      "svelte": "./dist/radio-group/index.js",
+      "import": "./dist/radio-group/index.js"
+    },
+    "./select": {
+      "types": "./dist/select/index.d.ts",
+      "svelte": "./dist/select/index.js",
+      "import": "./dist/select/index.js"
+    },
+    "./slider": {
+      "types": "./dist/slider/index.d.ts",
+      "svelte": "./dist/slider/index.js",
+      "import": "./dist/slider/index.js"
+    },
+    "./switch": {
+      "types": "./dist/switch/index.d.ts",
+      "svelte": "./dist/switch/index.js",
+      "import": "./dist/switch/index.js"
+    },
+    "./table": {
+      "types": "./dist/table/index.d.ts",
+      "svelte": "./dist/table/index.js",
+      "import": "./dist/table/index.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs/index.d.ts",
+      "svelte": "./dist/tabs/index.js",
+      "import": "./dist/tabs/index.js"
+    },
+    "./time-field": {
+      "types": "./dist/time-field/index.d.ts",
+      "svelte": "./dist/time-field/index.js",
+      "import": "./dist/time-field/index.js"
+    },
+    "./toast": {
+      "types": "./dist/toast/index.d.ts",
+      "svelte": "./dist/toast/index.js",
+      "import": "./dist/toast/index.js"
+    },
+    "./toggle": {
+      "types": "./dist/toggle/index.d.ts",
+      "svelte": "./dist/toggle/index.js",
+      "import": "./dist/toggle/index.js"
+    },
+    "./toolbar": {
+      "types": "./dist/toolbar/index.d.ts",
+      "svelte": "./dist/toolbar/index.js",
+      "import": "./dist/toolbar/index.js"
+    },
+    "./tooltip": {
+      "types": "./dist/tooltip/index.d.ts",
+      "svelte": "./dist/tooltip/index.js",
+      "import": "./dist/tooltip/index.js"
     }
   },
   "publishConfig": {
@@ -56,6 +216,7 @@
     "@kumiki/components": "workspace:*"
   },
   "devDependencies": {
+    "@internationalized/date": "catalog:",
     "@sveltejs/package": "catalog:",
     "@sveltejs/vite-plugin-svelte": "catalog:",
     "publint": "catalog:",
@@ -65,6 +226,12 @@
     "vitest": "catalog:"
   },
   "peerDependencies": {
+    "@internationalized/date": "catalog:",
     "svelte": "catalog:"
+  },
+  "peerDependenciesMeta": {
+    "@internationalized/date": {
+      "optional": true
+    }
   }
 }
