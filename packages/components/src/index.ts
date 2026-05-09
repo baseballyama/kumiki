@@ -47,6 +47,7 @@ export * as RadioGroup from './radio-group/index.js';
 export * as Select from './select/index.js';
 export * as Slider from './slider/index.js';
 export * as Switch from './switch/index.js';
+export * as Table from './table/index.js';
 export * as Tabs from './tabs/index.js';
 export * as Toast from './toast/index.js';
 export * as Toggle from './toggle/index.js';

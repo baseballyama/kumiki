@@ -153,6 +153,11 @@
       "svelte": "./dist/switch/index.js",
       "import": "./dist/switch/index.js"
     },
+    "./table": {
+      "types": "./dist/table/index.d.ts",
+      "svelte": "./dist/table/index.js",
+      "import": "./dist/table/index.js"
+    },
     "./tabs": {
       "types": "./dist/tabs/index.d.ts",
       "svelte": "./dist/tabs/index.js",
