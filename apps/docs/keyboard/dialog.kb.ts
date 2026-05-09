@@ -50,5 +50,19 @@ export const dialogKeyboardContract: KeyboardContract = {
       press: 'Escape',
       expect: [{ selector: CONTENT, visible: true }],
     },
+    {
+      name: 'Drawer variant: side="right" surfaces data-side hook',
+      url: '/sandbox/dialog?side=right',
+      focus: TRIGGER,
+      press: 'Enter',
+      expect: [{ selector: CONTENT, attribute: 'data-side', value: 'right' }],
+    },
+    {
+      name: 'Drawer variant: side="left" surfaces data-side hook',
+      url: '/sandbox/dialog?side=left',
+      focus: TRIGGER,
+      press: 'Enter',
+      expect: [{ selector: CONTENT, attribute: 'data-side', value: 'left' }],
+    },
   ],
 };
