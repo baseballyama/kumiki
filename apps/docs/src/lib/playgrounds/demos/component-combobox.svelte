@@ -60,14 +60,14 @@
 
 <style>
   .demo {
-    background: #16162a;
-    border: 1px solid #2a2a4a;
+    background: var(--k-surface-1);
+    border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
   }
   .combobox label {
     display: block;
-    color: #888;
+    color: var(--k-ink-3);
     font-size: 13px;
     margin-bottom: 6px;
   }
@@ -79,30 +79,30 @@
   .row :global(input[role='combobox']) {
     flex: 1;
     padding: 8px 12px;
-    background: #0e0e1c;
-    color: #e0e0e0;
-    border: 1px solid #3a3a5a;
+    background: var(--k-code-bg);
+    color: var(--k-ink-1);
+    border: 1px solid var(--k-line-2);
     border-radius: 8px;
     font: inherit;
     outline: none;
   }
   .row :global(input[role='combobox']:focus) {
-    border-color: #ff3e00;
+    border-color: var(--k-shu);
   }
   .row :global(button) {
     padding: 8px 12px;
-    background: #1a1a2e;
-    border: 1px solid #3a3a5a;
+    background: var(--k-surface-2);
+    border: 1px solid var(--k-line-2);
     border-radius: 8px;
-    color: #e0e0e0;
+    color: var(--k-ink-1);
     cursor: pointer;
     font: inherit;
   }
   .combobox :global(ul[role='listbox']) {
     margin-top: 4px;
     padding: 4px;
-    background: #0e0e1c;
-    border: 1px solid #3a3a5a;
+    background: var(--k-code-bg);
+    border: 1px solid var(--k-line-2);
     border-radius: 8px;
     list-style: none;
     max-height: 240px;
@@ -117,30 +117,30 @@
     align-items: center;
   }
   .combobox :global(li[role='option'][data-highlighted='true']) {
-    background: #2a2a4a;
+    background: var(--k-line-1);
   }
   .combobox :global(li[role='option'][aria-selected='true']) {
-    color: #ff3e00;
+    color: var(--k-shu);
   }
   .label {
-    color: #e0e0e0;
+    color: var(--k-ink-1);
   }
   .year {
-    color: #666;
+    color: var(--k-ink-3);
     font-size: 12px;
   }
   .empty {
-    color: #666;
+    color: var(--k-ink-3);
     padding: 12px;
     font-style: italic;
     text-align: center;
   }
   .state {
-    color: #888;
+    color: var(--k-ink-3);
     font-size: 14px;
     margin-top: 16px;
   }
   .state code {
-    color: #4fc08d;
+    color: var(--k-matcha);
   }
 </style>

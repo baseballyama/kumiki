@@ -52,35 +52,35 @@
 
 <style>
   .demo {
-    background: #16162a;
-    border: 1px solid #2a2a4a;
+    background: var(--k-surface-1);
+    border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
   }
   .controls {
     margin-bottom: 16px;
-    color: #aaa;
+    color: var(--k-ink-2);
     font-size: 13px;
   }
   .controls select {
-    background: #0e0e1c;
-    color: #e0e0e0;
-    border: 1px solid #3a3a5a;
+    background: var(--k-code-bg);
+    color: var(--k-ink-1);
+    border: 1px solid var(--k-line-2);
     border-radius: 6px;
     padding: 4px 8px;
     margin-left: 6px;
   }
   .demo :global(.label) {
     display: block;
-    color: #4fc08d;
+    color: var(--k-matcha);
     font-weight: 600;
     font-size: 13px;
     margin-bottom: 6px;
   }
   .demo :global(.input) {
-    background: #0e0e1c;
-    color: #e0e0e0;
-    border: 1px solid #3a3a5a;
+    background: var(--k-code-bg);
+    color: var(--k-ink-1);
+    border: 1px solid var(--k-line-2);
     padding: 8px 12px;
     border-radius: 6px;
     font: inherit;
@@ -89,13 +89,13 @@
   }
   .demo :global(.input:focus) {
     outline: none;
-    border-color: #4fc08d;
+    border-color: var(--k-matcha);
   }
   .demo :global(.input[aria-invalid='true']) {
-    border-color: #ff6b6b;
+    border-color: var(--k-shu);
   }
   .demo :global(.hint) {
-    color: #888;
+    color: var(--k-ink-3);
     font-size: 12px;
     margin: 6px 0 0;
   }
@@ -103,16 +103,16 @@
     display: none;
   }
   .demo :global(.errors:not([hidden])) {
-    color: #ff6b6b;
+    color: var(--k-shu);
     font-size: 13px;
     margin-top: 6px;
   }
   .state {
     margin-top: 16px;
-    color: #888;
+    color: var(--k-ink-3);
     font-size: 13px;
   }
   .state code {
-    color: #4fc08d;
+    color: var(--k-matcha);
   }
 </style>

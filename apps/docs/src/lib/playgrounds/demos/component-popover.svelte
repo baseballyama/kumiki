@@ -24,15 +24,15 @@
 
 <style>
   .demo {
-    background: #16162a;
-    border: 1px solid #2a2a4a;
+    background: var(--k-surface-1);
+    border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
     position: relative;
   }
   .demo :global(.trigger) {
-    background: #4fc08d;
-    color: #0e0e1c;
+    background: var(--k-matcha);
+    color: var(--k-code-bg);
     border: none;
     border-radius: 6px;
     padding: 8px 16px;
@@ -40,18 +40,18 @@
     cursor: pointer;
   }
   .demo :global(.trigger:focus) {
-    outline: 2px solid #ff3e00;
+    outline: 2px solid var(--k-shu);
     outline-offset: 2px;
   }
   .demo :global(.panel) {
-    background: #0e0e1c;
-    border: 1px solid #3a3a5a;
+    background: var(--k-code-bg);
+    border: 1px solid var(--k-line-2);
     border-radius: 8px;
     padding: 16px;
-    color: #e0e0e0;
+    color: var(--k-ink-1);
     width: 240px;
     margin-top: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 24px oklch(0 0 0 / 0.4);
   }
   .demo :global([data-component-host='popover'][data-state='closed']) {
     display: none;
@@ -64,7 +64,7 @@
   .demo :global(.panel-desc) {
     margin: 0 0 12px;
     font-size: 12px;
-    color: #888;
+    color: var(--k-ink-3);
   }
   .demo :global(.links) {
     list-style: none;
@@ -76,8 +76,8 @@
   .demo :global(.links button) {
     width: 100%;
     text-align: left;
-    background: #1a1a30;
-    color: #e0e0e0;
+    background: var(--k-surface-2);
+    color: var(--k-ink-1);
     border: none;
     border-radius: 4px;
     padding: 6px 8px;
@@ -85,11 +85,11 @@
     font-size: 13px;
   }
   .demo :global(.links button:hover) {
-    background: #2a2a4a;
+    background: var(--k-line-1);
   }
   .demo :global(.close) {
-    background: #2a2a4a;
-    color: #e0e0e0;
+    background: var(--k-line-1);
+    color: var(--k-ink-1);
     border: none;
     border-radius: 4px;
     padding: 4px 12px;
@@ -98,10 +98,10 @@
   }
   .state {
     margin-top: 16px;
-    color: #888;
+    color: var(--k-ink-3);
     font-size: 13px;
   }
   .state code {
-    color: #4fc08d;
+    color: var(--k-matcha);
   }
 </style>

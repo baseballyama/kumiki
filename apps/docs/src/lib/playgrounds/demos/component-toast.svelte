@@ -49,8 +49,8 @@
 
 <style>
   .demo {
-    background: #16162a;
-    border: 1px solid #2a2a4a;
+    background: var(--k-surface-1);
+    border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
     min-height: 200px;
@@ -61,8 +61,8 @@
     margin-bottom: 16px;
   }
   .btn {
-    background: #4fc08d;
-    color: #0e0e1c;
+    background: var(--k-matcha);
+    color: var(--k-code-bg);
     border: none;
     border-radius: 6px;
     padding: 8px 16px;
@@ -70,7 +70,7 @@
     cursor: pointer;
   }
   .btn-error {
-    background: #ff3e00;
+    background: var(--k-shu);
     color: #fff;
   }
   .demo :global(.viewport) {
@@ -82,21 +82,21 @@
     max-width: 360px;
   }
   .demo :global(.toast) {
-    background: #0e0e1c;
-    border: 1px solid #3a3a5a;
+    background: var(--k-code-bg);
+    border: 1px solid var(--k-line-2);
     border-radius: 8px;
     padding: 12px 14px;
-    color: #e0e0e0;
+    color: var(--k-ink-1);
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 4px 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
   .demo :global(.toast[data-type='success']) {
-    border-left: 3px solid #4fc08d;
+    border-left: 3px solid var(--k-matcha);
   }
   .demo :global(.toast[data-type='error']) {
-    border-left: 3px solid #ff3e00;
+    border-left: 3px solid var(--k-shu);
   }
   .demo :global(.t-title) {
     font-weight: 600;
@@ -104,13 +104,13 @@
   }
   .demo :global(.t-desc) {
     font-size: 12px;
-    color: #aaa;
+    color: var(--k-ink-2);
   }
   .demo :global(.t-close) {
     grid-row: 1 / span 2;
     grid-column: 2;
     background: transparent;
-    color: #888;
+    color: var(--k-ink-3);
     border: none;
     font-size: 18px;
     line-height: 1;
@@ -118,6 +118,6 @@
     padding: 0 4px;
   }
   .demo :global(.t-close:hover) {
-    color: #e0e0e0;
+    color: var(--k-ink-1);
   }
 </style>

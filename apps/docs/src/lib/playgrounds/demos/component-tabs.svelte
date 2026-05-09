@@ -58,8 +58,8 @@
 
 <style>
   .demo {
-    background: #16162a;
-    border: 1px solid #2a2a4a;
+    background: var(--k-surface-1);
+    border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
   }
@@ -67,13 +67,13 @@
     display: flex;
     gap: 16px;
     margin-bottom: 16px;
-    color: #aaa;
+    color: var(--k-ink-2);
     font-size: 13px;
   }
   .controls select {
-    background: #0e0e1c;
-    color: #e0e0e0;
-    border: 1px solid #3a3a5a;
+    background: var(--k-code-bg);
+    color: var(--k-ink-1);
+    border: 1px solid var(--k-line-2);
     border-radius: 6px;
     padding: 4px 8px;
     margin-left: 6px;
@@ -81,7 +81,7 @@
   .tabs-wrap[data-orientation='horizontal'] :global([role='tablist']) {
     display: flex;
     gap: 4px;
-    border-bottom: 1px solid #2a2a4a;
+    border-bottom: 1px solid var(--k-line-1);
     margin-bottom: 16px;
   }
   .tabs-wrap[data-orientation='vertical'] {
@@ -93,12 +93,12 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    border-right: 1px solid #2a2a4a;
+    border-right: 1px solid var(--k-line-1);
     padding-right: 8px;
   }
   .demo :global(button[role='tab']) {
     background: transparent;
-    color: #aaa;
+    color: var(--k-ink-2);
     border: 0;
     padding: 8px 14px;
     font: inherit;
@@ -111,15 +111,15 @@
     text-align: left;
   }
   .demo :global(button[role='tab']:hover) {
-    color: #e0e0e0;
+    color: var(--k-ink-1);
   }
   .demo :global(button[role='tab'][aria-selected='true']) {
-    color: #ff3e00;
-    background: #0e0e1c;
-    box-shadow: inset 0 -2px 0 #ff3e00;
+    color: var(--k-shu);
+    background: var(--k-code-bg);
+    box-shadow: inset 0 -2px 0 var(--k-shu);
   }
   .tabs-wrap[data-orientation='vertical'] :global(button[role='tab'][aria-selected='true']) {
-    box-shadow: inset 2px 0 0 #ff3e00;
+    box-shadow: inset 2px 0 0 var(--k-shu);
   }
   .demo :global(button[role='tab'][aria-disabled='true']) {
     opacity: 0.4;
@@ -127,39 +127,39 @@
   }
   .demo :global([role='tabpanel']) {
     padding: 16px;
-    background: #0e0e1c;
+    background: var(--k-code-bg);
     border-radius: 8px;
-    color: #ddd;
+    color: var(--k-ink-2);
     line-height: 1.5;
     outline: none;
   }
   .demo :global([role='tabpanel']:focus-visible) {
-    outline: 2px solid #4fc08d;
+    outline: 2px solid var(--k-matcha);
     outline-offset: 2px;
   }
   .demo :global([role='tabpanel'] h3) {
     font-size: 14px;
-    color: #4fc08d;
+    color: var(--k-matcha);
     margin: 0 0 8px;
   }
   .demo :global([role='tabpanel'] p) {
     margin: 0;
-    color: #aaa;
+    color: var(--k-ink-2);
     font-size: 14px;
   }
   .demo :global([role='tabpanel'] code) {
-    background: #1a1a30;
-    color: #4fc08d;
+    background: var(--k-surface-2);
+    color: var(--k-matcha);
     padding: 1px 6px;
     border-radius: 3px;
     font-size: 12px;
   }
   .state {
     margin-top: 16px;
-    color: #888;
+    color: var(--k-ink-3);
     font-size: 14px;
   }
   .state code {
-    color: #4fc08d;
+    color: var(--k-matcha);
   }
 </style>

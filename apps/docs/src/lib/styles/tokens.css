@@ -1,0 +1,200 @@
+/*
+ * Kumiki design tokens.
+ *
+ * Aesthetic direction: editorial / craft. The name "Kumiki" (組木) refers to
+ * Japanese wood joinery — pieces fitting together with millimetric precision.
+ * The palette echoes traditional Japanese pigment names (sumi 墨 / shu 朱 /
+ * ai 藍 / yamabuki 山吹) while staying readable on the web.
+ *
+ * - Light theme: kinari (生成り) cream paper, sumi ink, vermillion accent.
+ * - Dark theme: deep sumi ground, bone foreground, accent preserved warmer.
+ * - All colors expressed in oklch for perceptual uniformity.
+ */
+
+:root,
+[data-theme='light'] {
+  /* Surface scale — kinari (生成り) paper to ink */
+  --k-surface-0: oklch(0.985 0.006 80); /* page */
+  --k-surface-1: oklch(0.97 0.008 80); /* card */
+  --k-surface-2: oklch(0.945 0.01 80); /* sunken */
+  --k-surface-3: oklch(0.91 0.012 80); /* well */
+
+  /* Ink scale — sumi 墨. Tuned so text on surface-1 (paper) clears WCAG AA. */
+  --k-ink-1: oklch(0.16 0.015 280); /* primary text — 14:1 */
+  --k-ink-2: oklch(0.3 0.012 280); /* secondary — 9:1 */
+  --k-ink-3: oklch(0.42 0.012 280); /* tertiary — 6.4:1 */
+  --k-ink-4: oklch(0.5 0.012 280); /* quiet — 4.7:1 (AA small text) */
+  --k-ink-5: oklch(0.7 0.008 280); /* decorative only — fails AA, do not use for content */
+
+  /* Borders — graded grey with a hint of warmth */
+  --k-line-1: oklch(0.88 0.008 80); /* hairline */
+  --k-line-2: oklch(0.82 0.01 80); /* divider */
+  --k-line-3: oklch(0.7 0.012 80); /* contrast */
+
+  /* Accents — pigment names */
+  --k-shu: oklch(0.6 0.18 35); /* 朱 vermillion — primary accent */
+  --k-shu-hover: oklch(0.55 0.2 32);
+  --k-shu-soft: oklch(0.94 0.05 35);
+  --k-shu-ink: oklch(0.42 0.15 35); /* on-light text variant */
+
+  --k-ai: oklch(0.42 0.13 250); /* 藍 indigo */
+  --k-ai-soft: oklch(0.93 0.04 250);
+
+  --k-matcha: oklch(0.62 0.13 145); /* 抹茶 — success */
+  --k-matcha-soft: oklch(0.93 0.05 145);
+
+  --k-yamabuki: oklch(0.78 0.14 80); /* 山吹 — warning */
+  --k-yamabuki-soft: oklch(0.95 0.06 85);
+
+  /* Code / mono surface */
+  --k-code-bg: oklch(0.97 0.008 80);
+  --k-code-line: oklch(0.88 0.008 80);
+  --k-code-ink: oklch(0.22 0.02 280);
+
+  /* Selection */
+  --k-select-bg: oklch(0.92 0.06 35);
+  --k-select-fg: oklch(0.2 0.02 280);
+
+  /* Focus ring */
+  --k-focus: oklch(0.55 0.2 32);
+
+  /* Shadows — soft, paper-like */
+  --k-shadow-sm: 0 1px 2px oklch(0.4 0.02 280 / 0.06);
+  --k-shadow-md: 0 1px 2px oklch(0.4 0.02 280 / 0.06), 0 4px 16px -2px oklch(0.4 0.02 280 / 0.08);
+  --k-shadow-lg: 0 2px 4px oklch(0.4 0.02 280 / 0.05), 0 12px 40px -4px oklch(0.4 0.02 280 / 0.12);
+
+  /* Radii */
+  --k-radius-xs: 3px;
+  --k-radius-sm: 6px;
+  --k-radius-md: 10px;
+  --k-radius-lg: 16px;
+  --k-radius-xl: 24px;
+
+  /* Spacing scale — based on 4px */
+  --k-space-1: 4px;
+  --k-space-2: 8px;
+  --k-space-3: 12px;
+  --k-space-4: 16px;
+  --k-space-5: 20px;
+  --k-space-6: 24px;
+  --k-space-8: 32px;
+  --k-space-10: 40px;
+  --k-space-12: 48px;
+  --k-space-16: 64px;
+  --k-space-20: 80px;
+  --k-space-24: 96px;
+  --k-space-32: 128px;
+
+  /* Typography */
+  --k-font-display:
+    'Fraunces', 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', 'Georgia', serif;
+  --k-font-sans:
+    'DM Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Helvetica Neue', system-ui, -apple-system,
+    sans-serif;
+  --k-font-mono: 'JetBrains Mono', 'Berkeley Mono', 'SF Mono', ui-monospace, 'Consolas', monospace;
+
+  /* Sizes — type scale */
+  --k-text-xs: 0.75rem; /* 12 */
+  --k-text-sm: 0.8125rem; /* 13 */
+  --k-text-base: 0.9375rem; /* 15 */
+  --k-text-md: 1rem; /* 16 */
+  --k-text-lg: 1.125rem; /* 18 */
+  --k-text-xl: 1.375rem; /* 22 */
+  --k-text-2xl: 1.75rem; /* 28 */
+  --k-text-3xl: 2.5rem; /* 40 */
+  --k-text-4xl: 3.5rem; /* 56 */
+  --k-text-5xl: 5rem; /* 80 */
+
+  /* Layout widths */
+  --k-prose: 68ch;
+  --k-content-max: 1280px;
+  --k-sidebar-w: 248px;
+  --k-toc-w: 192px;
+
+  /* Motion */
+  --k-ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --k-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --k-dur-fast: 120ms;
+  --k-dur-mid: 220ms;
+  --k-dur-slow: 360ms;
+}
+
+[data-theme='dark'] {
+  --k-surface-0: oklch(0.16 0.012 280); /* page — sumi */
+  --k-surface-1: oklch(0.205 0.014 280);
+  --k-surface-2: oklch(0.245 0.015 280);
+  --k-surface-3: oklch(0.29 0.016 280);
+
+  --k-ink-1: oklch(0.96 0.008 80); /* primary text — kinari bone */
+  --k-ink-2: oklch(0.84 0.01 80);
+  --k-ink-3: oklch(0.74 0.012 80); /* AA on sumi background */
+  --k-ink-4: oklch(0.62 0.014 80); /* AA small text */
+  --k-ink-5: oklch(0.4 0.014 80); /* decorative only */
+
+  --k-line-1: oklch(0.3 0.014 280);
+  --k-line-2: oklch(0.4 0.014 280);
+  --k-line-3: oklch(0.55 0.014 280);
+
+  --k-shu: oklch(0.7 0.17 35);
+  --k-shu-hover: oklch(0.78 0.18 32);
+  --k-shu-soft: oklch(0.32 0.08 35);
+  --k-shu-ink: oklch(0.78 0.14 35);
+
+  --k-ai: oklch(0.7 0.13 250);
+  --k-ai-soft: oklch(0.28 0.06 250);
+
+  --k-matcha: oklch(0.78 0.14 145);
+  --k-matcha-soft: oklch(0.3 0.06 145);
+
+  --k-yamabuki: oklch(0.85 0.14 80);
+  --k-yamabuki-soft: oklch(0.32 0.08 85);
+
+  --k-code-bg: oklch(0.205 0.014 280);
+  --k-code-line: oklch(0.32 0.014 280);
+  --k-code-ink: oklch(0.92 0.008 80);
+
+  --k-select-bg: oklch(0.32 0.08 35);
+  --k-select-fg: oklch(0.96 0.008 80);
+
+  --k-focus: oklch(0.78 0.18 32);
+
+  --k-shadow-sm: 0 1px 2px oklch(0 0 0 / 0.4);
+  --k-shadow-md: 0 1px 2px oklch(0 0 0 / 0.4), 0 4px 16px -2px oklch(0 0 0 / 0.5);
+  --k-shadow-lg: 0 2px 4px oklch(0 0 0 / 0.4), 0 12px 40px -4px oklch(0 0 0 / 0.6);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --k-surface-0: oklch(0.16 0.012 280);
+    --k-surface-1: oklch(0.205 0.014 280);
+    --k-surface-2: oklch(0.245 0.015 280);
+    --k-surface-3: oklch(0.29 0.016 280);
+    --k-ink-1: oklch(0.96 0.008 80);
+    --k-ink-2: oklch(0.84 0.01 80);
+    --k-ink-3: oklch(0.74 0.012 80);
+    --k-ink-4: oklch(0.62 0.014 80);
+    --k-ink-5: oklch(0.4 0.014 80);
+    --k-line-1: oklch(0.3 0.014 280);
+    --k-line-2: oklch(0.4 0.014 280);
+    --k-line-3: oklch(0.55 0.014 280);
+    --k-shu: oklch(0.7 0.17 35);
+    --k-shu-hover: oklch(0.78 0.18 32);
+    --k-shu-soft: oklch(0.32 0.08 35);
+    --k-shu-ink: oklch(0.78 0.14 35);
+    --k-ai: oklch(0.7 0.13 250);
+    --k-ai-soft: oklch(0.28 0.06 250);
+    --k-matcha: oklch(0.78 0.14 145);
+    --k-matcha-soft: oklch(0.3 0.06 145);
+    --k-yamabuki: oklch(0.85 0.14 80);
+    --k-yamabuki-soft: oklch(0.32 0.08 85);
+    --k-code-bg: oklch(0.205 0.014 280);
+    --k-code-line: oklch(0.32 0.014 280);
+    --k-code-ink: oklch(0.92 0.008 80);
+    --k-select-bg: oklch(0.32 0.08 35);
+    --k-select-fg: oklch(0.96 0.008 80);
+    --k-focus: oklch(0.78 0.18 32);
+    --k-shadow-sm: 0 1px 2px oklch(0 0 0 / 0.4);
+    --k-shadow-md: 0 1px 2px oklch(0 0 0 / 0.4), 0 4px 16px -2px oklch(0 0 0 / 0.5);
+    --k-shadow-lg: 0 2px 4px oklch(0 0 0 / 0.4), 0 12px 40px -4px oklch(0 0 0 / 0.6);
+  }
+}

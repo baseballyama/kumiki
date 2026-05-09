@@ -41,26 +41,26 @@
 
 <style>
   .demo {
-    background: #16162a;
-    border: 1px solid #2a2a4a;
+    background: var(--k-surface-1);
+    border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
   }
   .controls {
     margin-bottom: 16px;
-    color: #aaa;
+    color: var(--k-ink-2);
     font-size: 13px;
   }
   .controls select {
-    background: #0e0e1c;
-    color: #e0e0e0;
-    border: 1px solid #3a3a5a;
+    background: var(--k-code-bg);
+    color: var(--k-ink-1);
+    border: 1px solid var(--k-line-2);
     border-radius: 6px;
     padding: 4px 8px;
     margin-left: 6px;
   }
   .demo :global(.acc-item) {
-    border-bottom: 1px solid #2a2a4a;
+    border-bottom: 1px solid var(--k-line-1);
   }
   .demo :global(.acc-item:last-child) {
     border-bottom: none;
@@ -69,7 +69,7 @@
     width: 100%;
     text-align: start;
     background: transparent;
-    color: #e0e0e0;
+    color: var(--k-ink-1);
     border: 0;
     padding: 12px 0;
     cursor: pointer;
@@ -80,7 +80,7 @@
   }
   .demo :global(.acc-trigger::after) {
     content: '▾';
-    color: #888;
+    color: var(--k-ink-3);
     transition: transform 200ms;
   }
   .demo :global(.acc-trigger[aria-expanded='true']::after) {
@@ -91,16 +91,16 @@
   }
   .demo :global(.acc-panel:not([hidden])) {
     padding: 0 0 12px;
-    color: #aaa;
+    color: var(--k-ink-2);
     font-size: 14px;
     line-height: 1.5;
   }
   .state {
     margin-top: 16px;
-    color: #888;
+    color: var(--k-ink-3);
     font-size: 13px;
   }
   .state code {
-    color: #4fc08d;
+    color: var(--k-matcha);
   }
 </style>

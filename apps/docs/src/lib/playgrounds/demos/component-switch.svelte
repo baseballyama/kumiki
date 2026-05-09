@@ -41,8 +41,8 @@
 
 <style>
   .demo {
-    background: #16162a;
-    border: 1px solid #2a2a4a;
+    background: var(--k-surface-1);
+    border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
   }
@@ -57,8 +57,8 @@
     width: 48px;
     height: 26px;
     border-radius: 13px;
-    background: #2a2a4a;
-    border: 1px solid #3a3a5a;
+    background: var(--k-line-1);
+    border: 1px solid var(--k-line-2);
     cursor: pointer;
     position: relative;
     transition: background-color 120ms;
@@ -71,14 +71,14 @@
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #888;
+    background: var(--k-ink-3);
     transition:
       transform 180ms,
       background-color 120ms;
   }
   .row :global(button[role='switch'][aria-checked='true']) {
-    background: #ff3e00;
-    border-color: #ff3e00;
+    background: var(--k-shu);
+    border-color: var(--k-shu);
   }
   .row :global(button[role='switch'][aria-checked='true']::after) {
     transform: translateX(22px);
@@ -92,33 +92,33 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: #999;
+    color: var(--k-ink-3);
     font-size: 14px;
   }
   .ext {
     background: transparent;
-    color: #999;
-    border: 1px dashed #3a3a5a;
+    color: var(--k-ink-3);
+    border: 1px dashed var(--k-line-2);
     border-radius: 8px;
     padding: 8px 14px;
     font: inherit;
     cursor: pointer;
   }
   .state {
-    color: #888;
+    color: var(--k-ink-3);
     font-size: 14px;
     margin-top: 16px;
   }
   .state code {
-    color: #4fc08d;
+    color: var(--k-matcha);
   }
   .log {
     margin-top: 8px;
     padding: 8px 12px 8px 28px;
-    background: #0e0e1c;
+    background: var(--k-code-bg);
     border-radius: 6px;
     font-size: 13px;
-    color: #888;
+    color: var(--k-ink-3);
     list-style: decimal;
   }
 </style>

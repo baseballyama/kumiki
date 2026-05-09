@@ -45,8 +45,8 @@
 
 <style>
   .demo {
-    background: #16162a;
-    border: 1px solid #2a2a4a;
+    background: var(--k-surface-1);
+    border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
   }
@@ -61,9 +61,9 @@
     height: 22px;
     padding: 0;
     border-radius: 4px;
-    border: 1px solid #3a3a5a;
-    background: #0e0e1c;
-    color: #4fc08d;
+    border: 1px solid var(--k-line-2);
+    background: var(--k-code-bg);
+    color: var(--k-matcha);
     font-size: 14px;
     line-height: 1;
     display: inline-flex;
@@ -73,14 +73,14 @@
     flex: 0 0 auto;
   }
   .row :global(button[role='checkbox'][aria-checked='true']) {
-    background: #ff3e00;
-    border-color: #ff3e00;
+    background: var(--k-shu);
+    border-color: var(--k-shu);
     color: white;
   }
   .row :global(button[role='checkbox'][aria-checked='mixed']) {
-    background: #ffa940;
-    border-color: #ffa940;
-    color: #0a0a18;
+    background: var(--k-yamabuki);
+    border-color: var(--k-yamabuki);
+    color: var(--k-surface-0);
     font-weight: 700;
   }
   .row :global(button[role='checkbox'][aria-disabled='true']) {
@@ -88,14 +88,14 @@
     cursor: not-allowed;
   }
   .label {
-    color: #ddd;
+    color: var(--k-ink-2);
   }
   .control {
     margin-left: auto;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: #999;
+    color: var(--k-ink-3);
     font-size: 14px;
   }
   .ext-row {
@@ -107,27 +107,27 @@
   .ext-row button {
     padding: 6px 10px;
     background: transparent;
-    color: #999;
-    border: 1px dashed #3a3a5a;
+    color: var(--k-ink-3);
+    border: 1px dashed var(--k-line-2);
     border-radius: 6px;
     cursor: pointer;
     font-size: 13px;
   }
   .state {
-    color: #888;
+    color: var(--k-ink-3);
     font-size: 14px;
     margin-top: 12px;
   }
   .state code {
-    color: #4fc08d;
+    color: var(--k-matcha);
   }
   .log {
     margin-top: 8px;
     padding: 8px 12px 8px 28px;
-    background: #0e0e1c;
+    background: var(--k-code-bg);
     border-radius: 6px;
     font-size: 13px;
-    color: #888;
+    color: var(--k-ink-3);
     list-style: decimal;
   }
 </style>

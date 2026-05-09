@@ -47,8 +47,8 @@
 
 <style>
   .demo {
-    background: #16162a;
-    border: 1px solid #2a2a4a;
+    background: var(--k-surface-1);
+    border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
     display: grid;
@@ -60,7 +60,7 @@
     gap: 12px;
   }
   .label {
-    color: #aaa;
+    color: var(--k-ink-2);
     font-size: 13px;
     width: 80px;
   }
@@ -68,15 +68,15 @@
     display: inline-flex;
     align-items: stretch;
     gap: 0;
-    border: 1px solid #3a3a5a;
+    border: 1px solid var(--k-line-2);
     border-radius: 6px;
     overflow: hidden;
-    background: #1a1a30;
+    background: var(--k-surface-2);
   }
   .demo :global(.field .input) {
     width: 96px;
-    background: #0e0e1c;
-    color: #e0e0e0;
+    background: var(--k-code-bg);
+    color: var(--k-ink-1);
     border: none;
     text-align: center;
     font-variant-numeric: tabular-nums;
@@ -87,20 +87,20 @@
     width: 130px;
   }
   .demo :global(.field .input:focus) {
-    outline: 2px solid #4fc08d;
+    outline: 2px solid var(--k-matcha);
     outline-offset: -2px;
   }
   .demo :global(.field .step) {
     width: 32px;
-    background: #1a1a30;
-    color: #e0e0e0;
+    background: var(--k-surface-2);
+    color: var(--k-ink-1);
     border: none;
     cursor: pointer;
     font-size: 18px;
     line-height: 1;
   }
   .demo :global(.field .step:hover:not(:disabled)) {
-    background: #2a2a4a;
+    background: var(--k-line-1);
   }
   .demo :global(.field .step:disabled) {
     opacity: 0.4;
@@ -108,10 +108,10 @@
   }
   .state {
     margin: 0;
-    color: #888;
+    color: var(--k-ink-3);
     font-size: 13px;
   }
   .state code {
-    color: #4fc08d;
+    color: var(--k-matcha);
   }
 </style>

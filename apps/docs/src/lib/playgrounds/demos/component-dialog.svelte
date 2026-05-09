@@ -44,14 +44,14 @@
 
 <style>
   .demo {
-    background: #16162a;
-    border: 1px solid #2a2a4a;
+    background: var(--k-surface-1);
+    border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
   }
   .controls {
     margin-bottom: 16px;
-    color: #aaa;
+    color: var(--k-ink-2);
     font-size: 13px;
     display: flex;
     gap: 12px;
@@ -61,7 +61,7 @@
     margin-right: 6px;
   }
   .demo :global(.trigger) {
-    background: #ff3e00;
+    background: var(--k-shu);
     color: #fff;
     border: 0;
     padding: 8px 16px;
@@ -70,12 +70,12 @@
     cursor: pointer;
   }
   .demo :global(.trigger:hover) {
-    background: #e63600;
+    background: var(--k-shu-hover);
   }
   .demo :global(.overlay) {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: oklch(0 0 0 / 0.4);
     z-index: 50;
   }
   .demo :global(.panel) {
@@ -83,11 +83,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #1e1e3a;
-    color: #e0e0e0;
+    background: var(--k-surface-2);
+    color: var(--k-ink-1);
     padding: 24px;
     border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 60px oklch(0 0 0 / 0.4);
     min-width: 360px;
     max-width: 90vw;
     z-index: 51;
@@ -97,18 +97,18 @@
   .demo :global(.panel h2) {
     margin: 0;
     font-size: 18px;
-    color: #4fc08d;
+    color: var(--k-matcha);
   }
   .demo :global(.panel p) {
     margin: 0;
-    color: #aaa;
+    color: var(--k-ink-2);
     font-size: 14px;
     line-height: 1.5;
   }
   .demo :global(.panel .input) {
-    background: #0e0e1c;
-    color: #e0e0e0;
-    border: 1px solid #3a3a5a;
+    background: var(--k-code-bg);
+    color: var(--k-ink-1);
+    border: 1px solid var(--k-line-2);
     padding: 8px 12px;
     border-radius: 6px;
     font: inherit;
@@ -121,14 +121,14 @@
   }
   .demo :global(.panel .ghost) {
     background: transparent;
-    color: #aaa;
-    border: 1px solid #3a3a5a;
+    color: var(--k-ink-2);
+    border: 1px solid var(--k-line-2);
     padding: 6px 14px;
     border-radius: 6px;
     cursor: pointer;
   }
   .demo :global(.panel .primary) {
-    background: #ff3e00;
+    background: var(--k-shu);
     color: #fff;
     border: 0;
     padding: 6px 14px;
@@ -137,10 +137,10 @@
   }
   .state {
     margin-top: 16px;
-    color: #888;
+    color: var(--k-ink-3);
     font-size: 14px;
   }
   .state code {
-    color: #4fc08d;
+    color: var(--k-matcha);
   }
 </style>

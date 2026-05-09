@@ -531,6 +531,25 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/menubar/',
     status: 'preview',
   },
+  {
+    slug: 'component-calendar',
+    name: '@kumiki/components/calendar',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Header>` / `<Grid>` / `<Day>` for single-date calendar. Uses `@internationalized/date` for any calendar system (Gregorian, Japanese, …).',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/grid/',
+    status: 'preview',
+  },
+  {
+    slug: 'component-date-picker',
+    name: '@kumiki/components/date-picker',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Trigger>` / `<Content>` — a Popover that anchors a Calendar for picking a single date. Fully localised, RTL-aware.',
+    live: true,
+    status: 'preview',
+  },
 
   // ── Layer 5 — Atelier (preview) ───────────────────────────────────────────
   {
@@ -579,4 +598,6 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-popover': () => import('./demos/component-popover.svelte'),
   'component-toast': () => import('./demos/component-toast.svelte'),
   'component-menu': () => import('./demos/component-menu.svelte'),
+  'component-calendar': () => import('./demos/component-calendar.svelte'),
+  'component-date-picker': () => import('./demos/component-date-picker.svelte'),
 };

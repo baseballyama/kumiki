@@ -7,8 +7,34 @@
       name="description"
       content="Kumiki — headless, composable, deeply accessible UI primitives for Svelte 5."
     />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbf7ee" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1623" />
     <link rel="icon" href="%sveltekit.assets%/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,30..100&family=DM+Sans:opsz,wght@9..40,300..700&family=JetBrains+Mono:wght@400;500;600&family=Shippori+Mincho+B1:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
+    />
+
+    <script>
+      // No-flash theme bootstrapping. Reads stored preference, then OS fallback.
+      (function () {
+        try {
+          const stored = localStorage.getItem('kumiki:theme');
+          const sys = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          const theme = stored === 'dark' || stored === 'light' ? stored : sys;
+          document.documentElement.setAttribute('data-theme', theme);
+
+          const lang = localStorage.getItem('kumiki:locale') || 'en';
+          document.documentElement.setAttribute('lang', lang);
+          const rtl = ['ar', 'he'].includes(lang) ? 'rtl' : 'ltr';
+          document.documentElement.setAttribute('dir', rtl);
+        } catch (_) {}
+      })();
+    </script>
+
     %sveltekit.head%
   </head>
   <body data-sveltekit-preload-data="hover">

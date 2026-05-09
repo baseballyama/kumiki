@@ -34,47 +34,47 @@
 
 <style>
   .demo {
-    background: #16162a;
-    border: 1px solid #2a2a4a;
+    background: var(--k-surface-1);
+    border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
     position: relative;
   }
   .demo :global(.trigger) {
-    background: #2a2a4a;
-    color: #e0e0e0;
-    border: 1px solid #3a3a5a;
+    background: var(--k-line-1);
+    color: var(--k-ink-1);
+    border: 1px solid var(--k-line-2);
     border-radius: 6px;
     padding: 8px 16px;
     cursor: pointer;
     font-size: 14px;
   }
   .demo :global(.trigger:focus) {
-    outline: 2px solid #4fc08d;
+    outline: 2px solid var(--k-matcha);
     outline-offset: 2px;
   }
   .demo :global([role='menu'][data-state='closed']) {
     display: none;
   }
   .demo :global(.menu) {
-    background: #0e0e1c;
-    border: 1px solid #3a3a5a;
+    background: var(--k-code-bg);
+    border: 1px solid var(--k-line-2);
     border-radius: 6px;
     padding: 4px;
     margin-top: 4px;
     min-width: 180px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 24px oklch(0 0 0 / 0.3);
   }
   .demo :global(.item) {
     padding: 6px 12px;
-    color: #e0e0e0;
+    color: var(--k-ink-1);
     border-radius: 4px;
     cursor: pointer;
     font-size: 13px;
     user-select: none;
   }
   .demo :global(.item[data-highlighted]) {
-    background: #2a2a4a;
+    background: var(--k-line-1);
   }
   .demo :global(.item[aria-disabled='true']) {
     opacity: 0.4;
@@ -82,15 +82,15 @@
   }
   .demo :global(.sep) {
     height: 1px;
-    background: #3a3a5a;
+    background: var(--k-line-2);
     margin: 4px 0;
   }
   .state {
     margin-top: 16px;
-    color: #888;
+    color: var(--k-ink-3);
     font-size: 13px;
   }
   .state code {
-    color: #4fc08d;
+    color: var(--k-matcha);
   }
 </style>
