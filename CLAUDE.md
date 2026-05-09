@@ -26,6 +26,8 @@ The design is authoritative. Do not re-litigate decisions that already have an A
 | Versioning + changesets + Layer 5 preview                    | `docs/design/14-versioning-release.md`        |
 | Roadmap (Phase 0a/0b/0c/1/2/3)                               | `docs/design/15-roadmap.md`                   |
 | Architecture decisions (numbered ADRs)                       | `docs/design/16-decisions/`                   |
+| **Integration boundaries (what kumiki does NOT ship)**       | `docs/design/17-integration-boundaries.md`    |
+| **CSS variable contract (Layer 4 token surface)**            | `docs/design/18-css-variable-contract.md`     |
 | Per-component spec template + Combobox example               | `docs/components/_template.md`, `combobox.md` |
 | User-supplied competitor research                            | `docs/market-research.md`                     |
 
@@ -33,20 +35,23 @@ The design is authoritative. Do not re-litigate decisions that already have an A
 
 These have been decided. If a future change requires rethinking one, write a new ADR that supersedes the old.
 
-| Decision                                                                                       | Authority            |
-| ---------------------------------------------------------------------------------------------- | -------------------- |
-| Svelte 5 **only** (≥ 5.29 for `{@attach}`); no Svelte 4                                        | ADR 0001             |
-| 9 packages: shared (4) + machines + headless + components + atelier + cli (subpaths/component) | ADR 0012 (sup. 0002) |
-| Custom minimal FSM at `@kumiki/runtime` (~1 KB), **not XState v5**                             | ADR 0003             |
-| Standard Schema only — no per-validator adapters                                               | ADR 0004             |
-| Guidepup nightly (macOS-VoiceOver + Windows-NVDA), not per-PR                                  | ADR 0005             |
-| Locale subpath exports `@kumiki/locale/<lang>`, lazy                                           | ADR 0006             |
-| **`child` snippet replaces `asChild`** (Bits UI v2 pattern)                                    | ADR 0007             |
-| **pnpm workspace only** — no Turborepo / Nx                                                    | ADR 0008             |
-| **tsdown** for TS-only packages, **svelte-package** for `.svelte`                              | ADR 0009             |
-| Layer 5 ships as **`0.x.x-preview`** during v1.0 series                                        | ADR 0010             |
-| TypeDoc + api-extractor (both, different roles)                                                | ADR 0011             |
-| `@internationalized/date` ^3.12 as peer dep for Calendar / DatePicker                          | ADR 0013             |
+| Decision                                                                                        | Authority            |
+| ----------------------------------------------------------------------------------------------- | -------------------- |
+| Svelte 5 **only** (≥ 5.29 for `{@attach}`); no Svelte 4                                         | ADR 0001             |
+| 9 packages: shared (4) + machines + headless + components + atelier + cli (subpaths/component)  | ADR 0012 (sup. 0002) |
+| Custom minimal FSM at `@kumiki/runtime` (~1 KB), **not XState v5**                              | ADR 0003             |
+| Standard Schema only — no per-validator adapters                                                | ADR 0004             |
+| Guidepup nightly (macOS-VoiceOver + Windows-NVDA), not per-PR                                   | ADR 0005             |
+| Locale subpath exports `@kumiki/locale/<lang>`, lazy                                            | ADR 0006             |
+| **`child` snippet replaces `asChild`** (Bits UI v2 pattern)                                     | ADR 0007             |
+| **pnpm workspace only** — no Turborepo / Nx                                                     | ADR 0008             |
+| **tsdown** for TS-only packages, **svelte-package** for `.svelte`                               | ADR 0009             |
+| Layer 5 ships as **`0.x.x-preview`** during v1.0 series                                         | ADR 0010             |
+| TypeDoc + api-extractor (both, different roles)                                                 | ADR 0011             |
+| `@internationalized/date` ^3.12 as peer dep for Calendar / DatePicker                           | ADR 0013             |
+| Icons are **consumer-supplied** via snippets — no `@kumiki/icons` package, no peer-dep on a set | ADR 0014             |
+| **Semantic Table in scope** (Phase 1.5); Data Grid (virtualization, cell-edit) is deferred      | ADR 0015             |
+| **Rich-text editor and drag-and-drop are permanently out of scope**                             | ADR 0016             |
 
 ## Repository layout
 

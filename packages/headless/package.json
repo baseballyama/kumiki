@@ -31,6 +31,10 @@
       "types": "./dist/accordion/index.d.mts",
       "import": "./dist/accordion/index.mjs"
     },
+    "./button": {
+      "types": "./dist/button/index.d.mts",
+      "import": "./dist/button/index.mjs"
+    },
     "./checkbox": {
       "types": "./dist/checkbox/index.d.mts",
       "import": "./dist/checkbox/index.mjs"
@@ -151,6 +155,16 @@
     }
   },
   "size-limit": [
+    {
+      "name": "headless/button (incremental)",
+      "path": "dist/button/index.mjs",
+      "limit": "700 B",
+      "ignore": [
+        "@kumiki/runtime",
+        "@kumiki/primitives",
+        "@kumiki/machines"
+      ]
+    },
     {
       "name": "headless/toggle (incremental)",
       "path": "dist/toggle/index.mjs",

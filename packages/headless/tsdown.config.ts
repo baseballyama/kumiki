@@ -4,6 +4,7 @@ export default defineConfig({
   entry: [
     'src/index.ts',
     'src/accordion/index.ts',
+    'src/button/index.ts',
     'src/checkbox/index.ts',
     'src/combobox/index.ts',
     'src/combobox/with-validation/index.ts',

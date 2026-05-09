@@ -23,6 +23,7 @@
  */
 
 export * as Accordion from './accordion/index.js';
+export * as Button from './button/index.js';
 export * as Calendar from './calendar/index.js';
 export * as DatePicker from './date-picker/index.js';
 export * as Checkbox from './checkbox/index.js';

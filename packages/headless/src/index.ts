@@ -11,6 +11,7 @@
  */
 
 export * as accordion from './accordion/index.js';
+export * as button from './button/index.js';
 export * as checkbox from './checkbox/index.js';
 export * as combobox from './combobox/index.js';
 export * as dialog from './dialog/index.js';

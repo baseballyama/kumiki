@@ -41,6 +41,64 @@ Source: [APG Disclosure keyboard interaction](https://www.w3.org/WAI/ARIA/apg/pa
 | `Title`       | (heading) | provides `aria-labelledby` target                                 |
 | `Description` | (none)    | provides `aria-describedby` target                                |
 
+## Popconfirm pattern (Phase 1.5)
+
+A "click → confirm in a popover" pattern (delete buttons, destructive
+toggles) ships as a **recipe** under `popover/with-confirm`, not as a
+new component. Rationale: it's a composition of Popover + Button + i18n
+strings; promoting to a new top-level component would dilute the
+single-responsibility model.
+
+The recipe wires:
+
+- A trigger Button.
+- A Popover.Content with `role="alertdialog"` (the only ARIA
+  difference from a vanilla popover) and `aria-describedby` pointing
+  at the message.
+- Two action Buttons (`confirm`, `cancel`) with i18n-supplied default
+  labels.
+- Initial focus on the **cancel** button (less-destructive default,
+  per APG `alertdialog` guidance).
+- `Escape` resolves `cancel`.
+
+Anatomy:
+
+```
+Popconfirm.Root            (Popover.Root + role escalation)
+  ├── Popconfirm.Trigger
+  └── Popconfirm.Content   (role="alertdialog")
+        ├── Popconfirm.Message
+        ├── Popconfirm.Confirm
+        └── Popconfirm.Cancel
+```
+
+API:
+
+```ts
+type RootProps = {
+  onConfirm: () => void | Promise<void>;
+  onCancel?: () => void;
+  /** Defaults via i18n: "Confirm" / "Cancel". */
+  confirmLabel?: string;
+  cancelLabel?: string;
+  /** Visual emphasis (e.g. "danger" → atelier paints confirm red). */
+  variant?: 'neutral' | 'danger';
+};
+```
+
+i18n strings:
+
+| Key                  | en        | ja           |
+| -------------------- | --------- | ------------ |
+| `popconfirm.confirm` | `Confirm` | `確認`       |
+| `popconfirm.cancel`  | `Cancel`  | `キャンセル` |
+
+`@kumiki/locale/<lang>/popconfirm`.
+
+Lives at `@kumiki/components/popover/with-confirm` to make the
+"recipe, not component" relationship explicit. Bundle: ≤ 0.6 kB on
+top of Popover.
+
 ## Source
 
 - Machine: [`packages/machines/src/popover`](../../packages/machines/src/popover)

@@ -54,6 +54,54 @@ Outside-click on the overlay / document fires `OUTSIDE_CLICK`, gated by `closeOn
 
 When `modal: true`, every direct child of `<body>` that doesn't contain the Content node receives the `inert` attribute on open and has it removed on close — so screen-readers and keyboard users stay inside the dialog.
 
+## Drawer variant (Phase 1.5)
+
+A **Drawer** is `Dialog` with side-positioning. Same machine, same
+ARIA — only the layout contract differs. Driven by the `side` prop on
+`Dialog.Root`.
+
+| Prop value                 | Visual default (atelier)                                   |
+| -------------------------- | ---------------------------------------------------------- |
+| `side: 'center'` (default) | Centered modal (today's behavior).                         |
+| `side: 'left'`             | Slides in from the inline-start edge. RTL: from the right. |
+| `side: 'right'`            | Slides in from the inline-end edge. RTL: from the left.    |
+| `side: 'top'`              | Slides down from the top.                                  |
+| `side: 'bottom'`           | Slides up from the bottom (mobile-sheet flavor).           |
+
+The `side` prop sets `data-side` on `Dialog.Content`; atelier
+translates that to the slide-in transform. Layer 4 emits no styles.
+
+Drawer-specific contract:
+
+- `modal: false` is supported (a permanently-pinned side panel) but
+  `side: 'center'` + `modal: false` is the only combination where focus-trap
+  defaults to `false` — for side drawers, focus-trap defaults to
+  `modal`'s value.
+- Swipe-to-dismiss on touch devices is **out of scope**; consumers wire
+  pointer events themselves (the dismissable primitive will fire
+  `CLOSE` on consumer call).
+- The `aria-modal` attribute follows `modal` exactly; pinned non-modal
+  drawers omit it.
+
+i18n: no new strings; existing Dialog close-button label is reused.
+
+```svelte
+<!-- right-side drawer -->
+<Dialog.Root side="right" bind:open>
+  <Dialog.Trigger>Open settings</Dialog.Trigger>
+  <Dialog.Overlay />
+  <Dialog.Content>
+    <Dialog.Title>Settings</Dialog.Title>
+    <!-- ... -->
+    <Dialog.Close />
+  </Dialog.Content>
+</Dialog.Root>
+```
+
+Bundle budget impact: +0.3 kB to `@kumiki/components/dialog` for the
+`data-side` plumbing. Total budget revised to **3.8 kB** (was 3.5 kB)
+— logged in `09-bundle-budget.md`.
+
 ## Source
 
 - Machine: [`packages/machines/src/dialog`](../../packages/machines/src/dialog)

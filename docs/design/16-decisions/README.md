@@ -29,3 +29,6 @@ ADRs are immutable once accepted. New information leads to a _new_ ADR that supe
 | [0011](0011-typedoc-and-api-extractor.md)  | TypeDoc + api-extractor (both, different roles)        | Accepted                   |
 | [0012](0012-package-consolidation.md)      | Consolidate 37 packages → 9 per-layer packages         | Accepted (supersedes 0002) |
 | [0013](0013-internationalized-date.md)     | `@internationalized/date` for Calendar & DatePicker    | Accepted                   |
+| [0014](0014-icon-strategy.md)              | Icon strategy: consumer-supplied snippets, no icon set | Accepted                   |
+| [0015](0015-table-primitive-scope.md)      | Table: ship semantic Table, defer Data Grid            | Accepted                   |
+| [0016](0016-editor-dnd-out-of-scope.md)    | Rich-text editor and drag-and-drop are out of scope    | Accepted                   |

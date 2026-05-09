@@ -96,6 +96,42 @@ Exit criteria for v1.0:
 - Docs site is live, search works, llms.txt and llms-full.txt are accurate.
 - One outside contributor has shipped a non-trivial PR (per [01-vision.md §1.6](01-vision.md#16-what-success-looks-like-in-12-months)).
 
+## 15.5b Phase 1.5 — Primitive completion (early 2027)
+
+**Goal:** close the gap between v1.0 and the "we can replace a real
+business design system" bar. Driven by an external migration target
+that exposed the gaps in the Phase 1 set (see
+[`docs/design/17-integration-boundaries.md`](17-integration-boundaries.md)).
+
+Components added (priority order):
+
+1. **Button** — primary/secondary/ghost slots, loading state (`aria-busy`), icon snippet.
+2. **IconButton** — accessible-name enforced at type level (per ADR 0014).
+3. **Alert / Banner** — `role="status"` / `role="alert"`, severity, dismissible variant.
+4. **Badge** — non-interactive surface, `aria-label` when count-only.
+5. **Avatar / AvatarGroup** — image fallback, decorative-by-default.
+6. **Chips / Tag** — non-interactive + dismissible variants.
+7. **Breadcrumb** — `nav[aria-label="Breadcrumb"]`, `aria-current="page"`.
+8. **Pagination** — `nav[aria-label]`, page-button + prev/next + ellipsis.
+9. **LoadingSpinner** — `role="status"`, `prefers-reduced-motion`.
+10. **DefinitionList** / **HorizontalRule** / **PageHeader** / **Text** — semantic-only Layer 4 primitives (cheap to ship together).
+11. **Table** (semantic) — see [ADR 0015](16-decisions/0015-table-primitive-scope.md). Sort, select, tree rows, sticky header. **No virtualization, no cell-edit.**
+12. **Toolbar** — APG `toolbar` pattern, roving tabindex. Used by editor consumers (per [ADR 0016](16-decisions/0016-editor-dnd-out-of-scope.md)).
+
+Plus variant additions to Phase 1 components:
+
+- **Dialog → Drawer** — side-positioning variant (left/right/top/bottom).
+- **Combobox → withMultiSelect** — multi-select + chip rendering.
+- **Toggle → Toggle.Group** — `role="group"` with multi or radio mode.
+- **DatePicker → TimePicker / DateTimeField** — locale-aware time-of-day.
+- **Popover → Popconfirm pattern** — recipe (popover + button + i18n string).
+
+Exit criteria:
+
+- All 12 new components meet the Kumiki-ready checklist.
+- Bundle budgets met (logged in `09-bundle-budget.md`).
+- flyle-nexus has at least one production page running fully on kumiki.
+
 ## 15.6 Phase 2 — Expansion (first half of 2027)
 
 Components added (priority order):
@@ -126,13 +162,14 @@ Plus:
 
 ## 15.8 De-prioritized / explicitly deferred
 
-| Item                           | Why deferred                                                                                                 |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| Data Grid / virtualized tables | Significant project; not a hosted Phase 1 / 2 priority. Tracked.                                             |
-| Rich text editor primitives    | Scope blow-out. Out of vision.                                                                               |
-| Charting / data visualization  | Out of scope; refer users to e.g. LayerChart.                                                                |
-| Drag-and-drop primitives       | Phase 3+ if at all.                                                                                          |
-| Mobile / touch-specific UX     | We support touch via standard pointer events; specialized mobile patterns (swipe gestures) are out of scope. |
+| Item                                  | Why                                                                                                                                                                                  |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Data Grid (virtualization, cell-edit) | Deferred to Phase 3 with measured demand. Semantic `<table>` (sortable headers, row select, tree rows) is **in scope** — see [ADR 0015](16-decisions/0015-table-primitive-scope.md). |
+| Rich-text editor primitives           | **Permanently out of scope.** See [ADR 0016](16-decisions/0016-editor-dnd-out-of-scope.md). Consumers compose tiptap / Lexical / ProseMirror with kumiki Toolbar + Toggle.           |
+| Drag-and-drop primitives              | **Permanently out of scope.** See [ADR 0016](16-decisions/0016-editor-dnd-out-of-scope.md). Consumers compose dnd-kit-svelte / sortablejs.                                           |
+| `@kumiki/icons` package               | **Permanently out of scope.** Icons are consumer-supplied via snippets — see [ADR 0014](16-decisions/0014-icon-strategy.md).                                                         |
+| Charting / data visualization         | Out of scope; refer users to e.g. LayerChart.                                                                                                                                        |
+| Mobile / touch-specific UX            | We support touch via standard pointer events; specialized mobile patterns (swipe gestures) are out of scope.                                                                         |
 
 ## 15.9 Risks
 
