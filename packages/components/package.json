@@ -93,6 +93,11 @@
       "svelte": "./dist/date-picker/index.js",
       "import": "./dist/date-picker/index.js"
     },
+    "./datetime-field": {
+      "types": "./dist/datetime-field/index.d.ts",
+      "svelte": "./dist/datetime-field/index.js",
+      "import": "./dist/datetime-field/index.js"
+    },
     "./definition-list": {
       "types": "./dist/definition-list/index.d.ts",
       "svelte": "./dist/definition-list/index.js",
@@ -102,6 +107,11 @@
       "types": "./dist/horizontal-rule/index.d.ts",
       "svelte": "./dist/horizontal-rule/index.js",
       "import": "./dist/horizontal-rule/index.js"
+    },
+    "./icon-button": {
+      "types": "./dist/icon-button/index.d.ts",
+      "svelte": "./dist/icon-button/index.js",
+      "import": "./dist/icon-button/index.js"
     },
     "./loading-spinner": {
       "types": "./dist/loading-spinner/index.d.ts",
@@ -133,6 +143,11 @@
       "svelte": "./dist/popover/index.js",
       "import": "./dist/popover/index.js"
     },
+    "./popover/with-confirm": {
+      "types": "./dist/popover/with-confirm/index.d.ts",
+      "svelte": "./dist/popover/with-confirm/index.js",
+      "import": "./dist/popover/with-confirm/index.js"
+    },
     "./radio-group": {
       "types": "./dist/radio-group/index.d.ts",
       "svelte": "./dist/radio-group/index.js",
@@ -163,6 +178,11 @@
       "svelte": "./dist/tabs/index.js",
       "import": "./dist/tabs/index.js"
     },
+    "./time-field": {
+      "types": "./dist/time-field/index.d.ts",
+      "svelte": "./dist/time-field/index.js",
+      "import": "./dist/time-field/index.js"
+    },
     "./toast": {
       "types": "./dist/toast/index.d.ts",
       "svelte": "./dist/toast/index.js",
@@ -173,6 +193,11 @@
       "svelte": "./dist/toggle/index.js",
       "import": "./dist/toggle/index.js"
     },
+    "./toolbar": {
+      "types": "./dist/toolbar/index.d.ts",
+      "svelte": "./dist/toolbar/index.js",
+      "import": "./dist/toolbar/index.js"
+    },
     "./tooltip": {
       "types": "./dist/tooltip/index.d.ts",
       "svelte": "./dist/tooltip/index.js",
@@ -182,6 +207,10 @@
       "types": "./dist/locale-provider/index.d.ts",
       "svelte": "./dist/locale-provider/index.js",
       "import": "./dist/locale-provider/index.js"
+    },
+    "./testing": {
+      "types": "./dist/testing/index.d.ts",
+      "import": "./dist/testing/index.js"
     }
   },
   "publishConfig": {
@@ -205,6 +234,7 @@
     "@internationalized/date": "catalog:",
     "@sveltejs/package": "catalog:",
     "@sveltejs/vite-plugin-svelte": "catalog:",
+    "jsdom": "catalog:",
     "publint": "catalog:",
     "svelte": "catalog:",
     "svelte-check": "catalog:",
