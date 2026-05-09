@@ -1,0 +1,177 @@
+import type { DocDict } from '../types.js';
+
+export const dict: DocDict = {
+  nav: {
+    docs: 'ドキュメント',
+    components: 'コンポーネント',
+    architecture: 'アーキテクチャ',
+    sizes: 'サイズ',
+    api: 'API',
+    github: 'GitHub',
+    skipToContent: '本文へスキップ',
+    toggleTheme: 'テーマを切り替え',
+    selectLocale: '表示言語を選択',
+    toggleRtl: '文字方向を切り替え',
+    search: 'ドキュメント内を検索',
+    menu: 'メニュー',
+  },
+  status: { stable: '安定版', preview: 'プレビュー', unreleased: '未リリース' },
+  landing: {
+    eyebrow: 'Headless · Svelte 5 · 階層型',
+    titleA: 'ぴたりと組み合う、',
+    titleB: 'ミリメートル単位の精度。',
+    lede: 'Kumiki — 組木 — は Svelte 5 のためのアクセシビリティ最優先の UI プリミティブ群です。5 階層、20 コンポーネント、10 言語。CSS の押しつけはなく、後から覆せない実装上の決定もありません。',
+    ctaPrimary: 'ドキュメントを読む',
+    ctaSecondary: 'コンポーネントを見る',
+    layersKicker: '/ 02 — アーキテクチャ',
+    layersTitle: '5 つの階層、ひとつの思想。',
+    layersLede:
+      '各コンポーネントは厳密にひとつの階層に属します。必要な制御の粒度に応じて階層を選び、その階層分のバイトだけを出荷してください。',
+    featuresKicker: '/ 03 — 規律',
+    featuresTitle: '長い目で見たアクセシビリティのために。',
+    excerptKicker: '/ 04 — コードで',
+    excerptTitle: '3 行で、完全にアクセシブル。',
+    glossary: '名詞(日本)組木 — 釘も糊も使わずに組み合う木細工。',
+    layers: [
+      {
+        ja: '型',
+        latin: 'Types',
+        desc: '共有 TypeScript の型 — 上位のすべての階層がこの契約を語る。',
+      },
+      {
+        ja: '基',
+        latin: 'Primitives',
+        desc: 'フレームワーク非依存のヘルパー — focus-trap、dismissable、ID、locale。',
+      },
+      {
+        ja: '機',
+        latin: 'Machines',
+        desc: '純粋 TS の有限状態機械。検査可能な JSON。約 1 KB のランタイム。',
+      },
+      {
+        ja: '装',
+        latin: 'Attachments',
+        desc: 'Svelte 5 の {@attach} ファクトリー。実 DOM に ARIA と data-state。',
+      },
+      {
+        ja: '組',
+        latin: 'Components',
+        desc: '複合プリミティブ。<Toggle.Root>、<Combobox.Input>、その他一式。',
+      },
+      {
+        ja: '釉',
+        latin: 'Atelier',
+        desc: 'Layer 5 プレビュー — コピペ可能なスタイル付きバリアント。0.x プレビュー。',
+      },
+    ],
+    features: [
+      {
+        figure: '1.5–4.5 KB',
+        title: 'CI で予算を守る',
+        detail:
+          '各コンポーネントのサブパスごとに brotli の予算を設定。超過すれば CI は失敗。Toggle は 1.5 KB、Combobox は 4.5 KB。',
+      },
+      {
+        figure: 'WCAG 2.2 AA',
+        title: '本物のスクリーンリーダーを毎晩',
+        detail:
+          'macOS の VoiceOver と Windows の NVDA を Guidepup でスケジュール実行。axe と APG キーボードテストは PR ごと。',
+      },
+      {
+        figure: '10 言語',
+        title: 'ロケールはサブパスインポート',
+        detail:
+          '巨大バンドルではない。@kumiki/locale/<lang> はそれぞれ ≤ 1 KB。RTL の反転はマシン側に。',
+      },
+      {
+        figure: 'toJSON()',
+        title: 'XState 互換の JSON',
+        detail:
+          'machine.toJSON() は Stately で表示できる設定を返す。任意の FSM を stately.ai/viz で検査可。',
+      },
+    ],
+    checklist: [
+      'APG 準拠の aria-pressed と data-state。',
+      'キーボード: Space、Enter、Disabled。',
+      'SSR 安全。脱水 / 水和でちらつき無し。',
+      '1.5 KB(brotli)を CI で強制。',
+      '初期状態で 10 言語にローカライズ済み。',
+    ],
+    installLabel: 'インストールコマンド',
+  },
+  components: {
+    title: 'コンポーネント',
+    lede: 'すべてのプリミティブにライブで操作可能なデモが付属します。テーマ・言語・文字方向を切り替えてみてください — Kumiki のプリミティブはすべて追従します。',
+    countLabel: (live, total) =>
+      `${total} 個のプリミティブ · ${live} 個のライブデモ · ${total - live} 個準備中`,
+    filter: 'フィルタ',
+    filterPlaceholder: '名前や説明で絞り込み…',
+    filterAll: 'すべて',
+    filterLive: 'ライブデモ',
+    layerLabel: (n) =>
+      ['共通型', 'プリミティブ', 'ステートマシン', 'アタッチメント', 'コンポーネント', 'アトリエ'][
+        n
+      ] ?? `Layer ${n}`,
+    livePreview: 'ライブプレビュー',
+    code: 'コード',
+    a11y: 'アクセシビリティ',
+    rtl: '文字方向',
+    direction: '文字方向',
+    dirLtr: '左→右',
+    dirRtl: '右→左',
+    locale: 'ロケール',
+    layoutPreview: 'レイアウトプレビュー',
+    apgPattern: 'WAI-ARIA APG パターン',
+    source: 'ソースコード',
+    catalogue: 'カタログ',
+    panelMeta:
+      'プレビューはテーマ・ロケール・文字方向の変更に追従します。ページヘッダーの各コントロールと、上の LTR / RTL トグルを使って、軸ごとに確認してください。',
+    keyboardTitle: 'キーボード',
+    keyboardKey: 'キー',
+    keyboardEffect: '効果',
+    keyboardEmpty:
+      'コンポーネント固有のキーマップはありません。標準的なブラウザのフォーカス / アクティベートに従います。',
+    testTitle: 'テスト規律',
+    testItems: [
+      'axe-core — すべての PR で実行(LTR + RTL × 文書化された全状態)。',
+      'APG キーボードテスト — Playwright、パターン別に手書き。',
+      'VoiceOver / NVDA — Guidepup ナイトリースケジュール。',
+      '型レベルでアクセシブル名を必須化 — title / aria-label / aria-labelledby。',
+    ],
+    apgRead: 'W3C ARIA APG パターンを読む ↗',
+    placeholder:
+      'この階層はコードで消費するもので、視覚的には扱いません。下のスニペットから動く例を確認してください。',
+    backToCatalogue: '← コンポーネント',
+    catalogueAll: 'すべて',
+    layerL3: 'L3 — Attach',
+    layerL4: 'L4 — Compound',
+    layerL5: 'L5 — Atelier',
+  },
+  sidebar: {
+    sections: 'セクション',
+    gettingStarted: 'はじめに',
+    introduction: 'イントロダクション',
+    installation: 'インストール',
+    firstComponent: '最初のコンポーネント',
+    foundations: '基礎',
+    architecture: 'アーキテクチャ',
+    composition: '合成',
+    accessibility: 'アクセシビリティ',
+    i18n: '国際化と RTL',
+    bundleBudgets: 'バンドル予算',
+    layersByExample: '例で見る各階層',
+    styling: 'スタイリング',
+    components: 'コンポーネント',
+    soonBadge: '近日',
+    previewBadge: 'プレビュー',
+  },
+  footer: {
+    rights: 'MIT ライセンス · プレアルファ · オープンに開発中',
+    edit: 'このページを GitHub で編集',
+    gettingStarted: 'はじめに',
+    architecture: 'アーキテクチャ',
+    accessibility: 'アクセシビリティ',
+    i18n: '国際化と RTL',
+    sizes: 'バンドルサイズ',
+  },
+};

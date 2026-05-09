@@ -1,0 +1,176 @@
+import type { DocDict } from '../types.js';
+
+export const dict: DocDict = {
+  nav: {
+    docs: 'Docs',
+    components: 'Components',
+    architecture: 'Architecture',
+    sizes: 'Sizes',
+    api: 'API',
+    github: 'GitHub',
+    skipToContent: 'Skip to content',
+    toggleTheme: 'Toggle theme',
+    selectLocale: 'Select interface language',
+    toggleRtl: 'Toggle text direction',
+    search: 'Search the docs',
+    menu: 'Menu',
+  },
+  status: { stable: 'Stable', preview: 'Preview', unreleased: 'Unreleased' },
+  landing: {
+    eyebrow: 'Headless · Svelte 5 · Layered',
+    titleA: 'Pieces that fit',
+    titleB: 'with millimetric precision.',
+    lede: 'Kumiki — 組木 — is a deeply accessible UI primitive system for Svelte 5. Five composable layers, twenty components, ten locales. No CSS opinions, no runtime decisions you can’t re-make.',
+    ctaPrimary: 'Read the docs',
+    ctaSecondary: 'Browse components',
+    layersKicker: '/ 02 — Architecture',
+    layersTitle: 'Five layers, one mental model.',
+    layersLede:
+      'Each component lives at exactly one layer. Pick the layer that matches your control needs — and ship the bytes for that layer only.',
+    featuresKicker: '/ 03 — Discipline',
+    featuresTitle: 'Built for the long version of accessibility.',
+    excerptKicker: '/ 04 — In code',
+    excerptTitle: 'Three lines, fully accessible.',
+    glossary: 'n. (J) Kumiki — interlocking wood joinery; pieces fitted without nails or glue.',
+    layers: [
+      {
+        ja: '型',
+        latin: 'Types',
+        desc: 'Shared TypeScript surface — every layer above speaks this contract.',
+      },
+      {
+        ja: '基',
+        latin: 'Primitives',
+        desc: 'Framework-agnostic helpers — focus trap, dismissable, IDs, locale.',
+      },
+      {
+        ja: '機',
+        latin: 'Machines',
+        desc: 'Pure-TS finite state machines. Inspectable JSON. ~1 KB runtime.',
+      },
+      {
+        ja: '装',
+        latin: 'Attachments',
+        desc: 'Svelte 5 {@attach} factories. ARIA + data-state on real DOM.',
+      },
+      {
+        ja: '組',
+        latin: 'Components',
+        desc: 'Compound primitives. <Toggle.Root>, <Combobox.Input>, the lot.',
+      },
+      {
+        ja: '釉',
+        latin: 'Atelier',
+        desc: 'Layer 5 preview — copy-pasteable styled variants. Ships at 0.x preview.',
+      },
+    ],
+    features: [
+      {
+        figure: '1.5–4.5 KB',
+        title: 'Bundle budgets in CI',
+        detail:
+          'Every component subpath has a brotli budget. Going over fails CI. Toggle ships in 1.5 KB; Combobox in 4.5 KB.',
+      },
+      {
+        figure: 'WCAG 2.2 AA',
+        title: 'Real screen-reader nightlies',
+        detail:
+          'macOS-VoiceOver and Windows-NVDA via Guidepup, on a schedule. Axe + APG keyboard tests on every PR.',
+      },
+      {
+        figure: '10 locales',
+        title: 'Locales as subpath imports',
+        detail:
+          'No mega-bundle. @kumiki/locale/<lang> at ≤ 1 KB each. RTL inversion lives in the machines.',
+      },
+      {
+        figure: 'toJSON()',
+        title: 'XState-compatible JSON',
+        detail:
+          'Each machine.toJSON() exports a Stately-viewable config. Inspect any FSM in stately.ai/viz.',
+      },
+    ],
+    checklist: [
+      'APG-aligned aria-pressed & data-state.',
+      'Keyboard: Space, Enter, Disabled.',
+      'SSR-safe; dehydrate / hydrate with no flicker.',
+      '1.5 KB brotli, enforced by CI.',
+      'Localised to 10 languages out of the box.',
+    ],
+    installLabel: 'Install command',
+  },
+  components: {
+    title: 'Components',
+    lede: 'Every primitive ships with a live, scriptable demo. Toggle theme, language and writing direction — every Kumiki primitive responds.',
+    countLabel: (live, total) =>
+      `${total} primitives · ${live} live demos · ${total - live} pending`,
+    filter: 'Filter',
+    filterPlaceholder: 'Filter by name or description…',
+    filterAll: 'All',
+    filterLive: 'Live demos',
+    layerLabel: (n) =>
+      ['Shared types', 'Primitives', 'State machines', 'Attachments', 'Components', 'Atelier'][n] ??
+      `Layer ${n}`,
+    livePreview: 'Live preview',
+    code: 'Code',
+    a11y: 'Accessibility',
+    rtl: 'Direction',
+    direction: 'Direction',
+    dirLtr: 'LTR',
+    dirRtl: 'RTL',
+    locale: 'Locale',
+    layoutPreview: 'Layout preview',
+    apgPattern: 'WAI-ARIA APG pattern',
+    source: 'Source',
+    catalogue: 'Catalogue',
+    panelMeta:
+      'The preview reacts to theme, locale and direction changes. Use the controls in the page header (and the LTR / RTL toggle above) to verify each axis independently.',
+    keyboardTitle: 'Keyboard',
+    keyboardKey: 'Key',
+    keyboardEffect: 'Effect',
+    keyboardEmpty:
+      'No component-specific keymap. Inherits standard browser focus / activation behaviour.',
+    testTitle: 'Test discipline',
+    testItems: [
+      'axe-core — run on every PR (LTR + RTL × every documented state).',
+      'APG keyboard tests — Playwright, hand-written per pattern.',
+      'VoiceOver / NVDA — Guidepup nightly schedule.',
+      'Type-level required names — title / aria-label / aria-labelledby.',
+    ],
+    apgRead: 'Read the W3C ARIA APG pattern ↗',
+    placeholder:
+      'This Layer is consumed via code, not visually. See the snippets below for working examples.',
+    backToCatalogue: '← Components',
+    catalogueAll: 'All',
+    layerL3: 'L3 — Attach',
+    layerL4: 'L4 — Compound',
+    layerL5: 'L5 — Atelier',
+  },
+  sidebar: {
+    sections: 'Sections',
+    gettingStarted: 'Getting started',
+    introduction: 'Introduction',
+    installation: 'Installation',
+    firstComponent: 'Your first component',
+    foundations: 'Foundations',
+    architecture: 'Architecture',
+    composition: 'Composition',
+    accessibility: 'Accessibility',
+    i18n: 'i18n & RTL',
+    bundleBudgets: 'Bundle budgets',
+    layersByExample: 'Layers by example',
+    styling: 'Styling',
+    components: 'Components',
+    soonBadge: 'soon',
+    previewBadge: 'preview',
+  },
+  footer: {
+    rights: 'MIT licensed · Pre-alpha · Built in the open',
+    edit: 'Edit this page on GitHub',
+    gettingStarted: 'Getting Started',
+    architecture: 'Architecture',
+    accessibility: 'Accessibility',
+    i18n: 'i18n & RTL',
+    sizes: 'Bundle Sizes',
+  },
+};
