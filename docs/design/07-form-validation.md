@@ -2,14 +2,14 @@
 
 ## 7.1 Goals
 
-`@kumiki/components/form-field` covers Field, FieldGroup, and Form in one package. Goals:
+`@kumiki/components/form-field` ships a single-input `FormField` primitive. Multi-field aggregation (Form orchestrator, FieldGroup) is intentionally out of scope per [§17.5](17-integration-boundaries.md#175-forms--what-kumiki-ships-and-what-it-doesnt) — pair with `sveltekit-superforms` or use native `<form>` + form actions. Goals:
 
-| Goal                                                                                                             | How                                                                                                    |
-| ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| Validation works with **any** Standard Schema validator (Zod 3.24+, Valibot 1.x, ArkType 2.0+, Effect Schema, …) | Single `validator` prop typed as `StandardSchemaV1`. No per-validator adapter shipped.                 |
-| `aria-invalid` / `aria-describedby` / live region wiring is automatic and correct                                | Field machine owns ARIA wiring; tests assert it across all validators.                                 |
-| Async validation works without races                                                                             | Field machine has explicit `validating` state; new edits cancel pending validation.                    |
-| Both client-side and server-side validation feed the same error display                                          | A single `errors: ReadonlyArray<Issue>` interface. Form's `submit` path can `setErrors(serverIssues)`. |
+| Goal                                                                                                             | How                                                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Validation works with **any** Standard Schema validator (Zod 3.24+, Valibot 1.x, ArkType 2.0+, Effect Schema, …) | Single `validator` prop typed as `StandardSchemaV1`. No per-validator adapter shipped.                                                                           |
+| `aria-invalid` / `aria-describedby` / live region wiring is automatic and correct                                | Field machine owns ARIA wiring; tests assert it across all validators.                                                                                           |
+| Async validation works without races                                                                             | Field machine has explicit `validating` state; new edits cancel pending validation.                                                                              |
+| Both client-side and server-side validation feed the same error display                                          | A single `errors: ReadonlyArray<Issue>` interface. Server-issued errors land via `FormField.Root`'s `serverIssues` prop (§7.6a) or the controller's `setErrors`. |
 
 ## 7.2 Standard Schema as the single integration point
 
@@ -109,57 +109,49 @@ ARIA wiring derived from state:
 
 Default: `['blur', 'submit']`. Most users want this.
 
-## 7.5 FieldGroup (for groups of related inputs)
+## 7.5 Groups of related inputs — defer to specialized components / superforms
 
-Used for radio groups, checkbox groups, and address-style multi-input fields:
+Radio and checkbox groups are covered by their own primitives (`RadioGroup`, `Checkbox` group via parent `name`). For composite multi-input fields (e.g., address line1 / postcode validated as one object), the multi-field aggregation falls under [§17.5](17-integration-boundaries.md#175-forms--what-kumiki-ships-and-what-it-doesnt) — kumiki does not ship a `FieldGroup` orchestrator. Use `sveltekit-superforms` (or any form-state library) and a single `serverIssues` per `FormField.Root`.
 
-```svelte
-<FieldGroup.Root name="shippingAddress" validator={addressSchema}>
-  <FieldGroup.Legend>Shipping address</FieldGroup.Legend>
-  <FormField.Root name="line1">
-    <FormField.Label>Line 1</FormField.Label>
-    <FormField.Input />
-  </FormField.Root>
-  <FormField.Root name="postcode">
-    <FormField.Label>Postcode</FormField.Label>
-    <FormField.Input />
-  </FormField.Root>
-  <FieldGroup.ErrorMessage />
-</FieldGroup.Root>
-```
+## 7.6 Multi-field aggregation — out of scope at v1.0
 
-The group's `validator` validates the combined object. Inner `FormField.Root` instances may have their own validators for per-field rules.
+A top-level `Form.Root` orchestrator (status / values / aggregate errors) is **explicitly out of scope** per [§17.5](17-integration-boundaries.md#175-forms--what-kumiki-ships-and-what-it-doesnt). The pairing recommendation is [`sveltekit-superforms`](https://superforms.rocks/) for SvelteKit users; native `<form>` + form actions is sufficient for the rest.
 
-## 7.6 Form (top-level orchestrator)
+Per-field server errors flow through `FormField.Root`'s `serverIssues` prop (see §7.6a). Multi-field state — `values`, aggregate `status`, cross-field validation — is the form-state library's job, not kumiki's.
+
+### 7.6a Server-supplied errors per field
+
+`FormField.Root` accepts `serverIssues` for declarative error injection:
 
 ```svelte
-<Form.Root onsubmit={handleSubmit}>
-  <FormField.Root ...>...</FormField.Root>
-  <FormField.Root ...>...</FormField.Root>
-  <Form.Submit>Save</Form.Submit>
-</Form.Root>
+<FormField.Root
+  initialValue={form?.values?.email ?? ''}
+  name="email"
+  validator={schema}
+  serverIssues={form?.fieldErrors?.email}
+>
+  ...
+</FormField.Root>
 ```
 
-`Form.Root` collects child fields and exposes:
+| Value                                   | Effect                                             |
+| --------------------------------------- | -------------------------------------------------- |
+| `undefined` / `null`                    | No-op — server has not responded.                  |
+| `[]`                                    | Clears externally-supplied errors → `valid`.       |
+| `string[]` / `FieldIssue[]` (non-empty) | Drives the field to `invalid` with these messages. |
 
-```ts
-type FormState = {
-  status: 'pristine' | 'editing' | 'validating' | 'invalid' | 'valid' | 'submitting' | 'submitted';
-  values: Record<string, unknown>; // gathered by name from children
-  errors: ReadonlyMap<string, ReadonlyArray<Issue>>;
-};
-```
+The Layer 3 controller exposes the same as `controller.setErrors(issues)` for imperative use. Both paths share the machine's race-token guard from §7.8 — server errors arriving while a local validator is in flight cancel the validator, not the other way around.
 
-`onsubmit` receives `{ values, setErrors }`. The user can run async server-side validation and `setErrors(...)` to display server errors using the same UI path:
+### 7.6b Native `<form>` and FormData
 
-```ts
-async function handleSubmit({ values, setErrors }) {
-  const res = await fetch('/api/save', { method: 'POST', body: JSON.stringify(values) });
-  if (!res.ok) {
-    const { issues } = await res.json(); // server returns Standard Schema issues
-    setErrors(issues);
-  }
-}
+`FormField.Root` accepts a `name` prop. The Root paints it onto the underlying `<input>` so native form submission, `FormData`, and superforms pick the value up by key. A `name` set directly on `FormField.Input` wins over the Root-level value.
+
+```svelte
+<form method="POST">
+  <FormField.Root initialValue="" name="email" validator={schema}>
+    <FormField.Input type="email" />
+  </FormField.Root>
+</form>
 ```
 
 ## 7.7 Composing validation — `withValidation`
@@ -192,10 +184,14 @@ This is encoded in the machine, not the controller. Tests in `@kumiki/machines/f
 
 ## 7.9 What we do _not_ provide
 
-- **Field arrays** (dynamic add/remove rows). Phase 2.
-- **Wizard / multi-step forms.** Phase 2; will likely use a Form-of-Forms composition pattern.
-- **File uploads** (file input, drag-drop, progress). Phase 2 Component package.
-- **Network state libraries.** The Form is unopinionated about data fetching. Users plug `fetch`, TanStack Query, sveltekit-superforms, anything.
+Codified in [§17.5](17-integration-boundaries.md#175-forms--what-kumiki-ships-and-what-it-doesnt):
+
+- **Form-state aggregation.** Multi-field `values`, aggregate `status`, cross-field validation — pair with `sveltekit-superforms`.
+- **Server-action integration.** No magic `<Form.Root onsubmit>` — use SvelteKit form actions + `use:enhance` directly. `serverIssues` (§7.6a) is the per-field hook into the result.
+- **Field arrays** (dynamic add/remove rows). Phase 2 candidate; superforms covers it today.
+- **Wizard / multi-step forms.** Out of scope; layout concern, not primitive concern.
+- **File uploads / drag-drop zones.** §17.1 boundary — pair with `dnd-kit-svelte`.
+- **Network state libraries.** Bring your own `fetch` / TanStack Query / superforms.
 
 ## 7.10 Why Standard Schema, not per-validator adapters
 
@@ -232,6 +228,4 @@ We document this snippet and don't ship a package for it.
 
 ## 7.11 Open questions
 
-- **TBD:** Whether `Form.Root` should support nested forms (Form-in-Form). The semantic is fuzzy (HTML forms can't nest). Probably no; defer to a future Wizard component.
-- **TBD:** Whether `setErrors` should accept a `Record<string, string>` shorthand for the common case. Lean: yes, but only as a thin overload.
 - **TBD:** Do we expose the validation token for users who want to write their own async validators? Probably not at v1.0; advanced users can run `withValidation` and read state directly.

@@ -54,6 +54,16 @@ export interface FormFieldController<T> {
   setValue(value: T): void;
   /** Manually trigger validation (e.g. from a parent form's submit). */
   validate(): Promise<void>;
+  /**
+   * Inject errors from outside the validator (e.g. SvelteKit form actions,
+   * superforms, server-returned issues). Drives the machine through
+   * `validating` → `valid` (empty issues) | `invalid` (non-empty), so the
+   * `Errors` live-region announces the change exactly as a local validator
+   * run would.
+   *
+   * The string-array shorthand maps each entry to `{ message }`.
+   */
+  setErrors(issues: ReadonlyArray<FieldIssue> | ReadonlyArray<string>): void;
   reset(): void;
 
   subscribe(
@@ -303,6 +313,17 @@ export function createFormField<T>(options: CreateFormFieldOptions<T>): FormFiel
     validate: async () => {
       machine.send({ type: 'SUBMIT_REQUEST' });
       await runValidate();
+    },
+    setErrors: (input) => {
+      const issues: ReadonlyArray<FieldIssue> = input.map((it) =>
+        typeof it === 'string' ? { message: it } : it,
+      );
+      machine.send({ type: 'SUBMIT_REQUEST' });
+      machine.send({
+        type: 'VALIDATION_RESOLVE',
+        token: machine.context.validationToken,
+        issues,
+      });
     },
     reset: () => machine.send({ type: 'RESET' }),
     subscribe: machine.subscribe.bind(machine),

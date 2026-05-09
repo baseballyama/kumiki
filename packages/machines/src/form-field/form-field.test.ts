@@ -58,6 +58,21 @@ describe('form-field machine', () => {
       m.send({ type: 'SUBMIT_REQUEST' });
       expect(m.state).toBe('validating');
     });
+
+    it('mid-validation re-arms the token (cancels in-flight)', () => {
+      const m = createFormFieldMachine({ initialValue: '' });
+      m.send({ type: 'INPUT', value: 'a' });
+      m.send({ type: 'BLUR' });
+      const before = m.context.validationToken;
+      // Server-action style: caller wants to overwrite the in-flight
+      // validator with its own resolution.
+      m.send({ type: 'SUBMIT_REQUEST' });
+      expect(m.state).toBe('validating');
+      expect(m.context.validationToken).toBeGreaterThan(before);
+      // The previously in-flight validator's eventual RESOLVE is stale.
+      m.send({ type: 'VALIDATION_RESOLVE', token: before, issues: [] });
+      expect(m.state).toBe('validating');
+    });
   });
 
   describe('VALIDATION_RESOLVE', () => {

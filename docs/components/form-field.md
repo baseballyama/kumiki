@@ -82,6 +82,164 @@ Form-Field uses native HTML input semantics — Tab moves focus, the validator r
 | `Description` | —       | `id` referenced by Input's `aria-describedby`                            |
 | `Errors`      | `alert` | `aria-live="polite"`, `id` referenced by `aria-describedby` when invalid |
 
+## Server-side errors (`serverIssues`)
+
+When errors come from outside the local validator — a SvelteKit form action, a fetch call, sveltekit-superforms — pass them through `serverIssues`. The Root drives the field through the same `validating → invalid` path the validator uses, so the live region announces and `aria-invalid` flips identically.
+
+```svelte
+<FormField.Root
+  initialValue=""
+  name="email"
+  validator={schema}
+  serverIssues={form?.fieldErrors?.email}
+>
+  <FormField.Label>Email</FormField.Label>
+  <FormField.Input type="email" />
+  <FormField.Errors />
+</FormField.Root>
+```
+
+Semantics:
+
+| Value passed                             | Result                                |
+| ---------------------------------------- | ------------------------------------- |
+| `undefined` / `null`                     | No-op (server hasn't responded yet).  |
+| `[]`                                     | Clears server errors → `valid`.       |
+| `string[]` or `FieldIssue[]` (non-empty) | `invalid` with the supplied messages. |
+
+`serverIssues` is reactive — re-pass a fresh array per server response. Typing into the field clears the server error immediately (the next `INPUT` event invalidates the token), so the user is never stuck on a stale message.
+
+For imperative access (e.g. running `controller.validate()` before manual submit, or calling `controller.setErrors([...])` from a JS handler), use `oncontroller`:
+
+```svelte
+<script lang="ts">
+  import type { FormFieldController } from '@kumiki/components/form-field';
+  let ctrl: FormFieldController<string>;
+</script>
+
+<FormField.Root oncontroller={(c) => (ctrl = c)} initialValue="" name="email">...</FormField.Root>
+```
+
+## SvelteKit form actions
+
+Same Standard Schema runs on both sides. `+page.server.ts`:
+
+```ts
+import { fail } from '@sveltejs/kit';
+import * as v from 'valibot';
+
+const schema = v.object({
+  email: v.pipe(v.string(), v.email()),
+});
+
+export const actions = {
+  default: async ({ request }) => {
+    const data = Object.fromEntries(await request.formData());
+    const result = schema['~standard'].validate(data);
+    if (result.issues) {
+      const fieldErrors: Record<string, string[]> = {};
+      for (const issue of result.issues) {
+        const key = String(issue.path?.[0] ?? '_');
+        (fieldErrors[key] ??= []).push(issue.message);
+      }
+      return fail(400, { fieldErrors, values: data });
+    }
+    // …persist…
+  },
+};
+```
+
+`+page.svelte`:
+
+```svelte
+<script lang="ts">
+  import { enhance } from '$app/forms';
+  import { FormField } from '@kumiki/components';
+  import { schema } from './schema'; // shared with server
+  let { form } = $props();
+</script>
+
+<form method="POST" use:enhance>
+  <FormField.Root
+    initialValue={form?.values?.email ?? ''}
+    name="email"
+    validator={schema.entries.email}
+    serverIssues={form?.fieldErrors?.email}
+  >
+    <FormField.Label>Email</FormField.Label>
+    <FormField.Input type="email" />
+    <FormField.Errors />
+  </FormField.Root>
+  <button type="submit">Save</button>
+</form>
+```
+
+The `name="email"` on `FormField.Root` is what makes the value land in `formData.email` on the server.
+
+## sveltekit-superforms
+
+superforms manages form state; kumiki paints the field. Disable the kumiki validator (superforms already runs the same Standard Schema) and pipe `$errors` through `serverIssues`:
+
+```svelte
+<script lang="ts">
+  import { superForm } from 'sveltekit-superforms';
+  import { valibot } from 'sveltekit-superforms/adapters';
+  import { FormField } from '@kumiki/components';
+  import { schema } from './schema';
+
+  let { data } = $props();
+  const { form, errors, enhance } = superForm(data.form, { validators: valibot(schema) });
+</script>
+
+<form method="POST" use:enhance>
+  <FormField.Root
+    initialValue={$form.email}
+    bind:value={$form.email}
+    name="email"
+    serverIssues={$errors.email}
+  >
+    <FormField.Label>Email</FormField.Label>
+    <FormField.Input type="email" />
+    <FormField.Errors />
+  </FormField.Root>
+</form>
+```
+
+Two rules:
+
+1. **Don't pass `validator`** — superforms already validates against the same Standard Schema. Adding it would double-run.
+2. `bind:value={$form.email}` keeps superforms' state and the field's local state in sync.
+
+## Yup (non-Standard-Schema) wrapper
+
+Yup is not Standard Schema-compliant. A 20-line shim is the supported path:
+
+```ts
+import * as yup from 'yup';
+import type { StandardSchemaV1 } from '@kumiki/components/form-field';
+
+export function yupToStandard<T>(schema: yup.Schema<T>): StandardSchemaV1<unknown, T> {
+  return {
+    '~standard': {
+      version: 1,
+      vendor: 'kumiki-yup-shim',
+      validate: async (value) => {
+        try {
+          return { value: await schema.validate(value, { abortEarly: false }) };
+        } catch (err) {
+          if (err instanceof yup.ValidationError) {
+            return { issues: err.errors.map((message) => ({ message })) };
+          }
+          throw err;
+        }
+      },
+    },
+  };
+}
+```
+
+Use it like any other validator — kumiki cannot tell the difference.
+
 ## Source
 
 - Machine: [`packages/machines/src/form-field`](../../packages/machines/src/form-field)

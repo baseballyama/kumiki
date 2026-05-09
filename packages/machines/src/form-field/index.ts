@@ -168,6 +168,11 @@ export function createFormFieldMachine<T>(input: CreateFormFieldInput<T>): FormF
       validating: {
         on: {
           INPUT: { target: 'editing', actions: [inputAction()] },
+          // SUBMIT_REQUEST mid-validation re-arms the validator: the token
+          // bump invalidates any in-flight async resolution. Used by
+          // controller `setErrors()` to overwrite a running validator with
+          // server-supplied issues without a race.
+          SUBMIT_REQUEST: { actions: [startValidating()] },
           VALIDATION_RESOLVE: [
             {
               target: 'valid',

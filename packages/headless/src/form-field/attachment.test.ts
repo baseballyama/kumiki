@@ -246,6 +246,68 @@ describe('createFormField attachment', () => {
     expect(f.state).toBe('invalid');
   });
 
+  describe('setErrors (server-action / superforms integration)', () => {
+    it('flips a pristine field to invalid + paints errors live region', () => {
+      const f = createFormField<string>({ initialValue: '' });
+      attachAll(f);
+      f.setErrors([{ message: 'Email already taken' }]);
+      expect(f.state).toBe('invalid');
+      expect(input.getAttribute('aria-invalid')).toBe('true');
+      expect(errors.textContent).toBe('Email already taken');
+      expect(errors.hasAttribute('hidden')).toBe(false);
+      const desc = input.getAttribute('aria-describedby');
+      expect(desc).toContain(f.errorsId);
+    });
+
+    it('clears errors when called with []', () => {
+      const f = createFormField<string>({ initialValue: '' });
+      attachAll(f);
+      f.setErrors(['Server says no']);
+      expect(f.state).toBe('invalid');
+      f.setErrors([]);
+      expect(f.state).toBe('valid');
+      expect(input.getAttribute('aria-invalid')).toBe('false');
+      expect(errors.textContent).toBe('');
+    });
+
+    it('accepts a string-array shorthand', () => {
+      const f = createFormField<string>({ initialValue: '' });
+      attachAll(f);
+      f.setErrors(['One', 'Two']);
+      expect(f.context.errors).toEqual([{ message: 'One' }, { message: 'Two' }]);
+    });
+
+    it('subsequent INPUT clears the externally-set errors', () => {
+      const f = createFormField<string>({ initialValue: '' });
+      attachAll(f);
+      f.setErrors(['Email already taken']);
+      input.value = 'new@example.com';
+      input.dispatchEvent(new Event('input'));
+      expect(f.context.errors).toEqual([]);
+      expect(f.state).toBe('editing');
+    });
+
+    it('does not race with an in-flight async validator', async () => {
+      const f = createFormField<string>({
+        initialValue: '',
+        validator: makeAsyncValidator(50),
+      });
+      attachAll(f);
+      input.value = 'oops';
+      input.dispatchEvent(new Event('input'));
+      input.dispatchEvent(new Event('blur'));
+      // Server-side errors land before the local validator resolves.
+      vi.advanceTimersByTime(20);
+      f.setErrors(['Email already taken']);
+      // Now the original (pre-setErrors) async validator finishes — its
+      // token is stale and must be ignored, otherwise it would overwrite
+      // the server-supplied errors.
+      await vi.advanceTimersByTimeAsync(40);
+      expect(f.state).toBe('invalid');
+      expect(f.context.errors).toEqual([{ message: 'Email already taken' }]);
+    });
+  });
+
   it('teardown removes listeners and unsub paint', () => {
     const f = createFormField<string>({ initialValue: '' });
     attachAll(f);

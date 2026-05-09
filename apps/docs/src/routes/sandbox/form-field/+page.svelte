@@ -68,9 +68,17 @@
   // svelte-ignore state_referenced_locally
   let value = $state<string>(initial);
   let log = $state<string[]>([]);
+  let serverIssues = $state<ReadonlyArray<string> | undefined>(undefined);
 
   function append(line: string) {
     log = [...log, `${log.length + 1}. ${line}`];
+  }
+
+  function pushServerError() {
+    serverIssues = ['Username already taken'];
+  }
+  function clearServerError() {
+    serverIssues = [];
   }
 </script>
 
@@ -85,8 +93,10 @@
     <Root
       initialValue={initial}
       bind:value
+      name="username"
       validator={isAsync ? asyncValidator : syncValidator}
       {validateOn}
+      {serverIssues}
       onValidityChange={(s) => append(`onValidityChange(${s})`)}
     >
       <Label data-testid="label">Username</Label>
@@ -110,6 +120,12 @@
   </button>
   <button data-testid="ext-clear" type="button" onclick={() => (value = '')}>
     Clear externally
+  </button>
+  <button data-testid="server-error" type="button" onclick={pushServerError}>
+    Push server error
+  </button>
+  <button data-testid="server-clear" type="button" onclick={clearServerError}>
+    Clear server error
   </button>
 
   <h2>Event log</h2>

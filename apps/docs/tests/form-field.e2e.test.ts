@@ -102,4 +102,31 @@ test.describe('Form-Field', () => {
     await page.getByTestId('ext-set').click();
     await expect(page.locator(INPUT)).toHaveValue('kumiki');
   });
+
+  test('Root-level `name` propagates to the underlying input', async ({ page }) => {
+    await page.goto('/sandbox/form-field');
+    await waitForHydration(page);
+    await expect(page.locator(INPUT)).toHaveAttribute('name', 'username');
+  });
+
+  test('serverIssues drives the field invalid + clearing returns to valid', async ({ page }) => {
+    await page.goto('/sandbox/form-field');
+    await waitForHydration(page);
+    await page.getByTestId('server-error').click();
+    await expect(page.locator(INPUT)).toHaveAttribute('aria-invalid', 'true');
+    await expect(page.locator(ERRORS)).toContainText('Username already taken');
+    await page.getByTestId('server-clear').click();
+    await expect(page.locator(INPUT)).toHaveAttribute('aria-invalid', 'false');
+    await expect(page.locator(ERRORS)).toBeHidden();
+  });
+
+  test('typing after a server error clears the server message', async ({ page }) => {
+    await page.goto('/sandbox/form-field');
+    await waitForHydration(page);
+    await page.getByTestId('server-error').click();
+    await expect(page.locator(ERRORS)).toContainText('Username already taken');
+    await page.locator(INPUT).focus();
+    await page.locator(INPUT).pressSequentially('newvalue');
+    await expect(page.locator(ERRORS)).toBeHidden();
+  });
 });
