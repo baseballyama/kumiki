@@ -27,6 +27,7 @@ export * as Alert from './alert/index.js';
 export * as Avatar from './avatar/index.js';
 export * as AvatarGroup from './avatar-group/index.js';
 export * as Badge from './badge/index.js';
+export * as Breadcrumb from './breadcrumb/index.js';
 export * as Button from './button/index.js';
 export * as Chips from './chips/index.js';
 export * as Calendar from './calendar/index.js';

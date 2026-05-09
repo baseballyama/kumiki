@@ -27,4 +27,25 @@ export const messages = {
   alert: {
     dismissLabel: '關閉',
   },
+  breadcrumb: {
+    label: '麵包屑導覽',
+  },
+  pagination: {
+    label: '分頁',
+    prev: '上一頁',
+    next: '下一頁',
+    first: '第一頁',
+    last: '最後一頁',
+    page: (n: number) => `第 ${n} 頁`,
+    currentPage: (n: number) => `第 ${n} 頁，目前頁`,
+  },
+  table: {
+    sortAscending: '升冪排序',
+    sortDescending: '降冪排序',
+    sortClear: '清除排序',
+    rowExpand: '展開列',
+    rowCollapse: '收合列',
+    rowSelect: '選取列',
+    selectAll: '選取所有列',
+  },
 } satisfies Messages;

@@ -27,4 +27,25 @@ export const messages = {
   alert: {
     dismissLabel: 'تجاهل',
   },
+  breadcrumb: {
+    label: 'مسار التنقل',
+  },
+  pagination: {
+    label: 'ترقيم الصفحات',
+    prev: 'الصفحة السابقة',
+    next: 'الصفحة التالية',
+    first: 'الصفحة الأولى',
+    last: 'الصفحة الأخيرة',
+    page: (n: number) => `الصفحة ${n}`,
+    currentPage: (n: number) => `الصفحة ${n}، الحالية`,
+  },
+  table: {
+    sortAscending: 'ترتيب تصاعدي',
+    sortDescending: 'ترتيب تنازلي',
+    sortClear: 'إلغاء الترتيب',
+    rowExpand: 'توسيع الصف',
+    rowCollapse: 'طي الصف',
+    rowSelect: 'تحديد الصف',
+    selectAll: 'تحديد جميع الصفوف',
+  },
 } satisfies Messages;

@@ -46,6 +46,38 @@ export interface Messages {
     /** `aria-label` for the close button on a dismissible alert. */
     dismissLabel: string;
   };
+  /** Breadcrumb component messages. */
+  breadcrumb: {
+    /** Default `aria-label` on the surrounding `<nav>`. */
+    label: string;
+  };
+  /** Pagination component messages. */
+  pagination: {
+    /** Default `aria-label` on the surrounding `<nav>`. */
+    label: string;
+    /** `aria-label` for the previous-page button. */
+    prev: string;
+    /** `aria-label` for the next-page button. */
+    next: string;
+    /** `aria-label` for the first-page button. */
+    first: string;
+    /** `aria-label` for the last-page button. */
+    last: string;
+    /** `aria-label` for an inactive page button (`{n}` is the page number). */
+    page: (n: number) => string;
+    /** `aria-label` for the current-page indicator. */
+    currentPage: (n: number) => string;
+  };
+  /** Table component messages — sort, expand, select. */
+  table: {
+    sortAscending: string;
+    sortDescending: string;
+    sortClear: string;
+    rowExpand: string;
+    rowCollapse: string;
+    rowSelect: string;
+    selectAll: string;
+  };
 }
 
 /** Layout direction tag exported by every locale subpath. RTL for ar/he, LTR otherwise. */

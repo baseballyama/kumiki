@@ -30,4 +30,25 @@ export const messages = {
   alert: {
     dismissLabel: 'Dismiss',
   },
+  breadcrumb: {
+    label: 'Breadcrumb',
+  },
+  pagination: {
+    label: 'Pagination',
+    prev: 'Previous page',
+    next: 'Next page',
+    first: 'First page',
+    last: 'Last page',
+    page: (n: number) => `Page ${n}`,
+    currentPage: (n: number) => `Page ${n}, current`,
+  },
+  table: {
+    sortAscending: 'Sort ascending',
+    sortDescending: 'Sort descending',
+    sortClear: 'Clear sort',
+    rowExpand: 'Expand row',
+    rowCollapse: 'Collapse row',
+    rowSelect: 'Select row',
+    selectAll: 'Select all rows',
+  },
 } satisfies Messages;

@@ -27,4 +27,25 @@ export const messages = {
   alert: {
     dismissLabel: 'Schließen',
   },
+  breadcrumb: {
+    label: 'Brotkrümelnavigation',
+  },
+  pagination: {
+    label: 'Seitennavigation',
+    prev: 'Vorherige Seite',
+    next: 'Nächste Seite',
+    first: 'Erste Seite',
+    last: 'Letzte Seite',
+    page: (n: number) => `Seite ${n}`,
+    currentPage: (n: number) => `Seite ${n}, aktuelle`,
+  },
+  table: {
+    sortAscending: 'Aufsteigend sortieren',
+    sortDescending: 'Absteigend sortieren',
+    sortClear: 'Sortierung aufheben',
+    rowExpand: 'Zeile erweitern',
+    rowCollapse: 'Zeile einklappen',
+    rowSelect: 'Zeile auswählen',
+    selectAll: 'Alle Zeilen auswählen',
+  },
 } satisfies Messages;

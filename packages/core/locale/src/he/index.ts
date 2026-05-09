@@ -27,4 +27,25 @@ export const messages = {
   alert: {
     dismissLabel: 'סגירה',
   },
+  breadcrumb: {
+    label: 'נתיב ניווט',
+  },
+  pagination: {
+    label: 'דפדוף',
+    prev: 'הדף הקודם',
+    next: 'הדף הבא',
+    first: 'הדף הראשון',
+    last: 'הדף האחרון',
+    page: (n: number) => `דף ${n}`,
+    currentPage: (n: number) => `דף ${n}, הנוכחי`,
+  },
+  table: {
+    sortAscending: 'מיון בסדר עולה',
+    sortDescending: 'מיון בסדר יורד',
+    sortClear: 'נקה מיון',
+    rowExpand: 'הרחב שורה',
+    rowCollapse: 'כווץ שורה',
+    rowSelect: 'בחר שורה',
+    selectAll: 'בחר את כל השורות',
+  },
 } satisfies Messages;

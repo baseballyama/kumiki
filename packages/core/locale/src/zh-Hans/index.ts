@@ -27,4 +27,25 @@ export const messages = {
   alert: {
     dismissLabel: '关闭',
   },
+  breadcrumb: {
+    label: '面包屑导航',
+  },
+  pagination: {
+    label: '分页',
+    prev: '上一页',
+    next: '下一页',
+    first: '首页',
+    last: '末页',
+    page: (n: number) => `第 ${n} 页`,
+    currentPage: (n: number) => `第 ${n} 页，当前页`,
+  },
+  table: {
+    sortAscending: '升序排序',
+    sortDescending: '降序排序',
+    sortClear: '清除排序',
+    rowExpand: '展开行',
+    rowCollapse: '折叠行',
+    rowSelect: '选择行',
+    selectAll: '选择所有行',
+  },
 } satisfies Messages;

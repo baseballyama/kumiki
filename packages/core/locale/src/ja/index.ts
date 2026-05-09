@@ -27,4 +27,25 @@ export const messages = {
   alert: {
     dismissLabel: '閉じる',
   },
+  breadcrumb: {
+    label: 'パンくずリスト',
+  },
+  pagination: {
+    label: 'ページ送り',
+    prev: '前のページ',
+    next: '次のページ',
+    first: '最初のページ',
+    last: '最後のページ',
+    page: (n: number) => `${n}ページ目`,
+    currentPage: (n: number) => `現在のページ、${n}ページ目`,
+  },
+  table: {
+    sortAscending: '昇順で並べ替え',
+    sortDescending: '降順で並べ替え',
+    sortClear: '並べ替えを解除',
+    rowExpand: '行を展開',
+    rowCollapse: '行を折りたたむ',
+    rowSelect: '行を選択',
+    selectAll: 'すべての行を選択',
+  },
 } satisfies Messages;
