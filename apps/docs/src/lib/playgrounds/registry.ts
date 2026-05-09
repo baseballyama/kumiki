@@ -537,17 +537,17 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     slug: 'atelier-toggle',
     name: '@kumiki/atelier/toggle',
     layer: 5,
-    summary: 'Layer 5 preview — styled, copy-paste-friendly Toggle variants.',
-    live: false,
-    status: 'unreleased',
+    summary: 'Layer 5 preview — styled Toggle (Tailwind v4 + vanilla CSS variants).',
+    live: true,
+    status: 'preview',
   },
   {
     slug: 'atelier-dialog',
     name: '@kumiki/atelier/dialog',
     layer: 5,
-    summary: 'Layer 5 preview — styled, copy-paste-friendly Dialog variants.',
-    live: false,
-    status: 'unreleased',
+    summary: 'Layer 5 preview — styled Dialog (Tailwind v4 + vanilla CSS variants).',
+    live: true,
+    status: 'preview',
   },
 ];
 

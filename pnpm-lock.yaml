@@ -170,6 +170,9 @@ importers:
 
   apps/docs:
     dependencies:
+      '@kumiki/atelier':
+        specifier: workspace:*
+        version: link:../../packages/atelier
       '@kumiki/components':
         specifier: workspace:*
         version: link:../../packages/components

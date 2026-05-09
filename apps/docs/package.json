@@ -17,6 +17,7 @@
     "lint": "oxlint src"
   },
   "dependencies": {
+    "@kumiki/atelier": "workspace:*",
     "@kumiki/components": "workspace:*",
     "@kumiki/headless": "workspace:*",
     "@kumiki/locale": "workspace:*",
