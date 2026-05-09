@@ -59,5 +59,5 @@ pnpm add @kumiki/components
 
 - [`@kumiki/headless`](../headless) — Layer 3 attachments. Use this if you need
   to bring your own DOM markup.
-- [`@kumiki/recipes`](../recipes) — Layer 5 opinionated recipes built on top.
+- [`@kumiki/atelier`](../atelier) — Layer 5 opinionated, copy-pasteable styled variants built on top.
 - [`docs/components/`](../../docs/components/) — per-component reference.

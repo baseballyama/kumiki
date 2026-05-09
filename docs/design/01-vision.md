@@ -26,7 +26,7 @@ Specifically, no Svelte library today:
 | Performance-sensitive product teams     | Per-component bundle budgets enforced in CI                                                        |
 | Design-system platform teams            | A composable foundation that survives generic refactors and avoids Radix-style React-coupled hooks |
 
-Out of scope (audience): users who want a styled component library day-one — Layer 5 (recipes) is a v1.0 _preview_, not the headline. See [`14-versioning-release.md`](14-versioning-release.md) for the preview policy.
+Out of scope (audience): users who want a styled component library day-one — Layer 5 (the Atelier) is a v1.0 _preview_, not the headline. See [`14-versioning-release.md`](14-versioning-release.md) for the preview policy.
 
 ## 1.4 Goals
 
@@ -72,7 +72,7 @@ The DX the user feels. See [`08-typescript.md`](08-typescript.md).
 
 A growing share of Svelte adoption is mediated by AI assistants. See [`13-docs-strategy.md`](13-docs-strategy.md).
 
-**Acceptance:** `llms.txt` and `llms-full.txt` ship at v1.0 with stable URLs. JSDoc on every public type includes "When to use", "Anti-pattern", and the matching APG link. Layer 5 recipes are copy-paste-friendly under `kumiki add <component>`.
+**Acceptance:** `llms.txt` and `llms-full.txt` ship at v1.0 with stable URLs. JSDoc on every public type includes "When to use", "Anti-pattern", and the matching APG link. Layer 5 Atelier components are copy-paste-friendly under `kumiki add <component>`.
 
 ## 1.5 Non-goals (v1.0)
 
@@ -81,10 +81,10 @@ Reproduced from the brief Section 3 with rationales:
 | Non-goal                           | Why we're saying no                                                                                                                                                             |
 | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | React / Vue / Solid adapters       | Svelte 5 idioms (runes + attachments + snippets) are central to the API. Cross-framework requires a Zag-style imperative core, which is a different library. Revisit post-v1.0. |
-| Style libraries / Tailwind presets | A separate ecosystem layer. Layer 5 recipes (preview) are the bridge.                                                                                                           |
+| Style libraries / Tailwind presets | A separate ecosystem layer. The Layer 5 Atelier (preview) is the bridge.                                                                                                        |
 | App-level state management         | Component state only. Storing a user's session in `@kumiki/runtime` is out of scope.                                                                                            |
 | Animation engines                  | We emit `data-state="open\|closed\|opening\|closing"`. Users compose Svelte transitions, View Transitions API, motion libraries. See [02-architecture.md](02-architecture.md).  |
-| Material / iOS HIG conformance     | Headless. Recipes can implement them; the core won't.                                                                                                                           |
+| Material / iOS HIG conformance     | Headless. Atelier components can implement them; the core won't.                                                                                                                |
 
 ## 1.6 What success looks like in 12 months
 

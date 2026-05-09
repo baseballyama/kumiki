@@ -108,14 +108,14 @@ Realistic Layer 4 brotli targets (informational, not gated):
 | `@kumiki/components/toast`        | 3 kB   |                                  |
 | `@kumiki/components/menu`         | 3 kB   |                                  |
 
-### `@kumiki/recipes/<name>` — Layer 5 preview
+### `@kumiki/atelier/<name>` — Layer 5 preview
 
 | Subpath                  | Target | Notes                                                           |
 | ------------------------ | ------ | --------------------------------------------------------------- |
-| `@kumiki/recipes/toggle` | 6 KB   | Includes Tailwind v4 utility-class strings + scoped CSS variant |
-| `@kumiki/recipes/dialog` | 6 KB   | Same shape                                                      |
+| `@kumiki/atelier/toggle` | 6 KB   | Includes Tailwind v4 utility-class strings + scoped CSS variant |
+| `@kumiki/atelier/dialog` | 6 KB   | Same shape                                                      |
 
-These are larger because they include styles. We don't apologize: that's the value proposition of recipes. Same Layer-4 svelte-package caveat: these are targets, not gated.
+These are larger because they include styles. We don't apologize: that's the value proposition of the Atelier. Same Layer-4 svelte-package caveat: these are targets, not gated.
 
 ### `@kumiki/primitives/<each>` — Layer 1
 
@@ -176,7 +176,7 @@ present, so the number measures only the per-component cost.
 **Going over budget = CI failure, no merge.** No `--ignore` flags
 allowed on the `size-limit` invocation itself.
 
-`@kumiki/components` and `@kumiki/recipes` are **excluded** from `pnpm
+`@kumiki/components` and `@kumiki/atelier` are **excluded** from `pnpm
 size`, `pnpm attw`, and `pnpm agadoo` because svelte-package emits
 `.svelte` files that those tools' esbuild loader cannot read. Those
 two packages still pass `pnpm publint` and svelte-check.
@@ -232,7 +232,7 @@ This catches accidental cross-component imports (e.g., a `dialog` subpath uninte
 
 ### `agadoo` for `sideEffects: false` honesty
 
-`agadoo` rolls up `pkg.module` and reports any side-effects the bundler can detect. CI rejects. Skipped for `@kumiki/components` and `@kumiki/recipes` per §9.3.
+`agadoo` rolls up `pkg.module` and reports any side-effects the bundler can detect. CI rejects. Skipped for `@kumiki/components` and `@kumiki/atelier` per §9.3.
 
 ## 9.7 What the budget does not include
 
@@ -240,7 +240,7 @@ This catches accidental cross-component imports (e.g., a `dialog` subpath uninte
 - `@floating-ui/dom` for components that need floating positioning (assumed present; peer dep).
 - `@internationalized/date` for Phase 2 Calendar (peer dep).
 - User application styles.
-- Layer 5 recipe CSS for users that copy-paste recipes.
+- Layer 5 Atelier CSS for users that copy-paste Atelier components.
 
 This means: a real-world page using `@kumiki/components/combobox` adds _only_ the Layer 4 target above to its JS chunk, _plus_ whatever Floating UI was already included.
 

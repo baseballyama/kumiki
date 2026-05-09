@@ -8,7 +8,7 @@
  * digging through `dist/`.
  *
  * Skips:
- * - `@kumiki/components` and `@kumiki/recipes` — they ship `.svelte` files;
+ * - `@kumiki/components` and `@kumiki/atelier` — they ship `.svelte` files;
  *   api-extractor doesn't understand the Svelte compiler. Their type
  *   surface is verified by `pnpm typecheck` (svelte-check) instead.
  * - The CLI and the docs app.
@@ -81,7 +81,7 @@ function* walkPackageJsons(dir) {
 
 function shouldSkip(pkgName) {
   if (!pkgName?.startsWith('@kumiki/')) return 'not-kumiki';
-  if (pkgName === '@kumiki/components' || pkgName === '@kumiki/recipes') return 'svelte-source';
+  if (pkgName === '@kumiki/components' || pkgName === '@kumiki/atelier') return 'svelte-source';
   if (pkgName === '@kumiki/cli') return 'binary';
   if (pkgName === '@kumiki/docs') return 'app';
   return null;

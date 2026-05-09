@@ -43,7 +43,7 @@ function layerOf(pkgName) {
   if (pkgName === '@kumiki/machines') return 2;
   if (pkgName === '@kumiki/headless') return 3;
   if (pkgName === '@kumiki/components') return 4;
-  if (pkgName === '@kumiki/recipes') return 5;
+  if (pkgName === '@kumiki/atelier') return 5;
   if (pkgName === '@kumiki/cli') return 5; // tooling, treated as Layer 5
   if (pkgName === '@kumiki/docs') return 5; // app
   return null;

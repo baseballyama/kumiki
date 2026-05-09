@@ -1,15 +1,15 @@
 {
-  "name": "@kumiki/recipes",
+  "name": "@kumiki/atelier",
   "version": "0.0.0-preview.0",
-  "description": "Layer 5 preview — opinionated, styled recipe templates built on top of @kumiki/components. Ships under the `preview` dist-tag during the v1.0 series.",
-  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/recipes",
+  "description": "Layer 5 preview — opinionated, styled component variants built on top of @kumiki/components. Ships under the `preview` dist-tag during the v1.0 series.",
+  "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/atelier",
   "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",
   "author": "Yuichiro Yamashita",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/baseballyama/kumiki.git",
-    "directory": "packages/recipes"
+    "directory": "packages/atelier"
   },
   "files": [
     "dist",

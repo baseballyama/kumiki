@@ -1,13 +1,13 @@
 # @kumiki/cli
 
-> The `kumiki` binary — copy Layer 5 recipe sources into your project. Same `add` model as shadcn-svelte.
+> The `kumiki` binary — copy Layer 5 Atelier sources into your project. Same `add` model as shadcn-svelte.
 
 **Layer:** Tooling.
 
 > **Status:** Phase 0a stub. `--help` and the unknown-command branch
 > are wired (see `packages/tooling/cli/src/bin/kumiki.test.ts`); the
 > real `kumiki add <component>` flow lands in Phase 1 alongside the
-> first stable Layer 5 recipes.
+> first stable Atelier components.
 
 ## Install
 
@@ -20,7 +20,7 @@ npx kumiki --help
 ## Use (planned)
 
 ```bash
-# Copy a styled recipe template into ./src/components/
+# Copy a styled Atelier component into ./src/lib/components/ui/
 kumiki add toggle --variant=tailwind
 kumiki add dialog --variant=vanilla
 ```
@@ -32,6 +32,6 @@ The variants:
 
 ## See also
 
-- [`@kumiki/recipes`](../../recipes) — Layer 5 recipe sources the CLI copies from.
+- [`@kumiki/atelier`](../../atelier) — Layer 5 Atelier sources the CLI copies from.
 - [ADR 0010](../../../docs/design/16-decisions/0010-layer5-preview-in-v1.md) — why Layer 5 ships as `preview` during v1.0.
-- [`docs/design/15-roadmap.md`](../../../docs/design/15-roadmap.md) §15.5 — recipe-copy flow.
+- [`docs/design/15-roadmap.md`](../../../docs/design/15-roadmap.md) §15.5 — Atelier copy flow.

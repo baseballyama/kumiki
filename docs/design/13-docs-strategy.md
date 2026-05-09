@@ -24,7 +24,7 @@ Treating LLMs as a first-class audience is part of the brief (Section 2.F) and i
 /docs/concepts/composition  with* pattern
 /components              Index of all components
 /components/<name>       Per-component reference (see §13.4)
-/recipes                 Layer 5 preview
+/atelier                 Layer 5 preview (the Atelier)
 /perf                    Bundle + runtime measurements
 /llms.txt                LLM-targeted summary
 /llms-full.txt           Full type definitions + anti-patterns

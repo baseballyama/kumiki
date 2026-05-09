@@ -11,7 +11,7 @@ The Svelte ecosystem has excellent headless libraries (Bits UI, Melt UI), but no
 - **Accessibility.** WCAG 2.2 AA, WAI-ARIA 1.2, APG-driven keyboard tests, axe-core in CI, and NVDA/VoiceOver automation via Guidepup.
 - **Internationalization.** RTL keyboard navigation, non-Gregorian calendars (Islamic, Buddhist, Japanese), Arabic/Persian/Thai number systems, and locale data that is dynamically imported (1 KB per locale target).
 - **Performance.** Tight gzipped budgets enforced in CI: 500 B per primitive, 1.5 KB per machine, 4.5 KB for Combobox, etc. See [bundle budget](docs/design/09-bundle-budget.md).
-- **Composability.** Five layers (primitives → state machines → attachments → compound components → styled recipes), each independently importable. Optional features compose through `withValidation`, `withAsyncSearch`, `withVirtualization`, `withMultiSelect`, etc.
+- **Composability.** Five layers (primitives → state machines → attachments → compound components → Atelier styled variants), each independently importable. Optional features compose through `withValidation`, `withAsyncSearch`, `withVirtualization`, `withMultiSelect`, etc.
 
 The name comes from **kumiki** (組木), the Japanese woodworking technique that joins parts by their shape alone — without nails or glue. Kumiki the library carries the same spirit: the parts are composable enough that nothing extra is needed to hold them together.
 
@@ -104,8 +104,8 @@ packages/
   components/                 @kumiki/components (Layer 4) — subpath + dot-namespace barrel
     src/index.ts              { Toggle, Dialog, Combobox, … }
     src/<name>/               Svelte components (Root.svelte, …)
-  recipes/                    @kumiki/recipes (Layer 5 preview) — subpath per recipe
-    src/<name>/               styled, copy-paste templates
+  atelier/                    @kumiki/atelier (Layer 5 preview) — subpath per component
+    src/<name>/               styled, copy-paste-friendly variants (Tailwind v4 + vanilla)
   tooling/
     cli/                      @kumiki/cli — `kumiki add` binary
 apps/

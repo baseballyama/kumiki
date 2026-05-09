@@ -1,7 +1,7 @@
 /**
- * `@kumiki/recipes` — barrel that re-exports every recipe as a namespace.
+ * `@kumiki/atelier` — barrel that re-exports every Atelier component as a namespace.
  *
- * Prefer the per-recipe subpath (`@kumiki/recipes/toggle`) for tree-shake
+ * Prefer the per-component subpath (`@kumiki/atelier/toggle`) for tree-shake
  * guarantees. This barrel exists for one-shot imports.
  *
  * Implementation note: matches the `export * as` namespace pattern from

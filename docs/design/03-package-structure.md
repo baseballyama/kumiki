@@ -34,10 +34,10 @@ instead of three.
 │   │       ├── index.ts                 dot-namespace barrel (`{ Toggle, Dialog, … }`)
 │   │       ├── toggle/                  Root.svelte + index.ts → @kumiki/components/toggle
 │   │       └── … (16 components)
-│   ├── recipes/                         @kumiki/recipes    — Layer 5 preview, subpath per recipe
+│   ├── atelier/                         @kumiki/atelier    — Layer 5 preview, subpath per Atelier component
 │   │   └── src/
-│   │       ├── toggle/index.ts          @kumiki/recipes/toggle
-│   │       └── dialog/index.ts          @kumiki/recipes/dialog
+│   │       ├── toggle/index.ts          @kumiki/atelier/toggle
+│   │       └── dialog/index.ts          @kumiki/atelier/dialog
 │   └── tooling/
 │       └── cli/                         @kumiki/cli        — `kumiki` binary
 ├── apps/
@@ -63,7 +63,7 @@ packages:
   - 'packages/machines'
   - 'packages/headless'
   - 'packages/components'
-  - 'packages/recipes'
+  - 'packages/atelier'
   - 'packages/tooling/*'
   - 'apps/*'
 ```
@@ -71,7 +71,7 @@ packages:
 **9 packages** in total at v1.0:
 
 - 4 shared (primitives, locale, runtime, types)
-- 4 layer packages (machines, headless, components, recipes)
+- 4 layer packages (machines, headless, components, atelier)
 - 1 CLI
 
 ## 3.2 Naming conventions
@@ -85,7 +85,7 @@ packages:
 | `@kumiki/machines`   | Layer 2, all FSMs as subpaths (`./toggle`, `./combobox`, …); pure-TS     |
 | `@kumiki/headless`   | Layer 3, all attachments as subpaths (depends on `@kumiki/machines`)     |
 | `@kumiki/components` | Layer 4, all Svelte components as subpaths + dot-namespace barrel at `.` |
-| `@kumiki/recipes`    | Layer 5, opinionated styled recipes (preview dist-tag)                   |
+| `@kumiki/atelier`    | Layer 5, opinionated styled component variants (preview dist-tag)        |
 | `@kumiki/cli`        | The `kumiki` binary                                                      |
 
 Component slugs inside subpaths are kebab-case: `@kumiki/machines/form-field`,
@@ -154,7 +154,7 @@ Key points:
 - **`./package.json` is exposed** — required by `publint`.
 - **`provenance: true`** — npm provenance attestations on every publish.
 
-### Svelte component package (`@kumiki/components`, `@kumiki/recipes`)
+### Svelte component package (`@kumiki/components`, `@kumiki/atelier`)
 
 ```json
 {
@@ -254,7 +254,7 @@ literal. We test this in `apps/docs/sizes/locale-tree-shake.test.ts`
 Cross-package edges (ADR 0012):
 
 ```
-@kumiki/recipes     →  @kumiki/components
+@kumiki/atelier     →  @kumiki/components
 @kumiki/components  →  @kumiki/headless
 @kumiki/headless    →  @kumiki/machines, @kumiki/primitives, @kumiki/runtime
 @kumiki/machines    →  @kumiki/runtime, @kumiki/primitives
@@ -278,7 +278,7 @@ entry using `workspace:*`:
 
 | Class                                 | Policy                                                                                                                                                       |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `svelte`                              | `peerDependencies` with catalog version (currently `^5.55.0`). Never a direct `dependencies` entry. Required by `@kumiki/headless`, `components`, `recipes`. |
+| `svelte`                              | `peerDependencies` with catalog version (currently `^5.55.0`). Never a direct `dependencies` entry. Required by `@kumiki/headless`, `components`, `atelier`. |
 | `@floating-ui/dom`                    | Lazy loaded by `@kumiki/headless` for `Tooltip`, `Popover`, `Combobox`, `Select`. Listed in `peerDependencies` so the user can pick a version.               |
 | Validation libs (`zod`, `valibot`, …) | **Never** a dependency. Consumed only via Standard Schema. See [07-form-validation.md](07-form-validation.md).                                               |
 | `@internationalized/date`             | Used by `Calendar` / `DatePicker` (Phase 2). Listed in `peerDependencies`.                                                                                   |
@@ -321,7 +321,7 @@ for upgrades.
 | Package class                                                                | Build tool                               | Notes                                                                                |
 | ---------------------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------ |
 | TS-only (`runtime`, `primitives`, `locale`, `types`, `machines`, `headless`) | **tsdown**                               | Rolldown-powered, fast, DTS bundling, multiple entry points → per-subpath dist files |
-| Svelte (`components`, `recipes`)                                             | **`@sveltejs/package`** (svelte-package) | Preprocesses `.svelte`, emits `.svelte.d.ts`, copies `.svelte` files as-is           |
+| Svelte (`components`, `atelier`)                                             | **`@sveltejs/package`** (svelte-package) | Preprocesses `.svelte`, emits `.svelte.d.ts`, copies `.svelte` files as-is           |
 
 Each package's `pnpm build` is independent. The root `pnpm build` runs
 `pnpm -r build` (recursive), respecting `dependencies` order.
@@ -351,12 +351,12 @@ Each package is gated by all three on every PR
   exist, types resolve, no missing fields).
 - **arethetypeswrong** (`attw`): types resolve correctly under node10 /
   node16 / bundler resolutions. ESM-only is OK; we deliberately don't
-  ship CJS. Skipped for `@kumiki/components` and `@kumiki/recipes`
+  ship CJS. Skipped for `@kumiki/components` and `@kumiki/atelier`
   because svelte-package's `.svelte` output isn't `attw`-friendly;
   their type surface is verified via `pnpm typecheck` and `publint`.
 - **agadoo**: rolling up `pkg.module` produces no side effects — i.e.,
   `sideEffects: false` is honest. Same exclusion for
-  `@kumiki/components` and `@kumiki/recipes`.
+  `@kumiki/components` and `@kumiki/atelier`.
 
 A package failing any of these blocks the PR. We add no `--ignore`
 flags.

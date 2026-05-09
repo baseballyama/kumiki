@@ -8,7 +8,7 @@
 Kumiki has two kinds of packages:
 
 - **Pure TypeScript** (`@kumiki/machines`, `@kumiki/headless`, `@kumiki/primitives`, `@kumiki/runtime`, `@kumiki/locale`, `@kumiki/types`).
-- **Svelte components** (`@kumiki/components`, `@kumiki/recipes`).
+- **Svelte components** (`@kumiki/components`, `@kumiki/atelier`).
 
 Each kind has different build requirements:
 

@@ -36,17 +36,17 @@ This is the right moment to fix the shape.
 
 **One package per layer**, with subpath exports per component:
 
-| Package              | Role                                             | Subpaths                                                              |
-| -------------------- | ------------------------------------------------ | --------------------------------------------------------------------- |
-| `@kumiki/runtime`    | FSM core (`defineMachine`, transition primitive) | (single entry)                                                        |
-| `@kumiki/primitives` | DOM primitives                                   | `/id`, `/collection`, `/focus-trap`, `/dismissable`                   |
-| `@kumiki/locale`     | i18n message data                                | `/en`, `/ja`, `/zh-Hans`, ... (10 languages)                          |
-| `@kumiki/types`      | Shared TS types                                  | (single entry)                                                        |
-| `@kumiki/machines`   | All Layer 2 FSMs                                 | `/toggle`, `/combobox`, `/dialog`, ... (one per component)            |
-| `@kumiki/headless`   | All Layer 3 attachments — depends on `machines`  | `/toggle`, `/combobox`, ... + composition `/combobox/with-validation` |
-| `@kumiki/components` | All Layer 4 Svelte components                    | `/toggle`, `/dialog`, ... + dot-namespace barrel at root              |
-| `@kumiki/recipes`    | All Layer 5 opinionated recipes                  | `/toggle`, `/dialog`                                                  |
-| `@kumiki/cli`        | `kumiki add` binary                              | (single entry)                                                        |
+| Package              | Role                                              | Subpaths                                                              |
+| -------------------- | ------------------------------------------------- | --------------------------------------------------------------------- |
+| `@kumiki/runtime`    | FSM core (`defineMachine`, transition primitive)  | (single entry)                                                        |
+| `@kumiki/primitives` | DOM primitives                                    | `/id`, `/collection`, `/focus-trap`, `/dismissable`                   |
+| `@kumiki/locale`     | i18n message data                                 | `/en`, `/ja`, `/zh-Hans`, ... (10 languages)                          |
+| `@kumiki/types`      | Shared TS types                                   | (single entry)                                                        |
+| `@kumiki/machines`   | All Layer 2 FSMs                                  | `/toggle`, `/combobox`, `/dialog`, ... (one per component)            |
+| `@kumiki/headless`   | All Layer 3 attachments — depends on `machines`   | `/toggle`, `/combobox`, ... + composition `/combobox/with-validation` |
+| `@kumiki/components` | All Layer 4 Svelte components                     | `/toggle`, `/dialog`, ... + dot-namespace barrel at root              |
+| `@kumiki/atelier`    | All Layer 5 opinionated styled component variants | `/toggle`, `/dialog`                                                  |
+| `@kumiki/cli`        | `kumiki add` binary                               | (single entry)                                                        |
 
 **9 packages**, down from 37. Subpath exports remain authoritative for
 tree-shake guarantees and IDE auto-import precision.
@@ -75,7 +75,7 @@ import { createToggleMachine } from '@kumiki/machines/toggle';
   entry (not `peerDependencies`). Installing headless brings machines.
 - `@kumiki/components` declares `@kumiki/headless` as a dependency.
   Installing components brings the whole stack.
-- `@kumiki/recipes` depends on `@kumiki/components`.
+- `@kumiki/atelier` depends on `@kumiki/components`.
 - `@kumiki/runtime`, `@kumiki/primitives`, `@kumiki/locale`, `@kumiki/types`
   remain leaf foundations consumed throughout.
 
@@ -101,7 +101,7 @@ import { createToggleMachine } from '@kumiki/machines/toggle';
   your own).
 - Layering check stays mechanical: it now checks subpath imports
   within each layer package rather than inter-package imports.
-- Removes the auto-generated `@kumiki/components` / `@kumiki/recipes`
+- Removes the auto-generated `@kumiki/components` / `@kumiki/atelier`
   umbrella scripts — those packages are now first-class.
 
 **Harder:**
@@ -126,7 +126,7 @@ Migration runs in the same `/loop` cycle that introduces this ADR.
    - `@kumiki/machines` ← `@kumiki/machine-*` (16)
    - `@kumiki/headless` ← `@kumiki/attachment-*` (16) + composition subpaths
    - `@kumiki/components` ← `@kumiki/component-*` (16)
-   - `@kumiki/recipes` ← `@kumiki/recipes-*` (2)
+   - `@kumiki/atelier` ← `@kumiki/atelier-*` (2)
 3. Tooling cleanup: drop `scripts/build-meta-packages.mjs`,
    `scripts/check-meta-drift.mjs`, the `packages/meta/` umbrella, the
    per-component `package.json` files, and entries in

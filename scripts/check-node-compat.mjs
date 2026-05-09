@@ -51,7 +51,7 @@ for (const pkgPath of findPackageJsons(PACKAGES)) {
   // Skip Svelte packages — they ship `.svelte` source which the consumer's
   // bundler compiles. Importing dist/index.js in pure Node tries to evaluate
   // Svelte runtime which expects a DOM-ish lifecycle.
-  if (pkg.name === '@kumiki/components' || pkg.name === '@kumiki/recipes') continue;
+  if (pkg.name === '@kumiki/components' || pkg.name === '@kumiki/atelier') continue;
   // Skip cli — it has a bin shebang, separate concern.
   if (pkg.name === '@kumiki/cli') continue;
 

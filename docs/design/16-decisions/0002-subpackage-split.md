@@ -27,7 +27,7 @@ Each model has trade-offs in install ceremony, version management, and tree-shak
 
 - 4 shared (`@kumiki/primitives`, `@kumiki/locale`, `@kumiki/runtime`, `@kumiki/types`).
 - 10 components × 3 layers (machine, attachment, component) = 30 component packages.
-- 2 Layer-5 recipes (Toggle, Dialog) at v1.0 preview.
+- 2 Layer-5 Atelier components (Toggle, Dialog) at v1.0 preview.
 - 1 CLI (`@kumiki/cli`).
 
 = 37 packages at v1.0.

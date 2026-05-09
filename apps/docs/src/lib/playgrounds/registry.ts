@@ -532,20 +532,20 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     status: 'preview',
   },
 
-  // ── Layer 5 — Recipes (preview) ───────────────────────────────────────────
+  // ── Layer 5 — Atelier (preview) ───────────────────────────────────────────
   {
-    slug: 'recipes-toggle',
-    name: '@kumiki/recipes/toggle',
+    slug: 'atelier-toggle',
+    name: '@kumiki/atelier/toggle',
     layer: 5,
-    summary: 'Layer 5 preview — styled, copy-paste-friendly Toggle templates.',
+    summary: 'Layer 5 preview — styled, copy-paste-friendly Toggle variants.',
     live: false,
     status: 'unreleased',
   },
   {
-    slug: 'recipes-dialog',
-    name: '@kumiki/recipes/dialog',
+    slug: 'atelier-dialog',
+    name: '@kumiki/atelier/dialog',
     layer: 5,
-    summary: 'Layer 5 preview — styled, copy-paste-friendly Dialog templates.',
+    summary: 'Layer 5 preview — styled, copy-paste-friendly Dialog variants.',
     live: false,
     status: 'unreleased',
   },

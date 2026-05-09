@@ -10,9 +10,9 @@ Layers also serve a second purpose: they decouple decisions. Replacing the FSM r
 
 ```
 ┌────────────────────────────────────────────────────────────────────┐
-│ Layer 5 — Recipes (preview during v1.0)                             │
-│   @kumiki/recipes — subpath per recipe (./toggle, ./dialog, …)     │
-│   Styled, copy-paste templates. Tailwind v4 + vanilla CSS variants.│
+│ Layer 5 — Atelier (preview during v1.0)                             │
+│   @kumiki/atelier — subpath per component (./toggle, ./dialog, …)  │
+│   Styled, copy-paste-friendly variants. Tailwind v4 + vanilla CSS. │
 └──────────────┬──────────────────────────────────────────────────────┘
                │ imports from
 ┌──────────────▼──────────────────────────────────────────────────────┐
@@ -166,20 +166,22 @@ Layer 4 wraps Layer 3 in a familiar Radix-style API. It is the layer most users 
 
 **Generic propagation:** the outermost `Combobox.Root` holds the generic, and children consume it via Svelte 5's context API (`getContext` / `setContext`). This works around the inference limits of deeply-bound generics (sveltejs/svelte#11356). See [08-typescript.md](08-typescript.md).
 
-## 2.7 Layer 5 — Recipes (preview during v1.0)
+## 2.7 Layer 5 — The Atelier (preview during v1.0)
 
-Styled, copy-paste-friendly templates published as subpaths of `@kumiki/recipes` (`./toggle`, `./dialog`, …) with the `0.x.x-preview` dist-tag. The CLI (`@kumiki/cli`) copies recipe sources into the user's project.
+Styled, copy-paste-friendly component variants published as subpaths of `@kumiki/atelier` (`./toggle`, `./dialog`, …) with the `0.x.x-preview` dist-tag. The CLI (`@kumiki/cli`) copies Atelier sources into the user's project.
 
 ```bash
 npx kumiki add dialog --variant=tailwind
 ```
 
-**Why preview?** Recipe API depends on Layer 4 stability. Until Layer 4 hits 1.0, we don't want to lock in copy-paste templates that users would have to re-paste.
+**Why preview?** The Atelier API depends on Layer 4 stability. Until Layer 4 hits 1.0, we don't want to lock in copy-paste sources that users would have to re-paste.
 
-Two variants per recipe:
+Two variants per Atelier component:
 
 - **Tailwind v4** — utility-class based, copy paste into a Tailwind project.
 - **Vanilla CSS** — CSS modules with custom properties for theming.
+
+**Naming.** "Atelier" — the workshop where Kumiki's structural joinery (Layers 1–4) gets its surface treatment. Each variant is the literal source the user pastes into their project; Kumiki the library never imports the Atelier itself.
 
 ## 2.8 Cross-cutting: animation hooks
 

@@ -36,7 +36,7 @@ These have been decided. If a future change requires rethinking one, write a new
 | Decision                                                                                       | Authority            |
 | ---------------------------------------------------------------------------------------------- | -------------------- |
 | Svelte 5 **only** (≥ 5.29 for `{@attach}`); no Svelte 4                                        | ADR 0001             |
-| 9 packages: shared (4) + machines + headless + components + recipes + cli (subpaths/component) | ADR 0012 (sup. 0002) |
+| 9 packages: shared (4) + machines + headless + components + atelier + cli (subpaths/component) | ADR 0012 (sup. 0002) |
 | Custom minimal FSM at `@kumiki/runtime` (~1 KB), **not XState v5**                             | ADR 0003             |
 | Standard Schema only — no per-validator adapters                                               | ADR 0004             |
 | Guidepup nightly (macOS-VoiceOver + Windows-NVDA), not per-PR                                  | ADR 0005             |
@@ -70,9 +70,9 @@ packages/                       9 packages, layer-level
     src/
       <name>/                   Svelte components (Root.svelte, …)
       index.ts                  dot-namespace barrel: { Toggle, Dialog, … }
-  recipes/                      @kumiki/recipes — Layer 5 preview
+  atelier/                      @kumiki/atelier — Layer 5 preview
     src/
-      <name>/                   opinionated recipes
+      <name>/                   opinionated, copy-pasteable styled variants
   cli/                          @kumiki/cli — `kumiki add` binary
 
 # Subpath imports are first-class:
@@ -219,13 +219,13 @@ axe-core catches 30–40% of WCAG violations. The other 60% comes from APG keybo
 
 Working state: 9 layer-level packages, subpaths per component. The
 37-package per-Layer×component shape from ADR 0002 was collapsed in
-2026-05; the legacy `@kumiki/{machine,attachment,component,recipes}-*`
+2026-05; the legacy `@kumiki/{machine,attachment,component,recipes}-*` (and the legacy `@kumiki/recipes` → renamed to `@kumiki/atelier`)
 package names no longer exist.
 
 - `@kumiki/machines/<name>` — Layer 2 FSMs, pure-TS.
 - `@kumiki/headless/<name>` (+ `/combobox/with-*`) — Layer 3 attachments.
 - `@kumiki/components` (subpath + dot-namespace barrel) — Layer 4.
-- `@kumiki/recipes/<name>` — Layer 5 preview.
+- `@kumiki/atelier/<name>` — Layer 5 preview.
 - `@kumiki/{runtime,primitives,locale,types}` — foundations (unchanged).
 - `@kumiki/cli` — binary.
 

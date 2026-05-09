@@ -24,7 +24,7 @@ Deliverables:
 - ✅ Architecture decisions (ADRs) finalized.
 - 🟡 Layer 1: `focus-trap`, `dismissable`, `id` primitives — implemented + tested + published.
 - 🟡 `@kumiki/runtime` — minimal FSM runtime — implemented + tested.
-- 🟡 Toggle: all four layers (`machine-toggle`, `attachment-toggle`, `component-toggle`, optional `recipes-toggle` preview) — implemented + tested + published.
+- 🟡 Toggle: all four layers (`@kumiki/machines/toggle`, `@kumiki/headless/toggle`, `@kumiki/components/toggle`, optional `@kumiki/atelier/toggle` preview) — implemented + tested + published.
 - 🟡 SvelteKit docs site running locally with the Toggle component embedded.
 - 🟡 First publish to npm (under `0.0.x`).
 
@@ -147,4 +147,4 @@ Plus:
 ## 15.10 Open questions
 
 - **TBD:** Should Phase 0a include `@kumiki/components/form-field`? Forms are a heavy part of MVP value; landing them earlier signals the integration story. Lean: no, defer to Phase 1; Toggle is the right "is the build pipeline real" signal.
-- **TBD:** Whether v1.0 ships Layer 5 preview for _all_ Phase 1 components or just the two flagged. Lean: just two; the recipes API stabilizes faster with fewer surfaces.
+- **TBD:** Whether v1.0 ships Layer 5 preview for _all_ Phase 1 components or just the two flagged. Lean: just two; the Atelier API stabilizes faster with fewer surfaces.

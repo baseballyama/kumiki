@@ -15,4 +15,4 @@ Kumiki uses **independent versioning**. Each package can move at its own SemVer 
 
 ## Layer 5 preview
 
-`@kumiki/recipes` is published with the `preview` npm dist-tag during the v1.0 series (per ADR 0010). Use the `--snapshot preview` workflow described in `docs/design/14-versioning-release.md` to publish.
+`@kumiki/atelier` is published with the `preview` npm dist-tag during the v1.0 series (per ADR 0010). Use the `--snapshot preview` workflow described in `docs/design/14-versioning-release.md` to publish.

@@ -105,7 +105,7 @@ This is communicated in the README and in the docs install instructions.
 
 ## 14.5 Layer 5 preview policy
 
-`@kumiki/recipes` is published with the **`preview`** dist-tag during the v1.0 series, per [16-decisions/0010-layer5-preview-in-v1.md](16-decisions/0010-layer5-preview-in-v1.md).
+`@kumiki/atelier` is published with the **`preview`** dist-tag during the v1.0 series, per [16-decisions/0010-layer5-preview-in-v1.md](16-decisions/0010-layer5-preview-in-v1.md).
 
 ### Preview snapshot publishes
 
@@ -116,15 +116,15 @@ pnpm changeset version --snapshot preview
 pnpm changeset publish --tag preview --no-git-tag
 ```
 
-Versions like `0.0.0-preview-20260601-abcdef0` appear under the `preview` dist-tag. Users who want preview recipes:
+Versions like `0.0.0-preview-20260601-abcdef0` appear under the `preview` dist-tag. Users who want preview Atelier components:
 
 ```bash
-pnpm add @kumiki/recipes@preview
+pnpm add @kumiki/atelier@preview
 ```
 
 ### Stable Layer 5
 
-Once Layer 4 hits 1.0, recipes are re-cut as stable `1.x.x` versions in a coordinated release.
+Once Layer 4 hits 1.0, the Atelier components are re-cut as stable `1.x.x` versions in a coordinated release.
 
 ## 14.6 Release cadence
 

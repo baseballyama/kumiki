@@ -44,7 +44,7 @@ for (const pkgPath of findPackageJsons(join(ROOT, 'packages'))) {
   const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
   if (!pkg.name?.startsWith('@kumiki/')) continue;
   // Skip umbrella packages (no sources of their own).
-  if (pkg.name === '@kumiki/components' || pkg.name === '@kumiki/recipes') continue;
+  if (pkg.name === '@kumiki/components' || pkg.name === '@kumiki/atelier') continue;
 
   const dir = dirname(pkgPath);
   // Vitest's default reporters write `coverage-final.json` (per-file

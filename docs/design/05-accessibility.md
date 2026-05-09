@@ -156,7 +156,7 @@ A component is "Kumiki-ready" only when **all** are true:
 - [ ] Required accessible name is enforced at the type level (e.g. `Dialog.Root` requires `title` or `aria-label`).
 - [ ] `:focus-visible` is supported (we set no `outline: none` defaults).
 - [ ] `prefers-reduced-motion` is honored where the component animates conceptually (e.g. autoscroll).
-- [ ] `prefers-contrast` is documented as an integration concern (recipes use it; library doesn't paint).
+- [ ] `prefers-contrast` is documented as an integration concern (the Atelier uses it; library doesn't paint).
 - [ ] Screen-reader smoke test passes on macOS-VoiceOver and Windows-NVDA.
 
 The component's `.md` (under `docs/components/`) is the canonical evidence.

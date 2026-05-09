@@ -10,7 +10,7 @@ Kumiki ships as 9 layer-level packages under the `@kumiki/*` scope, with subpath
 - Layer 2 (`@kumiki/runtime` + `@kumiki/machines`): pure-TS finite state machines. `@kumiki/machines/<name>` for each component (toggle, combobox, dialog, …).
 - Layer 3 (`@kumiki/headless`): Svelte 5 attachments (`{@attach}`) wrapping Layer 2. `@kumiki/headless/<name>` per component plus `@kumiki/headless/combobox/with-{validation,async-search,multi-select,virtualization}` composition subpaths.
 - Layer 4 (`@kumiki/components`): compound Svelte components (`Combobox.Root`, `Combobox.Item`, …). Subpath per component plus a dot-namespace barrel at the root (`import { Toggle, Dialog } from '@kumiki/components'`).
-- Layer 5 (`@kumiki/recipes`, preview): styled, copy-paste templates. Preview during the v1.0 series.
+- Layer 5 (`@kumiki/atelier`, preview): styled, copy-paste component variants (Tailwind v4 + vanilla CSS). Preview during the v1.0 series.
 
 ## Core principles
 

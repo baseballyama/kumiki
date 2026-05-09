@@ -1,7 +1,7 @@
 {
   "name": "@kumiki/cli",
   "version": "0.0.0",
-  "description": "Kumiki CLI: copy Layer 5 recipes into a project.",
+  "description": "Kumiki CLI: copy Layer 5 Atelier components (@kumiki/atelier) into a project.",
   "homepage": "https://github.com/baseballyama/kumiki/tree/main/packages/tooling/cli",
   "bugs": "https://github.com/baseballyama/kumiki/issues",
   "license": "MIT",

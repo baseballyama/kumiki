@@ -140,7 +140,7 @@ GUIDEPUP=1 pnpm --filter @kumiki/docs run test:sr
 
 ## 12.9 Visual regression (deferred)
 
-We do **not** ship visual regression tests for the headless library — there's nothing visual to regress. For Layer 5 recipes, we add Chromatic or Argos in v1.1 if recipes prove visually fragile. Currently out of scope.
+We do **not** ship visual regression tests for the headless library — there's nothing visual to regress. For the Layer 5 Atelier, we add Chromatic or Argos in v1.1 if Atelier components prove visually fragile. Currently out of scope.
 
 ## 12.10 Distribution health tests
 

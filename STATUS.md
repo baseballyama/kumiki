@@ -48,7 +48,7 @@ primitives shipped.
 9 layer-level packages with subpaths per component:
 `@kumiki/{runtime,primitives,locale,types}` (4 foundations) +
 `@kumiki/machines` + `@kumiki/headless` + `@kumiki/components` +
-`@kumiki/recipes` + `@kumiki/cli`. Auto-generated meta umbrellas + their
+`@kumiki/atelier` + `@kumiki/cli`. Auto-generated meta umbrellas + their
 build-meta scripts removed.
 
 **Phase 2 components shipped:** Slider, Accordion, NumberField, Popover,
