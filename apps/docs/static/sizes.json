@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T08:19:00.598Z",
+  "generatedAt": "2026-05-10T13:06:58.778Z",
   "packages": [
     {
       "package": "@kumiki/cli",
@@ -7,7 +7,7 @@
       "entries": [
         {
           "name": "default",
-          "size": 13,
+          "size": 973,
           "sizeLimit": 30000,
           "passed": true
         }
@@ -17,6 +17,18 @@
       "package": "@kumiki/headless",
       "directory": "packages/headless",
       "entries": [
+        {
+          "name": "headless/alert (incremental)",
+          "size": 673,
+          "sizeLimit": 1000,
+          "passed": true
+        },
+        {
+          "name": "headless/button (incremental)",
+          "size": 663,
+          "sizeLimit": 700,
+          "passed": true
+        },
         {
           "name": "headless/toggle (incremental)",
           "size": 726,
@@ -73,7 +85,7 @@
         },
         {
           "name": "headless/form-field (incremental)",
-          "size": 1323,
+          "size": 1365,
           "sizeLimit": 1500,
           "passed": true
         },
@@ -114,6 +126,12 @@
           "passed": true
         },
         {
+          "name": "headless/pagination (incremental)",
+          "size": 432,
+          "sizeLimit": 700,
+          "passed": true
+        },
+        {
           "name": "headless/combobox/with-validation",
           "size": 378,
           "sizeLimit": 750,
@@ -136,6 +154,12 @@
           "size": 548,
           "sizeLimit": 750,
           "passed": true
+        },
+        {
+          "name": "headless/calendar (incremental)",
+          "size": 1207,
+          "sizeLimit": 1500,
+          "passed": true
         }
       ]
     },
@@ -145,61 +169,61 @@
       "entries": [
         {
           "name": "en",
-          "size": 197,
+          "size": 430,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "ja",
-          "size": 285,
+          "size": 610,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "zh-Hans",
-          "size": 252,
+          "size": 538,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "zh-Hant",
-          "size": 257,
+          "size": 545,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "ko",
-          "size": 283,
+          "size": 587,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "es",
-          "size": 238,
+          "size": 503,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "fr",
-          "size": 242,
+          "size": 564,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "de",
-          "size": 266,
+          "size": 565,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "ar",
-          "size": 289,
+          "size": 613,
           "sizeLimit": 1000,
           "passed": true
         },
         {
           "name": "he",
-          "size": 270,
+          "size": 593,
           "sizeLimit": 1000,
           "passed": true
         }
@@ -302,6 +326,12 @@
         {
           "name": "machines/menu (incremental)",
           "size": 902,
+          "sizeLimit": 1500,
+          "passed": true
+        },
+        {
+          "name": "machines/calendar (incremental)",
+          "size": 796,
           "sizeLimit": 1500,
           "passed": true
         }

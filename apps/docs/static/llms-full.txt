@@ -26,6 +26,31 @@ Source: `packages/atelier/`
 
 Kumiki CLI: copy Layer 5 Atelier components (@kumiki/atelier) into a project.
 
+### Overview
+
+`@kumiki/cli` — programmatic surface for the `kumiki` binary.
+
+The exported helpers (`add`, `resolveAtelierRoot`, `REGISTRY`) are
+importable for tooling integrations (custom scripts, scaffolding
+pipelines) that don't want to spawn the binary. The `kumiki` CLI in
+`bin/kumiki.ts` consumes them too.
+
+@see docs/design/15-roadmap.md §15.5 for the copy flow.
+
+### Exports
+
+- `AddOptions`
+- `AddResult`
+- `AtelierNotInstalledError`
+- `ComponentFileSpec`
+- `ComponentSpec`
+- `FileExistsError`
+- `REGISTRY`
+- `UnknownComponentError`
+- `Variant`
+- `add`
+- `resolveAtelierRoot`
+
 Source: `packages/tooling/cli/`
 
 ---
@@ -92,6 +117,10 @@ components export `Controller`, etc).
 - `index_d_exports$13`
 - `index_d_exports$14`
 - `index_d_exports$15`
+- `index_d_exports$16`
+- `index_d_exports$17`
+- `index_d_exports$18`
+- `index_d_exports$19`
 - `index_d_exports$2`
 - `index_d_exports$3`
 - `index_d_exports$4`
@@ -154,6 +183,7 @@ Each component is exposed as a namespace to prevent name collisions
 - `index_d_exports$13`
 - `index_d_exports$14`
 - `index_d_exports$15`
+- `index_d_exports$16`
 - `index_d_exports$2`
 - `index_d_exports$3`
 - `index_d_exports$4`
