@@ -221,5 +221,50 @@
     "React libraries (Radix, React Aria) appear here for cross-ecosystem context, not as direct head-to-head competitors. Their numbers exclude React itself, which is already in a typical React user's bundle.",
     "Numbers are gzip — Kumiki's CI gates use brotli, which is typically ~10–15% smaller. We use gzip here because it is the comparison the rest of the ecosystem publishes.",
     "Competitor numbers are reproduced from the user-supplied market research (see docs/market-research.md §7). Refresh by running scripts/refresh-competitor-sizes.mjs against fresh installs of each package."
-  ]
+  ],
+  "featureMatrix": {
+    "asOf": "2026-05-10",
+    "sources": "Authored from docs/market-research.md §4.5 (a11y CI), §4.6 (Standard Schema), §7 (comparison matrix). Updated alongside any kumiki capability change.",
+    "libraries": [
+      "Kumiki",
+      "Bits UI",
+      "Melt UI",
+      "Radix UI",
+      "React Aria",
+      "Zag.js",
+      "Headless UI"
+    ],
+    "rows": [
+      {
+        "feature": "Standard Schema validation",
+        "values": ["yes", "no", "no", "no", "no", "no", "no"],
+        "note": "Kumiki's form-field accepts any Standard Schema validator (Zod / Valibot / ArkType) without per-library adapters."
+      },
+      {
+        "feature": "Non-Gregorian calendars",
+        "values": ["yes", "no", "no", "no", "yes", "no", "no"],
+        "note": "Kumiki uses @internationalized/date as a peer dep; calendars (Islamic, Hebrew, Buddhist, …) are tree-shaken per consumer."
+      },
+      {
+        "feature": "RTL keyboard inversion",
+        "values": ["yes", "partial", "partial", "yes", "yes", "yes", "partial"],
+        "note": "Kumiki inverts physical-direction keys (Tabs ArrowRight / Slider) inside the FSM, driven by LocaleProvider's `dir`. Bits / Melt / Headless UI rely on consumer-supplied `dir` and don't always flip the keyboard contract."
+      },
+      {
+        "feature": "APG keyboard tests in CI",
+        "values": ["yes", "partial", "partial", "yes", "yes", "partial", "no"],
+        "note": "Kumiki ships per-component .kb.ts specs that exercise each WAI-ARIA APG keyboard interaction in Playwright on every PR."
+      },
+      {
+        "feature": "Screen-reader CI (Guidepup)",
+        "values": ["yes", "no", "no", "manual", "manual", "no", "no"],
+        "note": "Kumiki schedules nightly Guidepup runs against macOS-VoiceOver + Windows-NVDA. Radix / React Aria document manual SR testing but do not gate CI on it."
+      },
+      {
+        "feature": "Target ARIA version",
+        "values": ["1.3", "1.2", "1.1/1.2", "1.2", "1.2", "1.2", "1.2"],
+        "note": "Kumiki tracks WAI-ARIA 1.3 (suggestion / comment / switch role refinements). Per market-research §7."
+      }
+    ]
+  }
 }

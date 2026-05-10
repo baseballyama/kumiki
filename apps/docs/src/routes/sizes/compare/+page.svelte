@@ -20,11 +20,15 @@
 </script>
 
 <svelte:head>
-  <title>Size comparison · Kumiki</title>
+  <title>Size and a11y comparison · Kumiki</title>
+  <meta
+    name="description"
+    content="Bundle size and accessibility-feature comparison for Kumiki vs Bits UI / Melt UI / Radix / React Aria / Zag.js / Headless UI — measured kumiki numbers from size-limit, competitor numbers from market research, plus a feature matrix for Standard Schema, non-Gregorian calendars, RTL keyboard, APG tests, and screen-reader CI."
+  />
 </svelte:head>
 
 <section>
-  <h1>Bundle size comparison</h1>
+  <h1>Bundle size and a11y comparison</h1>
 
   <p class="meta">
     {compare.methodology}
@@ -68,6 +72,55 @@
     </article>
   {/each}
 
+  <h2>Accessibility & i18n features</h2>
+  <p class="meta">
+    Headline capabilities each library ships out of the box. Sourced from
+    <a href="/docs/market-research"><code>docs/market-research.md</code></a> §4.5–§7. As of
+    <time>{compare.featureMatrix.asOf}</time>.
+  </p>
+
+  <table class="features">
+    <thead>
+      <tr>
+        <th scope="col">Feature</th>
+        {#each compare.featureMatrix.libraries as lib (lib)}
+          <th scope="col" class:kumiki-col={lib === 'Kumiki'}>{lib}</th>
+        {/each}
+      </tr>
+    </thead>
+    <tbody>
+      {#each compare.featureMatrix.rows as row (row.feature)}
+        <tr>
+          <th scope="row">
+            {row.feature}
+            {#if row.note}<small class="note">{row.note}</small>{/if}
+          </th>
+          {#each row.values as cell, i (compare.featureMatrix.libraries[i])}
+            {@const isKumikiCol = compare.featureMatrix.libraries[i] === 'Kumiki'}
+            <td class="cell" class:kumiki-col={isKumikiCol} data-cell={cell}>
+              {#if cell === 'yes'}<span class="mark mark-yes" aria-label="yes">✓</span>
+              {:else if cell === 'no'}<span class="mark mark-no" aria-label="no">·</span>
+              {:else if cell === 'partial'}<span class="mark mark-partial" aria-label="partial"
+                  >◐</span
+                >
+              {:else if cell === 'manual'}<span class="mark mark-manual" aria-label="manual only"
+                  >◑</span
+                >
+              {:else}<span class="mark mark-text">{cell}</span>{/if}
+            </td>
+          {/each}
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+
+  <p class="meta">
+    Legend: <span class="mark mark-yes">✓</span> shipped &nbsp;
+    <span class="mark mark-partial">◐</span> partial &nbsp;
+    <span class="mark mark-manual">◑</span> manual only / opt-in &nbsp;
+    <span class="mark mark-no">·</span> not provided
+  </p>
+
   <h2>Caveats</h2>
   <ul>
     {#each compare.caveats as caveat (caveat)}
@@ -76,7 +129,8 @@
   </ul>
 
   <p class="meta">
-    Last updated: <time>{compare.generatedAt}</time>. Source data:
+    Bundle data last updated: <time>{compare.generatedAt}</time>. Feature matrix as of
+    <time>{compare.featureMatrix.asOf}</time>. Source data:
     <code>apps/docs/src/data/competitor-sizes.json</code>.
   </p>
 </section>
@@ -156,5 +210,54 @@
     background: oklch(0.96 0 0);
     padding: 0.05em 0.3em;
     border-radius: 3px;
+  }
+  table.features {
+    table-layout: fixed;
+  }
+  table.features th[scope='row'] {
+    text-align: left;
+    font-weight: 500;
+    width: 30%;
+  }
+  table.features th.kumiki-col,
+  table.features td.kumiki-col {
+    background: oklch(0.97 0.02 252);
+  }
+  table.features td.cell {
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  small.note {
+    display: block;
+    margin-block-start: 0.15rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: oklch(0.5 0 0);
+    line-height: 1.4;
+  }
+  .mark {
+    display: inline-block;
+    min-width: 1.4rem;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .mark-yes {
+    color: oklch(0.55 0.16 145);
+    font-weight: 700;
+  }
+  .mark-partial {
+    color: oklch(0.6 0.13 75);
+  }
+  .mark-manual {
+    color: oklch(0.55 0.1 240);
+  }
+  .mark-no {
+    color: oklch(0.6 0 0);
+  }
+  .mark-text {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: oklch(0.3 0 0);
   }
 </style>
