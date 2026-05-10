@@ -273,7 +273,7 @@ CI does not init submodules.
 - Add a new dependency to a package.
 - Add a new submodule to `references/`.
 - Touch `.changeset/config.json` or release workflows.
-- Push to remote, open PRs, or write to npm. Local commits only when asked.
+- Open PRs or write to npm. (Pushing local commits to `main` is fine when asked.)
 - Skip git hooks (`--no-verify`).
 
 ## Things you can freely do
