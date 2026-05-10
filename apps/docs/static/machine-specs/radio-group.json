@@ -1,0 +1,52 @@
+{
+  "id": "radio-group",
+  "initial": "idle",
+  "context": {
+    "items": [
+      {
+        "id": "a",
+        "value": "a"
+      },
+      {
+        "id": "b",
+        "value": "b"
+      }
+    ],
+    "value": null,
+    "focusedId": null
+  },
+  "states": {
+    "idle": {
+      "on": {
+        "SELECT": {
+          "actions": ["select"]
+        },
+        "FOCUS": {
+          "actions": ["focus"]
+        },
+        "BLUR": {
+          "actions": ["blur"]
+        },
+        "NAVIGATE": {
+          "actions": ["navigate"]
+        },
+        "SET.VALUE": {
+          "actions": ["setValue"]
+        },
+        "SET.ITEMS": {
+          "actions": ["setItems"]
+        },
+        "DISABLE": {
+          "target": "disabled"
+        }
+      }
+    },
+    "disabled": {
+      "on": {
+        "ENABLE": {
+          "target": "idle"
+        }
+      }
+    }
+  }
+}

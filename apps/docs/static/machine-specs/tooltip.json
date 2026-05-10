@@ -1,0 +1,58 @@
+{
+  "id": "tooltip",
+  "initial": "closed",
+  "context": {
+    "openDelay": 700,
+    "closeDelay": 300,
+    "disableHoverableContent": false
+  },
+  "states": {
+    "closed": {
+      "on": {
+        "OPEN": {
+          "target": "open"
+        },
+        "TOGGLE": {
+          "target": "open"
+        },
+        "SET.OPEN": {
+          "target": "open"
+        },
+        "SET.OPEN_DELAY": {
+          "actions": ["setOpenDelay"]
+        },
+        "SET.CLOSE_DELAY": {
+          "actions": ["setCloseDelay"]
+        },
+        "SET.DISABLE_HOVERABLE_CONTENT": {
+          "actions": ["setDisableHoverableContent"]
+        }
+      }
+    },
+    "open": {
+      "on": {
+        "CLOSE": {
+          "target": "closed"
+        },
+        "TOGGLE": {
+          "target": "closed"
+        },
+        "ESCAPE": {
+          "target": "closed"
+        },
+        "SET.OPEN": {
+          "target": "closed"
+        },
+        "SET.OPEN_DELAY": {
+          "actions": ["setOpenDelay"]
+        },
+        "SET.CLOSE_DELAY": {
+          "actions": ["setCloseDelay"]
+        },
+        "SET.DISABLE_HOVERABLE_CONTENT": {
+          "actions": ["setDisableHoverableContent"]
+        }
+      }
+    }
+  }
+}

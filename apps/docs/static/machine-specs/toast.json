@@ -1,0 +1,30 @@
+{
+  "id": "toast",
+  "initial": "idle",
+  "context": {
+    "toasts": [],
+    "max": 5,
+    "defaultDuration": 5000
+  },
+  "states": {
+    "idle": {
+      "on": {
+        "ADD": {
+          "actions": ["add"]
+        },
+        "REMOVE": {
+          "actions": ["remove"]
+        },
+        "UPDATE": {
+          "actions": ["update"]
+        },
+        "CLEAR": {
+          "actions": ["clear"]
+        },
+        "SET.MAX": {
+          "actions": ["setMax"]
+        }
+      }
+    }
+  }
+}

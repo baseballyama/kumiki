@@ -1,0 +1,62 @@
+{
+  "id": "checkbox",
+  "initial": "unchecked",
+  "context": {
+    "value": "unchecked",
+    "toggles": 0
+  },
+  "states": {
+    "unchecked": {
+      "on": {
+        "TOGGLE": {
+          "target": "checked",
+          "actions": ["check"]
+        },
+        "SET": {
+          "target": "checked",
+          "actions": ["controlledCheck"]
+        },
+        "DISABLE": {
+          "target": "disabled"
+        }
+      }
+    },
+    "checked": {
+      "on": {
+        "TOGGLE": {
+          "target": "unchecked",
+          "actions": ["uncheck"]
+        },
+        "SET": {
+          "target": "unchecked",
+          "actions": ["controlledUncheck"]
+        },
+        "DISABLE": {
+          "target": "disabled"
+        }
+      }
+    },
+    "mixed": {
+      "on": {
+        "TOGGLE": {
+          "target": "checked",
+          "actions": ["check"]
+        },
+        "SET": {
+          "target": "checked",
+          "actions": ["controlledCheck"]
+        },
+        "DISABLE": {
+          "target": "disabled"
+        }
+      }
+    },
+    "disabled": {
+      "on": {
+        "ENABLE": {
+          "target": "unchecked"
+        }
+      }
+    }
+  }
+}

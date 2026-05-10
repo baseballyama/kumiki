@@ -1,0 +1,127 @@
+{
+  "id": "form-field",
+  "initial": "pristine",
+  "context": {
+    "value": "",
+    "initialValue": "",
+    "validationToken": 0,
+    "errors": [],
+    "touched": false,
+    "dirty": false
+  },
+  "states": {
+    "pristine": {
+      "on": {
+        "INPUT": {
+          "target": "editing",
+          "actions": ["input"]
+        },
+        "BLUR": {
+          "actions": ["touch"]
+        },
+        "SUBMIT_REQUEST": {
+          "target": "validating",
+          "actions": ["startValidating"]
+        },
+        "SET.VALUE": {
+          "actions": ["setValue"]
+        },
+        "RESET": {
+          "actions": ["reset"]
+        }
+      }
+    },
+    "editing": {
+      "on": {
+        "INPUT": {
+          "actions": ["input"]
+        },
+        "BLUR": {
+          "target": "validating",
+          "actions": ["touch", "startValidating"]
+        },
+        "SUBMIT_REQUEST": {
+          "target": "validating",
+          "actions": ["startValidating"]
+        },
+        "SET.VALUE": {
+          "actions": ["setValue"]
+        },
+        "RESET": {
+          "target": "pristine",
+          "actions": ["reset"]
+        }
+      }
+    },
+    "validating": {
+      "on": {
+        "INPUT": {
+          "target": "editing",
+          "actions": ["input"]
+        },
+        "VALIDATION_RESOLVE": {
+          "target": "valid",
+          "actions": ["resolve"]
+        },
+        "VALIDATION_REJECT": {
+          "target": "invalid",
+          "actions": ["reject"]
+        },
+        "SET.VALUE": {
+          "target": "editing",
+          "actions": ["setValue"]
+        },
+        "RESET": {
+          "target": "pristine",
+          "actions": ["reset"]
+        }
+      }
+    },
+    "valid": {
+      "on": {
+        "INPUT": {
+          "target": "editing",
+          "actions": ["input"]
+        },
+        "BLUR": {
+          "actions": ["touch"]
+        },
+        "SUBMIT_REQUEST": {
+          "target": "validating",
+          "actions": ["startValidating"]
+        },
+        "SET.VALUE": {
+          "target": "editing",
+          "actions": ["setValue"]
+        },
+        "RESET": {
+          "target": "pristine",
+          "actions": ["reset"]
+        }
+      }
+    },
+    "invalid": {
+      "on": {
+        "INPUT": {
+          "target": "editing",
+          "actions": ["input"]
+        },
+        "BLUR": {
+          "actions": ["touch"]
+        },
+        "SUBMIT_REQUEST": {
+          "target": "validating",
+          "actions": ["startValidating"]
+        },
+        "SET.VALUE": {
+          "target": "editing",
+          "actions": ["setValue"]
+        },
+        "RESET": {
+          "target": "pristine",
+          "actions": ["reset"]
+        }
+      }
+    }
+  }
+}

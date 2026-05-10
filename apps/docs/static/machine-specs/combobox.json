@@ -1,0 +1,127 @@
+{
+  "id": "combobox",
+  "initial": "idle",
+  "context": {
+    "query": "",
+    "options": [
+      {
+        "value": "a",
+        "label": "Apple"
+      },
+      {
+        "value": "b",
+        "label": "Banana"
+      }
+    ],
+    "filtered": [
+      {
+        "value": "a",
+        "label": "Apple"
+      },
+      {
+        "value": "b",
+        "label": "Banana"
+      }
+    ],
+    "highlightedId": null,
+    "value": null,
+    "status": "idle",
+    "error": null,
+    "token": 0,
+    "pageSize": 10
+  },
+  "states": {
+    "idle": {
+      "on": {
+        "INPUT.FOCUS": {
+          "target": "open"
+        },
+        "INPUT.CHANGE": {
+          "target": "open",
+          "actions": ["updateQuery"]
+        },
+        "INPUT.NAVIGATE": {
+          "target": "open",
+          "actions": ["navigateOpen"]
+        },
+        "TRIGGER.CLICK": {
+          "target": "open"
+        },
+        "OPEN": {
+          "target": "open"
+        },
+        "DISABLE": {
+          "target": "disabled"
+        },
+        "SET.VALUE": {
+          "actions": ["setValue"]
+        },
+        "RESET": {
+          "actions": ["reset"]
+        }
+      }
+    },
+    "open": {
+      "on": {
+        "INPUT.BLUR": {
+          "target": "idle"
+        },
+        "INPUT.CHANGE": {
+          "actions": ["updateQuery"]
+        },
+        "INPUT.ESCAPE": {
+          "target": "idle",
+          "actions": ["clearHighlight"]
+        },
+        "INPUT.ENTER": {
+          "target": "idle",
+          "actions": ["commitHighlighted"]
+        },
+        "INPUT.NAVIGATE": {
+          "actions": ["navigate"]
+        },
+        "OPTION.HIGHLIGHT": {
+          "actions": ["highlight"]
+        },
+        "OPTION.SELECT": {
+          "target": "idle",
+          "actions": ["select"]
+        },
+        "FETCH.LOADING": {
+          "actions": ["fetchLoading"]
+        },
+        "FETCH.RESOLVE": {
+          "actions": ["fetchResolve"]
+        },
+        "FETCH.REJECT": {
+          "actions": ["fetchReject"]
+        },
+        "CLOSE": {
+          "target": "idle",
+          "actions": ["clearHighlight"]
+        },
+        "TRIGGER.CLICK": {
+          "target": "idle",
+          "actions": ["clearHighlight"]
+        },
+        "DISABLE": {
+          "target": "disabled"
+        },
+        "SET.VALUE": {
+          "actions": ["setValue"]
+        },
+        "RESET": {
+          "target": "idle",
+          "actions": ["reset"]
+        }
+      }
+    },
+    "disabled": {
+      "on": {
+        "ENABLE": {
+          "target": "idle"
+        }
+      }
+    }
+  }
+}

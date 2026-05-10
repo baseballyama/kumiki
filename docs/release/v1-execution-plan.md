@@ -109,6 +109,7 @@
   - 受入: `packages/machines/src/<each>/index.test.ts` カバレッジ 80% 以上、JSON spec の例が `apps/docs/playgrounds` に 1 つ以上同梱
   - 見積: M
   - 依存: なし（A-1 再評価により machine 追加なし）
+  - **進捗 2026-05-10**: 17/17 machine の `toJSON()` 出力検証完了 (`apps/docs/scripts/build-machine-specs.mjs` 新設、minimal な valid input で各 FSM をシリアライズ、`apps/docs/static/machine-specs/<name>.json` へ書き出し、`index.json` に generatedAt + state list の summary を同梱)。`pnpm --filter @kumiki/docs machine-specs` で再生成可能、`prebuild` chain に組込み済み。stately.ai/viz 互換性は `XStateConfig` 型契約と既存 unit test (`machine.test.ts`) で担保。残課題: Vitest coverage 80% の機械化 (現状 358 passed が通っているがカバレッジ計測はまだ自動化していない) + 各 machine の JSON spec を `apps/docs/src/lib/playgrounds` の demo 横に visible 化。
 
 ### A-3. ノード互換性 / SSR の検証
 

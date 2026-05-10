@@ -1,0 +1,64 @@
+{
+  "id": "slider",
+  "initial": "idle",
+  "context": {
+    "value": 0,
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "pageStep": 10,
+    "orientation": "horizontal"
+  },
+  "states": {
+    "idle": {
+      "on": {
+        "INCREMENT": {
+          "actions": ["increment"]
+        },
+        "DECREMENT": {
+          "actions": ["decrement"]
+        },
+        "PAGE_INCREMENT": {
+          "actions": ["pageIncrement"]
+        },
+        "PAGE_DECREMENT": {
+          "actions": ["pageDecrement"]
+        },
+        "TO_MIN": {
+          "actions": ["toMin"]
+        },
+        "TO_MAX": {
+          "actions": ["toMax"]
+        },
+        "SET.VALUE": {
+          "actions": ["setValue"]
+        },
+        "SET.MIN": {
+          "actions": ["setMin"]
+        },
+        "SET.MAX": {
+          "actions": ["setMax"]
+        },
+        "SET.STEP": {
+          "actions": ["setStep"]
+        },
+        "SET.PAGE_STEP": {
+          "actions": ["setPageStep"]
+        },
+        "SET.ORIENTATION": {
+          "actions": ["setOrientation"]
+        },
+        "DISABLE": {
+          "target": "disabled"
+        }
+      }
+    },
+    "disabled": {
+      "on": {
+        "ENABLE": {
+          "target": "idle"
+        }
+      }
+    }
+  }
+}

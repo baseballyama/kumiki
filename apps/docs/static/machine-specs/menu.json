@@ -1,0 +1,71 @@
+{
+  "id": "menu",
+  "initial": "closed",
+  "context": {
+    "items": [
+      {
+        "id": "cut",
+        "label": "Cut"
+      },
+      {
+        "id": "copy",
+        "label": "Copy"
+      }
+    ],
+    "highlightedId": null,
+    "typeahead": "",
+    "activatedId": null
+  },
+  "states": {
+    "closed": {
+      "on": {
+        "OPEN": {
+          "target": "open",
+          "actions": ["highlightFirst"]
+        },
+        "TOGGLE": {
+          "target": "open",
+          "actions": ["highlightFirst"]
+        },
+        "SET.ITEMS": {
+          "actions": ["setItems"]
+        }
+      }
+    },
+    "open": {
+      "on": {
+        "CLOSE": {
+          "target": "closed",
+          "actions": ["clearHighlight"]
+        },
+        "TOGGLE": {
+          "target": "closed",
+          "actions": ["clearHighlight"]
+        },
+        "ESCAPE": {
+          "target": "closed",
+          "actions": ["clearHighlight"]
+        },
+        "ACTIVATE": {
+          "target": "closed",
+          "actions": ["commit"]
+        },
+        "HIGHLIGHT": {
+          "actions": ["highlight"]
+        },
+        "NAVIGATE": {
+          "actions": ["navigate"]
+        },
+        "TYPEAHEAD": {
+          "actions": ["typeahead"]
+        },
+        "TYPEAHEAD.RESET": {
+          "actions": ["resetTypeahead"]
+        },
+        "SET.ITEMS": {
+          "actions": ["setItems"]
+        }
+      }
+    }
+  }
+}

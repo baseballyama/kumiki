@@ -1,0 +1,47 @@
+{
+  "id": "switch",
+  "initial": "off",
+  "context": {
+    "checked": false,
+    "toggles": 0
+  },
+  "states": {
+    "off": {
+      "on": {
+        "TOGGLE": {
+          "target": "on",
+          "actions": ["check"]
+        },
+        "SET": {
+          "target": "on",
+          "actions": ["controlledCheck"]
+        },
+        "DISABLE": {
+          "target": "disabled"
+        }
+      }
+    },
+    "on": {
+      "on": {
+        "TOGGLE": {
+          "target": "off",
+          "actions": ["uncheck"]
+        },
+        "SET": {
+          "target": "off",
+          "actions": ["controlledUncheck"]
+        },
+        "DISABLE": {
+          "target": "disabled"
+        }
+      }
+    },
+    "disabled": {
+      "on": {
+        "ENABLE": {
+          "target": "off"
+        }
+      }
+    }
+  }
+}

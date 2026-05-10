@@ -1,0 +1,56 @@
+{
+  "id": "accordion",
+  "initial": "idle",
+  "context": {
+    "items": [
+      {
+        "id": "one",
+        "value": "one"
+      },
+      {
+        "id": "two",
+        "value": "two"
+      }
+    ],
+    "expandedIds": [],
+    "focusedId": null,
+    "mode": "single",
+    "collapsible": true
+  },
+  "states": {
+    "idle": {
+      "on": {
+        "TOGGLE": {
+          "actions": ["toggle"]
+        },
+        "EXPAND": {
+          "actions": ["expand"]
+        },
+        "COLLAPSE": {
+          "actions": ["collapse"]
+        },
+        "FOCUS": {
+          "actions": ["focus"]
+        },
+        "BLUR": {
+          "actions": ["blur"]
+        },
+        "NAVIGATE": {
+          "actions": ["navigate"]
+        },
+        "SET.ITEMS": {
+          "actions": ["setItems"]
+        },
+        "SET.VALUE": {
+          "actions": ["setValue"]
+        },
+        "SET.MODE": {
+          "actions": ["setMode"]
+        },
+        "SET.COLLAPSIBLE": {
+          "actions": ["setCollapsible"]
+        }
+      }
+    }
+  }
+}

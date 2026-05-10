@@ -1,0 +1,47 @@
+{
+  "id": "toggle",
+  "initial": "unpressed",
+  "context": {
+    "pressed": false,
+    "toggles": 0
+  },
+  "states": {
+    "unpressed": {
+      "on": {
+        "TOGGLE": {
+          "target": "pressed",
+          "actions": ["press"]
+        },
+        "SET": {
+          "target": "pressed",
+          "actions": ["controlledPress"]
+        },
+        "DISABLE": {
+          "target": "disabled"
+        }
+      }
+    },
+    "pressed": {
+      "on": {
+        "TOGGLE": {
+          "target": "unpressed",
+          "actions": ["release"]
+        },
+        "SET": {
+          "target": "unpressed",
+          "actions": ["controlledRelease"]
+        },
+        "DISABLE": {
+          "target": "disabled"
+        }
+      }
+    },
+    "disabled": {
+      "on": {
+        "ENABLE": {
+          "target": "unpressed"
+        }
+      }
+    }
+  }
+}

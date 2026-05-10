@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-05-10T10:22:15.701Z",
+  "visualizer": "https://stately.ai/viz",
+  "machines": [
+    {
+      "name": "accordion",
+      "package": "@kumiki/machines/accordion",
+      "file": "accordion.json",
+      "blurb": "Single- or multi-region disclosure (APG accordion).",
+      "states": ["idle"],
+      "initial": "idle"
+    },
+    {
+      "name": "calendar",
+      "package": "@kumiki/machines/calendar",
+      "file": "calendar.json",
+      "blurb": "Date-grid focus & selection (Gregorian here, Hijri / Buddhist / Hebrew supported via @internationalized/date).",
+      "states": ["idle", "disabled"],
+      "initial": "idle"
+    },
+    {
+      "name": "checkbox",
+      "package": "@kumiki/machines/checkbox",
+      "file": "checkbox.json",
+      "blurb": "Tri-state (unchecked / checked / mixed) checkbox.",
+      "states": ["unchecked", "checked", "mixed", "disabled"],
+      "initial": "unchecked"
+    },
+    {
+      "name": "combobox",
+      "package": "@kumiki/machines/combobox",
+      "file": "combobox.json",
+      "blurb": "APG combobox (single-select listbox + filterable input).",
+      "states": ["idle", "open", "disabled"],
+      "initial": "idle"
+    },
+    {
+      "name": "dialog",
+      "package": "@kumiki/machines/dialog",
+      "file": "dialog.json",
+      "blurb": "Modal / non-modal dialog with focus trap + scroll-lock states.",
+      "states": ["closed", "open"],
+      "initial": "closed"
+    },
+    {
+      "name": "form-field",
+      "package": "@kumiki/machines/form-field",
+      "file": "form-field.json",
+      "blurb": "Per-field state (pristine / dirty / touched / validating / invalid).",
+      "states": ["pristine", "editing", "validating", "valid", "invalid"],
+      "initial": "pristine"
+    },
+    {
+      "name": "menu",
+      "package": "@kumiki/machines/menu",
+      "file": "menu.json",
+      "blurb": "APG menu / menubar (open + highlighted item navigation).",
+      "states": ["closed", "open"],
+      "initial": "closed"
+    },
+    {
+      "name": "number-field",
+      "package": "@kumiki/machines/number-field",
+      "file": "number-field.json",
+      "blurb": "APG spinbutton — bounded numeric input with step & long-press repeat.",
+      "states": ["idle", "disabled"],
+      "initial": "idle"
+    },
+    {
+      "name": "popover",
+      "package": "@kumiki/machines/popover",
+      "file": "popover.json",
+      "blurb": "Non-modal anchored panel.",
+      "states": ["closed", "open"],
+      "initial": "closed"
+    },
+    {
+      "name": "radio-group",
+      "package": "@kumiki/machines/radio-group",
+      "file": "radio-group.json",
+      "blurb": "APG radiogroup with roving tabindex.",
+      "states": ["idle", "disabled"],
+      "initial": "idle"
+    },
+    {
+      "name": "select",
+      "package": "@kumiki/machines/select",
+      "file": "select.json",
+      "blurb": "APG listbox-style select (no inline filter — use combobox for that).",
+      "states": ["closed", "open"],
+      "initial": "closed"
+    },
+    {
+      "name": "slider",
+      "package": "@kumiki/machines/slider",
+      "file": "slider.json",
+      "blurb": "APG slider (single-thumb here; range slider composes two).",
+      "states": ["idle", "disabled"],
+      "initial": "idle"
+    },
+    {
+      "name": "switch",
+      "package": "@kumiki/machines/switch",
+      "file": "switch.json",
+      "blurb": "On/off switch (aria-checked).",
+      "states": ["off", "on", "disabled"],
+      "initial": "off"
+    },
+    {
+      "name": "tabs",
+      "package": "@kumiki/machines/tabs",
+      "file": "tabs.json",
+      "blurb": "APG tabs — automatic / manual activation, RTL-aware arrow keys.",
+      "states": ["idle", "disabled"],
+      "initial": "idle"
+    },
+    {
+      "name": "toast",
+      "package": "@kumiki/machines/toast",
+      "file": "toast.json",
+      "blurb": "Live-region notification queue.",
+      "states": ["idle"],
+      "initial": "idle"
+    },
+    {
+      "name": "toggle",
+      "package": "@kumiki/machines/toggle",
+      "file": "toggle.json",
+      "blurb": "aria-pressed two-state toggle.",
+      "states": ["unpressed", "pressed", "disabled"],
+      "initial": "unpressed"
+    },
+    {
+      "name": "tooltip",
+      "package": "@kumiki/machines/tooltip",
+      "file": "tooltip.json",
+      "blurb": "Hover / focus tooltip with open-delay + group sharing.",
+      "states": ["closed", "open"],
+      "initial": "closed"
+    }
+  ]
+}

@@ -8,7 +8,8 @@
   "scripts": {
     "predev": "node ../../scripts/ensure-api-docs.mjs",
     "dev": "vite dev",
-    "prebuild": "node scripts/build-llms-full.mjs && node scripts/build-sizes.mjs && pnpm -w run typedoc",
+    "machine-specs": "node scripts/build-machine-specs.mjs",
+    "prebuild": "node scripts/build-llms-full.mjs && node scripts/build-sizes.mjs && node scripts/build-machine-specs.mjs && pnpm -w run typedoc",
     "build": "vite build",
     "postbuild": "pagefind --site .svelte-kit/cloudflare",
     "preview": "vite preview",

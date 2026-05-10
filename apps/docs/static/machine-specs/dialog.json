@@ -1,0 +1,61 @@
+{
+  "id": "dialog",
+  "initial": "closed",
+  "context": {
+    "modal": true,
+    "closeOnEscape": true,
+    "closeOnOutsideClick": true
+  },
+  "states": {
+    "closed": {
+      "on": {
+        "OPEN": {
+          "target": "open"
+        },
+        "TOGGLE": {
+          "target": "open"
+        },
+        "SET.OPEN": {
+          "target": "open"
+        },
+        "SET.MODAL": {
+          "actions": ["setModal"]
+        },
+        "SET.CLOSE_ON_ESCAPE": {
+          "actions": ["setCloseOnEscape"]
+        },
+        "SET.CLOSE_ON_OUTSIDE_CLICK": {
+          "actions": ["setCloseOnOutsideClick"]
+        }
+      }
+    },
+    "open": {
+      "on": {
+        "CLOSE": {
+          "target": "closed"
+        },
+        "TOGGLE": {
+          "target": "closed"
+        },
+        "SET.OPEN": {
+          "target": "closed"
+        },
+        "ESCAPE": {
+          "target": "closed"
+        },
+        "OUTSIDE_CLICK": {
+          "target": "closed"
+        },
+        "SET.MODAL": {
+          "actions": ["setModal"]
+        },
+        "SET.CLOSE_ON_ESCAPE": {
+          "actions": ["setCloseOnEscape"]
+        },
+        "SET.CLOSE_ON_OUTSIDE_CLICK": {
+          "actions": ["setCloseOnOutsideClick"]
+        }
+      }
+    }
+  }
+}

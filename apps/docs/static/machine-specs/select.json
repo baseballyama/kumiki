@@ -1,0 +1,79 @@
+{
+  "id": "select",
+  "initial": "closed",
+  "context": {
+    "items": [
+      {
+        "id": "a",
+        "value": "a",
+        "label": "Alpha"
+      },
+      {
+        "id": "b",
+        "value": "b",
+        "label": "Beta"
+      }
+    ],
+    "value": null,
+    "highlightedId": null,
+    "typeahead": ""
+  },
+  "states": {
+    "closed": {
+      "on": {
+        "OPEN": {
+          "target": "open",
+          "actions": ["highlightSelected"]
+        },
+        "TOGGLE": {
+          "target": "open",
+          "actions": ["highlightSelected"]
+        },
+        "SET.VALUE": {
+          "actions": ["setValue"]
+        },
+        "SET.ITEMS": {
+          "actions": ["setItems"]
+        }
+      }
+    },
+    "open": {
+      "on": {
+        "CLOSE": {
+          "target": "closed",
+          "actions": ["clearHighlight"]
+        },
+        "TOGGLE": {
+          "target": "closed",
+          "actions": ["clearHighlight"]
+        },
+        "ESCAPE": {
+          "target": "closed",
+          "actions": ["clearHighlight"]
+        },
+        "SELECT": {
+          "target": "closed",
+          "actions": ["commit"]
+        },
+        "HIGHLIGHT": {
+          "actions": ["highlight"]
+        },
+        "NAVIGATE": {
+          "actions": ["navigate"]
+        },
+        "TYPEAHEAD": {
+          "actions": ["typeahead"]
+        },
+        "TYPEAHEAD.RESET": {
+          "actions": ["resetTypeahead"]
+        },
+        "SET.VALUE": {
+          "actions": ["setValue"]
+        },
+        "SET.ITEMS": {
+          "actions": ["setItems"]
+        }
+      }
+    }
+  }
+}

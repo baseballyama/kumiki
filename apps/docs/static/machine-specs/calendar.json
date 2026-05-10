@@ -1,0 +1,64 @@
+{
+  "id": "calendar",
+  "initial": "idle",
+  "context": {
+    "focusedDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 2026,
+      "month": 5,
+      "day": 10
+    },
+    "selectedDate": null,
+    "minValue": null,
+    "maxValue": null,
+    "isDateUnavailable": null,
+    "selections": 0
+  },
+  "states": {
+    "idle": {
+      "on": {
+        "FOCUS_DATE": {
+          "target": "idle",
+          "actions": ["focusDate"]
+        },
+        "FOCUS_DAY_DELTA": {
+          "target": "idle",
+          "actions": ["focusDayDelta"]
+        },
+        "FOCUS_MONTH_DELTA": {
+          "target": "idle",
+          "actions": ["focusMonthDelta"]
+        },
+        "FOCUS_YEAR_DELTA": {
+          "target": "idle",
+          "actions": ["focusYearDelta"]
+        },
+        "SELECT": {
+          "target": "idle",
+          "actions": ["select"]
+        },
+        "SET_VALUE": {
+          "target": "idle",
+          "actions": ["controlledSet"]
+        },
+        "DISABLE": {
+          "target": "disabled"
+        }
+      }
+    },
+    "disabled": {
+      "on": {
+        "ENABLE": {
+          "target": "idle"
+        },
+        "SET_VALUE": {
+          "target": "disabled",
+          "actions": ["controlledSetWhileDisabled"]
+        }
+      }
+    }
+  }
+}

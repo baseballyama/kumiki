@@ -1,0 +1,59 @@
+{
+  "id": "tabs",
+  "initial": "idle",
+  "context": {
+    "items": [
+      {
+        "value": "overview",
+        "id": "overview"
+      },
+      {
+        "value": "details",
+        "id": "details"
+      }
+    ],
+    "value": "overview",
+    "focusedId": null,
+    "activation": "automatic"
+  },
+  "states": {
+    "idle": {
+      "on": {
+        "SELECT": {
+          "actions": ["select"]
+        },
+        "FOCUS": {
+          "actions": ["focus"]
+        },
+        "BLUR": {
+          "actions": ["blur"]
+        },
+        "NAVIGATE": {
+          "actions": ["navigate"]
+        },
+        "ACTIVATE_FOCUSED": {
+          "actions": ["activateFocused"]
+        },
+        "SET.VALUE": {
+          "actions": ["setValue"]
+        },
+        "SET.ITEMS": {
+          "actions": ["setItems"]
+        },
+        "SET.ACTIVATION": {
+          "actions": ["setActivation"]
+        },
+        "DISABLE": {
+          "target": "disabled"
+        }
+      }
+    },
+    "disabled": {
+      "on": {
+        "ENABLE": {
+          "target": "idle"
+        }
+      }
+    }
+  }
+}
