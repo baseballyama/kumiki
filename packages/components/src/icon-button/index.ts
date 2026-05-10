@@ -3,8 +3,10 @@
  *
  * Thin wrapper around `Button.Root` that narrows the type-level contract:
  * `icon` snippet and one of `aria-label` / `aria-labelledby` are required.
- * Behavior, FSM-less Layer 3 controller, loading/disabled semantics, and
- * `data-variant`/`data-size` hooks are inherited from Button.
+ * Behavior, FSM-less Layer 3 controller, and loading/disabled semantics are
+ * inherited from Button. Visual styling (variants, sizes) lives in
+ * `@kumiki/atelier/icon-button` or your own CSS — pass `class` / `data-*`
+ * via the rest-spread.
  *
  * ```svelte
  * <IconButton.Root aria-label="Close" onclick={close}>
@@ -30,7 +32,3 @@ export { Root };
 export const IconButton = { Root };
 
 export type { Props as IconButtonProps } from './Root.svelte';
-export type {
-  ButtonVariant as IconButtonVariant,
-  ButtonSize as IconButtonSize,
-} from '../button/Root.svelte';

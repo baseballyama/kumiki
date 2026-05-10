@@ -18,13 +18,13 @@
 </script>
 
 {#if props.decorative === true}
-  {@const { class: _cls, children, decorative: _d, ...rest } = props}
-  <Root decorative {size} class={`kumiki-avatar ${className}`.trim()} {...rest}>
+  {@const { class: _cls, children, decorative: _d, size: _s, ...rest } = props}
+  <Root decorative class={`kumiki-avatar ${className}`.trim()} data-size={size} {...rest}>
     {@render children()}
   </Root>
 {:else}
-  {@const { class: _cls, children, name, ...rest } = props}
-  <Root {name} {size} class={`kumiki-avatar ${className}`.trim()} {...rest}>
+  {@const { class: _cls, children, name, size: _s, ...rest } = props}
+  <Root {name} class={`kumiki-avatar ${className}`.trim()} data-size={size} {...rest}>
     {@render children()}
   </Root>
 {/if}

@@ -20,7 +20,7 @@
 <div {dir} data-component="definition-list" data-testid="sandbox">
   <h1>DefinitionList sandbox</h1>
 
-  <DefinitionList.Root {grouped}>
+  <DefinitionList.Root data-grouped={grouped ? '' : undefined}>
     <DefinitionList.Term>Status</DefinitionList.Term>
     <DefinitionList.Description>Active</DefinitionList.Description>
     <DefinitionList.Term>Created</DefinitionList.Term>

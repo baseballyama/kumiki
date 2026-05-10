@@ -21,8 +21,8 @@
 
 <Root
   {mode}
-  {size}
   class={`inline-flex items-center ${sizeClasses[size]} ${className}`.trim()}
+  data-size={size}
   {...rest}
 >
   {#snippet spinner()}

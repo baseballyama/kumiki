@@ -9,9 +9,10 @@
   - an `icon` snippet (the visible glyph), and
   - either `aria-label` or `aria-labelledby` (the accessible name).
 
-  All other Button props (variant / size / loading / disabled / type / onclick)
-  are forwarded as-is. Default `variant` is `'ghost'` since icon-only buttons
-  conventionally use the lightest chrome.
+  All Button props (loading / disabled / type / onclick) are forwarded as-is.
+  Visual variants and sizes are not part of the headless contract — drive
+  them via `class` / `data-*` passed through the rest-spread, or use
+  `@kumiki/atelier/icon-button`.
 
   Snippets:
   - `icon`           → the visible glyph (required, decorative — `aria-hidden` is added).
@@ -22,11 +23,8 @@
 -->
 <script lang="ts" module>
   import type { Snippet } from 'svelte';
-  import type { ButtonVariant, ButtonSize } from '../button/Root.svelte';
 
   type BaseProps = {
-    variant?: ButtonVariant;
-    size?: ButtonSize;
     loading?: boolean;
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
@@ -46,8 +44,6 @@
   import ButtonRoot from '../button/Root.svelte';
 
   let {
-    variant = 'ghost',
-    size = 'md',
     loading = false,
     disabled = false,
     type = 'button',
@@ -58,15 +54,4 @@
   }: Props = $props();
 </script>
 
-<ButtonRoot
-  {...rest}
-  {variant}
-  {size}
-  {loading}
-  {disabled}
-  {type}
-  {id}
-  {icon}
-  {onclick}
-  data-icon-only=""
-/>
+<ButtonRoot {...rest} {loading} {disabled} {type} {id} {icon} {onclick} data-icon-only="" />

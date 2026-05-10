@@ -4,13 +4,16 @@
   Query params:
     ?disabled=1   start disabled
     ?loading=1    start in loading state
-    ?variant=primary|secondary|ghost|danger
-    ?size=sm|md|lg
+    ?variant=primary|secondary|ghost|danger  (drives data-variant only — Layer 4 ships no styling)
+    ?size=sm|md|lg                           (drives data-size only)
     ?dir=rtl
 -->
 <script lang="ts">
-  import { Button, type ButtonVariant, type ButtonSize } from '@kumiki/components/button';
+  import { Button } from '@kumiki/components/button';
   import { page } from '$app/state';
+
+  type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
+  type ButtonSize = 'sm' | 'md' | 'lg';
 
   const disabled = $derived(page.url.searchParams.get('disabled') === '1');
   const loading = $derived(page.url.searchParams.get('loading') === '1');
@@ -32,7 +35,13 @@
   <h1>Button sandbox</h1>
 
   <div data-testid="button-host">
-    <Button.Root {disabled} {loading} {variant} {size} onclick={() => append('clicked')}>
+    <Button.Root
+      {disabled}
+      {loading}
+      data-variant={variant}
+      data-size={size}
+      onclick={() => append('clicked')}
+    >
       Save
     </Button.Root>
   </div>

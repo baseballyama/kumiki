@@ -12,11 +12,8 @@
 -->
 <script lang="ts" module>
   import type { Snippet } from 'svelte';
-  import type { AvatarSize } from './context.js';
-  export type { AvatarSize };
 
   type CommonProps = {
-    size?: AvatarSize;
     children: Snippet;
     [key: string]: unknown;
   };
@@ -30,7 +27,7 @@
   import { setContext } from 'svelte';
   import { AVATAR_CONTEXT_KEY, type AvatarContextValue } from './context.js';
 
-  let { size = 'md', name, decorative = false, children, ...rest }: Props = $props();
+  let { name, decorative = false, children, ...rest }: Props = $props();
   let imageLoaded = $state(false);
 
   setContext<AvatarContextValue>(AVATAR_CONTEXT_KEY, {
@@ -39,9 +36,6 @@
     },
     get name() {
       return name;
-    },
-    get size() {
-      return size;
     },
     get imageLoaded() {
       return imageLoaded;
@@ -54,7 +48,6 @@
 
 <span
   {...rest}
-  data-size={size}
   data-decorative={decorative ? '' : undefined}
   data-loaded={imageLoaded ? '' : undefined}
 >

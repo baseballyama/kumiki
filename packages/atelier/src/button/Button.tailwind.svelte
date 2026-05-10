@@ -51,11 +51,11 @@
 </script>
 
 <Root
-  {variant}
-  {size}
   {icon}
   {iconTrailing}
   class={`${base} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`.trim()}
+  data-variant={variant}
+  data-size={size}
   {...rest}
 >
   {#if children}{@render children()}{/if}

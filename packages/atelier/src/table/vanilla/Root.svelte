@@ -17,13 +17,19 @@
 
   let {
     selection = $bindable(new Set<string>()),
+    stickyHeader = false,
     children,
     class: className = '',
     ...rest
   }: Props = $props();
 </script>
 
-<Root bind:selection class={`kumiki-table ${className}`.trim()} {...rest}>
+<Root
+  bind:selection
+  class={`kumiki-table ${className}`.trim()}
+  data-sticky={stickyHeader ? 'header' : undefined}
+  {...rest}
+>
   {@render children()}
 </Root>
 

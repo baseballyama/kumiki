@@ -17,6 +17,7 @@
 
   let {
     selection = $bindable(new Set<string>()),
+    stickyHeader = false,
     children,
     class: className = '',
     ...rest
@@ -26,6 +27,7 @@
 <Root
   bind:selection
   class={`w-full caption-bottom border-collapse text-sm ${className}`.trim()}
+  data-sticky={stickyHeader ? 'header' : undefined}
   {...rest}
 >
   {@render children()}

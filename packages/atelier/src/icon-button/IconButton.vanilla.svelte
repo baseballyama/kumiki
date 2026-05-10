@@ -21,7 +21,13 @@
   let { variant = 'ghost', size = 'md', icon, class: className = '', ...rest }: Props = $props();
 </script>
 
-<Root {variant} {size} {icon} class={`kumiki-icon-button ${className}`.trim()} {...rest} />
+<Root
+  {icon}
+  class={`kumiki-icon-button ${className}`.trim()}
+  data-variant={variant}
+  data-size={size}
+  {...rest}
+/>
 
 <style>
   :global(.kumiki-icon-button) {

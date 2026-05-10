@@ -32,5 +32,5 @@ export { Root };
 
 export const Button = { Root };
 
-export type { Props as ButtonProps, ButtonVariant, ButtonSize } from './Root.svelte';
+export type { Props as ButtonProps } from './Root.svelte';
 export type { ButtonController, CreateButtonOptions } from '@kumiki/headless/button';

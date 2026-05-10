@@ -24,7 +24,7 @@
   }: Props = $props();
 </script>
 
-<Root {variant} {size} class={`kumiki-badge ${className}`.trim()} {...rest}>
+<Root class={`kumiki-badge ${className}`.trim()} data-variant={variant} data-size={size} {...rest}>
   {#if children}{@render children()}{/if}
 </Root>
 

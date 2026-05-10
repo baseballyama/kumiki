@@ -19,8 +19,6 @@
   import type { Snippet } from 'svelte';
   import { DIALOG_CONTEXT_KEY, type DialogContextValue } from './context.js';
 
-  import type { DialogSide } from './context.js';
-
   type Props = {
     open?: boolean;
     defaultOpen?: boolean;
@@ -29,14 +27,6 @@
     closeOnOutsideClick?: boolean;
     onOpenChange?: (open: boolean) => void;
     id?: string;
-    /**
-     * Drawer variant. `'center'` (default) is the classic modal; the four edge
-     * values slide in from that edge. Layer 4 only forwards this as
-     * `data-side` on `Dialog.Content` — atelier (or your own CSS) does the
-     * positioning. RTL: `left`/`right` follow physical edges; flip in CSS via
-     * `[dir='rtl']` if you want logical mirroring.
-     */
-    side?: DialogSide;
     children: Snippet;
   };
 
@@ -48,7 +38,6 @@
     closeOnOutsideClick = true,
     onOpenChange,
     id,
-    side = 'center',
     children,
   }: Props = $props();
 
@@ -86,9 +75,6 @@
 
   setContext<DialogContextValue>(DIALOG_CONTEXT_KEY, {
     controller,
-    get side() {
-      return side;
-    },
   });
 </script>
 

@@ -41,7 +41,6 @@
       bind:open
       {closeOnEscape}
       {closeOnOutsideClick}
-      {variant}
       onConfirm={() => append('onConfirm')}
       onCancel={() => append('onCancel')}
       onOpenChange={(v) => append(`onOpenChange(${v})`)}
@@ -50,7 +49,7 @@
       <Popconfirm.Content data-testid="content">
         <Popconfirm.Message>This cannot be undone.</Popconfirm.Message>
         <Popconfirm.Cancel data-testid="cancel" />
-        <Popconfirm.Confirm data-testid="confirm">Delete</Popconfirm.Confirm>
+        <Popconfirm.Confirm data-testid="confirm" data-variant={variant}>Delete</Popconfirm.Confirm>
       </Popconfirm.Content>
     </Popconfirm.Root>
   </div>

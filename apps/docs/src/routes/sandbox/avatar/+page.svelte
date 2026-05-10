@@ -7,8 +7,10 @@
     ?dir=rtl
 -->
 <script lang="ts">
-  import { Avatar, type AvatarSize } from '@kumiki/components/avatar';
+  import { Avatar } from '@kumiki/components/avatar';
   import { page } from '$app/state';
+
+  type AvatarSize = 'sm' | 'md' | 'lg';
 
   const decorative = $derived(page.url.searchParams.get('decorative') === '1');
   const size = $derived((page.url.searchParams.get('size') ?? 'md') as AvatarSize);
@@ -23,12 +25,12 @@
   <h1>Avatar sandbox</h1>
 
   {#if decorative}
-    <Avatar.Root decorative {size}>
+    <Avatar.Root decorative data-size={size}>
       <Avatar.Image src="/favicon.svg" />
       <Avatar.Fallback />
     </Avatar.Root>
   {:else}
-    <Avatar.Root name="Mei Tanaka" {size}>
+    <Avatar.Root name="Mei Tanaka" data-size={size}>
       <Avatar.Image src="/favicon.svg" />
       <Avatar.Fallback />
     </Avatar.Root>

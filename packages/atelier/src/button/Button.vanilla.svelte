@@ -36,7 +36,14 @@
   }: Props = $props();
 </script>
 
-<Root {variant} {size} {icon} {iconTrailing} class={`kumiki-button ${className}`.trim()} {...rest}>
+<Root
+  {icon}
+  {iconTrailing}
+  class={`kumiki-button ${className}`.trim()}
+  data-variant={variant}
+  data-size={size}
+  {...rest}
+>
   {#if children}{@render children()}{/if}
 </Root>
 

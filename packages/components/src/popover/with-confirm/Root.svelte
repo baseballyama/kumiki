@@ -12,7 +12,10 @@
   Optional:
   - `onCancel` — called when the user activates Cancel (or Escape closes).
   - `confirmLabel` / `cancelLabel` — override the i18n defaults.
-  - `variant` — `'neutral'` (default) or `'danger'`. Atelier maps to colour.
+
+  Visual variants (e.g. neutral vs danger Confirm) live in atelier or your
+  own CSS — paint a `data-variant` / `class` on `<Popconfirm.Confirm>`
+  (rest-spread is forwarded).
 -->
 <script lang="ts">
   import { onDestroy, setContext, untrack } from 'svelte';
@@ -35,7 +38,6 @@
     confirmLabel?: string;
     /** Defaults to the locale's `popconfirm.cancel` (English fallback: "Cancel"). */
     cancelLabel?: string;
-    variant?: 'neutral' | 'danger';
     children: Snippet;
   };
 
@@ -50,7 +52,6 @@
     onCancel,
     confirmLabel,
     cancelLabel,
-    variant = 'neutral',
     children,
   }: Props = $props();
 
@@ -97,9 +98,6 @@
   );
 
   setContext<PopconfirmContextValue>(POPCONFIRM_CONTEXT_KEY, {
-    get variant() {
-      return variant;
-    },
     get confirmLabel() {
       return resolvedConfirmLabel;
     },

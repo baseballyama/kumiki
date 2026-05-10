@@ -1,3 +1,10 @@
+<!--
+  Layer 4 DefinitionList demo — pure headless contract.
+
+  L4 ships only the semantic compound: Root → Term / Description.
+  Layout (two-column CSS Grid, stacked, etc.) is a consumer-CSS concern.
+  See `@kumiki/atelier/definition-list` (Layer 5) for the styled grid preset.
+-->
 <script lang="ts">
   import { DefinitionList } from '@kumiki/components/definition-list';
 
@@ -8,22 +15,33 @@
     { term: 'License', desc: 'MIT' },
   ];
 
-  let grouped = $state(true);
+  let layout = $state<'stacked' | 'grid'>('grid');
 </script>
 
 <div class="demo">
   <div class="controls">
     <label class="control">
-      <input type="checkbox" bind:checked={grouped} /> grouped (CSS Grid friendly)
+      Layout (consumer CSS)
+      <select bind:value={layout}>
+        <option value="grid">two-column grid</option>
+        <option value="stacked">stacked</option>
+      </select>
     </label>
   </div>
 
-  <DefinitionList.Root {grouped} class={grouped ? 'dl-grid' : ''}>
+  <DefinitionList.Root class={layout === 'grid' ? 'dl-grid' : ''}>
     {#each entries as e (e.term)}
       <DefinitionList.Term>{e.term}</DefinitionList.Term>
       <DefinitionList.Description>{e.desc}</DefinitionList.Description>
     {/each}
   </DefinitionList.Root>
+
+  <p class="hint">
+    Layer 4 emits a semantic <code>&lt;dl&gt;</code> only — layout is a consumer-CSS concern. The
+    "two-column grid" option above is one local CSS rule (<code>.dl-grid</code>). Layer 5 (<code
+      >@kumiki/atelier/definition-list</code
+    >) provides a styled grid preset.
+  </p>
 </div>
 
 <style>

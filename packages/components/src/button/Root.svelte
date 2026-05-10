@@ -5,8 +5,6 @@
   https://www.w3.org/WAI/ARIA/apg/patterns/button/
 
   Plain props:
-  - `variant`        → 'primary' | 'secondary' | 'ghost' | 'danger'. Maps to data-variant.
-  - `size`           → 'sm' | 'md' | 'lg'. Maps to data-size.
   - `loading`        → sets aria-busy="true"; clicks/Enter/Space are blocked at capture.
   - `disabled`       → sets aria-disabled="true"; clicks/Enter/Space are blocked.
   - `type`           → 'button' (default) | 'submit' | 'reset'.
@@ -20,16 +18,15 @@
   Accessible-name discriminated union: when no `children` are supplied,
   TypeScript requires `aria-label` or `aria-labelledby`. (Enforcement is
   type-level; runtime markup is forgiving.)
+
+  Visual variants and sizes are not part of the headless contract — drive
+  them via `class` / `data-*` passed through the rest-spread, or use
+  `@kumiki/atelier/button`.
 -->
 <script lang="ts" module>
   import type { Snippet } from 'svelte';
 
-  export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
-  export type ButtonSize = 'sm' | 'md' | 'lg';
-
   type BaseProps = {
-    variant?: ButtonVariant;
-    size?: ButtonSize;
     loading?: boolean;
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
@@ -52,8 +49,6 @@
   import { createButton } from '@kumiki/headless/button';
 
   let {
-    variant = 'primary',
-    size = 'md',
     loading = false,
     disabled = false,
     type = 'button',
@@ -97,8 +92,6 @@
 <button
   {...rest}
   {type}
-  data-variant={variant}
-  data-size={size}
   aria-busy={snapLoading ? 'true' : undefined}
   aria-disabled={snapDisabled ? 'true' : undefined}
   data-loading={snapLoading ? '' : undefined}

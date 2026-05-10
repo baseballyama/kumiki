@@ -30,7 +30,6 @@
   aria-labelledby={controller.titleId}
   data-component-host="dialog"
   data-state={initialOpen ? 'open' : 'closed'}
-  data-side={ctx.side}
   hidden={!initialOpen || undefined}
   {@attach controller.content}
 >

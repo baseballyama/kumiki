@@ -4,17 +4,16 @@
   Three accessible-name shapes, enforced via a discriminated union on Props:
   - text content carries semantics (default `<Badge.Root>New</Badge.Root>`)
   - count-only with explicit `aria-label` (`<Badge.Root aria-label="3 unread">3</Badge.Root>`)
-  - decorative-only (`<Badge.Root decorative variant="error" />` → `aria-hidden="true"`)
+  - decorative-only (`<Badge.Root decorative />` → `aria-hidden="true"`)
+
+  Visual variants (`info`, `success`, `error`, …) and sizes are not part of
+  the headless contract — drive them via your own `data-*` / `class` attributes
+  passed through the rest-spread, or use `@kumiki/atelier/badge`.
 -->
 <script lang="ts" module>
   import type { Snippet } from 'svelte';
 
-  export type BadgeVariant = 'neutral' | 'info' | 'success' | 'warn' | 'error';
-  export type BadgeSize = 'sm' | 'md';
-
   type CommonProps = {
-    variant?: BadgeVariant;
-    size?: BadgeSize;
     decorative?: boolean;
     [key: string]: unknown;
   };
@@ -26,13 +25,11 @@
 </script>
 
 <script lang="ts">
-  let { variant = 'neutral', size = 'md', decorative = false, children, ...rest }: Props = $props();
+  let { decorative = false, children, ...rest }: Props = $props();
 </script>
 
 <span
   {...rest}
-  data-variant={variant}
-  data-size={size}
   data-decorative={decorative ? '' : undefined}
   aria-hidden={decorative ? 'true' : undefined}
 >

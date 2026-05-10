@@ -6,7 +6,7 @@
  * with a Term + Description anatomy.
  *
  * ```svelte
- * <DefinitionList.Root grouped>
+ * <DefinitionList.Root>
  *   <DefinitionList.Term>Status</DefinitionList.Term>
  *   <DefinitionList.Description>Active</DefinitionList.Description>
  * </DefinitionList.Root>

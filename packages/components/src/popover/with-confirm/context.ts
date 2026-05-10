@@ -8,7 +8,6 @@
 export const POPCONFIRM_CONTEXT_KEY = Symbol('kumiki.popover.with-confirm');
 
 export interface PopconfirmContextValue {
-  readonly variant: 'neutral' | 'danger';
   readonly confirmLabel: string;
   readonly cancelLabel: string;
   /** Run consumer's confirm callback, then close the popover. */

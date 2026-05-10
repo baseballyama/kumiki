@@ -9,12 +9,11 @@
     ?dir=rtl
 -->
 <script lang="ts">
-  import {
-    IconButton,
-    type IconButtonVariant,
-    type IconButtonSize,
-  } from '@kumiki/components/icon-button';
+  import { IconButton } from '@kumiki/components/icon-button';
   import { page } from '$app/state';
+
+  type IconButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
+  type IconButtonSize = 'sm' | 'md' | 'lg';
 
   const disabled = $derived(page.url.searchParams.get('disabled') === '1');
   const loading = $derived(page.url.searchParams.get('loading') === '1');
@@ -40,8 +39,8 @@
       aria-label="Close"
       {disabled}
       {loading}
-      {variant}
-      {size}
+      data-variant={variant}
+      data-size={size}
       onclick={() => append('clicked')}
     >
       {#snippet icon()}

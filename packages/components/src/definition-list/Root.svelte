@@ -1,21 +1,20 @@
 <!--
   @component DefinitionList.Root — semantic <dl> wrapper.
 
-  When `grouped`, individual `<dt>+<dd>` pairs may be wrapped in a `<div>`
-  (HTML 5.2+ allows this, useful for CSS Grid layouts). The wrapper
-  responsibility lives at the consumer site; Root just renders the `<dl>`.
+  Rendering choices (CSS Grid, two-column layouts, `<div>` group wrappers
+  per HTML 5.2+) live in atelier or your own stylesheet — pass `class` or
+  `data-*` through the rest-spread to drive them.
 -->
 <script lang="ts" module>
   import type { Snippet } from 'svelte';
   export type Props = {
-    grouped?: boolean;
     children: Snippet;
     [key: string]: unknown;
   };
 </script>
 
 <script lang="ts">
-  let { grouped = false, children, ...rest }: Props = $props();
+  let { children, ...rest }: Props = $props();
 </script>
 
-<dl {...rest} data-grouped={grouped ? '' : undefined}>{@render children()}</dl>
+<dl {...rest}>{@render children()}</dl>

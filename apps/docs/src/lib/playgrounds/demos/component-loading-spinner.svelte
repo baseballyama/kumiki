@@ -1,12 +1,18 @@
+<!--
+  Layer 4 LoadingSpinner demo — pure headless contract.
+
+  L4 ships only behavioral / a11y props:
+  - `mode` — `region` (label visible) vs `inline` (label `data-visually-hidden`)
+  - `spinner` snippet — the glyph itself is consumer- or atelier-supplied (ADR 0014)
+  - `role="status"` + `aria-live="polite"` are baked in
+
+  Sizes are NOT part of L4. See `@kumiki/atelier/loading-spinner` (Layer 5)
+  for the size vocabulary, or apply your own `data-*` / `class` via rest-spread.
+-->
 <script lang="ts">
-  import {
-    LoadingSpinner,
-    type LoadingSpinnerMode,
-    type LoadingSpinnerSize,
-  } from '@kumiki/components/loading-spinner';
+  import { LoadingSpinner, type LoadingSpinnerMode } from '@kumiki/components/loading-spinner';
 
   let mode = $state<LoadingSpinnerMode>('region');
-  let size = $state<LoadingSpinnerSize>('md');
 </script>
 
 <div class="demo">
@@ -14,29 +20,25 @@
     <label class="control">
       Mode
       <select bind:value={mode}>
-        <option value="inline">inline</option>
-        <option value="region">region</option>
-      </select>
-    </label>
-    <label class="control">
-      Size
-      <select bind:value={size}>
-        <option value="sm">sm</option>
-        <option value="md">md</option>
-        <option value="lg">lg</option>
+        <option value="region">region (visible label)</option>
+        <option value="inline">inline (visually-hidden label)</option>
       </select>
     </label>
   </div>
 
   <div class="surface">
-    <LoadingSpinner.Root {mode} {size}>
+    <LoadingSpinner.Root {mode}>
       <LoadingSpinner.Label>Loading content…</LoadingSpinner.Label>
     </LoadingSpinner.Root>
   </div>
 
   <p class="hint">
-    <code>role="status"</code> · <code>aria-live="polite"</code>. Spinner glyph is consumer- or
-    atelier-supplied (ADR 0014).
+    <code>role="status"</code> · <code>aria-live="polite"</code>. The spinner glyph is the default
+    consumer-CSS rule in this demo's <code>&lt;style&gt;</code> block — Layer 4 ships
+    <strong>no glyph and no size vocabulary</strong>. Layer 5 (<code
+      >@kumiki/atelier/loading-spinner</code
+    >) provides a reduced-motion-friendly default plus
+    <code>sm</code> / <code>md</code> / <code>lg</code> sizing.
   </p>
 </div>
 
@@ -91,16 +93,6 @@
     border-top-color: var(--k-shu);
     animation: spin 0.8s linear infinite;
   }
-  .surface :global([data-size='sm'] [data-default-glyph]) {
-    width: 14px;
-    height: 14px;
-    border-width: 2px;
-  }
-  .surface :global([data-size='lg'] [data-default-glyph]) {
-    width: 28px;
-    height: 28px;
-    border-width: 3px;
-  }
   .surface :global([data-mode='inline'] [data-visually-hidden]) {
     position: absolute;
     width: 1px;
@@ -126,6 +118,10 @@
     margin-top: 16px;
     color: var(--k-ink-3);
     font-size: 13px;
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    line-break: strict;
   }
   .hint code {
     color: var(--k-matcha);

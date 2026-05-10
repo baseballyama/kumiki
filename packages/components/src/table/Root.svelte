@@ -23,7 +23,6 @@
     selection?: Set<string>;
     onSelectionChange?: (selection: Set<string>) => void;
     selectionMode?: SelectionMode;
-    stickyHeader?: boolean;
     children: Snippet;
     [key: string]: unknown;
   };
@@ -45,7 +44,6 @@
     selection = $bindable(new Set<string>()),
     onSelectionChange,
     selectionMode = 'none',
-    stickyHeader = false,
     children,
     ...rest
   }: Props = $props();
@@ -143,11 +141,6 @@
   } as TableContextValue);
 </script>
 
-<table
-  {...rest}
-  data-part="root"
-  data-sticky={stickyHeader ? 'header' : undefined}
-  data-selection-mode={selectionMode}
->
+<table {...rest} data-part="root" data-selection-mode={selectionMode}>
   {@render children()}
 </table>

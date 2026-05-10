@@ -18,9 +18,10 @@
     Title,
     Description,
     Close,
-    type DialogSide,
   } from '@kumiki/components/dialog';
   import { page } from '$app/state';
+
+  type DialogSide = 'center' | 'left' | 'right' | 'top' | 'bottom';
 
   const dir = $derived(page.url.searchParams.get('dir') === 'rtl' ? 'rtl' : 'ltr');
   const modal = $derived(page.url.searchParams.get('modal') !== '0');
@@ -51,14 +52,13 @@
       {modal}
       {closeOnEscape}
       {closeOnOutsideClick}
-      {side}
       onOpenChange={(v) => append(`onOpenChange(${v})`)}
     >
       <Trigger data-testid="trigger">Open dialog</Trigger>
       {#if modal}
         <Overlay data-testid="overlay" class="overlay" />
       {/if}
-      <Content data-testid="content" class="panel">
+      <Content data-testid="content" class="panel" data-side={side}>
         <Title>Confirm action</Title>
         <Description>This dialog is part of the test fixture for Kumiki.</Description>
         <input data-testid="input" placeholder="Type here…" />

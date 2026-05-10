@@ -20,23 +20,25 @@
  *   the tree.
  *
  * ```svelte
- * <Popconfirm.Root onConfirm={remove} variant="danger">
+ * <Popconfirm.Root onConfirm={remove}>
  *   <Popconfirm.Trigger>Delete</Popconfirm.Trigger>
  *   <Popconfirm.Content>
  *     <Popconfirm.Message>This cannot be undone.</Popconfirm.Message>
  *     <Popconfirm.Cancel />
- *     <Popconfirm.Confirm>Delete</Popconfirm.Confirm>
+ *     <Popconfirm.Confirm data-variant="danger">Delete</Popconfirm.Confirm>
  *   </Popconfirm.Content>
  * </Popconfirm.Root>
  * ```
+ *
+ * Visual variants (e.g. neutral vs destructive Confirm) live in atelier or
+ * your own CSS — paint a `data-variant` / `class` on `<Popconfirm.Confirm>`
+ * via the rest-spread.
  *
  * @when-to-use Single-action confirmations attached to a button
  *              (delete, archive, sign-out). For multi-step modal flows,
  *              reach for `@kumiki/components/dialog` instead.
  *
  * @anti-pattern Don't omit the `Cancel` — `alertdialog` requires a way out.
- *               Don't elevate the variant to `'danger'` for a reversible
- *               action; reserve it for genuinely destructive flows.
  *
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
  */

@@ -28,8 +28,4 @@ export { Root, Label };
 
 export const LoadingSpinner = { Root, Label };
 
-export type {
-  Props as LoadingSpinnerProps,
-  LoadingSpinnerMode,
-  LoadingSpinnerSize,
-} from './Root.svelte';
+export type { Props as LoadingSpinnerProps, LoadingSpinnerMode } from './Root.svelte';

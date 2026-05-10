@@ -33,9 +33,9 @@
 </script>
 
 <Root
-  {variant}
-  {size}
   {icon}
   class={`${base} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`.trim()}
+  data-variant={variant}
+  data-size={size}
   {...rest}
 />

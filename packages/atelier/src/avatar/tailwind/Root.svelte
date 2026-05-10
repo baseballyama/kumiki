@@ -19,21 +19,21 @@
 </script>
 
 {#if props.decorative === true}
-  {@const { class: _cls, children, decorative: _d, ...rest } = props}
+  {@const { class: _cls, children, decorative: _d, size: _s, ...rest } = props}
   <Root
     decorative
-    {size}
     class={`relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-slate-200 font-medium text-slate-700 dark:bg-slate-700 dark:text-slate-200 ${sizeClasses[size]} ${className}`.trim()}
+    data-size={size}
     {...rest}
   >
     {@render children()}
   </Root>
 {:else}
-  {@const { class: _cls, children, name, ...rest } = props}
+  {@const { class: _cls, children, name, size: _s, ...rest } = props}
   <Root
     {name}
-    {size}
     class={`relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-slate-200 font-medium text-slate-700 dark:bg-slate-700 dark:text-slate-200 ${sizeClasses[size]} ${className}`.trim()}
+    data-size={size}
     {...rest}
   >
     {@render children()}

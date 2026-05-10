@@ -31,12 +31,6 @@
   }
 </script>
 
-<button
-  {...rest}
-  type="button"
-  data-component-part="confirm"
-  data-variant={ctx.variant}
-  onclick={handleClick}
->
+<button {...rest} type="button" data-component-part="confirm" onclick={handleClick}>
   {#if children}{@render children()}{:else}{ctx.confirmLabel}{/if}
 </button>

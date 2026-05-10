@@ -17,7 +17,7 @@
   let { mode = 'inline', size = 'md', children, class: className = '', ...rest }: Props = $props();
 </script>
 
-<Root {mode} {size} class={`kumiki-spinner ${className}`.trim()} {...rest}>
+<Root {mode} class={`kumiki-spinner ${className}`.trim()} data-size={size} {...rest}>
   {#snippet spinner()}
     <span class="kumiki-spinner__glyph"></span>
   {/snippet}

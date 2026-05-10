@@ -4,10 +4,13 @@
  * A presentational `<span>` with status data hooks. No FSM, no Layer 2/3.
  *
  * ```svelte
- * <Badge.Root variant="success">New</Badge.Root>
+ * <Badge.Root>New</Badge.Root>
  * <Badge.Root aria-label="3 unread notifications">3</Badge.Root>
- * <Badge.Root decorative variant="error" />
+ * <Badge.Root decorative />
  * ```
+ *
+ * Visual variants (`info`, `success`, `error`, …) live in `@kumiki/atelier/badge`
+ * or your own CSS keyed off `class` / `data-*` passed via rest-spread.
  *
  * @when-to-use Status pills, count indicators, label tags. For interactive
  *              chips (filters, dismissible tags), use `@kumiki/components/chips`.
@@ -23,4 +26,4 @@ export { Root };
 
 export const Badge = { Root };
 
-export type { Props as BadgeProps, BadgeVariant, BadgeSize } from './Root.svelte';
+export type { Props as BadgeProps } from './Root.svelte';

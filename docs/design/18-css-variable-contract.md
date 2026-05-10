@@ -33,6 +33,16 @@ Layer 4 (`@kumiki/components/*`):
 | `data-current="page"`                                  | Breadcrumb.Link, Pagination.PageItem (current)                                     | Mirror of `aria-current`  |
 | `data-severity="info"`/`"success"`/`"warn"`/`"error"`  | Alert, Toast                                                                       | Severity                  |
 
+> **Not in the Layer 4 contract.** Visual-only vocabulary like
+> `data-variant="primary"`, `data-size="lg"`, `data-side="left"` (Dialog
+> drawer), `data-grouped`, or `data-sticky="header"` (Table) is **not**
+> emitted by Layer 4 — it has no behavioral or ARIA effect. Atelier
+> (`@kumiki/atelier/*`) paints these on the inner Layer 4 root via the
+> rest-spread, and consumers can do the same with their own values from
+> their own vocabulary. This keeps Layer 4 a true headless contract
+> (compare with Bits UI / Melt UI / Radix) while letting Layer 5 own
+> styling.
+
 Layer 5 (`@kumiki/atelier/*`):
 
 - Reads from a fixed set of CSS custom properties (this contract).
@@ -98,8 +108,10 @@ debugging tractable and devtools introspection clean.
 | `--kumiki-button-icon-gap`       | spacing-xs                   |
 
 Variants are addressed by stacking selectors: `[data-variant="primary"]`,
-`[data-variant="ghost"]`, etc. Atelier's stylesheet provides distinct
-values per variant; consumers override per variant by scoping.
+`[data-variant="ghost"]`, etc. **Layer 4 does not ship the `data-variant`
+attribute** — it's painted by `@kumiki/atelier/button` (or by the consumer
+via the rest-spread on `<Button.Root>`). Atelier's stylesheet provides
+distinct values per variant; consumers override per variant by scoping.
 
 ### Toggle
 
