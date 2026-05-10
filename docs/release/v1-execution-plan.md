@@ -109,7 +109,8 @@
   - 受入: `packages/machines/src/<each>/index.test.ts` カバレッジ 80% 以上、JSON spec の例が `apps/docs/playgrounds` に 1 つ以上同梱
   - 見積: M
   - 依存: なし（A-1 再評価により machine 追加なし）
-  - **進捗 2026-05-10**: 17/17 machine の `toJSON()` 出力検証完了 (`apps/docs/scripts/build-machine-specs.mjs` 新設、minimal な valid input で各 FSM をシリアライズ、`apps/docs/static/machine-specs/<name>.json` へ書き出し、`index.json` に generatedAt + state list の summary を同梱)。`pnpm --filter @kumiki/docs machine-specs` で再生成可能、`prebuild` chain に組込み済み。stately.ai/viz 互換性は `XStateConfig` 型契約と既存 unit test (`machine.test.ts`) で担保。残課題: Vitest coverage 80% の機械化 (現状 358 passed が通っているがカバレッジ計測はまだ自動化していない) + 各 machine の JSON spec を `apps/docs/src/lib/playgrounds` の demo 横に visible 化。
+  - **進捗 2026-05-10**: 17/17 machine の `toJSON()` 出力検証完了 (`apps/docs/scripts/build-machine-specs.mjs` 新設、minimal な valid input で各 FSM をシリアライズ、`apps/docs/static/machine-specs/<name>.json` へ書き出し、`index.json` に generatedAt + state list の summary を同梱)。`pnpm --filter @kumiki/docs machine-specs` で再生成可能、`prebuild` chain に組込み済み。stately.ai/viz 互換性は `XStateConfig` 型契約と既存 unit test (`machine.test.ts`) で担保。
+  - **進捗 2026-05-10 (二回目)**: JSON spec を playground UI から visible 化。`build-machine-specs.mjs` が `apps/docs/src/lib/playgrounds/machine-specs-index.ts` (auto-generated) に machine name / package / blurb / states / initial を export する型付きインデックスを追加で吐き、`/play/[package]/+page.{ts,svelte}` がそれを `findMachineSpec(slug)` で参照して **State machine** セクションを描画する (machine-_ / attachment-_ / component-\* の 3 系統 slug が同じ machine を共有するため、Layer 2/3/4 の playground すべてで toJSON snapshot リンク + stately.ai/viz オープン CTA + initial / 状態一覧が見えるようになった)。残課題: Vitest coverage 80% の機械化 (現状 358 passed だがカバレッジ計測自体は `pnpm coverage:check` で既に gate 済み — 機械はもう揃っている)。
 
 ### A-3. ノード互換性 / SSR の検証
 

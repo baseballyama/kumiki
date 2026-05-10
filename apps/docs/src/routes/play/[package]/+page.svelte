@@ -4,7 +4,7 @@
 
   let { data } = $props();
   // svelte-ignore state_referenced_locally
-  const { entry, snippets, hasDemo } = data;
+  const { entry, snippets, hasDemo, machineSpec, machineSpecJsonUrl, machineSpecVizUrl } = data;
 
   let DemoComponent: Component | undefined = $state(undefined);
   let demoError = $state<string | undefined>(undefined);
@@ -44,6 +44,38 @@
     </p>
   {/if}
 </header>
+
+{#if machineSpec}
+  <section class="machine-spec">
+    <h2>State machine</h2>
+    <p class="machine-blurb">{machineSpec.blurb}</p>
+    <dl class="machine-meta">
+      <dt>Source</dt>
+      <dd><code>{machineSpec.pkg}</code></dd>
+      <dt>Initial state</dt>
+      <dd><code>{machineSpec.initial}</code></dd>
+      <dt>Top-level states</dt>
+      <dd>
+        {#each machineSpec.states as s, i (s)}<code>{s}</code
+          >{#if i < machineSpec.states.length - 1},
+          {/if}{/each}
+      </dd>
+    </dl>
+    <p class="machine-links">
+      <a href={machineSpecJsonUrl} target="_blank" rel="noopener noreferrer">
+        toJSON() snapshot ↗
+      </a>
+      <span class="sep">·</span>
+      <a href={machineSpecVizUrl} target="_blank" rel="noopener noreferrer">
+        Open in stately.ai/viz ↗
+      </a>
+    </p>
+    <p class="machine-note">
+      Snapshot is regenerated on every <code>pnpm --filter @kumiki/docs build</code> via
+      <code>build-machine-specs.mjs</code>.
+    </p>
+  </section>
+{/if}
 
 {#if hasDemo}
   <section class="demo-wrap">
@@ -127,6 +159,69 @@
   .status-unreleased {
     background: #444;
     color: #999;
+  }
+
+  .machine-spec {
+    margin: 24px 0;
+    padding: 16px 18px;
+    background: #16162a;
+    border: 1px solid #2a2a4a;
+    border-radius: 10px;
+  }
+  .machine-spec h2 {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .machine-blurb {
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .machine-meta {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 4px 12px;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  .machine-meta dt {
+    color: #888;
+  }
+  .machine-meta dd {
+    color: #ddd;
+    margin: 0;
+  }
+  .machine-meta code {
+    background: #0e0e1c;
+    color: #4fc08d;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  .machine-links {
+    font-size: 13px;
+  }
+  .machine-links a {
+    color: #4fc08d;
+  }
+  .machine-links .sep {
+    color: #555;
+    margin: 0 6px;
+  }
+  .machine-note {
+    font-size: 12px;
+    color: #777;
+    margin-top: 8px;
+  }
+  .machine-note code {
+    background: #0e0e1c;
+    color: #aaa;
+    padding: 1px 5px;
+    border-radius: 3px;
   }
 
   .demo-wrap {
