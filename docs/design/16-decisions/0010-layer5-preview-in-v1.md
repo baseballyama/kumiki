@@ -1,7 +1,15 @@
 # ADR 0010 — Layer 5 (the Atelier) preview during the v1.0 series
 
-**Status:** Accepted
+**Status:** Superseded by [ADR 0017 — Atelier GA at v1.0](0017-atelier-ga-at-v1.md) (2026-05-10)
 **Date:** 2026-05 (revised 2026-05-09 — package renamed `@kumiki/recipes` → `@kumiki/atelier`)
+
+> **2026-05-10 — Superseded by ADR 0017.** Two facts changed: flyle-nexus
+> adopted Atelier in production (no longer a "preview audience"), and the
+> Layer 4 contract clarification bounded the churn risk this ADR was
+> protecting against. Atelier ships as `1.0.0` GA at v1.0, not as
+> `0.x.x-preview`. Read [ADR 0017](0017-atelier-ga-at-v1.md) for the
+> current decision and the GA quality contract that replaces the preview
+> window. The body below is preserved for the audit trail only.
 
 ## Context
 

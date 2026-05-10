@@ -23,7 +23,7 @@ The design is authoritative. Do not re-litigate decisions that already have an A
 | Generic propagation, `child` snippet, type design            | `docs/design/08-typescript.md`                |
 | **Bundle budgets** (CI gate)                                 | `docs/design/09-bundle-budget.md`             |
 | `with*` composition pattern                                  | `docs/design/11-composition.md`               |
-| Versioning + changesets + Layer 5 preview                    | `docs/design/14-versioning-release.md`        |
+| Versioning + changesets (Layer 5 GA per ADR 0017)            | `docs/design/14-versioning-release.md`        |
 | Roadmap (Phase 0a/0b/0c/1/2/3)                               | `docs/design/15-roadmap.md`                   |
 | Architecture decisions (numbered ADRs)                       | `docs/design/16-decisions/`                   |
 | **Integration boundaries (what kumiki does NOT ship)**       | `docs/design/17-integration-boundaries.md`    |
@@ -47,7 +47,7 @@ These have been decided. If a future change requires rethinking one, write a new
 | **`child` snippet replaces `asChild`** (Bits UI v2 pattern)                                     | ADR 0007             |
 | **pnpm workspace only** — no Turborepo / Nx                                                     | ADR 0008             |
 | **tsdown** for TS-only packages, **svelte-package** for `.svelte`                               | ADR 0009             |
-| Layer 5 ships as **`0.x.x-preview`** during v1.0 series                                         | ADR 0010             |
+| Layer 5 (Atelier) ships **GA at v1.0** alongside the rest of the stack                          | ADR 0017 (sup. 0010) |
 | TypeDoc + api-extractor (both, different roles)                                                 | ADR 0011             |
 | `@internationalized/date` ^3.12 as peer dep for Calendar / DatePicker                           | ADR 0013             |
 | Icons are **consumer-supplied** via snippets — no `@kumiki/icons` package, no peer-dep on a set | ADR 0014             |
@@ -77,7 +77,7 @@ packages/                       9 packages, layer-level
     src/
       <name>/                   Svelte components (Root.svelte, …)
       index.ts                  dot-namespace barrel: { Toggle, Dialog, … }
-  atelier/                      @kumiki/atelier — Layer 5 preview
+  atelier/                      @kumiki/atelier — Layer 5 (GA at v1.0)
     src/
       <name>/                   opinionated, copy-pasteable styled variants
   cli/                          @kumiki/cli — `kumiki add` binary
@@ -232,7 +232,7 @@ package names no longer exist.
 - `@kumiki/machines/<name>` — Layer 2 FSMs, pure-TS.
 - `@kumiki/headless/<name>` (+ `/combobox/with-*`) — Layer 3 attachments.
 - `@kumiki/components` (subpath + dot-namespace barrel) — Layer 4.
-- `@kumiki/atelier/<name>` — Layer 5 preview.
+- `@kumiki/atelier/<name>` — Layer 5 (GA at v1.0 per ADR 0017).
 - `@kumiki/{runtime,primitives,locale,types}` — foundations (unchanged).
 - `@kumiki/cli` — binary.
 
@@ -264,7 +264,7 @@ CI does not init submodules.
 - **Conversation in Japanese**, **code/comments/docs in English**.
 - For UI changes, run the dev server and verify in a browser before claiming done.
 - For design questions, prefer asking before assuming when the choice is load-bearing.
-- Confirmed answers from the design Q&A (May 2026): pnpm-only, tsdown, Layer 5 preview at v1.0, GitHub `baseballyama/kumiki`, Cloudflare Pages, independent versioning, dot-namespace components.
+- Confirmed answers from the design Q&A (May 2026): pnpm-only, tsdown, Layer 5 (Atelier) GA at v1.0 (per ADR 0017, supersedes 0010's preview plan), GitHub `baseballyama/kumiki`, Cloudflare Pages, independent versioning, dot-namespace components.
 
 ## Things to NOT do without confirmation
 

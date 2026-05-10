@@ -159,11 +159,12 @@
 
 ### C-1. Atelier GA を裏付ける ADR 起票
 
-- [ ] **新規 ADR 0017（仮）: Atelier GA at v1.0** を起票し ADR 0010 を supersede
+- [x] **新規 ADR 0017: Atelier GA at v1.0** を起票し ADR 0010 を supersede
   - 内容: 動機（flyle-nexus 採用と shadcn-svelte 競合導線）、品質契約（C-2 以下の項目）、後方互換ポリシー（CSS variable contract の semver）、preview 期間中に蓄積した変更をリリースノート化する手順
-  - 受入: PR が merge され、`docs/design/16-decisions/0017-atelier-ga.md` が main にある
+  - 受入: PR が merge され、`docs/design/16-decisions/0017-atelier-ga-at-v1.md` が main にある
   - 見積: M
   - 依存: なし（先行可）
+  - **完了 2026-05-10**: `docs/design/16-decisions/0017-atelier-ga-at-v1.md` を起票、ADR 0010 に supersede ノート、ADR README 索引・CLAUDE.md の locked-in decisions 表を 0017 に同期。`docs/design/{14-versioning-release.md,15-roadmap.md}` の preview 記述書き換えは F-2 / C-7 へ持ち越し。
 
 ### C-2. 全コンポーネントの 2 variant 揃い
 
@@ -339,8 +340,9 @@
   - 現状: Phase 0a/0b/0c の deliverable はほぼ完了しているが文面は未着手扱い。Phase 1.5 への jump も後追いで反映
   - 受入: 文面と実装が一致
   - 見積: S
-- [ ] [ADR 0010](../design/16-decisions/0010-layer-5-preview.md) の冒頭に `Superseded by ADR 0017` ノートを追加
+- [x] [ADR 0010](../design/16-decisions/0010-layer5-preview-in-v1.md) の冒頭に `Superseded by ADR 0017` ノートを追加
   - 依存: C-1
+  - **完了 2026-05-10**: C-1 と同コミットで適用済み。
 
 ### F-3. 公式サイト UX
 

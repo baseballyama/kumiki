@@ -25,10 +25,11 @@ ADRs are immutable once accepted. New information leads to a _new_ ADR that supe
 | [0007](0007-aschild-svelte-alternative.md) | `child` snippet replaces `asChild`                     | Accepted                   |
 | [0008](0008-pnpm-only-no-turborepo.md)     | pnpm workspace only — no Turborepo / Nx                | Accepted                   |
 | [0009](0009-tsdown-bundler.md)             | tsdown for TS-only packages, svelte-package for Svelte | Accepted                   |
-| [0010](0010-layer5-preview-in-v1.md)       | Layer 5 preview during v1.0 series                     | Accepted                   |
+| [0010](0010-layer5-preview-in-v1.md)       | Layer 5 preview during v1.0 series                     | Superseded by 0017         |
 | [0011](0011-typedoc-and-api-extractor.md)  | TypeDoc + api-extractor (both, different roles)        | Accepted                   |
 | [0012](0012-package-consolidation.md)      | Consolidate 37 packages → 9 per-layer packages         | Accepted (supersedes 0002) |
 | [0013](0013-internationalized-date.md)     | `@internationalized/date` for Calendar & DatePicker    | Accepted                   |
 | [0014](0014-icon-strategy.md)              | Icon strategy: consumer-supplied snippets, no icon set | Accepted                   |
 | [0015](0015-table-primitive-scope.md)      | Table: ship semantic Table, defer Data Grid            | Accepted                   |
 | [0016](0016-editor-dnd-out-of-scope.md)    | Rich-text editor and drag-and-drop are out of scope    | Accepted                   |
+| [0017](0017-atelier-ga-at-v1.md)           | Atelier GA at v1.0                                     | Accepted (supersedes 0010) |
