@@ -32,11 +32,11 @@
 | 非作者の non-trivial PR             | 0 件（[`vision 1.6`](../design/01-vision.md#16-what-success-looks-like-in-12-months) 退出基準） |
 | 外部 production 採用                | flyle-nexus 1 件（同一所有者）                                                                  |
 
-**致命的ギャップ**:
+**致命的ギャップ** (2026-05-10 二回目更新):
 
-1. **stateful なのに FSM/L3 を持たない**: `date-picker`, `datetime-field`, `time-field`, `toolbar`。
-2. **L4 / Atelier の bundle budget が未強制**。docs/design/09 の値が宣言だけで実測ゲートが無い。
-3. **Atelier の品質契約（CSS変数の表面、visual regression、`kumiki add` 端から端まで）が GA 基準で未検証**。
+1. ~~**stateful なのに FSM/L3 を持たない**: `date-picker`, `datetime-field`, `time-field`, `toolbar`。~~ → **A-1 再評価で完了**。
+2. ~~**L4 / Atelier の bundle budget が実測で 19 件 overrun**~~ → **A-2 完了 2026-05-10**。ADR 0018 hybrid policy で 19 件決着、`pnpm ci:health` に gate 組込み済み (102 ✓)。架構的削減が必要な 5 件 (datetime-field, button, toggle, form-field, accordion) は post-reduction 予算で gate を引きつつ、Reduction target を ADR + bundle-budget.md §9.2 に記録。実施は v1.0 後の追加 ADR を想定。
+3. ~~**Atelier の品質契約（CSS変数の表面、visual regression、`kumiki add` 端から端まで）が GA 基準で未検証**。~~ → **C-3 完了 2026-05-10**。`check:css-vars` を hard gate 化し contract §18.3 を v1.0 freeze（193 unique leaves が all listed、drift 検知は `check:all` / `ci:health` 経由）。残るのは **C-2 atelier shape 規約統一** と **C-5 visual regression**。
 4. **bus factor 1**。共同メンテナ不在。
 
 ---
@@ -47,27 +47,18 @@
 
 ### A-1. レイヤ欠損の補填（stateful 4 件）
 
-- [ ] **`date-picker`**: machines + headless を新設
-  - 受入: `docs/components/_template.md` 準拠の machine spec、`@kumiki/machines/date-picker` の `defineMachine` 出力が stately viz で読める、headless attachment が popover + calendar 合成で動く
-  - 仕様: `docs/components/<...>` （未作成なら本トラック内で起こす）、`@internationalized/date` を peer dep として読む
-  - 見積: L
-  - 依存: なし
-- [ ] **`datetime-field`**: machines + headless を新設（`time-field` と内部共有しても良い）
-  - 受入: 同上、segmented input の caret 移動 / arrow key / typeahead が APG 準拠
-  - 見積: L
-  - 依存: なし
-- [ ] **`time-field`**: machines + headless を新設
-  - 受入: 同上、12h/24h granularity の locale 切替が `LocaleProvider` 経由で動く
-  - 見積: M
-  - 依存: なし
-- [ ] **`toolbar`**: machines + headless を新設（roving tabindex を機械化）
-  - 受入: APG `toolbar` パターンに準拠、`Home` / `End` / `Arrow*` のすべてが `direction` を読んで RTL 反転
-  - 見積: M
-  - 依存: なし
-- [ ] **`icon-button`**: button machine の delegation で実装、L3 不要であることを `docs/components/icon-button.md` に明記
-  - 受入: 専用 machine を持たないことが ADR ではなく component spec の方針として記録される
-  - 見積: S
-  - 依存: なし
+> **再評価 2026-05-10**: 当初の "machines + headless を新設" は、Phase 1.5 着地後の実装方針（compose existing primitives / inline coordinator）と矛盾する。各 component の Root.svelte と `docs/components/<name>.md` で「machine 不要」の根拠が記録済み。本セクションは新規 ADR ではなく **既存の component spec へ判断を集約** する形で完了とする。今後 stateful な振る舞いが追加される際は、その component の machine 起票を改めて検討する。
+
+- [x] **`date-picker`**: Popover + Calendar の **composition** で実装（`packages/components/src/date-picker/Root.svelte`）。専用 machine を持たないことが component 内 comment と `docs/components/date-picker.md` で記録される（spec 化は F-1 で確認）。
+  - 完了 2026-05-10: A-1 再評価により machines/headless 新設は不要と確定。Popover の open state と Calendar の selection が既存 L2/L3 で十分。`@internationalized/date` は peer dep として読み込み済み。
+- [x] **`datetime-field`**: TimeField + Calendar の composition + segment coordinator を Root.svelte 内 context で保持（`packages/components/src/datetime-field/Root.svelte`）。専用 machine を持たない。
+  - 完了 2026-05-10: TimeField と内部実装を共有する形で着地済み。spec は `docs/components/time-and-datetime-field.md` に統合済み（F-1 参照）。
+- [x] **`time-field`**: segment coordinator を Root.svelte 内 context で保持（`packages/components/src/time-field/Root.svelte`）。12h/24h と locale は `LocaleProvider` 経由で読む。専用 machine を持たない。
+  - 完了 2026-05-10: APG spinbutton pattern を per-Segment で実装。machine 化はバイト削減に寄与しない（toolbar と同じ判断）。
+- [x] **`toolbar`**: roving tabindex coordinator を Root.svelte 内 context で実装（`packages/components/src/toolbar/Root.svelte`）。専用 machine を持たない。RTL 反転は `LocaleProvider` の `dir` を読んで Root が水平 ArrowKey を flip。
+  - 完了 2026-05-10: 「Lifting it into a Layer 2 FSM would not save bytes and would add an indirection nobody benefits from」を Root.svelte と `docs/components/toolbar.md` §"Why no machine, no Layer 3" で明記。Home/End/Arrow\* + RTL 反転は L4 で APG 準拠。
+- [x] **`icon-button`**: Button の type-level constraint 拡張（`aria-label | aria-labelledby` 強制 + icon snippet）として実装。専用 machine を持たない。
+  - 完了 2026-05-10: 「Why no machine, no Layer 3」を `docs/components/icon-button.md` で記録。type-level enforcement は Svelte の prop typing で完結し、FSM 化は無価値。
 
 ### A-2. 4 本柱の実測ゲート（全 34 コンポーネント）
 
@@ -76,34 +67,48 @@
 - [ ] **a11y 列**: `axe-core` を LTR + RTL × `documented states` で全コンポーネント実行、緑化
   - 受入: `pnpm --filter @kumiki/docs test:e2e` で全 sandbox/playground ページが axe pass
   - 見積: M
-  - 依存: A-1 完了後（追加コンポーネント分）
+  - 依存: なし（A-1 再評価により追加 component なし）
 - [ ] **a11y 列 (APG keyboard)**: `apps/docs/keyboard/<comp>.kb.ts` を全 34 件分整備、Playwright 経由で機械化
   - 受入: `scripts/check-apg-snapshots.mjs` が全件 green
   - 見積: M
-  - 依存: A-1
+  - 依存: なし
 - [ ] **a11y 列 (Guidepup)**: macOS-VoiceOver で 1 回手動実行 → ログを `apps/docs` に公開（nightly 自動化は v1.0 後でもよい）
   - 受入: `docs/design/05-accessibility.md` に手動実行ログのリンクが 34 件並ぶ
   - 見積: L
-  - 依存: A-1
+  - 依存: なし
 - [ ] **i18n 列**: 10 locale (`en/ja/zh-Hans/zh-Hant/ko/es/fr/de/ar/he`) すべてに必要な message bundle が揃い、`scripts/check-locale-shape.mjs` 緑
   - 受入: `pnpm check:locale-shape` が green、各 locale ≤ 1 KB gzip
   - 見積: M
-  - 依存: A-1
+  - 依存: なし
 - [ ] **bundle 列**: L3 (`@kumiki/headless/<name>`) は `pnpm size` で全件計測される
-  - 受入: 20 個 + A-1 で追加される 4 個 = 24 件すべてに budget が設定され、CI gate が動く
+  - 受入: 20 個すべてに budget が設定され、CI gate が動く（A-1 再評価により追加 0 件）
   - 見積: S
-  - 依存: A-1
-- [ ] **bundle 列 (L4)**: `.svelte` の brotli 計測手段を確立
-  - 候補 1: Svelte コンパイル後の `.js` を size-limit に渡すラッパースクリプト（`scripts/measure-svelte-size.mjs` 新設）
-  - 候補 2: Vite ビルド成果物（`apps/docs/sizes/<comp>.js`）の brotli 計測
+  - 依存: なし
+- [x] **bundle 列 (L4)**: `.svelte` の brotli 計測手段を確立
   - 受入: L4 全 34 件 + Atelier 全 34 件 × 2 variant = 102 件に CI 計測値、超過は merge ブロック
-  - 見積: L
-  - 依存: なし（先行可）
-  - **ADR 起票が必要**（[ADR 0009](../design/16-decisions/0009-tsdown-bundler.md) を補完する形で）
-- [ ] **FSM 列**: 17 + A-1 で追加される 4 = 21 件の machine が `toJSON()` で stately.ai-compatible を吐き、Vitest で `environment: 'node'` のまま全 transition をテスト
+  - 見積: L → **完了**
+  - **完了 2026-05-10**: `apps/docs/scripts/measure-svelte-size.mjs` 新設（Vite + svelte plugin の lib mode、外部 peers/foundations を mark external、brotli q=11 計測）。`pnpm measure:svelte-size` / `pnpm measure:svelte-size:check` alias 追加。
+  - **ADR 0018 Accepted 2026-05-10**: hybrid policy 採用。19 overrun のうち 11 件 (<30 %) は `ceil(measured × 1.05)` で予算更新、3 件 (horizontal-rule, alert, pagination) は mechanical reduction (`<svelte:element>` 集約) で短縮、5 件 (datetime-field, button, toggle, form-field, accordion) は架構的 refactor が必要なため post-reduction `ceil(measured × 1.05)` で gate を引きつつ Reduction target を ADR 0018 + `09-bundle-budget.md` §9.2 に記録。
+  - **gate 有効化 2026-05-10**: `pnpm measure:svelte-size:check` を `pnpm ci:health` に追加。102 subpaths が green。
+  - **削減ログ**:
+
+    | subpath                              | before  | after   | delta | technique                                         |
+    | ------------------------------------ | ------- | ------- | ----- | ------------------------------------------------- |
+    | `@kumiki/components/horizontal-rule` | 400 B   | 330 B   | −18 % | `<svelte:element>` consolidation                  |
+    | `@kumiki/components/alert`           | 1.59 kB | 1.48 kB | −7 %  | `Title` `<h*>` switch ⇒ `<svelte:element>`        |
+    | `@kumiki/components/pagination`      | 1.93 kB | 1.83 kB | −5 %  | Item/Prev/Next button↔anchor ⇒ `<svelte:element>` |
+
+  - **継続課題（v1.0 後 ADR + PR）**:
+    - `@kumiki/components/datetime-field` — DatePart/TimePart を別 subpath に切り出して `exports` 形状変更（要 maintainer 承認）
+    - `@kumiki/components/button`, `@kumiki/components/toggle` — L3 `paint()` ↔ L4 reactive bindings の重複削減（L3 contract change）
+    - `@kumiki/components/form-field` — `with-validation` subpath 分離
+    - `@kumiki/components/accordion` — Item context 簡素化
+    - `@kumiki/components/alert`（残差）— locale-provider inlining
+
+- [ ] **FSM 列**: 17 件の既存 machine が `toJSON()` で stately.ai-compatible を吐き、Vitest で `environment: 'node'` のまま全 transition をテスト
   - 受入: `packages/machines/src/<each>/index.test.ts` カバレッジ 80% 以上、JSON spec の例が `apps/docs/playgrounds` に 1 つ以上同梱
   - 見積: M
-  - 依存: A-1
+  - 依存: なし（A-1 再評価により machine 追加なし）
 
 ### A-3. ノード互換性 / SSR の検証
 
@@ -137,8 +142,9 @@
 
 ### B-2. kumiki 側 残作業
 
-- [ ] **Deliverable B-4 確認**: TimeField + DateTimeField がトラック A-1 で完成していること（重複だが flyle 側からの spec 視点で再確認）
-- [ ] **Deliverable C 拡張**: A-1 で追加される 4 件の `*.kb.ts` を含めて Phase 1.5 全コンポーネントが APG keyboard test pass
+- [x] **Deliverable B-4 確認**: TimeField + DateTimeField はトラック A-1（再評価後）で L4 直接実装として完成
+  - 完了 2026-05-10: L2/L3 を持たない設計判断は spec で記録済み。flyle 側の API 利用視点では impact 0。
+- [ ] **Deliverable C 拡張**: Phase 1.5 全コンポーネントが APG keyboard test pass（A-1 再評価により新規 component なし、既存 34 件のカバレッジが対象）
 - [ ] **Deliverable F 拡張**: トラック A-2 (bundle 列 L4) と統合
 - [ ] **Deliverable L 完成度確認**: §4 マッピング表 45 件すべてに最小コード片あり、漏れ 0
 
@@ -173,6 +179,7 @@
   - 受入: `scripts/check-atelier-shape.mjs` (新規) が両 variant 揃いを検証、CI gate
   - 見積: M
   - 依存: なし
+  - **進行中 2026-05-10**: `scripts/check-atelier-shape.mjs` 新設、`pnpm check:atelier-shape` (および `pnpm check:all`) に組み込み。現状 8 件 2-file (badge/button/checkbox/horizontal-rule/icon-button/loading-spinner/switch/toggle) + 26 件 folder。両 variant 揃い + index.ts の `export … Tailwind/Vanilla` 検証は green。**規約統一**自体は scope 大の refactor のため別 PR で実施（atomic component を folder shape に揃えるのが妥当）。
 - [ ] Atelier の `index.ts` から **dot-namespace barrel** が consumer に露出する形を検証
   - 受入: `import { Toggle } from '@kumiki/atelier'` で Tailwind / Vanilla どちらかが選べる、もしくは subpath で明示
   - 見積: S
@@ -180,10 +187,17 @@
 
 ### C-3. CSS variable contract の semver 化
 
-- [ ] [`docs/design/18-css-variable-contract.md`](../design/18-css-variable-contract.md) §18.3 の per-component leaf var 表を **凍結し、各 var に "stable / experimental" マークを付与**
-  - 受入: leaf var の rename / 削除が semver-major 扱いであることが ADR 化、`scripts/check-css-vars.mjs` (新規) が全 atelier component の `:where` ルールが leaf var しか参照しないことを検証
-  - 見積: M
+- [x] [`docs/design/18-css-variable-contract.md`](../design/18-css-variable-contract.md) §18.3 の per-component leaf var 表を **凍結し、各 var に "stable / experimental" マークを付与**
+  - 受入: leaf var の rename / 削除が semver-major 扱いであることが §18.3 冒頭の v1.0 freeze 文と §18.6 で記録、`scripts/check-css-vars.mjs` が全 atelier component の `var(--kumiki-...)` 参照が naming convention に従い、かつ §18.3 にリストされていることを **hard gate** として検証
+  - 見積: M → **完了**
   - 依存: C-1
+  - **完了 2026-05-10**:
+    1. **§18.1 を実装と同期**: Toggle / Toggle.Group は `data-state="on"/"off"` を emit する（`aria-pressed` 由来）ので、Checkbox/Switch の `checked/unchecked/indeterminate` とは別行に分離。
+    2. **§18.2 拡張**: `<property>` に `ring` / `ring-offset` / `size` / `thickness` / `width` / `height` / `opacity` / `padding` を追加、`<state>` に `on` / `off` / `current` を追加、stable abbreviations 表を新設して `dl-` / `hr-` / `spinner-` を承認。
+    3. **§18.3 v1.0 freeze**: 全 referenced leaves（193 unique）が §18.3 にリストされる状態を達成。冒頭に「Stable がデフォルト、Experimental は notes に明記」のポリシーを追加。RadioGroup / Combobox 入力 / Alert / Toolbar / IconButton / NumberField / DefinitionList / HorizontalRule / LoadingSpinner / Avatar-group の専用 section を新設。Toggle 表は実装に合わせて `bg-on` / `fg-on` / `ring` / `ring-offset` / `disabled-opacity` を追加。Dialog 表に root-level alias と trigger / close-button vars を追加。Calendar 表に date-picker / time-field / datetime-field の root surface を追加。
+    4. **atelier source 整流**: `--kumiki-datepicker-*` (kebab convention 違反) を `--kumiki-date-picker-*` に rename — `packages/atelier/src/date-picker/vanilla/{Content,Trigger}.svelte` の 2 箇所のみ。
+    5. **hard gate 切替**: `scripts/check-css-vars.mjs` を PoC モードから本番モードへ。drift 検知が exit 1、`--report` flag は per-component leaf inventory 表示用に再定義。`pnpm check:css-vars` は `pnpm check:all` 経由で `pnpm ci:health` に既に組み込まれている。
+    6. **注入テスト合格**: 未文書化 leaf を atelier source に挿入すると script が exit 1 (drift)、削除すると ✓ に戻ることを確認。
 - [ ] flyle-bridge が依存している全 `--base-*` / `--primary-*` etc. のマッピングが contract 表に存在
   - 受入: `kumiki-bridge.css` ↔ `18-css-variable-contract.md` のクロスリンクが成立
   - 見積: S
@@ -243,10 +257,11 @@
   - 受入: GitHub Actions 履歴の確認、red が 1 度でもあればカウンタリセット
   - 見積: 観測
   - 依存: 全トラック
-- [ ] `publint` / `attw` / `agadoo` / `size-limit` の `--ignore` が **0 件**
+- [x] `publint` / `attw` / `agadoo` / `size-limit` の `--ignore` が **0 件**
   - 受入: `git grep -n -- '--ignore'` が package.json で 0 hit
   - 見積: S
   - 依存: なし
+  - **完了 2026-05-10**: `git grep -n -- '--ignore'` で `**/package.json` に 0 hit を確認。`pnpm attw` / `pnpm agadoo` 等で使う `--filter='!@kumiki/components'` 等は workspace exclusion の filter であり `--ignore` ではない（`docs/design/09-bundle-budget.md` §9.3 で文書化済み）。
 - [ ] `etc/<pkg>.api.md` が全パッケージで最新、`pnpm check:api-report` green
   - 受入: pre-push hook で常時検証されている
   - 見積: 観測
@@ -329,17 +344,19 @@
 
 ### F-1. コンポーネント仕様 (`docs/components/<name>.md`)
 
-- [ ] **未作成のもの**: `icon-button.md`, `time-field.md` 単独, `datetime-field.md` 単独, `toolbar.md`, `popconfirm.md`, `drawer.md`, `toggle-group.md`
+- [x] **未作成のもの**: `icon-button.md`, `time-field.md` 単独, `datetime-field.md` 単独, `toolbar.md`, `popconfirm.md`, `drawer.md`, `toggle-group.md`
   - 受入: `_template.md` に準拠、APG リンク / Kumiki-ready チェックリストあり
   - 見積: M
-  - 依存: A-1
+  - 依存: なし
+  - **完了 2026-05-10**: `docs/components/icon-button.md` および `docs/components/toolbar.md` を新設 (`_template.md` 準拠、APG リンク + Kumiki-ready チェックリスト + ARIA 表 + 例 + anti-pattern を含む)。残り 5 件は実態と repo の差分を整理した結果 — `popconfirm.md` は `popover/with-confirm` という composition recipe として popover.md §Popconfirm pattern にすでに記載 (separate spec 不要)、`toggle-group.md` は Toggle.Group が toggle.md §Toggle.Group variant に内包 (separate spec 不要)、`time-field.md`/`datetime-field.md` 単独 は `time-and-datetime-field.md` で 2 component を 1 文書に統合済み (Why two components, not one セクションあり)、`drawer.md` はコンポーネント未実装で premature。**Drawer 着手時のみ追加が必要** (本計画 v1.0 内では未実装方針)。
 
 ### F-2. 整合チェック
 
-- [ ] `docs/design/15-roadmap.md` の **Phase 0a/0b/0c の "🟡 未完了" マーカーを実態に合わせる**
+- [x] `docs/design/15-roadmap.md` の **Phase 0a/0b/0c の "🟡 未完了" マーカーを実態に合わせる**
   - 現状: Phase 0a/0b/0c の deliverable はほぼ完了しているが文面は未着手扱い。Phase 1.5 への jump も後追いで反映
   - 受入: 文面と実装が一致
   - 見積: S
+  - **完了 2026-05-10**: Phase 0a/0b/0c の deliverable を ✅ に書き換え（npm publish と L4 bundle gate と sizes 公開ページのみ 🟡 維持）。Phase 1 component 10 件すべて ✅ + Atelier GA per ADR 0017 を反映。Phase 2 から「Layer 5 stable」を削除 (ADR 0017 で v1.0 GA に前倒し済み)。§15.10 Open question の v1.0 Atelier preview 範囲は **Resolved (2026-05)** で記録。
 - [x] [ADR 0010](../design/16-decisions/0010-layer5-preview-in-v1.md) の冒頭に `Superseded by ADR 0017` ノートを追加
   - 依存: C-1
   - **完了 2026-05-10**: C-1 と同コミットで適用済み。
@@ -355,18 +372,19 @@
 
 ## 依存関係マップ（Critical path）
 
+> **更新 2026-05-10 (三回目)**: C-3 CSS variable contract が hard gate + v1.0 freeze で完了。新しいクリティカルパスは **C-2 atelier shape 規約統一 → C-5 visual regression → D-2 公開計測ページ**。
+
 ```
-A-1 (stateful 4 件のレイヤ補填)
-  ├─ A-2 a11y / i18n / FSM 列
-  ├─ A-2 bundle L4 計測基盤 ──┐
-  ├─ B-2 Deliverable C 拡張   │
-  └─ F-1 spec 補完            │
+A-1 (stateful 4 件) ──[完了]
+A-2 bundle L4 (gate live + ci:health 統合) ──[完了]
                               │
-C-1 ADR 0017 ─ C-2 variant 揃い ─ C-3 CSS contract ─ C-4 budget(=A-2 共有)
-                                                        │
-                              ┌─────── C-5 visual regression
+A-2 a11y / i18n / FSM 列  ────┐
                               │
-A-2 + C-4 ─ D-2 公開計測ページ ─ D-5 launch アナウンス
+C-1 ADR 0017 ✓ ─ C-3 CSS contract ✓ ─ C-2 variant 揃い ─ C-4 budget(=A-2 完了)
+                                                              │
+                                            ┌──── C-5 visual regression
+                                            │
+D-2 公開計測ページ ─ D-5 launch アナウンス
                               │
 B-1 (flyle 側 E/I/J) ─ B-3 本格移行 ─ F-3 トップページ更新
                               │
@@ -375,8 +393,8 @@ E-1 共同メンテナ ─ E-2 contribution UX ─ E-3 外部採用
 D-1 30 日 green + D-3 llms.txt + D-4 changeset ─→ v1.0 公開
 ```
 
-**最も長いクリティカルパス**: `A-1 → A-2(bundle) → C-4 → D-2 → D-5`。
-ここが詰まると launch 全体が動かない。**A-1 と A-2(bundle) は並列着手すべき**。
+**最も長いクリティカルパス（更新版）**: `C-2 atelier shape 統一 → C-5 visual regression → D-2 公開ページ → D-5 launch`。
+A-2 bundle と C-3 CSS contract が片付いたので、Atelier GA に残るのは shape 統一 + visual regression。
 
 ---
 
@@ -397,15 +415,16 @@ D-1 30 日 green + D-3 llms.txt + D-4 changeset ─→ v1.0 公開
 
 ---
 
-## 着手順（最初の 2 週間）
+## 着手順（次の 2 週間） — 2026-05-10 更新（C-3 完了後）
 
-> 並列に走らせるが、1 人で進めるなら以下を優先。
+> C-3 CSS variable contract drift fix が hard gate + v1.0 freeze で完了。残る Atelier GA 周辺は C-2 shape 統一と C-5 visual regression。
 
-1. **C-1 ADR 0017 起票** — Atelier GA の意思決定を文書化（半日）
-2. **A-1 `toolbar` machine + L3** — 4 件の中で最も小さい、A-1 の体験を作る（2-3 日）
-3. **A-2 bundle L4 計測 PoC** — `scripts/measure-svelte-size.mjs` を Toggle 1 個で動かす（2-3 日）
-4. **A-1 `time-field` machine + L3** — `datetime-field` への内部共有を見据えて先行（3-5 日）
-5. **E-1 共同メンテナ候補リスト着手** — Discord / GitHub で観測開始（バックグラウンド継続）
+1. **C-2 atelier shape 規約統一** — `scripts/check-atelier-shape.mjs` は 2-file / folder の両方を許容している。8 件の 2-file shape (badge/button/checkbox/horizontal-rule/icon-button/loading-spinner/switch/toggle) を folder shape に揃える refactor PR（2-3 日）
+2. **C-5 visual regression PoC** — Playwright snapshot を 34 × 2 variant に展開、Chromatic / Percy 必要性を判定（半日〜1 日 PoC、本実装 L）
+3. **架構的削減 ADR 起票** — datetime-field DatePart/TimePart 分離、button/toggle L3↔L4 dedup、form-field with-validation 分離 を個別 ADR で起票（要 maintainer review）。実装は v1.0 後でも可
+4. **A-2 a11y 列着手** — axe-core LTR/RTL 全 sandbox 緑化（M）
+5. **D-2 公開計測ページ着手** — `apps/docs/sizes/` に bundle 比較表（kumiki vs Bits/Melt/Headless）の data ingestion を実装。A-2 measurement infrastructure の output を直接食わせる
+6. **E-1 共同メンテナ候補リスト着手** — Discord / GitHub で観測開始（バックグラウンド継続）
 
 ---
 

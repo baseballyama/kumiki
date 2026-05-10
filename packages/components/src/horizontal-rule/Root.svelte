@@ -16,17 +16,13 @@
 
 <script lang="ts">
   let { as = 'hr', orientation = 'horizontal', ...rest }: Props = $props();
-  // Vertical orientation doesn't make sense on `<hr>` — coerce to div.
-  const tag = $derived(orientation === 'vertical' ? 'div' : as);
 </script>
 
-{#if tag === 'hr'}
-  <hr {...rest} data-orientation={orientation} />
-{:else}
-  <div
-    role="separator"
-    aria-orientation={orientation}
-    {...rest}
-    data-orientation={orientation}
-  ></div>
-{/if}
+<!-- Vertical orientation has no semantic <hr> equivalent — coerce to div. -->
+<svelte:element
+  this={as === 'hr' && orientation === 'horizontal' ? 'hr' : 'div'}
+  role={as === 'hr' && orientation === 'horizontal' ? undefined : 'separator'}
+  aria-orientation={as === 'hr' && orientation === 'horizontal' ? undefined : orientation}
+  {...rest}
+  data-orientation={orientation}
+/>

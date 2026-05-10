@@ -34,6 +34,8 @@
     "version": "changeset version && pnpm install --no-frozen-lockfile",
     "check:layering": "node scripts/check-layering.mjs",
     "check:locale-shape": "node scripts/check-locale-shape.mjs",
+    "check:atelier-shape": "node scripts/check-atelier-shape.mjs",
+    "check:css-vars": "node scripts/check-css-vars.mjs",
     "check:jsdoc": "node scripts/check-jsdoc.mjs",
     "check:node-compat": "node scripts/check-node-compat.mjs",
     "check:api-report": "node scripts/run-api-extractor.mjs --check",
@@ -47,9 +49,11 @@
     "lhci:check": "lhci autorun --config=lighthouserc.cjs",
     "build:llms-full": "node apps/docs/scripts/build-llms-full.mjs",
     "build:sizes": "node apps/docs/scripts/build-sizes.mjs",
+    "measure:svelte-size": "pnpm --filter='@kumiki/docs' exec node scripts/measure-svelte-size.mjs",
+    "measure:svelte-size:check": "pnpm --filter='@kumiki/docs' exec node scripts/measure-svelte-size.mjs --check",
     "clean": "pnpm -r --filter='@kumiki/*' run clean",
-    "check:all": "pnpm check:layering && pnpm check:locale-shape && pnpm check:jsdoc && pnpm check:node-compat && pnpm check:api-report && pnpm check:api-docs && pnpm coverage:check",
-    "ci:health": "pnpm check:all && pnpm publint && pnpm attw && pnpm agadoo && pnpm size",
+    "check:all": "pnpm check:layering && pnpm check:locale-shape && pnpm check:atelier-shape && pnpm check:css-vars && pnpm check:jsdoc && pnpm check:node-compat && pnpm check:api-report && pnpm check:api-docs && pnpm coverage:check",
+    "ci:health": "pnpm check:all && pnpm publint && pnpm attw && pnpm agadoo && pnpm size && pnpm measure:svelte-size:check",
     "prepare": "lefthook install"
   },
   "devDependencies": {

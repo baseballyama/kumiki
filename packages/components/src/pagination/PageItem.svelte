@@ -35,27 +35,16 @@
   }
 </script>
 
-{#if ctx.hrefFor}
-  <a
-    {...rest}
-    data-part="page-item"
-    href={ctx.hrefFor(page)}
-    aria-label={ariaLabel}
-    aria-current={isCurrent ? 'page' : undefined}
-    data-current={isCurrent ? 'page' : undefined}
-  >
-    {#if children}{@render children()}{:else}{page}{/if}
-  </a>
-{:else}
-  <button
-    {...rest}
-    type="button"
-    data-part="page-item"
-    aria-label={ariaLabel}
-    aria-current={isCurrent ? 'page' : undefined}
-    data-current={isCurrent ? 'page' : undefined}
-    onclick={handleClick}
-  >
-    {#if children}{@render children()}{:else}{page}{/if}
-  </button>
-{/if}
+<svelte:element
+  this={ctx.hrefFor ? 'a' : 'button'}
+  {...rest}
+  data-part="page-item"
+  href={ctx.hrefFor?.(page)}
+  type={ctx.hrefFor ? undefined : 'button'}
+  aria-label={ariaLabel}
+  aria-current={isCurrent ? 'page' : undefined}
+  data-current={isCurrent ? 'page' : undefined}
+  onclick={ctx.hrefFor ? undefined : handleClick}
+>
+  {#if children}{@render children()}{:else}{page}{/if}
+</svelte:element>

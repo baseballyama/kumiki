@@ -18,20 +18,21 @@ Layer 4 (`@kumiki/components/*`):
 - Emits `data-*` hooks for every state the consumer can target with
   CSS:
 
-| Hook                                                   | Where                                                                              | Meaning                   |
-| ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------- |
-| `data-state="open"`/`"closed"`                         | Disclosure-shaped components (Dialog, Popover, Menu, Combobox, Accordion, Tooltip) | Open/closed               |
-| `data-state="checked"`/`"unchecked"`/`"indeterminate"` | Checkbox, Switch, Toggle                                                           | Pressed/checked state     |
-| `data-disabled=""`                                     | Anything disable-able                                                              | Disabled                  |
-| `data-loading=""`                                      | Button (and any component with a busy state)                                       | `aria-busy="true"` mirror |
-| `data-orientation="horizontal"`/`"vertical"`           | Tabs, Slider, Toggle.Group, Separator                                              | Layout direction          |
-| `data-side="top"`/`"right"`/`"bottom"`/`"left"`        | Floating components (Popover, Menu, Tooltip, DatePicker, Combobox listbox)         | Resolved placement        |
-| `data-align="start"`/`"center"`/`"end"`                | Floating components                                                                | Resolved alignment        |
-| `data-direction="ltr"`/`"rtl"`                         | Anything that flips                                                                | LocaleProvider direction  |
-| `data-active=""`                                       | Tabs.Trigger (when active), Menu.Item (highlighted)                                | Highlighted/active        |
-| `data-selected=""`                                     | Combobox.Item, Select.Item (selected)                                              | Selected option           |
-| `data-current="page"`                                  | Breadcrumb.Link, Pagination.PageItem (current)                                     | Mirror of `aria-current`  |
-| `data-severity="info"`/`"success"`/`"warn"`/`"error"`  | Alert, Toast                                                                       | Severity                  |
+| Hook                                                   | Where                                                                              | Meaning                        |
+| ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
+| `data-state="open"`/`"closed"`                         | Disclosure-shaped components (Dialog, Popover, Menu, Combobox, Accordion, Tooltip) | Open/closed                    |
+| `data-state="checked"`/`"unchecked"`/`"indeterminate"` | Checkbox, Switch                                                                   | Checked state                  |
+| `data-state="on"`/`"off"`                              | Toggle, Toggle.Group items                                                         | Pressed state (`aria-pressed`) |
+| `data-disabled=""`                                     | Anything disable-able                                                              | Disabled                       |
+| `data-loading=""`                                      | Button (and any component with a busy state)                                       | `aria-busy="true"` mirror      |
+| `data-orientation="horizontal"`/`"vertical"`           | Tabs, Slider, Toggle.Group, Separator                                              | Layout direction               |
+| `data-side="top"`/`"right"`/`"bottom"`/`"left"`        | Floating components (Popover, Menu, Tooltip, DatePicker, Combobox listbox)         | Resolved placement             |
+| `data-align="start"`/`"center"`/`"end"`                | Floating components                                                                | Resolved alignment             |
+| `data-direction="ltr"`/`"rtl"`                         | Anything that flips                                                                | LocaleProvider direction       |
+| `data-active=""`                                       | Tabs.Trigger (when active), Menu.Item (highlighted)                                | Highlighted/active             |
+| `data-selected=""`                                     | Combobox.Item, Select.Item (selected)                                              | Selected option                |
+| `data-current="page"`                                  | Breadcrumb.Link, Pagination.PageItem (current)                                     | Mirror of `aria-current`       |
+| `data-severity="info"`/`"success"`/`"warn"`/`"error"`  | Alert, Toast                                                                       | Severity                       |
 
 > **Not in the Layer 4 contract.** Visual-only vocabulary like
 > `data-variant="primary"`, `data-size="lg"`, `data-side="left"` (Dialog
@@ -59,19 +60,39 @@ Layer 5 (`@kumiki/atelier/*`):
 
 - `<component>` — kebab-case component name (`toggle`, `dialog`, `combobox`, `data-table` → `table`).
 - `<part>` — anatomy part (`root`, `trigger`, `content`, `overlay`, `item`, `indicator`).
-- `<property>` — one of `bg` / `fg` / `border` / `radius` / `shadow` / `padding-x` / `padding-y` / `gap` / `font-size` / `font-weight` / `line-height` / `outline` / `outline-offset`.
-- `<state>` (optional) — `hover` / `active` / `focus` / `disabled` / `loading` / `checked` / `selected` / `error`.
+- `<property>` — one of `bg` / `fg` / `border` / `radius` / `shadow` / `padding-x` / `padding-y` / `padding` / `gap` / `font-size` / `font-weight` / `line-height` / `outline` / `outline-offset` / `ring` / `ring-offset` / `size` / `thickness` / `width` / `height` / `opacity`.
+- `<state>` (optional) — `hover` / `active` / `focus` / `disabled` / `loading` / `checked` / `selected` / `current` / `error` / `on` / `off`.
+
+> `ring` / `ring-offset` are an alternative focus pattern (Tailwind-style two-shadow ring) used by components that need a visible offset between the element and the ring color (e.g. `--kumiki-toggle-ring` + `--kumiki-toggle-ring-offset`). `outline-focus` remains the single-color form.
+
+### Stable abbreviations
+
+A handful of components use a shorter prefix in their CSS-var surface
+because the full kebab name is overlong for a tokens file. These are
+**fixed** for v1.0 — the component subpath in `@kumiki/atelier/*` keeps
+its full kebab name, but the consumer-facing leaf vars use the
+abbreviated prefix.
+
+| Component subpath                 | Var prefix           |
+| --------------------------------- | -------------------- |
+| `@kumiki/atelier/definition-list` | `--kumiki-dl-*`      |
+| `@kumiki/atelier/horizontal-rule` | `--kumiki-hr-*`      |
+| `@kumiki/atelier/loading-spinner` | `--kumiki-spinner-*` |
+
+> No new abbreviations may be added without a contract-doc update + ADR.
 
 Examples:
 
 ```css
 --kumiki-toggle-bg                 /* default */
 --kumiki-toggle-bg-hover
---kumiki-toggle-bg-checked
+--kumiki-toggle-bg-on              /* data-state="on" — Toggle */
 --kumiki-toggle-fg
 --kumiki-toggle-radius
 --kumiki-toggle-padding-x
 --kumiki-toggle-outline-focus
+--kumiki-toggle-ring               /* alternative focus pattern */
+--kumiki-toggle-ring-offset
 
 --kumiki-dialog-overlay-bg
 --kumiki-dialog-content-bg
@@ -86,6 +107,17 @@ component-facing surface is always the leaf property. This keeps
 debugging tractable and devtools introspection clean.
 
 ## 18.3 Per-component contracts (v1.0 + Phase 1.5 set)
+
+> **v1.0 freeze.** Every leaf listed in this section is **Stable** —
+> rename or removal requires a major bump (per §18.6). A leaf is
+> **Experimental** only when its row notes "(experimental)" — Experimental
+> leaves may be renamed or dropped within a minor without an ADR, and the
+> CI gate (`pnpm check:css-vars`) tolerates them as drift candidates.
+>
+> Adding a new Stable leaf requires updating this section in the same PR
+> that introduces it. The hard gate ([`scripts/check-css-vars.mjs`](../../scripts/check-css-vars.mjs))
+> fails CI if `packages/atelier/src/**/*.svelte` references a `--kumiki-*`
+> leaf that is not listed here.
 
 ### Button
 
@@ -115,19 +147,23 @@ distinct values per variant; consumers override per variant by scoping.
 
 ### Toggle
 
-| Variable                           | Notes                    |
-| ---------------------------------- | ------------------------ |
-| `--kumiki-toggle-bg`               | unchecked                |
-| `--kumiki-toggle-bg-hover`         |                          |
-| `--kumiki-toggle-bg-checked`       | `[data-state="checked"]` |
-| `--kumiki-toggle-bg-checked-hover` |                          |
-| `--kumiki-toggle-fg`               | unchecked                |
-| `--kumiki-toggle-fg-checked`       |                          |
-| `--kumiki-toggle-border`           |                          |
-| `--kumiki-toggle-radius`           |                          |
-| `--kumiki-toggle-padding-x`        |                          |
-| `--kumiki-toggle-padding-y`        |                          |
-| `--kumiki-toggle-outline-focus`    |                          |
+Toggle paints `data-state="on"`/`"off"` (not `checked`/`unchecked` — see §18.1) so its state-suffixed leaves use `-on`.
+
+| Variable                           | Notes                                           |
+| ---------------------------------- | ----------------------------------------------- |
+| `--kumiki-toggle-bg`               | unpressed                                       |
+| `--kumiki-toggle-bg-hover`         |                                                 |
+| `--kumiki-toggle-bg-on`            | `[data-state="on"]`                             |
+| `--kumiki-toggle-fg`               | unpressed                                       |
+| `--kumiki-toggle-fg-on`            |                                                 |
+| `--kumiki-toggle-border`           |                                                 |
+| `--kumiki-toggle-radius`           |                                                 |
+| `--kumiki-toggle-padding-x`        |                                                 |
+| `--kumiki-toggle-padding-y`        |                                                 |
+| `--kumiki-toggle-outline-focus`    | single-color focus outline                      |
+| `--kumiki-toggle-ring`             | Tailwind-style ring (alternative focus pattern) |
+| `--kumiki-toggle-ring-offset`      | inner spacer color for the ring                 |
+| `--kumiki-toggle-disabled-opacity` | `[data-disabled]` opacity, default `0.5`        |
 
 ### Switch
 
@@ -143,7 +179,7 @@ distinct values per variant; consumers override per variant by scoping.
 | `--kumiki-switch-thumb-size`       |       |
 | `--kumiki-switch-outline-focus`    |       |
 
-### Checkbox / Radio
+### Checkbox
 
 | Variable                           | Notes                                      |
 | ---------------------------------- | ------------------------------------------ |
@@ -156,22 +192,46 @@ distinct values per variant; consumers override per variant by scoping.
 | `--kumiki-checkbox-size`           |                                            |
 | `--kumiki-checkbox-outline-focus`  |                                            |
 
-(Radio mirrors Checkbox names with `--kumiki-radio-*`.)
+### RadioGroup
+
+Same shape as Checkbox, with the `radio-` prefix. `radio-group` Atelier
+files reference these on `<RadioGroup.Item>` — there is no separate
+`--kumiki-radio-group-*` surface.
+
+| Variable                        | Notes                        |
+| ------------------------------- | ---------------------------- |
+| `--kumiki-radio-bg`             |                              |
+| `--kumiki-radio-bg-checked`     | `[data-state="checked"]`     |
+| `--kumiki-radio-border`         |                              |
+| `--kumiki-radio-border-checked` |                              |
+| `--kumiki-radio-radius`         | typically `50%` — pill shape |
+| `--kumiki-radio-size`           | square edge length           |
+| `--kumiki-radio-outline-focus`  |                              |
 
 ### Dialog / Drawer
 
-| Variable                              | Notes                                     |
-| ------------------------------------- | ----------------------------------------- |
-| `--kumiki-dialog-overlay-bg`          | backdrop                                  |
-| `--kumiki-dialog-content-bg`          |                                           |
-| `--kumiki-dialog-content-fg`          |                                           |
-| `--kumiki-dialog-content-border`      |                                           |
-| `--kumiki-dialog-content-radius`      |                                           |
-| `--kumiki-dialog-content-shadow`      |                                           |
-| `--kumiki-dialog-content-padding`     |                                           |
-| `--kumiki-dialog-content-max-width`   | content max-width on `side="center"`      |
-| `--kumiki-dialog-content-width-side`  | width when `data-side` is `left`/`right`  |
-| `--kumiki-dialog-content-height-side` | height when `data-side` is `top`/`bottom` |
+| Variable                              | Notes                                                                                                   |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `--kumiki-dialog-overlay-bg`          | backdrop                                                                                                |
+| `--kumiki-dialog-bg`                  | content surface short-form (used by Atelier vanilla; alias for `--kumiki-dialog-content-bg`)            |
+| `--kumiki-dialog-fg`                  | content text short-form (alias for `--kumiki-dialog-content-fg`)                                        |
+| `--kumiki-dialog-border`              | content border short-form (alias for `--kumiki-dialog-content-border`)                                  |
+| `--kumiki-dialog-muted`               | secondary text inside content (Description)                                                             |
+| `--kumiki-dialog-content-bg`          |                                                                                                         |
+| `--kumiki-dialog-content-fg`          |                                                                                                         |
+| `--kumiki-dialog-content-border`      |                                                                                                         |
+| `--kumiki-dialog-content-radius`      |                                                                                                         |
+| `--kumiki-dialog-content-shadow`      |                                                                                                         |
+| `--kumiki-dialog-content-padding`     |                                                                                                         |
+| `--kumiki-dialog-content-max-width`   | content max-width on `side="center"`                                                                    |
+| `--kumiki-dialog-content-width-side`  | width when `data-side` is `left`/`right`                                                                |
+| `--kumiki-dialog-content-height-side` | height when `data-side` is `top`/`bottom`                                                               |
+| `--kumiki-dialog-trigger-bg`          | Atelier-painted trigger button (the consumer keeps the L4 trigger headless if they style it themselves) |
+| `--kumiki-dialog-trigger-bg-hover`    |                                                                                                         |
+| `--kumiki-dialog-trigger-fg`          |                                                                                                         |
+| `--kumiki-dialog-close-hover`         | close-button hover bg                                                                                   |
+| `--kumiki-dialog-ring`                | focus ring color (close + trigger)                                                                      |
+| `--kumiki-dialog-ring-offset`         | focus ring inner-spacer color                                                                           |
 
 ### Popover / Menu / Combobox listbox / Tooltip
 
@@ -188,12 +248,17 @@ These share a "floating panel" sub-contract. Atelier exposes a
 
 Per-component overrides:
 
-```css
---kumiki-popover-bg     /* falls back to --kumiki-panel-bg in atelier */
---kumiki-menu-bg
---kumiki-combobox-listbox-bg
---kumiki-tooltip-bg
-```
+| Variable                          | Notes                                        |
+| --------------------------------- | -------------------------------------------- |
+| `--kumiki-popover-bg`             | falls back to `--kumiki-panel-bg` in Atelier |
+| `--kumiki-popover-fg`             |                                              |
+| `--kumiki-popover-trigger-bg`     | Atelier-painted trigger button surface       |
+| `--kumiki-popover-trigger-fg`     |                                              |
+| `--kumiki-popover-trigger-border` |                                              |
+| `--kumiki-menu-bg`                |                                              |
+| `--kumiki-combobox-listbox-bg`    |                                              |
+| `--kumiki-tooltip-bg`             |                                              |
+| `--kumiki-tooltip-fg`             |                                              |
 
 This is the **only** place the contract permits semantic fallbacks
 (panel → component) — and it's expressed in atelier's stylesheet, not
@@ -208,6 +273,17 @@ Items inside menus / listboxes:
 | `--kumiki-menu-item-bg-selected` | `[data-selected]`             |
 | `--kumiki-menu-item-fg`          |                               |
 | `--kumiki-menu-item-padding`     |                               |
+
+### Combobox input
+
+Root visual surface for the input + chrome (the listbox uses
+`--kumiki-combobox-listbox-*` above). Used by `@kumiki/atelier/combobox`'s
+input wrapper.
+
+| Variable                   | Notes |
+| -------------------------- | ----- |
+| `--kumiki-combobox-bg`     |       |
+| `--kumiki-combobox-border` |       |
 
 ### Tabs
 
@@ -232,7 +308,18 @@ Items inside menus / listboxes:
 | `--kumiki-toast-padding`    |                                |
 | `--kumiki-toast-shadow`     |                                |
 
-(`Alert` mirrors Toast surface with `--kumiki-alert-*`.)
+### Alert
+
+Mirrors Toast for theming. Per-severity overrides (`[data-severity="info"]`
+etc.) match the §18.1 hook.
+
+| Variable                 | Notes        |
+| ------------------------ | ------------ |
+| `--kumiki-alert-bg`      | per-severity |
+| `--kumiki-alert-fg`      |              |
+| `--kumiki-alert-border`  |              |
+| `--kumiki-alert-radius`  |              |
+| `--kumiki-alert-padding` |              |
 
 ### Accordion / Disclosure
 
@@ -260,6 +347,8 @@ Items inside menus / listboxes:
 
 | Variable                               | Notes                                       |
 | -------------------------------------- | ------------------------------------------- |
+| `--kumiki-calendar-bg`                 | calendar panel surface                      |
+| `--kumiki-calendar-border`             | calendar panel border                       |
 | `--kumiki-calendar-cell-bg-hover`      |                                             |
 | `--kumiki-calendar-cell-bg-selected`   | `[data-selected]`                           |
 | `--kumiki-calendar-cell-bg-in-range`   | range-select (when withRange composer used) |
@@ -268,8 +357,15 @@ Items inside menus / listboxes:
 | `--kumiki-calendar-cell-fg-selected`   |                                             |
 | `--kumiki-calendar-cell-fg-disabled`   |                                             |
 | `--kumiki-calendar-cell-radius`        |                                             |
+| `--kumiki-date-picker-bg`              | popover content surface                     |
+| `--kumiki-date-picker-border`          |                                             |
+| `--kumiki-time-field-bg`               | input chrome surface                        |
+| `--kumiki-time-field-border`           |                                             |
 | `--kumiki-time-field-segment-bg-focus` |                                             |
 | `--kumiki-time-field-segment-fg-empty` | placeholder digit color                     |
+| `--kumiki-datetime-field-bg`           | combined field surface                      |
+| `--kumiki-datetime-field-border`       |                                             |
+| `--kumiki-datetime-field-radius`       |                                             |
 
 ### Slider
 
@@ -282,29 +378,33 @@ Items inside menus / listboxes:
 | `--kumiki-slider-track-height`  |                         |
 | `--kumiki-slider-outline-focus` | applied to active thumb |
 
-### Pagination / Breadcrumb / Chips / Badge / Avatar
+### Pagination / Breadcrumb / Chips / Badge / Avatar / AvatarGroup
 
 (One row per primitive — see authoritative table in atelier's
 `tokens.css`.)
 
-| Variable                              | Notes               |
-| ------------------------------------- | ------------------- |
-| `--kumiki-pagination-item-bg-current` | current page        |
-| `--kumiki-pagination-item-fg`         |                     |
-| `--kumiki-breadcrumb-separator-fg`    |                     |
-| `--kumiki-breadcrumb-link-fg`         |                     |
-| `--kumiki-breadcrumb-link-fg-current` |                     |
-| `--kumiki-chips-bg`                   | per-variant         |
-| `--kumiki-chips-fg`                   |                     |
-| `--kumiki-chips-radius`               |                     |
-| `--kumiki-chips-close-bg-hover`       |                     |
-| `--kumiki-badge-bg`                   | per-variant         |
-| `--kumiki-badge-fg`                   |                     |
-| `--kumiki-badge-radius`               |                     |
-| `--kumiki-avatar-bg-fallback`         | initials background |
-| `--kumiki-avatar-fg-fallback`         |                     |
-| `--kumiki-avatar-border`              | ring around image   |
-| `--kumiki-avatar-radius`              | round vs squircle   |
+| Variable                              | Notes                                   |
+| ------------------------------------- | --------------------------------------- |
+| `--kumiki-pagination-item-bg-current` | current page                            |
+| `--kumiki-pagination-item-fg`         |                                         |
+| `--kumiki-pagination-item-fg-current` | mirrors `bg-current`                    |
+| `--kumiki-breadcrumb-separator-fg`    |                                         |
+| `--kumiki-breadcrumb-link-fg`         |                                         |
+| `--kumiki-breadcrumb-link-fg-current` |                                         |
+| `--kumiki-chips-bg`                   | per-variant                             |
+| `--kumiki-chips-fg`                   |                                         |
+| `--kumiki-chips-radius`               |                                         |
+| `--kumiki-chips-close-bg-hover`       |                                         |
+| `--kumiki-badge-bg`                   | per-variant                             |
+| `--kumiki-badge-fg`                   |                                         |
+| `--kumiki-badge-radius`               |                                         |
+| `--kumiki-avatar-bg-fallback`         | initials background                     |
+| `--kumiki-avatar-fg-fallback`         |                                         |
+| `--kumiki-avatar-border`              | ring around image                       |
+| `--kumiki-avatar-radius`              | round vs squircle                       |
+| `--kumiki-avatar-size`                | square edge length                      |
+| `--kumiki-avatar-group-overlap`       | negative margin between stacked avatars |
+| `--kumiki-avatar-group-ring`          | ring color separating stacked avatars   |
 
 ### Table
 
@@ -320,6 +420,73 @@ Items inside menus / listboxes:
 | `--kumiki-table-header-bg-sticky` | when `data-sticky="header"` |
 | `--kumiki-table-cell-padding-x`   |                             |
 | `--kumiki-table-cell-padding-y`   |                             |
+
+### Toolbar
+
+| Variable                   | Notes                         |
+| -------------------------- | ----------------------------- |
+| `--kumiki-toolbar-bg`      |                               |
+| `--kumiki-toolbar-border`  |                               |
+| `--kumiki-toolbar-radius`  |                               |
+| `--kumiki-toolbar-padding` |                               |
+| `--kumiki-toolbar-gap`     | spacing between toolbar items |
+
+### IconButton
+
+Sized variant of Button with an icon-only payload. Atelier paints these
+on a `<IconButton.Root>` whose Layer 4 surface is the same as
+`<Button.Root>`; only the visual surface is different.
+
+| Variable                        | Notes              |
+| ------------------------------- | ------------------ |
+| `--kumiki-icon-button-bg`       |                    |
+| `--kumiki-icon-button-bg-hover` |                    |
+| `--kumiki-icon-button-fg`       |                    |
+| `--kumiki-icon-button-radius`   |                    |
+| `--kumiki-icon-button-size`     | square edge length |
+
+### NumberField
+
+Visual chrome around `<input type="number">` (segments are not used —
+NumberField is a single input field).
+
+| Variable                       | Notes |
+| ------------------------------ | ----- |
+| `--kumiki-number-field-bg`     |       |
+| `--kumiki-number-field-border` |       |
+| `--kumiki-number-field-radius` |       |
+
+### DefinitionList
+
+Uses the **`dl-`** abbreviation per §18.2 stable abbreviations table.
+
+| Variable              | Notes                            |
+| --------------------- | -------------------------------- |
+| `--kumiki-dl-term-fg` | `<dt>` text color                |
+| `--kumiki-dl-desc-fg` | `<dd>` text color                |
+| `--kumiki-dl-gap-x`   | column gap when the list is grid |
+| `--kumiki-dl-gap-y`   | row gap                          |
+
+### HorizontalRule
+
+Uses the **`hr-`** abbreviation per §18.2 stable abbreviations table.
+
+| Variable                | Notes                                                        |
+| ----------------------- | ------------------------------------------------------------ |
+| `--kumiki-hr-color`     | line color                                                   |
+| `--kumiki-hr-thickness` | line thickness (height when horizontal, width when vertical) |
+
+### LoadingSpinner
+
+Uses the **`spinner-`** abbreviation per §18.2 stable abbreviations table.
+
+| Variable                     | Notes                                      |
+| ---------------------------- | ------------------------------------------ |
+| `--kumiki-spinner-track`     | static ring color (background of spinner)  |
+| `--kumiki-spinner-head`      | rotating arc color                         |
+| `--kumiki-spinner-thickness` | ring thickness                             |
+| `--kumiki-spinner-size`      | square edge length                         |
+| `--kumiki-spinner-gap`       | gap between spinner and label (label slot) |
 
 ## 18.4 Atelier defaults — internal palette aliases
 

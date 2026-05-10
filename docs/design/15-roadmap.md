@@ -8,7 +8,7 @@
 | **0b — Design validation** | +6 weeks (~3 months in) | Combobox across all layers; APG-driven test harness; `with*` composition spike                                           |
 | **0c — Documentation**     | +4 weeks (~4 months in) | Auto-generated docs site (bundle badges, APG links, keyboard tables); `llms.txt` + `llms-full.txt`; size comparison page |
 | **1 — MVP**                | end of 2026             | Phase 1 components × 10; English-only docs site live; v1.0 published                                                     |
-| **2 — Expansion**          | first half of 2027      | More components (Calendar, DatePicker, NumberField, Slider, Menu, …); locale set → 20; Layer 5 stable                    |
+| **2 — Expansion**          | first half of 2027      | More components (Calendar, DatePicker, NumberField, Slider, Menu, …); locale set → 20                                    |
 | **3 — Maturity**           | second half of 2027     | NVDA/VoiceOver automation production-grade; devtools (machine inspector); MCP integration; cross-framework explore       |
 
 Dates are **targets**, not commitments. We measure progress by deliverable, not by calendar.
@@ -22,11 +22,11 @@ Deliverables:
 - ✅ Monorepo + pnpm workspace + catalog (this scaffolding).
 - ✅ CI workflow (build + test + size + publint + attw + agadoo).
 - ✅ Architecture decisions (ADRs) finalized.
-- 🟡 Layer 1: `focus-trap`, `dismissable`, `id` primitives — implemented + tested + published.
-- 🟡 `@kumiki/runtime` — minimal FSM runtime — implemented + tested.
-- 🟡 Toggle: all four layers (`@kumiki/machines/toggle`, `@kumiki/headless/toggle`, `@kumiki/components/toggle`, optional `@kumiki/atelier/toggle` preview) — implemented + tested + published.
-- 🟡 SvelteKit docs site running locally with the Toggle component embedded.
-- 🟡 First publish to npm (under `0.0.x`).
+- ✅ Layer 1: `focus-trap`, `dismissable`, `id` primitives — plus `collection`, `interactions`, `live-region`, `motion`, `portal`, `locale` — implemented + tested.
+- ✅ `@kumiki/runtime` — minimal FSM runtime — implemented + tested + benchmarked.
+- ✅ Toggle: all four layers (`@kumiki/machines/toggle`, `@kumiki/headless/toggle`, `@kumiki/components/toggle`, `@kumiki/atelier/toggle`) — implemented + tested.
+- ✅ SvelteKit docs site running locally with the Toggle component embedded.
+- 🟡 First publish to npm (under `0.0.x`) — packages locally publishable, public 0.0.x publish pending v1.0 launch sequence.
 
 Exit criteria:
 
@@ -40,11 +40,11 @@ Exit criteria:
 
 Deliverables:
 
-- 🟡 Combobox: all four layers — including `withAsyncSearch`, `withMultiSelect`, `withVirtualization`, `withValidation`.
-- 🟡 APG-driven keyboard test harness — reads `keyboard.yaml`, emits Playwright tests.
-- 🟡 `withX(withY(...))` composition end-to-end with type inference verified.
-- 🟡 Stately.ai visualizer integration — Combobox JSON loadable.
-- 🟡 Performance baseline measurement on Combobox.
+- ✅ Combobox: all four layers — including `withAsyncSearch`, `withMultiSelect`, `withVirtualization`, `withValidation`.
+- ✅ APG-driven keyboard test harness — reads `keyboard.yaml` (`apps/docs/keyboard/`), emits Playwright tests via `scripts/check-apg-snapshots.mjs`.
+- ✅ `withX(withY(...))` composition end-to-end with type inference verified (`@kumiki/headless/combobox/with-*`).
+- ✅ Stately.ai visualizer integration — `createXMachine().toJSON()` produces XState-compatible config.
+- ✅ Performance baseline measurement on Combobox (`combobox.bench.ts`).
 
 Exit criteria:
 
@@ -58,12 +58,12 @@ Exit criteria:
 
 Deliverables:
 
-- 🟡 Per-component reference auto-generated from JSDoc + api-extractor + keyboard YAML.
-- 🟡 Bundle-size badges live, tied to size-limit output.
-- 🟡 `llms.txt` and `llms-full.txt` builders running on every release.
-- 🟡 Size comparison page (`apps/docs/sizes/`): Kumiki vs Bits UI vs Radix vs React Aria vs Zag, on a uniform scale.
-- 🟡 Search (Pagefind) live.
-- 🟡 Cloudflare Pages deploy automated on every `main` push.
+- ✅ Per-component reference auto-generated from JSDoc + api-extractor + keyboard YAML (TypeDoc + `apps/docs/keyboard/`).
+- 🟡 Bundle-size badges live, tied to size-limit output — L1〜L3 wired; L4 / Atelier still ungated (see [`v1-execution-plan` A-2 / C-4](../release/v1-execution-plan.md)).
+- ✅ `llms.txt` and `llms-full.txt` builders running on every build (`apps/docs/scripts/build-llms-full.mjs`, output under `apps/docs/static/`).
+- 🟡 Size comparison page (`apps/docs/sizes/`): scaffolded, public publish pending — see [`v1-execution-plan` D-2](../release/v1-execution-plan.md).
+- ✅ Search (Pagefind) live (`postbuild` hook in `apps/docs/package.json`).
+- ✅ Cloudflare Pages deploy automated on every `main` push (`@sveltejs/adapter-cloudflare` + `.github/workflows/docs.yml`).
 
 ## 15.5 Phase 1 — MVP (end of 2026)
 
@@ -71,23 +71,23 @@ Deliverables:
 
 Components in priority order:
 
-1. **Toggle** ✅ (Phase 0a)
-2. **Combobox** ✅ (Phase 0b)
-3. **Switch**
-4. **Checkbox** (with `mixed` state)
-5. **RadioGroup**
-6. **Tabs** (manual + automatic activation)
-7. **Dialog** (modal + non-modal variants)
-8. **Tooltip** (with delay; respects `prefers-reduced-motion`)
-9. **Select** (listbox-popup style)
-10. **Field/Form** (with Standard Schema validation)
+1. **Toggle** ✅ (Phase 0a) — all layers shipped.
+2. **Combobox** ✅ (Phase 0b) — all layers + `with*` shipped.
+3. **Switch** ✅ — all layers shipped.
+4. **Checkbox** ✅ (with `mixed` state) — all layers shipped.
+5. **RadioGroup** ✅ — all layers shipped.
+6. **Tabs** ✅ (manual + automatic activation) — all layers shipped.
+7. **Dialog** ✅ (modal + non-modal variants) — all layers shipped.
+8. **Tooltip** ✅ (with delay; respects `prefers-reduced-motion`) — all layers shipped.
+9. **Select** ✅ (listbox-popup style) — all layers shipped.
+10. **Field/Form** ✅ (with Standard Schema validation) — all layers shipped.
 
 Plus:
 
-- All 10 locales shipped under `@kumiki/locale/*`.
-- Layer 5 preview for Toggle and Dialog.
-- `@kumiki/cli` with `kumiki add toggle | dialog` working.
-- Screen-reader smoke tests automated for all 10 components on the nightly schedule.
+- ✅ All 10 locales shipped under `@kumiki/locale/<lang>` (`en`, `ja`, `zh-Hans`, `zh-Hant`, `ko`, `es`, `fr`, `de`, `ar`, `he`).
+- ✅ Layer 5 (Atelier) shipped for **all** Phase 1 components — promoted to GA at v1.0 per [ADR 0017](16-decisions/0017-atelier-ga-at-v1.md) (supersedes ADR 0010's "preview only Toggle + Dialog" plan).
+- 🟡 `@kumiki/cli` with `kumiki add toggle | dialog` working — see [`v1-execution-plan` C-6](../release/v1-execution-plan.md) for the full-coverage validation gate.
+- 🟡 Screen-reader smoke tests automated for all 10 components on the nightly schedule — workflow at `.github/workflows/scheduled-screen-reader.yml`, public log handoff pending (plan A-2 a11y Guidepup row).
 
 Exit criteria for v1.0:
 
@@ -150,8 +150,8 @@ Components added (priority order):
 Plus:
 
 - Locale set expansion to 20.
-- Layer 5 stable releases (Tailwind v4 + vanilla CSS variants for all Phase 1 components).
 - Deeper Form support (FieldArray, Wizard).
+- _Layer 5 (Atelier) is GA at v1.0 per [ADR 0017](16-decisions/0017-atelier-ga-at-v1.md); no separate "Layer 5 stable" milestone in Phase 2._
 
 ## 15.7 Phase 3 — Maturity (second half of 2027)
 
@@ -186,4 +186,4 @@ Plus:
 ## 15.10 Open questions
 
 - **TBD:** Should Phase 0a include `@kumiki/components/form-field`? Forms are a heavy part of MVP value; landing them earlier signals the integration story. Lean: no, defer to Phase 1; Toggle is the right "is the build pipeline real" signal.
-- **TBD:** Whether v1.0 ships Layer 5 preview for _all_ Phase 1 components or just the two flagged. Lean: just two; the Atelier API stabilizes faster with fewer surfaces.
+- **Resolved (2026-05):** Whether v1.0 ships Layer 5 preview for _all_ Phase 1 components or just the two flagged. Decision: ship Atelier **GA** for all Phase 1 + Phase 1.5 components per [ADR 0017](16-decisions/0017-atelier-ga-at-v1.md). The CSS-variable contract ([18-css-variable-contract.md](18-css-variable-contract.md)) became the API boundary that lets us stabilize all surfaces simultaneously.

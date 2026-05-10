@@ -33,3 +33,4 @@ ADRs are immutable once accepted. New information leads to a _new_ ADR that supe
 | [0015](0015-table-primitive-scope.md)      | Table: ship semantic Table, defer Data Grid            | Accepted                   |
 | [0016](0016-editor-dnd-out-of-scope.md)    | Rich-text editor and drag-and-drop are out of scope    | Accepted                   |
 | [0017](0017-atelier-ga-at-v1.md)           | Atelier GA at v1.0                                     | Accepted (supersedes 0010) |
+| [0018](0018-l4-bundle-budget-revision.md)  | L4 / Atelier bundle budget revision (measured)         | Accepted                   |

@@ -35,29 +35,17 @@
   }
 </script>
 
-{#if ctx.hrefFor}
-  <a
-    {...rest}
-    data-part="prev"
-    href={isDisabled ? undefined : ctx.hrefFor(targetPage)}
-    aria-label={ariaLabel}
-    aria-disabled={isDisabled ? 'true' : undefined}
-    data-disabled={isDisabled ? '' : undefined}
-    onclick={handleClick}
-  >
-    {#if children}{@render children()}{/if}
-  </a>
-{:else}
-  <button
-    {...rest}
-    type="button"
-    data-part="prev"
-    aria-label={ariaLabel}
-    aria-disabled={isDisabled ? 'true' : undefined}
-    data-disabled={isDisabled ? '' : undefined}
-    disabled={isDisabled}
-    onclick={handleClick}
-  >
-    {#if children}{@render children()}{/if}
-  </button>
-{/if}
+<svelte:element
+  this={ctx.hrefFor ? 'a' : 'button'}
+  {...rest}
+  data-part="prev"
+  href={ctx.hrefFor && !isDisabled ? ctx.hrefFor(targetPage) : undefined}
+  type={ctx.hrefFor ? undefined : 'button'}
+  disabled={ctx.hrefFor ? undefined : isDisabled}
+  aria-label={ariaLabel}
+  aria-disabled={isDisabled ? 'true' : undefined}
+  data-disabled={isDisabled ? '' : undefined}
+  onclick={handleClick}
+>
+  {#if children}{@render children()}{/if}
+</svelte:element>

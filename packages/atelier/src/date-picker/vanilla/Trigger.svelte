@@ -6,7 +6,7 @@
   let { children, class: className = '', ...rest }: Props = $props();
 </script>
 
-<Trigger class={`kumiki-datepicker-trigger ${className}`.trim()} {...rest}>
+<Trigger class={`kumiki-date-picker-trigger ${className}`.trim()} {...rest}>
   {#snippet children(label: string)}
     <span aria-hidden="true">📅</span>
     <span>{label}</span>
@@ -14,7 +14,7 @@
 </Trigger>
 
 <style>
-  :global(.kumiki-datepicker-trigger) {
+  :global(.kumiki-date-picker-trigger) {
     display: inline-flex;
     height: 2.25rem;
     align-items: center;
@@ -28,7 +28,7 @@
     font-size: 0.875rem;
     cursor: pointer;
   }
-  :global(.kumiki-datepicker-trigger:hover) {
+  :global(.kumiki-date-picker-trigger:hover) {
     background: hsl(220 10% 96%);
   }
 </style>

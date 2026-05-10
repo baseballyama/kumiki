@@ -17,27 +17,27 @@
   let { children, class: className = '', ...rest }: Props = $props();
 </script>
 
-<Content class={`kumiki-datepicker-content ${className}`.trim()} {...rest}>
+<Content class={`kumiki-date-picker-content ${className}`.trim()} {...rest}>
   {#if children}{@render children()}{/if}
 </Content>
 
 <style>
-  :global(.kumiki-datepicker-content) {
-    --kumiki-datepicker-bg: white;
-    --kumiki-datepicker-border: hsl(220 10% 86%);
+  :global(.kumiki-date-picker-content) {
+    --kumiki-date-picker-bg: white;
+    --kumiki-date-picker-border: hsl(220 10% 86%);
 
     z-index: 50;
     padding: 0.75rem;
-    background: var(--kumiki-datepicker-bg);
-    border: 1px solid var(--kumiki-datepicker-border);
+    background: var(--kumiki-date-picker-bg);
+    border: 1px solid var(--kumiki-date-picker-border);
     border-radius: 6px;
     box-shadow: 0 8px 24px hsl(0 0% 0% / 0.12);
     outline: none;
   }
   @media (prefers-color-scheme: dark) {
-    :global(.kumiki-datepicker-content) {
-      --kumiki-datepicker-bg: hsl(220 10% 14%);
-      --kumiki-datepicker-border: hsl(220 10% 28%);
+    :global(.kumiki-date-picker-content) {
+      --kumiki-date-picker-bg: hsl(220 10% 14%);
+      --kumiki-date-picker-border: hsl(220 10% 28%);
     }
   }
 </style>

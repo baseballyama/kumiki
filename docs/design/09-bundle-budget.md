@@ -82,67 +82,74 @@ Svelte 5 attachments wrapping the machines. `peerDependencies: { svelte }`. Test
 
 ### `@kumiki/components/<name>` — Layer 4
 
-Compound Svelte components. **Not gated by `size-limit`**: svelte-package emits `.svelte` files for the consumer's bundler to compile, and esbuild (the engine behind `@size-limit/preset-small-lib`) cannot load `.svelte`. Layer 4 size enforcement is therefore indirect:
+Compound Svelte components. `size-limit` cannot load `.svelte` (esbuild's loader). Layer 4 is therefore gated by **`pnpm measure:svelte-size`** ([ADR 0018](16-decisions/0018-l4-bundle-budget-revision.md)) which bundles each subpath through Vite + the Svelte plugin and brotli-compresses the output. Run `pnpm measure:svelte-size:check` (also wired into `pnpm ci:health`) to fail on any over-budget subpath.
+
+Two complementary signals are still kept on top of the L4 gate:
 
 1. **Layer 3 budgets above** cap the Svelte-runtime-free behavioral surface.
-2. **Lighthouse CI on `apps/docs`** (Phase 0c) catches regressions in real per-page bundle size.
+2. **Lighthouse CI on `apps/docs`** catches per-page regressions that subpath-level numbers might miss.
 
-Realistic Layer 4 brotli targets (informational, not gated):
+Layer 4 brotli budgets (measured, gated by `measure:svelte-size:check`):
 
-| Subpath                           | Target | Status                                                                             |
-| --------------------------------- | ------ | ---------------------------------------------------------------------------------- |
-| `@kumiki/components/toggle`       | 1.5 kB |                                                                                    |
-| `@kumiki/components/switch`       | 1.5 kB |                                                                                    |
-| `@kumiki/components/checkbox`     | 1.5 kB |                                                                                    |
-| `@kumiki/components/radio-group`  | 2 kB   |                                                                                    |
-| `@kumiki/components/tabs`         | 2.5 kB |                                                                                    |
-| `@kumiki/components/tooltip`      | 2 kB   | + Floating UI peer dep amortized                                                   |
-| `@kumiki/components/dialog`       | 3.5 kB |                                                                                    |
-| `@kumiki/components/form-field`   | 2 kB   |                                                                                    |
-| `@kumiki/components/select`       | 3 kB   | + Floating UI peer dep amortized                                                   |
-| `@kumiki/components/combobox`     | 4.5 kB | + Floating UI peer dep amortized                                                   |
-| `@kumiki/components/accordion`    | 2 kB   |                                                                                    |
-| `@kumiki/components/slider`       | 2 kB   |                                                                                    |
-| `@kumiki/components/number-field` | 2.5 kB |                                                                                    |
-| `@kumiki/components/popover`      | 2.5 kB |                                                                                    |
-| `@kumiki/components/toast`        | 3 kB   |                                                                                    |
-| `@kumiki/components/menu`         | 3 kB   |                                                                                    |
-| `@kumiki/components/calendar`     | 5.5 kB | + `@internationalized/date` peer (Gregorian + Japanese imperial at v1.0; ADR 0013) |
-| `@kumiki/components/date-picker`  | 7 kB   | Calendar + Popover composition; same peer dep                                      |
+Two columns: **Gate** is what CI enforces today; **Target** is the long-run reduction goal documented in [ADR 0018](16-decisions/0018-l4-bundle-budget-revision.md). Where they differ, an architectural reduction is tracked as v1.0-non-blocking work; see ADR 0018 §"Implementation update 2026-05-10".
 
-#### Phase 1.5 additions (Layer 4 targets, brotli)
+| Subpath                           | Gate    | Target  | Notes                                                                              |
+| --------------------------------- | ------- | ------- | ---------------------------------------------------------------------------------- |
+| `@kumiki/components/toggle`       | 3_100 B | 1_950 B | L3↔L4 attribute-painting dedup deferred                                            |
+| `@kumiki/components/switch`       | 1_650 B | 1_650 B | Revised per ADR 0018                                                               |
+| `@kumiki/components/checkbox`     | 1_800 B | 1_800 B | Revised per ADR 0018                                                               |
+| `@kumiki/components/radio-group`  | 2_400 B | 2_400 B | Revised per ADR 0018                                                               |
+| `@kumiki/components/tabs`         | 2_950 B | 2_950 B | Revised per ADR 0018                                                               |
+| `@kumiki/components/tooltip`      | 2 kB    | 2 kB    | + Floating UI peer dep amortized                                                   |
+| `@kumiki/components/dialog`       | 3.5 kB  | 3.5 kB  |                                                                                    |
+| `@kumiki/components/form-field`   | 2_800 B | 1_950 B | `with-validation` subpath split deferred                                           |
+| `@kumiki/components/select`       | 3 kB    | 3 kB    | + Floating UI peer dep amortized                                                   |
+| `@kumiki/components/combobox`     | 4.5 kB  | 4.5 kB  | + Floating UI peer dep amortized                                                   |
+| `@kumiki/components/accordion`    | 2_800 B | 1_950 B | Item context simplification deferred                                               |
+| `@kumiki/components/slider`       | 2_650 B | 2_650 B | Revised per ADR 0018                                                               |
+| `@kumiki/components/number-field` | 2_900 B | 2_900 B | Revised per ADR 0018                                                               |
+| `@kumiki/components/popover`      | 2.5 kB  | 2.5 kB  |                                                                                    |
+| `@kumiki/components/toast`        | 3 kB    | 3 kB    |                                                                                    |
+| `@kumiki/components/menu`         | 3 kB    | 3 kB    |                                                                                    |
+| `@kumiki/components/calendar`     | 5.5 kB  | 5.5 kB  | + `@internationalized/date` peer (Gregorian + Japanese imperial at v1.0; ADR 0013) |
+| `@kumiki/components/date-picker`  | 7 kB    | 7 kB    | Calendar + Popover composition; same peer dep                                      |
 
-Numbers track each component's `docs/components/<name>.md` "Bundle (Layer 4 target, brotli)" row. Same Layer-4 svelte-package caveat: targets, not gated.
+#### Phase 1.5 additions (Layer 4 budgets, brotli)
 
-| Subpath                                   | Target | Notes                                                           |
-| ----------------------------------------- | ------ | --------------------------------------------------------------- |
-| `@kumiki/components/badge`                | 0.5 kB |                                                                 |
-| `@kumiki/components/horizontal-rule`      | 0.3 kB |                                                                 |
-| `@kumiki/components/definition-list`      | 0.4 kB |                                                                 |
-| `@kumiki/components/loading-spinner`      | 0.6 kB |                                                                 |
-| `@kumiki/components/breadcrumb`           | 0.8 kB |                                                                 |
-| `@kumiki/components/button`               | 0.8 kB |                                                                 |
-| `@kumiki/components/avatar`               | 1.0 kB |                                                                 |
-| `@kumiki/components/avatar-group`         | 1.0 kB | Composes Avatar; shared layout primitive                        |
-| `@kumiki/components/icon-button`          | 1.0 kB | Reuses Button machinery; consumer-supplied icon snippet         |
-| `@kumiki/components/alert`                | 1.0 kB |                                                                 |
-| `@kumiki/components/chips`                | 1.2 kB |                                                                 |
-| `@kumiki/components/pagination`           | 1.4 kB |                                                                 |
-| `@kumiki/components/toolbar`              | 1.8 kB | APG roving tabindex; depends on `@kumiki/primitives/collection` |
-| `@kumiki/components/table`                | 2.5 kB | Semantic table; ADR 0015 (no virtualize / cell-edit)            |
-| `@kumiki/components/time-field`           | 2.5 kB | + `@internationalized/date` peer (`Time`)                       |
-| `@kumiki/components/datetime-field`       | 4.0 kB | + `@internationalized/date` peer (`CalendarDateTime`)           |
-| `@kumiki/components/popover/with-confirm` | 1.0 kB | Popconfirm subpath; reuses `popover` core                       |
+Numbers track each component's `docs/components/<name>.md` "Bundle (Layer 4 target, brotli)" row. Same gating model as Phase 1 entries above (`measure:svelte-size:check`).
 
-### `@kumiki/atelier/<name>` — Layer 5 preview
+| Subpath                                   | Gate    | Target  | Notes                                                                 |
+| ----------------------------------------- | ------- | ------- | --------------------------------------------------------------------- |
+| `@kumiki/components/badge`                | 0.5 kB  | 0.5 kB  |                                                                       |
+| `@kumiki/components/horizontal-rule`      | 350 B   | 300 B   | Reduced 400 → 330 B via `<svelte:element>`; runtime floor near gate   |
+| `@kumiki/components/definition-list`      | 0.4 kB  | 0.4 kB  |                                                                       |
+| `@kumiki/components/loading-spinner`      | 0.6 kB  | 0.6 kB  |                                                                       |
+| `@kumiki/components/breadcrumb`           | 950 B   | 950 B   | Revised per ADR 0018                                                  |
+| `@kumiki/components/button`               | 1_250 B | 800 B   | L3 `paint()` ↔ L4 reactive-binding dedup deferred                     |
+| `@kumiki/components/avatar`               | 1.0 kB  | 1.0 kB  |                                                                       |
+| `@kumiki/components/avatar-group`         | 1.0 kB  | 1.0 kB  | Composes Avatar; shared layout primitive                              |
+| `@kumiki/components/icon-button`          | 1_350 B | 1_350 B | Revised per ADR 0018                                                  |
+| `@kumiki/components/alert`                | 1_600 B | 1_000 B | Reduced via `Title` `<svelte:element>`; locale-provider inlining left |
+| `@kumiki/components/chips`                | 1.2 kB  | 1.2 kB  |                                                                       |
+| `@kumiki/components/pagination`           | 2_000 B | 1_400 B | Reduced via Item/Prev/Next `<svelte:element>`; further deferred       |
+| `@kumiki/components/toolbar`              | 1.8 kB  | 1.8 kB  | APG roving tabindex; depends on `@kumiki/primitives/collection`       |
+| `@kumiki/components/table`                | 2.5 kB  | 2.5 kB  | Semantic table; ADR 0015 (no virtualize / cell-edit)                  |
+| `@kumiki/components/time-field`           | 2_750 B | 2_750 B | Revised per ADR 0018                                                  |
+| `@kumiki/components/datetime-field`       | 9_000 B | 4_000 B | DatePart/TimePart subpath split deferred (`exports` change)           |
+| `@kumiki/components/popover/with-confirm` | 1.0 kB  | 1.0 kB  | Popconfirm subpath; reuses `popover` core                             |
 
-| Subpath                       | Target | Notes                                                                |
-| ----------------------------- | ------ | -------------------------------------------------------------------- |
-| `@kumiki/atelier/toggle`      | 6 KB   | Includes Tailwind v4 utility-class strings + scoped CSS variant      |
-| `@kumiki/atelier/dialog`      | 6 KB   | Same shape                                                           |
-| `@kumiki/atelier/<phase-1.5>` | ≤ 8 KB | Each Phase 1.5 atelier subpath ships both Tailwind + vanilla variant |
+### `@kumiki/atelier/<name>` — Layer 5 (GA at v1.0 per [ADR 0017](16-decisions/0017-atelier-ga-at-v1.md))
 
-These are larger because they include styles. We don't apologize: that's the value proposition of the Atelier. Same Layer-4 svelte-package caveat: these are targets, not gated.
+Atelier subpaths are gated by the same `measure:svelte-size:check` flow as `@kumiki/components`. Each subpath is measured **once per variant** (Tailwind, vanilla); both must fit the budget.
+
+| Subpath                          | Budget  | Notes                                                              |
+| -------------------------------- | ------- | ------------------------------------------------------------------ |
+| `@kumiki/atelier/toggle`         | 6 KB    | Includes Tailwind v4 utility-class strings + scoped CSS variant    |
+| `@kumiki/atelier/dialog`         | 6 KB    | Same shape                                                         |
+| `@kumiki/atelier/datetime-field` | 9_250 B | Revised per [ADR 0018] — bound by Tailwind variant                 |
+| `@kumiki/atelier/<other>`        | ≤ 8 KB  | Each other Phase 1.5 atelier subpath ships both Tailwind + vanilla |
+
+These are larger because they include styles. That's the value proposition of the Atelier; the gate enforces the ceiling.
 
 ### `@kumiki/primitives/<each>` — Layer 1
 
@@ -175,7 +182,14 @@ Full barrel `@kumiki/primitives` (everything imported) ≤ 3 KB.
 
 ## 9.3 How budgets are enforced
 
-`size-limit` runs in CI on every PR. Configuration lives in each layer package's `package.json`, with one entry per subpath:
+Budgets are enforced by **two complementary tools**:
+
+- **`size-limit`** for L1–L3 (TS-only packages). Configuration lives in each layer package's `package.json`.
+- **`measure:svelte-size`** for L4 / Atelier (`.svelte` packages, [ADR 0018](16-decisions/0018-l4-bundle-budget-revision.md)).
+
+Both run on every PR via `pnpm ci:health`. Going over budget = CI failure, no merge.
+
+### `size-limit` for L1–L3
 
 ```json
 "size-limit": [
@@ -203,10 +217,35 @@ present, so the number measures only the per-component cost.
 **Going over budget = CI failure, no merge.** No `--ignore` flags
 allowed on the `size-limit` invocation itself.
 
+### `measure:svelte-size` for L4 / Atelier
+
+`pnpm measure:svelte-size` (source: `apps/docs/scripts/measure-svelte-size.mjs`)
+bundles each `@kumiki/components/<name>` and `@kumiki/atelier/<name>` subpath
+through Vite + the Svelte plugin in lib mode (since esbuild's loader
+cannot read `.svelte`), marks workspace foundations and peer deps
+external (matching the L3 incremental model), and brotli-compresses
+the produced ESM at quality 11.
+
+The canonical budget table lives in this file (§9.2 above); the
+script's `L4_BUDGET` and `ATELIER_BUDGET_OVERRIDES` constants are
+duplicated from it. When this file changes, the script changes in the
+same PR — and the gate is the script.
+
+`pnpm measure:svelte-size:check` exits non-zero on any over-budget
+subpath; it is part of `pnpm ci:health`. Raising any budget requires
+a follow-on ADR with measurement evidence — the same contract as
+`size-limit`'s `--ignore`.
+
+### Workspace-level skips
+
 `@kumiki/components` and `@kumiki/atelier` are **excluded** from `pnpm
 size`, `pnpm attw`, and `pnpm agadoo` because svelte-package emits
-`.svelte` files that those tools' esbuild loader cannot read. Those
-two packages still pass `pnpm publint` and svelte-check.
+`.svelte` files that those tools' esbuild loader cannot read. The
+filter strings (`--filter='!@kumiki/components'` etc.) are workspace
+exclusions, not `--ignore` flags on the underlying tools — they
+preserve the "no `--ignore`" contract. Those two packages still pass
+`pnpm publint` and svelte-check, plus the `measure:svelte-size:check`
+gate above.
 
 ## 9.4 Scaling pressure: what we do when a component starts to overflow
 
@@ -292,5 +331,5 @@ Filling this in becomes a Phase 0c deliverable. At v1.0 we publish a `apps/docs/
 
 - **Resolved:** brotli measurement was made the default in 2026-05 with the move to size-limit v12. Gzip numbers in §9.1's competitor table are kept for like-for-like comparison.
 - **TBD:** Are the `1 KB / locale` budgets achievable for languages with longer messages (e.g., German, French)? Likely OK because the message set is tiny (~10 strings), but worth a Phase 0c verification.
-- **Open:** Should size-limit gain a `.svelte` loader so Layer 4 budgets become first-class CI gates instead of indirect (Lighthouse + Layer 3)? Tracked as a Phase 0c stretch goal.
-- **TBD:** Whether to publish a `kumiki-bundle-report.json` per release for downstream tooling (e.g., bundlephobia ingestion).
+- **Resolved (2026-05):** Should size-limit gain a `.svelte` loader so Layer 4 budgets become first-class CI gates? Answer: we keep size-limit for L1–L3 and use `measure:svelte-size` (Vite-based) for L4 / Atelier ([ADR 0018](16-decisions/0018-l4-bundle-budget-revision.md)). Both run inside `pnpm ci:health`.
+- **TBD:** Whether to publish a `kumiki-bundle-report.json` per release for downstream tooling (e.g., bundlephobia ingestion). The `measure:svelte-size --json` flag already emits the right shape; publishing remains a launch deliverable.
