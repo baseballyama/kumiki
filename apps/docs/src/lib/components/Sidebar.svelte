@@ -8,7 +8,16 @@
   import { dict } from '$lib/i18n/dict.js';
 
   type Item = { href: string; label: string; status?: 'preview' | 'unreleased' | 'stable' };
-  type Section = { title: string; items: ReadonlyArray<Item> };
+  type Section = {
+    title: string;
+    items: ReadonlyArray<Item>;
+    /** Render the section as a collapsible <details>. */
+    collapsible?: boolean;
+    /** Initial open state when collapsible. Defaults to false. */
+    defaultOpen?: boolean;
+    /** Stable id for persisting expansion in localStorage. */
+    storageKey?: string;
+  };
 
   let {
     sections,
@@ -24,6 +33,21 @@
 
   const path = $derived(page.url.pathname);
   const sb = $derived(dict(ui.locale).sidebar);
+
+  function readPersistedOpen(key: string | undefined, fallback: boolean): boolean {
+    if (typeof localStorage === 'undefined' || !key) return fallback;
+    const raw = localStorage.getItem(`kumiki:sidebar:${key}`);
+    return raw === null ? fallback : raw === '1';
+  }
+
+  function persistOpen(key: string | undefined, value: boolean): void {
+    if (typeof localStorage === 'undefined' || !key) return;
+    localStorage.setItem(`kumiki:sidebar:${key}`, value ? '1' : '0');
+  }
+
+  function sectionContainsActive(items: ReadonlyArray<Item>, currentPath: string): boolean {
+    return items.some((it) => it.href === currentPath);
+  }
 </script>
 
 <aside class="sidebar" class:open aria-label="Section navigation">
@@ -42,23 +66,64 @@
   {/if}
   <nav>
     {#each sections as section, sIdx (sIdx)}
-      <div class="section">
-        <h3>{section.title}</h3>
-        <ul>
-          {#each section.items as item (item.href)}
-            <li>
-              <a href={item.href} class:active={path === item.href}>
-                <span>{item.label}</span>
-                {#if item.status === 'preview'}
-                  <span class="badge preview">{sb.previewBadge}</span>
-                {:else if item.status === 'unreleased'}
-                  <span class="badge unreleased">{sb.soonBadge}</span>
-                {/if}
-              </a>
-            </li>
-          {/each}
-        </ul>
-      </div>
+      {#if section.collapsible}
+        {@const containsActive = sectionContainsActive(section.items, path)}
+        {@const initialOpen =
+          containsActive || readPersistedOpen(section.storageKey, section.defaultOpen ?? false)}
+        <details
+          class="section section-collapsible"
+          open={initialOpen}
+          ontoggle={(e) =>
+            persistOpen(section.storageKey, (e.currentTarget as HTMLDetailsElement).open)}
+        >
+          <summary>
+            <h3>{section.title}</h3>
+            <svg
+              class="caret"
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path d="M3 2l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+              ></path>
+            </svg>
+          </summary>
+          <ul>
+            {#each section.items as item (item.href)}
+              <li>
+                <a href={item.href} class:active={path === item.href}>
+                  <span>{item.label}</span>
+                  {#if item.status === 'preview'}
+                    <span class="badge preview">{sb.previewBadge}</span>
+                  {:else if item.status === 'unreleased'}
+                    <span class="badge unreleased">{sb.soonBadge}</span>
+                  {/if}
+                </a>
+              </li>
+            {/each}
+          </ul>
+        </details>
+      {:else}
+        <div class="section">
+          <h3>{section.title}</h3>
+          <ul>
+            {#each section.items as item (item.href)}
+              <li>
+                <a href={item.href} class:active={path === item.href}>
+                  <span>{item.label}</span>
+                  {#if item.status === 'preview'}
+                    <span class="badge preview">{sb.previewBadge}</span>
+                  {:else if item.status === 'unreleased'}
+                    <span class="badge unreleased">{sb.soonBadge}</span>
+                  {/if}
+                </a>
+              </li>
+            {/each}
+          </ul>
+        </div>
+      {/if}
     {/each}
   </nav>
 </aside>
@@ -106,6 +171,44 @@
     color: var(--k-ink-4);
     margin-bottom: 8px;
     padding-inline-start: 12px;
+  }
+  .section-collapsible > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline-end: 12px;
+    user-select: none;
+    border-radius: var(--k-radius-xs);
+    transition: background var(--k-dur-fast);
+  }
+  .section-collapsible > summary::-webkit-details-marker {
+    display: none;
+  }
+  .section-collapsible > summary:hover {
+    background: var(--k-surface-1);
+  }
+  .section-collapsible > summary > h3 {
+    margin-bottom: 0;
+    flex: 1;
+  }
+  .section-collapsible > summary .caret {
+    color: var(--k-ink-4);
+    transition: transform var(--k-dur-fast) var(--k-ease-out);
+    flex-shrink: 0;
+  }
+  .section-collapsible[open] > summary .caret {
+    transform: rotate(90deg);
+  }
+  .section-collapsible > ul {
+    margin-top: 8px;
+  }
+  :global([dir='rtl']) .section-collapsible > summary .caret {
+    transform: scaleX(-1);
+  }
+  :global([dir='rtl']) .section-collapsible[open] > summary .caret {
+    transform: rotate(-90deg) scaleX(-1);
   }
   ul {
     list-style: none;

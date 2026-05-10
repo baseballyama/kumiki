@@ -106,6 +106,16 @@ export type DocDict = {
     layerL3: string;
     layerL4: string;
     layerL5: string;
+    /** Section title for the family / cross-layer breakdown. */
+    familyTitle: string;
+    /** Lede above the family table (one sentence). */
+    familyLede: string;
+    /** Heading for "when to use this layer" callouts inside the family table. */
+    familyWhen: string;
+    /** Heading shown above the active entry's layer in the family table. */
+    familyCurrent: string;
+    /** Per-layer "when to use this layer" copy, indexed by layer number. */
+    layerWhen: ReadonlyArray<string>;
   };
   sidebar: {
     sections: string;
@@ -122,6 +132,18 @@ export type DocDict = {
     layersByExample: string;
     styling: string;
     components: string;
+    /** Layer 0 — Types section title. */
+    layer0: string;
+    /** Layer 1 — Primitives + Locale section title. */
+    layer1: string;
+    /** Layer 2 — Runtime + Machines section title. */
+    layer2: string;
+    /** Layer 3 — Headless attachments section title. */
+    layer3: string;
+    /** Layer 4 — Compound components section title. */
+    layer4: string;
+    /** Layer 5 — Atelier styled presets section title. */
+    layer5: string;
     soonBadge: string;
     previewBadge: string;
   };

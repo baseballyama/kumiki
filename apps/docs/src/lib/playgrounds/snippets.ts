@@ -1296,7 +1296,7 @@ scope.next('desc')     // "kumiki-dialog-2-desc"`,
   'component-button': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/components' },
     {
-      title: 'Basic — variant + loading',
+      title: 'Basic — loading + accessible name',
       lang: 'svelte',
       code: `<script lang="ts">
   import { Button } from '@kumiki/components/button';
@@ -1308,7 +1308,15 @@ scope.next('desc')     // "kumiki-dialog-2-desc"`,
   }
 </script>
 
-<Button.Root variant="primary" loading={busy} onclick={save}>
+<Button.Root loading={busy} onclick={save}>
+  Save
+</Button.Root>
+
+<!--
+  Variants are not part of the headless contract.
+  Drive them via your own \`class\` / \`data-*\`, or use \`@kumiki/atelier/button\`:
+-->
+<Button.Root data-variant="primary" loading={busy} onclick={save}>
   Save
 </Button.Root>`,
     },
@@ -1318,6 +1326,74 @@ scope.next('desc')     // "kumiki-dialog-2-desc"`,
       code: `<Button.Root aria-label="Add item">
   {#snippet icon()}<PlusIcon />{/snippet}
 </Button.Root>`,
+    },
+  ],
+
+  'attachment-button': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/headless' },
+    {
+      title: 'Bring your own <button>',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { createButton } from '@kumiki/headless/button';
+
+  let busy = $state(false);
+  const ctl = createButton({ loading: false, disabled: false });
+
+  $effect(() => ctl.setLoading(busy));
+
+  async function save() {
+    busy = true;
+    await fetch('/save', { method: 'POST' });
+    busy = false;
+  }
+</script>
+
+<button
+  type="button"
+  class="my-button"
+  onclick={save}
+  {@attach ctl.root}
+>
+  Save
+</button>`,
+    },
+    {
+      title: 'Why reach for Layer 3?',
+      lang: 'ts',
+      code: `// You want full control over markup (e.g. an <a> styled like a button,
+// a custom wrapper, or your own design system's button shell) but still
+// want Kumiki to wire ARIA, click/Enter/Space gating, and aria-busy.
+//
+// At Layer 3 you mount the controller on a node you own — no <Button.Root>
+// wrapper, no fixed markup, no styles.`,
+    },
+  ],
+
+  'atelier-button': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Drop-in styled Button',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Button } from '@kumiki/atelier/button';
+  let busy = $state(false);
+</script>
+
+<Button variant="primary" size="md" loading={busy} onclick={() => (busy = !busy)}>
+  Save
+</Button>
+
+<Button variant="danger" onclick={remove}>Delete</Button>
+<Button variant="ghost" size="sm">Cancel</Button>`,
+    },
+    {
+      title: 'Copy into your project',
+      lang: 'bash',
+      code: `pnpm kumiki add button
+# Drops a vanilla-CSS or Tailwind button preset into your repo,
+# under \`src/lib/components/button\` (path is configurable).
+# Edit the variants/sizes to match your design system.`,
     },
   ],
 
@@ -1350,11 +1426,11 @@ scope.next('desc')     // "kumiki-dialog-2-desc"`,
     {
       title: 'Three accessible-name shapes',
       lang: 'svelte',
-      code: `<Badge.Root variant="success">New</Badge.Root>
+      code: `<Badge.Root data-variant="success">New</Badge.Root>
 
 <Badge.Root aria-label="3 unread notifications">3</Badge.Root>
 
-<Badge.Root decorative variant="error" />`,
+<Badge.Root decorative data-variant="error" />`,
     },
   ],
 
@@ -1398,7 +1474,7 @@ scope.next('desc')     // "kumiki-dialog-2-desc"`,
     {
       title: 'Term / Description',
       lang: 'svelte',
-      code: `<DefinitionList.Root grouped>
+      code: `<DefinitionList.Root>
   <DefinitionList.Term>Status</DefinitionList.Term>
   <DefinitionList.Description>Active</DefinitionList.Description>
   <DefinitionList.Term>Owner</DefinitionList.Term>
