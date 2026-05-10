@@ -114,10 +114,11 @@
 
 ### A-3. ノード互換性 / SSR の検証
 
-- [ ] 全 L1〜L3 パッケージ `dist/index.mjs` を Node 22 から `import` して落ちないことを `pnpm check:node-compat` で常時検証
+- [x] 全 L1〜L3 パッケージ `dist/index.mjs` を Node 22 から `import` して落ちないことを `pnpm check:node-compat` で常時検証
   - 受入: CI gate で必ず実行、Layer 3 の controller construction が DOM globals 不要で完了
-  - 見積: S（既存スクリプトの拡張）
+  - 見積: S（既存スクリプトの拡張）→ **完了**
   - 依存: なし
+  - **完了 2026-05-10**: `scripts/check-node-compat.mjs` を 2-pass 化。第 1 pass は従来どおり L1〜L3 の `dist/index.mjs` を DOM globals (document/window/HTMLElement) を全削除した上で `import()` し、top-level DOM 参照を検出 (6 packages: locale / primitives / runtime / types / headless / machines)。第 2 pass は新設で、headless barrel から各 L3 subpath の `create*()` factory を呼び出して controller を実構築 (18 件: accordion / alert / button / checkbox / combobox / dialog / form-field / menu / number-field / popover / radio-group / select / slider / switch / tabs / toast / toggle / tooltip)。これにより constructor-time の DOM 参照 (`document.getElementById` などを controller の top-level コードから直接呼ぶような regression) を catch する。`calendar` は `@internationalized/date` 依存が repo root に解決できないため除外。代わりに `apps/docs/scripts/build-machine-specs.mjs` が Node + apps/docs context で `createCalendarMachine` を呼んで coverage を担保。`pnpm check:node-compat` は `pnpm check:all` → `pnpm ci:health` 経由で常時 CI gate。
 - [ ] 全 L4 コンポーネントが SvelteKit SSR で `prerender = true` で落ちずに HTML 出力する
   - 受入: `apps/docs` の SSR ビルドが green、ビルド失敗時に該当 component を block list に明記
   - 見積: S
@@ -147,7 +148,8 @@
 - [x] **Deliverable B-4 確認**: TimeField + DateTimeField はトラック A-1（再評価後）で L4 直接実装として完成
   - 完了 2026-05-10: L2/L3 を持たない設計判断は spec で記録済み。flyle 側の API 利用視点では impact 0。
 - [ ] **Deliverable C 拡張**: Phase 1.5 全コンポーネントが APG keyboard test pass（A-1 再評価により新規 component なし、既存 34 件のカバレッジが対象）
-- [ ] **Deliverable F 拡張**: トラック A-2 (bundle 列 L4) と統合
+- [x] **Deliverable F 拡張**: トラック A-2 (bundle 列 L4) と統合
+  - 完了 2026-05-10: A-2 bundle gate (L4 102 subpath × ADR 0018 hybrid policy) が `pnpm ci:health` に組込まれ、Lighthouse CI 由来の間接的な L4 計測は補助 metric に降格。`docs/migrations/flyle-nexus.md` Deliverable F §Acceptance を `pnpm measure:svelte-size:check` 直接 gate に書き換え済み。
 - [ ] **Deliverable L 完成度確認**: §4 マッピング表 45 件すべてに最小コード片あり、漏れ 0
 
 ### B-3. パイロット成功後の本格移行

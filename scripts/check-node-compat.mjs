@@ -88,6 +88,89 @@ for (const pkgPath of findPackageJsons(PACKAGES)) {
   }
 }
 
+// ─── Layer 3 controller construction ─────────────────────────────────────
+//
+// Per `docs/release/v1-execution-plan.md` A-3: Layer 3 controller construction
+// must complete without DOM globals. Importing the headless barrel (above)
+// catches *top-level* DOM access; this second pass catches *constructor-time*
+// access by actually invoking each `create*()` factory with a minimal valid
+// input. The factory returns a controller object — we throw the result away,
+// we only care that no DOM was needed to build it.
+//
+// Inputs mirror `apps/docs/scripts/build-machine-specs.mjs` and the per-component
+// tests under `packages/headless/src/<name>/attachment.test.ts`.
+//
+// `calendar` is intentionally skipped here: `createCalendar` requires a
+// `CalendarDate` instance, but `@internationalized/date` is a peer/dev dep
+// of `@kumiki/{headless,machines}` and is not installed at the repo root.
+// `apps/docs/scripts/build-machine-specs.mjs` already exercises the calendar
+// FSM in a Node context where the peer is resolvable, so we don't lose
+// coverage by skipping it here.
+
+const headless = await import(pathToFileURL(join(PACKAGES, 'headless', 'dist', 'index.mjs')).href);
+
+const L3_ENTRIES = [
+  {
+    name: 'accordion',
+    call: () => headless.accordion.createAccordion({ items: [{ id: 'a', value: 'a' }] }),
+  },
+  { name: 'alert', call: () => headless.alert.createAlert() },
+  { name: 'button', call: () => headless.button.createButton() },
+  { name: 'checkbox', call: () => headless.checkbox.createCheckbox() },
+  { name: 'combobox', call: () => headless.combobox.createCombobox() },
+  { name: 'dialog', call: () => headless.dialog.createDialog() },
+  { name: 'form-field', call: () => headless.formField.createFormField({ initialValue: '' }) },
+  { name: 'menu', call: () => headless.menu.createMenu({ items: [{ id: 'a', label: 'A' }] }) },
+  { name: 'number-field', call: () => headless.numberField.createNumberField() },
+  { name: 'popover', call: () => headless.popover.createPopover() },
+  {
+    name: 'radio-group',
+    call: () => headless.radioGroup.createRadioGroup({ items: [{ id: 'a', value: 'a' }] }),
+  },
+  {
+    name: 'select',
+    call: () => headless.select.createSelect({ items: [{ id: 'a', value: 'a', label: 'A' }] }),
+  },
+  { name: 'slider', call: () => headless.slider.createSlider() },
+  { name: 'switch', call: () => headless.switchAttachment.createSwitch() },
+  {
+    name: 'tabs',
+    call: () => headless.tabs.createTabs({ items: [{ value: 't', id: 't' }] }),
+  },
+  { name: 'toast', call: () => headless.toast.createToast() },
+  { name: 'toggle', call: () => headless.toggle.createToggle() },
+  { name: 'tooltip', call: () => headless.tooltip.createTooltip() },
+];
+
+let constructErrors = 0;
+let constructed = 0;
+
+// DOM globals must remain unset for this pass too.
+delete globalThis.document;
+delete globalThis.window;
+delete globalThis.HTMLElement;
+
+for (const entry of L3_ENTRIES) {
+  try {
+    const controller = entry.call();
+    if (controller == null) {
+      throw new Error('controller is null/undefined');
+    }
+    constructed++;
+  } catch (err) {
+    constructErrors++;
+    console.error(`✘ L3 construct ${entry.name}: ${err?.message ?? err}`);
+  }
+}
+
+if (constructErrors > 0) {
+  console.error(
+    `\n${constructErrors} Layer 3 controller construction failure${constructErrors === 1 ? '' : 's'}.`,
+  );
+  process.exit(1);
+}
+console.log(`✓ ${constructed} Layer 3 controllers constructed in pure Node (no DOM globals).`);
+
 if (errors > 0) {
   console.error(`\n${errors} Node compatibility failure${errors === 1 ? '' : 's'}.`);
   process.exit(1);

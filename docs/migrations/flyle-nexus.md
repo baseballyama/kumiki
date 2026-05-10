@@ -237,8 +237,8 @@ flyle 側のリポジトリで `--base-background-1` / `--primary-foreground-1` 
 
 - L3 (`@kumiki/headless/<name>`) を持つ Phase 1.5 全 subpath が `pnpm size` で計測される ✅
 - L4 target は `docs/design/09-bundle-budget.md` に明記される ✅
-- L4 / Atelier の実測は Lighthouse CI on `apps/docs` (`pnpm lhci:check`) で間接的にカバー ([§9.3](../design/09-bundle-budget.md#93-how-budgets-are-enforced))
-- 超える場合は新規 ADR を起こして承認を得てから引き上げ ([ADR 0009](../design/16-decisions/0009-tsdown-bundler.md) §5 参照)
+- L4 / Atelier の実測は **`pnpm measure:svelte-size:check`** で 102 subpath すべて hard-gate (`pnpm ci:health` 経由で CI に組込み済み) ✅ — 2026-05-10 に [ADR 0018](../design/16-decisions/0018-l4-bundle-budget-revision.md) と共に Live。Lighthouse CI は補助 metric として残す
+- 超える場合は新規 ADR を起こして承認を得てから引き上げ ([ADR 0009](../design/16-decisions/0009-tsdown-bundler.md) §5 / [ADR 0018](../design/16-decisions/0018-l4-bundle-budget-revision.md) §"Adjusting a budget" 参照)
 
 **見積**: S
 
