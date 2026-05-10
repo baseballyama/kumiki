@@ -43,5 +43,13 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
       grep: process.env.GUIDEPUP ? undefined : /^$/,
     },
+    {
+      // SSR smoke test — visits every sandbox with JavaScript disabled to
+      // assert each Layer 4 / 5 component renders server-side without throwing.
+      // See `docs/release/v1-execution-plan.md` Track A-3 #2.
+      name: 'ssr',
+      testMatch: /.*\.ssr\.test\.ts/,
+      use: { ...devices['Desktop Chrome'], javaScriptEnabled: false },
+    },
   ],
 });

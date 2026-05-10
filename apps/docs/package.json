@@ -16,6 +16,7 @@
     "test:e2e": "playwright test",
     "test:a11y": "playwright test --project=a11y",
     "test:sr": "playwright test --project=screen-reader",
+    "test:ssr": "playwright test --project=ssr",
     "typecheck": "svelte-check --tsconfig ./tsconfig.json",
     "lint": "oxlint src"
   },
