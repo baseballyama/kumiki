@@ -16,10 +16,12 @@
   "hidePageHeader": true,
   "hideBreadcrumbs": true,
   "tsconfig": "tsconfig.typedoc.json",
+  "gitRevision": "main",
+  "sourceLinkExternal": false,
   "excludeExternals": true,
   "excludePrivate": true,
   "excludeInternal": true,
-  "treatWarningsAsErrors": false,
+  "treatWarningsAsErrors": true,
   "logLevel": "Warn",
   "blockTags": [
     "@param",

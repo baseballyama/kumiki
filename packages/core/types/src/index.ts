@@ -16,7 +16,7 @@
  * validator implementation is supplied by the consumer (Zod 3.24+,
  * Valibot 1.x, ArkType 2.0+, Effect Schema 3.x, …).
  *
- * @see [docs/design/07-form-validation.md](../../../docs/design/07-form-validation.md)
+ * @see https://github.com/baseballyama/kumiki/blob/main/docs/design/07-form-validation.md
  */
 export interface StandardSchemaV1<Input = unknown, Output = Input> {
   readonly '~standard': {

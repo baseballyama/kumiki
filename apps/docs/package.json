@@ -6,6 +6,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "predev": "node ../../scripts/ensure-api-docs.mjs",
     "dev": "vite dev",
     "prebuild": "node scripts/build-llms-full.mjs && node scripts/build-sizes.mjs && pnpm -w run typedoc",
     "build": "vite build",

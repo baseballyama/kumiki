@@ -47,6 +47,9 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      - name: API docs (TypeDoc) — fail on JSDoc errors / drift
+        run: pnpm check:api-docs
+
       - name: Build packages
         run: pnpm build
 

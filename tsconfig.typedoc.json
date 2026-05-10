@@ -3,7 +3,11 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": ["packages/**/src/**/*.ts"],
+  "include": [
+    "packages/core/**/src/**/*.ts",
+    "packages/machines/src/**/*.ts",
+    "packages/headless/src/**/*.ts"
+  ],
   "exclude": [
     "**/node_modules",
     "**/dist",
@@ -12,7 +16,6 @@
     "**/*.test.ts",
     "**/*.test.svelte.ts",
     "**/*.bench.ts",
-    "**/*.svelte",
-    "packages/tooling/**"
+    "**/*.svelte"
   ]
 }
