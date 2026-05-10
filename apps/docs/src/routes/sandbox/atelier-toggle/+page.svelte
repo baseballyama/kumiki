@@ -29,16 +29,16 @@
 
   <div class="row">
     {#if variant === 'tailwind'}
-      <Tailwind bind:pressed>Bold</Tailwind>
-      <Tailwind variant="outline" bind:pressed>Bold (outline)</Tailwind>
-      <Tailwind size="sm" bind:pressed>sm</Tailwind>
-      <Tailwind size="lg" bind:pressed>lg</Tailwind>
-      <Tailwind disabled>disabled</Tailwind>
+      <Tailwind.Root bind:pressed>Bold</Tailwind.Root>
+      <Tailwind.Root variant="outline" bind:pressed>Bold (outline)</Tailwind.Root>
+      <Tailwind.Root size="sm" bind:pressed>sm</Tailwind.Root>
+      <Tailwind.Root size="lg" bind:pressed>lg</Tailwind.Root>
+      <Tailwind.Root disabled>disabled</Tailwind.Root>
     {:else}
-      <Vanilla bind:pressed>Bold</Vanilla>
-      <Vanilla size="sm" bind:pressed>sm</Vanilla>
-      <Vanilla size="lg" bind:pressed>lg</Vanilla>
-      <Vanilla disabled>disabled</Vanilla>
+      <Vanilla.Root bind:pressed>Bold</Vanilla.Root>
+      <Vanilla.Root size="sm" bind:pressed>sm</Vanilla.Root>
+      <Vanilla.Root size="lg" bind:pressed>lg</Vanilla.Root>
+      <Vanilla.Root disabled>disabled</Vanilla.Root>
     {/if}
   </div>
 

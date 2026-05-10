@@ -3,7 +3,5 @@
  *
  * @see docs/design/18-css-variable-contract.md §Switch
  */
-import Tailwind from './Switch.tailwind.svelte';
-import Vanilla from './Switch.vanilla.svelte';
-
-export { Tailwind, Vanilla };
+export * as Tailwind from './tailwind/index.js';
+export * as Vanilla from './vanilla/index.js';

@@ -1,18 +1,24 @@
 #!/usr/bin/env node
 /**
  * Verify every `@kumiki/atelier/<name>` subpath exposes both Tailwind and
- * Vanilla variants, with one of two recognized shapes:
+ * Vanilla variants in the **folder shape**:
  *
- * - **2-file** — `Name.tailwind.svelte` + `Name.vanilla.svelte` next to
- *   `index.ts`. Used for atomic single-element components (Toggle, Button,
- *   Switch, etc.).
- * - **folder** — `tailwind/` + `vanilla/` directories, each containing the
- *   compound surface (Root.svelte, Trigger.svelte, …). Used for compound
- *   components (Dialog, Combobox, Menu, …).
+ *   <name>/
+ *     index.ts               (top-level barrel re-exporting both namespaces)
+ *     tailwind/
+ *       index.ts             (per-variant barrel)
+ *       Root.svelte (+ optional Trigger.svelte, Content.svelte, …)
+ *     vanilla/
+ *       index.ts
+ *       Root.svelte (+ …)
  *
- * Mixed shapes within one component (e.g. tailwind file + vanilla folder)
- * are an error. The script also verifies that `index.ts` re-exports both
- * variants under the `Tailwind` / `Vanilla` names.
+ * Atomic single-element components (Toggle, Button, Badge, Switch,
+ * Checkbox, IconButton, HorizontalRule, LoadingSpinner) use the same
+ * shape with just `Root.svelte` under each variant, so the consumer
+ * surface is uniform:
+ *
+ *   import { Tailwind, Vanilla } from '@kumiki/atelier/<name>';
+ *   <Tailwind.Root … />
  *
  * Promised in `docs/release/v1-execution-plan.md` Track C-2.
  *
@@ -39,7 +45,6 @@ if (components.length === 0) {
 }
 
 let errors = 0;
-const shapes = { '2-file': 0, folder: 0 };
 
 for (const name of components) {
   const dir = join(ATELIER_SRC, name);
@@ -51,39 +56,54 @@ for (const name of components) {
   }
 
   const entries = readdirSync(dir);
-  const tailwindFile = entries.find((e) => e.endsWith('.tailwind.svelte'));
-  const vanillaFile = entries.find((e) => e.endsWith('.vanilla.svelte'));
-  const tailwindDir = entries.includes('tailwind') && statSync(join(dir, 'tailwind')).isDirectory();
-  const vanillaDir = entries.includes('vanilla') && statSync(join(dir, 'vanilla')).isDirectory();
 
-  let shape;
-  if (tailwindFile && vanillaFile && !tailwindDir && !vanillaDir) shape = '2-file';
-  else if (tailwindDir && vanillaDir && !tailwindFile && !vanillaFile) shape = 'folder';
-  else {
+  // No 2-file shape allowed any more (C-2 freeze): every component must
+  // use the folder shape so the consumer surface is uniform.
+  const stray2File = entries.filter(
+    (e) => e.endsWith('.tailwind.svelte') || e.endsWith('.vanilla.svelte'),
+  );
+  if (stray2File.length > 0) {
     console.error(
-      `✘ ${name}: mixed or incomplete variant shape ` +
-        `(tailwindFile=${!!tailwindFile} vanillaFile=${!!vanillaFile} ` +
-        `tailwindDir=${!!tailwindDir} vanillaDir=${!!vanillaDir}). ` +
-        `Pick either the 2-file (.tailwind.svelte / .vanilla.svelte) or ` +
-        `folder (tailwind/ / vanilla/) shape, not both.`,
+      `✘ ${name}: legacy 2-file variant present (${stray2File.join(', ')}). ` +
+        `Move into ${name}/tailwind/Root.svelte and ${name}/vanilla/Root.svelte ` +
+        `with per-variant index.ts barrels.`,
     );
     errors++;
     continue;
   }
-  shapes[shape]++;
 
-  // For folder shape, both subdirs must contain an index.ts.
-  if (shape === 'folder') {
-    for (const variant of ['tailwind', 'vanilla']) {
-      const variantIndex = join(dir, variant, 'index.ts');
-      if (!existsSync(variantIndex)) {
-        console.error(`✘ ${name}/${variant}: missing index.ts.`);
-        errors++;
-      }
+  const tailwindDir = entries.includes('tailwind') && statSync(join(dir, 'tailwind')).isDirectory();
+  const vanillaDir = entries.includes('vanilla') && statSync(join(dir, 'vanilla')).isDirectory();
+  if (!tailwindDir || !vanillaDir) {
+    console.error(
+      `✘ ${name}: missing variant folder ` +
+        `(tailwindDir=${tailwindDir}, vanillaDir=${vanillaDir}). ` +
+        `Each component must ship both tailwind/ and vanilla/.`,
+    );
+    errors++;
+    continue;
+  }
+
+  // Both variant folders must contain an index.ts and at least one
+  // `.svelte` file. Most components ship `Root.svelte`; a few (toast,
+  // form-field) ship a differently-named entry point — that is fine as
+  // long as the variant index.ts re-exports it.
+  for (const variant of ['tailwind', 'vanilla']) {
+    const variantDir = join(dir, variant);
+    const variantIndex = join(variantDir, 'index.ts');
+    if (!existsSync(variantIndex)) {
+      console.error(`✘ ${name}/${variant}: missing index.ts.`);
+      errors++;
+      continue;
+    }
+    const svelteFiles = readdirSync(variantDir).filter((f) => f.endsWith('.svelte'));
+    if (svelteFiles.length === 0) {
+      console.error(`✘ ${name}/${variant}: no .svelte files under ${variant}/.`);
+      errors++;
     }
   }
 
-  // Every index.ts must export `Tailwind` and `Vanilla`.
+  // Every top-level index.ts must export `Tailwind` and `Vanilla` namespaces.
   const indexSrc = readFileSync(indexFile, 'utf8');
   for (const variantName of ['Tailwind', 'Vanilla']) {
     const reExport = new RegExp(
@@ -97,13 +117,11 @@ for (const name of components) {
 }
 
 const total = components.length;
-const summary =
-  `${total} atelier component${total === 1 ? '' : 's'} ` +
-  `(${shapes['2-file']} 2-file, ${shapes.folder} folder)`;
+const summary = `${total} atelier component${total === 1 ? '' : 's'}`;
 
 if (errors > 0) {
   console.error(`\n✘ ${errors} atelier shape error${errors === 1 ? '' : 's'} across ${summary}.`);
   process.exit(1);
 }
 
-console.log(`✓ Atelier shape OK — ${summary}.`);
+console.log(`✓ Atelier shape OK — ${summary} (folder shape uniform).`);

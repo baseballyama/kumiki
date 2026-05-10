@@ -42,8 +42,8 @@ export const REGISTRY: ReadonlyArray<ComponentSpec> = [
   {
     name: 'toggle',
     files: {
-      tailwind: [{ source: 'toggle/Toggle.tailwind.svelte', dest: 'toggle/Toggle.svelte' }],
-      vanilla: [{ source: 'toggle/Toggle.vanilla.svelte', dest: 'toggle/Toggle.svelte' }],
+      tailwind: [{ source: 'toggle/tailwind/Root.svelte', dest: 'toggle/Toggle.svelte' }],
+      vanilla: [{ source: 'toggle/vanilla/Root.svelte', dest: 'toggle/Toggle.svelte' }],
     },
     importHint: () => "import Toggle from '$lib/components/ui/toggle/Toggle.svelte';",
   },

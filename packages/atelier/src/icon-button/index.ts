@@ -1,7 +1,5 @@
 /**
  * `@kumiki/atelier/icon-button` (preview) — styled IconButton variants.
  */
-import Tailwind from './IconButton.tailwind.svelte';
-import Vanilla from './IconButton.vanilla.svelte';
-
-export { Tailwind, Vanilla };
+export * as Tailwind from './tailwind/index.js';
+export * as Vanilla from './vanilla/index.js';

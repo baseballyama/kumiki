@@ -74,22 +74,22 @@
   <section>
     <h2>Button family</h2>
     <div class="row">
-      <Button>Primary</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="danger">Danger</Button>
-      <IconButton aria-label="Settings">
+      <Button.Root>Primary</Button.Root>
+      <Button.Root variant="secondary">Secondary</Button.Root>
+      <Button.Root variant="ghost">Ghost</Button.Root>
+      <Button.Root variant="danger">Danger</Button.Root>
+      <IconButton.Root aria-label="Settings">
         {#snippet icon()}<span aria-hidden="true">⚙</span>{/snippet}
-      </IconButton>
+      </IconButton.Root>
     </div>
   </section>
 
   <section>
     <h2>Toggles &amp; selection</h2>
     <div class="row">
-      <Toggle bind:pressed={togglePressed}>Toggle</Toggle>
-      <Switch bind:checked={switchOn} aria-label="Switch" />
-      <Checkbox bind:value={checkboxValue} aria-label="Checkbox" />
+      <Toggle.Root bind:pressed={togglePressed}>Toggle</Toggle.Root>
+      <Switch.Root bind:checked={switchOn} aria-label="Switch" />
+      <Checkbox.Root bind:value={checkboxValue} aria-label="Checkbox" />
       <RadioGroup.Root items={radioItems} bind:value={radioValue}>
         {#each radioItems as item (item.id)}
           <label style="display: inline-flex; gap: 0.25rem; align-items: center;">
@@ -104,17 +104,17 @@
   <section>
     <h2>Status indicators</h2>
     <div class="row">
-      <Badge>neutral</Badge>
-      <Badge variant="info">info</Badge>
-      <Badge variant="success">success</Badge>
-      <Badge variant="warn">warn</Badge>
-      <Badge variant="error">error</Badge>
+      <Badge.Root>neutral</Badge.Root>
+      <Badge.Root variant="info">info</Badge.Root>
+      <Badge.Root variant="success">success</Badge.Root>
+      <Badge.Root variant="warn">warn</Badge.Root>
+      <Badge.Root variant="error">error</Badge.Root>
       <Chips.Root>Chip</Chips.Root>
       <Chips.Root variant="dismissible" label="Removable" onDismiss={() => {}}>
         <Chips.Label>Removable</Chips.Label>
         <Chips.Close />
       </Chips.Root>
-      <LoadingSpinner mode="region">Loading</LoadingSpinner>
+      <LoadingSpinner.Root mode="region">Loading</LoadingSpinner.Root>
       <Avatar.Root size="md" name="Ada Lovelace">
         <Avatar.Fallback />
       </Avatar.Root>
@@ -158,7 +158,7 @@
 
   <section>
     <h2>Layout primitives</h2>
-    <HorizontalRule />
+    <HorizontalRule.Root />
     <Breadcrumb.Root>
       <Breadcrumb.Item>
         <Breadcrumb.Link href="/">Home</Breadcrumb.Link>

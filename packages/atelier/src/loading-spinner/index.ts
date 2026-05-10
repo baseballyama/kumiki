@@ -1,7 +1,5 @@
 /**
  * `@kumiki/atelier/loading-spinner` (preview) — styled LoadingSpinner variants.
  */
-import Tailwind from './LoadingSpinner.tailwind.svelte';
-import Vanilla from './LoadingSpinner.vanilla.svelte';
-
-export { Tailwind, Vanilla };
+export * as Tailwind from './tailwind/index.js';
+export * as Vanilla from './vanilla/index.js';
