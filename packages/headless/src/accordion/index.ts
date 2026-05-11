@@ -127,6 +127,7 @@ export function createAccordion<V>(options: CreateAccordionOptions<V>): Accordio
       if (node.tagName === 'BUTTON' && !node.hasAttribute('type')) {
         node.setAttribute('type', 'button');
       }
+      node.setAttribute('data-component-part', 'trigger');
       node.setAttribute('aria-controls', panelElementId(item.id));
       if (item.disabled) node.setAttribute('aria-disabled', 'true');
 
@@ -205,6 +206,7 @@ export function createAccordion<V>(options: CreateAccordionOptions<V>): Accordio
     return (node) => {
       const elementId = panelElementId(item.id);
       if (!node.id) node.id = elementId;
+      node.setAttribute('data-component-part', 'panel');
       node.setAttribute('role', 'region');
       node.setAttribute('aria-labelledby', triggerElementId(item.id));
 

@@ -115,9 +115,16 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
     trackEl = node;
 
     const paint = (): void => {
-      node.setAttribute('data-orientation', machine.context.orientation);
+      const ctx = machine.context;
+      node.setAttribute('data-orientation', ctx.orientation);
       if (machine.state === 'disabled') node.setAttribute('data-disabled', '');
       else node.removeAttribute('data-disabled');
+      // Paint `--kumiki-slider-pct` on the root so styled variants can render
+      // the filled range as a background gradient or position decorative
+      // children without needing a separate Range component.
+      const pct = ctx.max === ctx.min ? 0 : ((ctx.value - ctx.min) / (ctx.max - ctx.min)) * 100;
+      const visualPct = ctx.orientation === 'horizontal' && direction === 'rtl' ? 100 - pct : pct;
+      node.style.setProperty('--kumiki-slider-pct', `${visualPct}%`);
     };
     paint();
 
