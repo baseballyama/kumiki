@@ -197,6 +197,30 @@
       "types": "./dist/tooltip/index.d.ts",
       "svelte": "./dist/tooltip/index.js",
       "import": "./dist/tooltip/index.js"
+    },
+    "./themes": {
+      "style": "./dist/themes/index.css",
+      "default": "./dist/themes/index.css"
+    },
+    "./themes/all.css": {
+      "style": "./dist/themes/all.css",
+      "default": "./dist/themes/all.css"
+    },
+    "./themes/shu.css": {
+      "style": "./dist/themes/shu.css",
+      "default": "./dist/themes/shu.css"
+    },
+    "./themes/matcha.css": {
+      "style": "./dist/themes/matcha.css",
+      "default": "./dist/themes/matcha.css"
+    },
+    "./themes/ai.css": {
+      "style": "./dist/themes/ai.css",
+      "default": "./dist/themes/ai.css"
+    },
+    "./themes/sumi.css": {
+      "style": "./dist/themes/sumi.css",
+      "default": "./dist/themes/sumi.css"
     }
   },
   "publishConfig": {

@@ -30,19 +30,21 @@
 
 <style>
   :global(.kumiki-badge) {
-    --kumiki-badge-bg: hsl(220 10% 86%);
-    --kumiki-badge-fg: hsl(220 10% 10%);
-    --kumiki-badge-radius: 4px;
+    --kumiki-badge-bg: oklch(0.94 0.005 247);
+    --kumiki-badge-fg: var(--kumiki-color-fg);
+    --kumiki-badge-radius: 6px;
 
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 0 0.5rem;
+    border: 1px solid oklch(0 0 0 / 0.04);
     border-radius: var(--kumiki-badge-radius);
     background: var(--kumiki-badge-bg);
     color: var(--kumiki-badge-fg);
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.005em;
     line-height: 1.25rem;
     white-space: nowrap;
   }
@@ -50,21 +52,45 @@
     font-size: 0.625rem;
     line-height: 1rem;
     padding: 0 0.375rem;
+    border-radius: 5px;
   }
   :global(.kumiki-badge[data-variant='info']) {
-    --kumiki-badge-bg: hsl(200 90% 90%);
-    --kumiki-badge-fg: hsl(200 90% 25%);
+    --kumiki-badge-bg: oklch(0.94 0.04 240);
+    --kumiki-badge-fg: oklch(0.34 0.13 240);
   }
   :global(.kumiki-badge[data-variant='success']) {
-    --kumiki-badge-bg: hsl(140 50% 88%);
-    --kumiki-badge-fg: hsl(140 60% 22%);
+    --kumiki-badge-bg: oklch(0.92 0.05 152);
+    --kumiki-badge-fg: oklch(0.32 0.1 152);
   }
   :global(.kumiki-badge[data-variant='warn']) {
-    --kumiki-badge-bg: hsl(40 90% 88%);
-    --kumiki-badge-fg: hsl(40 90% 25%);
+    --kumiki-badge-bg: oklch(0.93 0.06 78);
+    --kumiki-badge-fg: oklch(0.38 0.11 78);
   }
   :global(.kumiki-badge[data-variant='error']) {
-    --kumiki-badge-bg: hsl(0 80% 90%);
-    --kumiki-badge-fg: hsl(0 80% 30%);
+    --kumiki-badge-bg: oklch(0.93 0.06 25);
+    --kumiki-badge-fg: oklch(0.42 0.16 25);
+  }
+  :global {
+    :root[data-theme='dark'] .kumiki-badge {
+      --kumiki-badge-bg: var(--kumiki-color-surface-raised);
+      --kumiki-badge-fg: var(--kumiki-color-fg-muted);
+      border-color: oklch(1 0 0 / 0.04);
+    }
+    :root[data-theme='dark'] .kumiki-badge[data-variant='info'] {
+      --kumiki-badge-bg: oklch(0.3 0.06 240);
+      --kumiki-badge-fg: oklch(0.78 0.1 240);
+    }
+    :root[data-theme='dark'] .kumiki-badge[data-variant='success'] {
+      --kumiki-badge-bg: oklch(0.3 0.06 152);
+      --kumiki-badge-fg: oklch(0.8 0.1 152);
+    }
+    :root[data-theme='dark'] .kumiki-badge[data-variant='warn'] {
+      --kumiki-badge-bg: oklch(0.32 0.08 78);
+      --kumiki-badge-fg: oklch(0.82 0.12 78);
+    }
+    :root[data-theme='dark'] .kumiki-badge[data-variant='error'] {
+      --kumiki-badge-bg: oklch(0.3 0.1 25);
+      --kumiki-badge-fg: oklch(0.78 0.14 25);
+    }
   }
 </style>

@@ -20,11 +20,11 @@
 
 <style>
   :global(.kumiki-toolbar) {
-    --kumiki-toolbar-bg: white;
-    --kumiki-toolbar-border: hsl(220 10% 86%);
-    --kumiki-toolbar-radius: 6px;
-    --kumiki-toolbar-padding: 0.25rem;
-    --kumiki-toolbar-gap: 0.25rem;
+    --kumiki-toolbar-bg: var(--kumiki-color-bg);
+    --kumiki-toolbar-border: var(--kumiki-color-line);
+    --kumiki-toolbar-radius: 10px;
+    --kumiki-toolbar-padding: 0.3125rem;
+    --kumiki-toolbar-gap: 0.125rem;
 
     display: inline-flex;
     align-items: center;
@@ -33,55 +33,85 @@
     border: 1px solid var(--kumiki-toolbar-border);
     border-radius: var(--kumiki-toolbar-radius);
     background: var(--kumiki-toolbar-bg);
+    box-shadow:
+      0 1px 2px oklch(0 0 0 / 0.04),
+      0 1px 1px oklch(0 0 0 / 0.02);
   }
   :global(.kumiki-toolbar[data-orientation='vertical']) {
     flex-direction: column;
     align-items: stretch;
   }
-  :global(.kumiki-toolbar [data-part='item']) {
+  :global(.kumiki-toolbar [data-component-part='item']) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 2rem;
-    padding: 0 0.5rem;
+    height: 1.875rem;
+    padding: 0 0.625rem;
     border: 0;
-    border-radius: 4px;
+    border-radius: 6px;
     background: transparent;
-    color: inherit;
+    color: var(--kumiki-color-fg);
     font: inherit;
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: 0.8125rem;
+    font-weight: 550;
+    letter-spacing: -0.005em;
     cursor: pointer;
+    transition: background-color 120ms cubic-bezier(0.32, 0.72, 0, 1);
   }
-  :global(.kumiki-toolbar [data-part='item']:hover:not([data-disabled])) {
-    background: hsl(220 10% 92%);
+  :global(.kumiki-toolbar [data-component-part='item']:hover:not([data-disabled])) {
+    background: var(--kumiki-color-surface);
+    color: var(--kumiki-color-fg);
   }
-  :global(.kumiki-toolbar [data-part='item'][data-disabled]) {
+  :global(.kumiki-toolbar [data-component-part='item'][data-state='on']),
+  :global(.kumiki-toolbar [data-component-part='item'][aria-pressed='true']) {
+    background: var(--kumiki-color-fg);
+    color: var(--kumiki-color-accent-fg);
+    box-shadow:
+      0 1px 2px oklch(0 0 0 / 0.12),
+      inset 0 1px 0 oklch(1 0 0 / 0.08);
+  }
+  :global(.kumiki-toolbar [data-component-part='item'][data-disabled]) {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  :global(.kumiki-toolbar [data-part='separator']) {
+  :global(.kumiki-toolbar [data-component-part='separator']) {
     width: 1px;
     height: 1.25rem;
-    background: hsl(220 10% 86%);
-    margin-inline: 0.25rem;
+    background: var(--kumiki-color-line);
+    margin-inline: 0.3125rem;
   }
-  :global(.kumiki-toolbar[data-orientation='vertical'] [data-part='separator']) {
+  :global(.kumiki-toolbar[data-orientation='vertical'] [data-component-part='separator']) {
     width: 100%;
     height: 1px;
     margin-inline: 0;
-    margin-block: 0.25rem;
+    margin-block: 0.3125rem;
   }
-  @media (prefers-color-scheme: dark) {
-    :global(.kumiki-toolbar) {
-      --kumiki-toolbar-bg: hsl(220 10% 14%);
-      --kumiki-toolbar-border: hsl(220 10% 28%);
+  :global {
+    :root[data-theme='dark'] .kumiki-toolbar {
+      --kumiki-toolbar-bg: oklch(0.2 0.012 256);
+      --kumiki-toolbar-border: var(--kumiki-color-fg);
     }
-    :global(.kumiki-toolbar [data-part='item']:hover:not([data-disabled])) {
-      background: hsl(220 10% 22%);
+    :root[data-theme='dark'] .kumiki-toolbar [data-component-part='item'] {
+      color: var(--kumiki-color-fg-muted);
     }
-    :global(.kumiki-toolbar [data-part='separator']) {
-      background: hsl(220 10% 28%);
+    :root[data-theme='dark']
+      .kumiki-toolbar
+      [data-component-part='item']:hover:not([data-disabled]) {
+      background: var(--kumiki-color-surface-raised);
+      color: var(--kumiki-color-surface);
+    }
+    :root[data-theme='dark'] .kumiki-toolbar [data-component-part='item'][data-state='on'],
+    :root[data-theme='dark'] .kumiki-toolbar [data-component-part='item'][aria-pressed='true'] {
+      background: var(--kumiki-color-surface);
+      color: var(--kumiki-color-bg);
+    }
+    :root[data-theme='dark'] .kumiki-toolbar [data-component-part='separator'] {
+      background: var(--kumiki-color-fg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.kumiki-toolbar [data-component-part='item']) {
+      transition: none;
     }
   }
 </style>

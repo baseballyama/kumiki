@@ -1,0 +1,19 @@
+/**
+ * @kumiki/atelier — bundled themes for runtime switching.
+ *
+ * Loads the base (shu) palette as the default, plus every alternative
+ * theme scoped by `[data-kumiki-theme="<name>"]`. Toggle the attribute
+ * on `<html>` (or any ancestor) to switch palettes at runtime:
+ *
+ *   document.documentElement.dataset.kumikiTheme = 'matcha';
+ *
+ * Or in HTML:
+ *
+ *   <html data-kumiki-theme="ai">
+ *
+ * Set no attribute → uses the default shu palette.
+ */
+@import './shu.css';
+@import './matcha.css';
+@import './ai.css';
+@import './sumi.css';

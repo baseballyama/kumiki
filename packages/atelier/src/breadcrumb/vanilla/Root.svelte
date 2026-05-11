@@ -17,12 +17,13 @@
 
 <style>
   :global(.kumiki-breadcrumb) {
-    --kumiki-breadcrumb-link-fg: hsl(220 10% 30%);
-    --kumiki-breadcrumb-link-fg-current: hsl(220 10% 12%);
-    --kumiki-breadcrumb-separator-fg: hsl(220 10% 55%);
+    --kumiki-breadcrumb-link-fg: var(--kumiki-color-fg-muted);
+    --kumiki-breadcrumb-link-fg-current: var(--kumiki-color-fg);
+    --kumiki-breadcrumb-separator-fg: var(--kumiki-color-line-strong);
 
     color: var(--kumiki-breadcrumb-link-fg);
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
+    letter-spacing: -0.005em;
   }
   :global(.kumiki-breadcrumb ol) {
     list-style: none;
@@ -33,37 +34,50 @@
     align-items: center;
     gap: 0.25rem;
   }
-  :global(.kumiki-breadcrumb [data-part='item']) {
+  :global(.kumiki-breadcrumb [data-component-part='item']) {
     display: inline-flex;
     align-items: center;
   }
-  /* Explicit :visited override — browser UA default would otherwise leak a
-     low-contrast purple/pink for visited links on light backgrounds. */
-  :global(.kumiki-breadcrumb [data-part='link']),
-  :global(.kumiki-breadcrumb [data-part='link']:visited) {
+  :global(.kumiki-breadcrumb [data-component-part='link']),
+  :global(.kumiki-breadcrumb [data-component-part='link']:visited) {
     color: var(--kumiki-breadcrumb-link-fg);
     text-decoration: none;
-    transition: color 120ms ease;
+    padding: 0.1875rem 0.4375rem;
+    border-radius: 5px;
+    transition:
+      color 120ms cubic-bezier(0.32, 0.72, 0, 1),
+      background-color 120ms cubic-bezier(0.32, 0.72, 0, 1);
   }
-  :global(.kumiki-breadcrumb [data-part='link']:hover),
-  :global(.kumiki-breadcrumb [data-part='link']:focus-visible) {
+  :global(.kumiki-breadcrumb [data-component-part='link']:hover),
+  :global(.kumiki-breadcrumb [data-component-part='link']:focus-visible) {
     color: var(--kumiki-breadcrumb-link-fg-current);
-    text-decoration: underline;
+    background: var(--kumiki-color-surface);
+    text-decoration: none;
   }
-  :global(.kumiki-breadcrumb [data-part='link'][data-current='page']) {
+  :global(.kumiki-breadcrumb [data-component-part='link'][data-current='page']) {
     color: var(--kumiki-breadcrumb-link-fg-current);
-    font-weight: 500;
+    font-weight: 600;
   }
-  :global(.kumiki-breadcrumb [data-part='separator']) {
+  :global(.kumiki-breadcrumb [data-component-part='separator']) {
     color: var(--kumiki-breadcrumb-separator-fg);
     user-select: none;
-    margin-inline: 0.25rem;
+    margin-inline: 0.125rem;
+    font-size: 0.75rem;
   }
-  @media (prefers-color-scheme: dark) {
-    :global(.kumiki-breadcrumb) {
-      --kumiki-breadcrumb-link-fg: hsl(220 10% 78%);
-      --kumiki-breadcrumb-link-fg-current: hsl(220 10% 96%);
-      --kumiki-breadcrumb-separator-fg: hsl(220 10% 55%);
+  :global {
+    :root[data-theme='dark'] .kumiki-breadcrumb {
+      --kumiki-breadcrumb-link-fg: oklch(0.7 0.012 256);
+      --kumiki-breadcrumb-link-fg-current: var(--kumiki-color-surface);
+      --kumiki-breadcrumb-separator-fg: oklch(0.42 0.014 256);
+    }
+    :root[data-theme='dark'] .kumiki-breadcrumb [data-component-part='link']:hover,
+    :root[data-theme='dark'] .kumiki-breadcrumb [data-component-part='link']:focus-visible {
+      background: var(--kumiki-color-surface-raised);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.kumiki-breadcrumb [data-component-part='link']) {
+      transition: none;
     }
   }
 </style>

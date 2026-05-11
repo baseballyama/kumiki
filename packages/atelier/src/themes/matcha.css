@@ -1,0 +1,27 @@
+/**
+ * @kumiki/atelier theme: 抹茶 Matcha — green accent (opt-in).
+ *
+ * Activated by `data-kumiki-theme="matcha"` on `<html>` (or any ancestor).
+ * Pair with `shu.css` (the base / default) for the neutral skeleton.
+ */
+:where(:root[data-kumiki-theme='matcha']),
+:where([data-kumiki-theme='matcha']) {
+  --kumiki-color-accent: oklch(0.62 0.13 145);
+  --kumiki-color-accent-hover: oklch(0.56 0.15 145);
+  --kumiki-color-accent-active: oklch(0.5 0.16 145);
+  --kumiki-color-accent-soft: oklch(0.93 0.05 145);
+  --kumiki-color-accent-soft-hover: oklch(0.89 0.07 145);
+  --kumiki-color-accent-fg: oklch(1 0 0);
+  --kumiki-color-focus-ring: var(--kumiki-color-accent);
+}
+
+:where(:root[data-kumiki-theme='matcha'][data-theme='dark']),
+:where([data-theme='dark'] [data-kumiki-theme='matcha']),
+:where([data-kumiki-theme='matcha'][data-theme='dark']) {
+  --kumiki-color-accent: oklch(0.78 0.14 145);
+  --kumiki-color-accent-hover: oklch(0.85 0.15 145);
+  --kumiki-color-accent-active: oklch(0.72 0.16 145);
+  --kumiki-color-accent-soft: oklch(0.3 0.06 145);
+  --kumiki-color-accent-soft-hover: oklch(0.36 0.08 145);
+  --kumiki-color-accent-fg: oklch(0.14 0.04 145);
+}

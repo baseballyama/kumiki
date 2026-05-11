@@ -24,14 +24,14 @@
   const tone = $derived(props.tone ?? 'neutral');
   const className = $derived((props.class ?? '') as string);
   const toneClasses = {
-    neutral: 'bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-50',
-    info: 'bg-sky-100 text-sky-900 dark:bg-sky-900 dark:text-sky-50',
-    success: 'bg-emerald-100 text-emerald-900 dark:bg-emerald-900 dark:text-emerald-50',
-    warn: 'bg-amber-100 text-amber-900 dark:bg-amber-900 dark:text-amber-50',
-    error: 'bg-rose-100 text-rose-900 dark:bg-rose-900 dark:text-rose-50',
+    neutral: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200',
+    info: 'bg-sky-100 text-sky-800 dark:bg-sky-950/60 dark:text-sky-300',
+    success: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300',
+    warn: 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300',
+    error: 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300',
   } as const;
   const cls = $derived(
-    `inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium ${toneClasses[tone]} data-[selected]:ring-2 data-[selected]:ring-current ${className}`.trim(),
+    `inline-flex items-center gap-1 rounded-full border border-black/[0.04] px-2.5 py-[0.1875rem] text-xs font-[550] leading-tight tracking-[-0.005em] transition-colors duration-150 ${toneClasses[tone]} data-[variant=selectable]:cursor-pointer data-[pressed=true]:bg-slate-900 data-[pressed=true]:text-slate-50 data-[pressed=true]:shadow-sm dark:border-white/[0.04] ${className}`.trim(),
   );
 </script>
 

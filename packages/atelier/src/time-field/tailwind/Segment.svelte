@@ -7,6 +7,6 @@
 </script>
 
 <Segment
-  class={`inline-flex h-7 min-w-[1.25rem] items-center justify-center rounded px-1 focus:bg-slate-200 focus:outline-none data-[empty]:text-slate-400 dark:focus:bg-slate-700 dark:data-[empty]:text-slate-500 ${className}`.trim()}
+  class={`inline-flex h-7 min-w-[1.25rem] cursor-text items-center justify-center rounded px-1 transition-colors duration-100 focus:bg-orange-100 focus:text-orange-700 focus:outline-none data-[empty]:text-slate-400 dark:focus:bg-orange-900/40 dark:focus:text-orange-300 dark:data-[empty]:text-slate-500 ${className}`.trim()}
   {...rest}
 />

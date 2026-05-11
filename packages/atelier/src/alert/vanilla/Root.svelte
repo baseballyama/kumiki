@@ -23,59 +23,95 @@
 
 <style>
   :global(.kumiki-alert) {
-    --kumiki-alert-bg: hsl(200 90% 96%);
-    --kumiki-alert-fg: hsl(200 90% 22%);
-    --kumiki-alert-border: hsl(200 90% 80%);
-    --kumiki-alert-radius: 6px;
-    --kumiki-alert-padding: 1rem;
+    --kumiki-alert-bg: oklch(0.97 0.025 240);
+    --kumiki-alert-fg: oklch(0.32 0.13 240);
+    --kumiki-alert-border: oklch(0.82 0.08 240);
+    --kumiki-alert-radius: 12px;
+    --kumiki-alert-padding: 1rem 1.125rem;
 
     position: relative;
     display: grid;
     gap: 0.25rem;
     padding: var(--kumiki-alert-padding);
     border: 1px solid var(--kumiki-alert-border);
+    border-left-width: 3px;
     border-radius: var(--kumiki-alert-radius);
     background: var(--kumiki-alert-bg);
     color: var(--kumiki-alert-fg);
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+    box-shadow: 0 1px 2px oklch(0 0 0 / 0.03);
   }
   :global(.kumiki-alert[data-severity='success']) {
-    --kumiki-alert-bg: hsl(140 50% 95%);
-    --kumiki-alert-fg: hsl(140 60% 20%);
-    --kumiki-alert-border: hsl(140 60% 70%);
+    --kumiki-alert-bg: oklch(0.95 0.04 152);
+    --kumiki-alert-fg: oklch(0.3 0.1 152);
+    --kumiki-alert-border: oklch(0.74 0.13 152);
   }
   :global(.kumiki-alert[data-severity='warn']) {
-    --kumiki-alert-bg: hsl(40 95% 94%);
-    --kumiki-alert-fg: hsl(40 95% 25%);
-    --kumiki-alert-border: hsl(40 95% 65%);
+    --kumiki-alert-bg: oklch(0.95 0.05 78);
+    --kumiki-alert-fg: oklch(0.38 0.11 78);
+    --kumiki-alert-border: oklch(0.78 0.14 78);
   }
   :global(.kumiki-alert[data-severity='error']) {
-    --kumiki-alert-bg: hsl(0 80% 96%);
-    --kumiki-alert-fg: hsl(0 80% 28%);
-    --kumiki-alert-border: hsl(0 80% 75%);
+    --kumiki-alert-bg: oklch(0.95 0.04 25);
+    --kumiki-alert-fg: oklch(0.4 0.16 25);
+    --kumiki-alert-border: oklch(0.78 0.14 25);
   }
-  :global(.kumiki-alert [data-part='title']) {
+  :global(.kumiki-alert [data-component-part='title']) {
     font-weight: 600;
-    line-height: 1.2;
+    font-size: 0.875rem;
+    line-height: 1.3;
+    letter-spacing: -0.011em;
   }
-  :global(.kumiki-alert [data-part='description']) {
-    opacity: 0.9;
+  :global(.kumiki-alert [data-component-part='description']) {
+    opacity: 0.92;
   }
-  :global(.kumiki-alert [data-part='close']) {
+  :global(.kumiki-alert [data-component-part='close']) {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.625rem;
+    height: 1.625rem;
     border: 0;
-    border-radius: 4px;
+    border-radius: 6px;
     background: transparent;
     color: currentColor;
     cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 120ms ease;
+    opacity: 0.55;
+    transition:
+      opacity 140ms cubic-bezier(0.32, 0.72, 0, 1),
+      background-color 140ms cubic-bezier(0.32, 0.72, 0, 1);
   }
-  :global(.kumiki-alert [data-part='close']:hover) {
+  :global(.kumiki-alert [data-component-part='close']:hover) {
+    background: color-mix(in oklch, currentColor 8%, transparent);
     opacity: 1;
+  }
+  :global {
+    :root[data-theme='dark'] .kumiki-alert {
+      --kumiki-alert-bg: oklch(0.27 0.05 240);
+      --kumiki-alert-fg: oklch(0.82 0.1 240);
+      --kumiki-alert-border: oklch(0.4 0.1 240);
+    }
+    :root[data-theme='dark'] .kumiki-alert[data-severity='success'] {
+      --kumiki-alert-bg: oklch(0.27 0.06 152);
+      --kumiki-alert-fg: oklch(0.85 0.1 152);
+      --kumiki-alert-border: oklch(0.4 0.1 152);
+    }
+    :root[data-theme='dark'] .kumiki-alert[data-severity='warn'] {
+      --kumiki-alert-bg: oklch(0.28 0.08 78);
+      --kumiki-alert-fg: oklch(0.85 0.12 78);
+      --kumiki-alert-border: oklch(0.42 0.12 78);
+    }
+    :root[data-theme='dark'] .kumiki-alert[data-severity='error'] {
+      --kumiki-alert-bg: oklch(0.28 0.08 25);
+      --kumiki-alert-fg: oklch(0.82 0.14 25);
+      --kumiki-alert-border: oklch(0.42 0.14 25);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.kumiki-alert [data-component-part='close']) {
+      transition: none;
+    }
   }
 </style>

@@ -6,4 +6,7 @@
   let { class: className = '', ...rest }: Props = $props();
 </script>
 
-<Separator class={`my-1 h-px bg-slate-200 dark:bg-slate-700 ${className}`.trim()} {...rest} />
+<Separator
+  class={`-mx-px my-[0.3125rem] h-px bg-slate-200 dark:bg-slate-700 ${className}`.trim()}
+  {...rest}
+/>

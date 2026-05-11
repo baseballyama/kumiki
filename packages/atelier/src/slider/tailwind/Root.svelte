@@ -28,8 +28,8 @@
   }: Props = $props();
   const orientClass = $derived(
     orientation === 'horizontal'
-      ? 'relative h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700'
-      : 'relative h-full w-1.5 rounded-full bg-slate-200 dark:bg-slate-700',
+      ? 'relative h-1.5 w-full rounded-full bg-slate-200 shadow-[inset_0_1px_1px_rgb(0_0_0_/_0.06)] dark:bg-slate-700'
+      : 'relative h-full w-1.5 rounded-full bg-slate-200 shadow-[inset_0_1px_1px_rgb(0_0_0_/_0.06)] dark:bg-slate-700',
   );
 </script>
 

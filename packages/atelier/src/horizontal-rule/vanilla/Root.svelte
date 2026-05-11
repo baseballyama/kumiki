@@ -18,10 +18,16 @@
 
 <style>
   :global(.kumiki-hr) {
-    --kumiki-hr-color: hsl(220 10% 86%);
+    --kumiki-hr-color: var(--kumiki-color-line);
     --kumiki-hr-thickness: 1px;
     border: 0;
-    background: var(--kumiki-hr-color);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--kumiki-hr-color) 20%,
+      var(--kumiki-hr-color) 80%,
+      transparent
+    );
     margin: 0;
   }
   :global(.kumiki-hr[data-orientation='horizontal']) {
@@ -33,10 +39,17 @@
     display: inline-block;
     width: var(--kumiki-hr-thickness);
     height: 100%;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      var(--kumiki-hr-color) 20%,
+      var(--kumiki-hr-color) 80%,
+      transparent
+    );
   }
-  @media (prefers-color-scheme: dark) {
-    :global(.kumiki-hr) {
-      --kumiki-hr-color: hsl(220 10% 30%);
+  :global {
+    :root[data-theme='dark'] .kumiki-hr {
+      --kumiki-hr-color: var(--kumiki-color-fg);
     }
   }
 </style>

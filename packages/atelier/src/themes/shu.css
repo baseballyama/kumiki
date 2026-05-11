@@ -1,0 +1,133 @@
+/**
+ * @kumiki/atelier theme: 朱 Shu — vermillion accent (DEFAULT).
+ *
+ * The signature Kumiki palette. Vermillion (hue 35) plays the accent role
+ * on a parchment / kinari (off-white) surface.
+ *
+ * Usage:
+ *   import '@kumiki/atelier/themes/shu.css';
+ *
+ * Override the accent at any scope by re-assigning the colour tokens:
+ *   :root { --kumiki-color-accent: oklch(0.62 0.18 60); }
+ */
+:where(:root),
+:where(:root[data-kumiki-theme='shu']),
+:where([data-kumiki-theme='shu']) {
+  /* ─── Surfaces ─── */
+  --kumiki-color-bg: oklch(0.985 0.006 80);
+  --kumiki-color-surface: oklch(0.97 0.008 80);
+  --kumiki-color-surface-raised: oklch(0.945 0.01 80);
+  --kumiki-color-surface-sunken: oklch(0.91 0.012 80);
+
+  /* ─── Ink (foreground text) ─── */
+  --kumiki-color-fg: oklch(0.22 0.018 256);
+  --kumiki-color-fg-muted: oklch(0.42 0.012 280);
+  --kumiki-color-fg-quiet: oklch(0.55 0.012 256);
+  --kumiki-color-fg-faint: oklch(0.7 0.008 280);
+
+  /* ─── Lines / borders ─── */
+  --kumiki-color-line: oklch(0.88 0.008 80);
+  --kumiki-color-line-strong: oklch(0.82 0.01 80);
+
+  /* ─── Accent (朱 vermillion) ─── */
+  --kumiki-color-accent: oklch(0.62 0.18 35);
+  --kumiki-color-accent-hover: oklch(0.57 0.2 35);
+  --kumiki-color-accent-active: oklch(0.52 0.21 35);
+  --kumiki-color-accent-soft: oklch(0.94 0.05 35);
+  --kumiki-color-accent-soft-hover: oklch(0.9 0.06 35);
+  --kumiki-color-accent-fg: oklch(1 0 0);
+
+  /* ─── Status hues (parallel to docs tokens) ─── */
+  --kumiki-color-success: oklch(0.62 0.13 145);
+  --kumiki-color-success-soft: oklch(0.93 0.05 145);
+  --kumiki-color-success-fg: oklch(0.45 0.13 145);
+  --kumiki-color-warning: oklch(0.78 0.14 80);
+  --kumiki-color-warning-soft: oklch(0.95 0.06 85);
+  --kumiki-color-warning-fg: oklch(0.5 0.1 80);
+  --kumiki-color-danger: oklch(0.55 0.18 25);
+  --kumiki-color-danger-soft: oklch(0.94 0.04 25);
+  --kumiki-color-danger-fg: oklch(0.45 0.16 25);
+  --kumiki-color-info: oklch(0.6 0.12 240);
+  --kumiki-color-info-soft: oklch(0.94 0.04 240);
+  --kumiki-color-info-fg: oklch(0.45 0.14 240);
+
+  /* ─── Focus ─── */
+  --kumiki-color-focus-ring: var(--kumiki-color-accent);
+  --kumiki-color-focus-ring-offset: var(--kumiki-color-bg);
+
+  /* ─── Disabled foreground ─── */
+  --kumiki-disabled-opacity: 0.5;
+
+  /* ─── Shape ─── */
+  --kumiki-radius-xs: 3px;
+  --kumiki-radius-sm: 6px;
+  --kumiki-radius-md: 10px;
+  --kumiki-radius-lg: 16px;
+  --kumiki-radius-xl: 24px;
+  --kumiki-radius-pill: 9999px;
+
+  /* ─── Elevation ─── */
+  --kumiki-shadow-xs: 0 1px 1px oklch(0 0 0 / 0.04);
+  --kumiki-shadow-sm: 0 1px 2px oklch(0 0 0 / 0.08), 0 1px 0 oklch(0 0 0 / 0.02);
+  --kumiki-shadow-md: 0 4px 12px -4px oklch(0 0 0 / 0.12), 0 2px 4px -2px oklch(0 0 0 / 0.06);
+  --kumiki-shadow-lg: 0 12px 32px -8px oklch(0 0 0 / 0.2), 0 4px 8px -4px oklch(0 0 0 / 0.08);
+
+  /* ─── Motion ─── */
+  --kumiki-dur-fast: 120ms;
+  --kumiki-dur-mid: 200ms;
+  --kumiki-dur-slow: 320ms;
+  --kumiki-ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --kumiki-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+:where(:root[data-theme='dark']),
+:where(:root[data-kumiki-theme='shu'][data-theme='dark']),
+:where([data-theme='dark'] [data-kumiki-theme='shu']),
+:where([data-kumiki-theme='shu'][data-theme='dark']) {
+  /* ─── Surfaces ─── */
+  --kumiki-color-bg: oklch(0.16 0.012 280);
+  --kumiki-color-surface: oklch(0.205 0.014 280);
+  --kumiki-color-surface-raised: oklch(0.245 0.015 280);
+  --kumiki-color-surface-sunken: oklch(0.29 0.016 280);
+
+  /* ─── Ink ─── */
+  --kumiki-color-fg: oklch(0.96 0.008 80);
+  --kumiki-color-fg-muted: oklch(0.84 0.01 80);
+  --kumiki-color-fg-quiet: oklch(0.74 0.012 80);
+  --kumiki-color-fg-faint: oklch(0.5 0.014 80);
+
+  /* ─── Lines ─── */
+  --kumiki-color-line: oklch(0.3 0.014 280);
+  --kumiki-color-line-strong: oklch(0.4 0.014 280);
+
+  /* ─── Accent (lifted for dark backgrounds) ─── */
+  --kumiki-color-accent: oklch(0.7 0.17 35);
+  --kumiki-color-accent-hover: oklch(0.78 0.18 35);
+  --kumiki-color-accent-active: oklch(0.65 0.18 35);
+  --kumiki-color-accent-soft: oklch(0.32 0.08 35);
+  --kumiki-color-accent-soft-hover: oklch(0.38 0.09 35);
+  --kumiki-color-accent-fg: oklch(0.12 0.014 280);
+
+  /* ─── Status ─── */
+  --kumiki-color-success: oklch(0.78 0.14 145);
+  --kumiki-color-success-soft: oklch(0.3 0.06 145);
+  --kumiki-color-success-fg: oklch(0.82 0.14 145);
+  --kumiki-color-warning: oklch(0.85 0.14 80);
+  --kumiki-color-warning-soft: oklch(0.32 0.08 85);
+  --kumiki-color-warning-fg: oklch(0.85 0.14 80);
+  --kumiki-color-danger: oklch(0.72 0.17 25);
+  --kumiki-color-danger-soft: oklch(0.32 0.1 25);
+  --kumiki-color-danger-fg: oklch(0.78 0.16 25);
+  --kumiki-color-info: oklch(0.72 0.14 240);
+  --kumiki-color-info-soft: oklch(0.3 0.08 240);
+  --kumiki-color-info-fg: oklch(0.78 0.14 240);
+
+  /* ─── Focus ─── */
+  --kumiki-color-focus-ring-offset: var(--kumiki-color-bg);
+
+  /* ─── Elevation (deeper for dark) ─── */
+  --kumiki-shadow-xs: 0 1px 1px oklch(0 0 0 / 0.4);
+  --kumiki-shadow-sm: 0 1px 2px oklch(0 0 0 / 0.5), 0 1px 0 oklch(0 0 0 / 0.3);
+  --kumiki-shadow-md: 0 4px 12px -4px oklch(0 0 0 / 0.55), 0 2px 4px -2px oklch(0 0 0 / 0.3);
+  --kumiki-shadow-lg: 0 12px 32px -8px oklch(0 0 0 / 0.6), 0 4px 8px -4px oklch(0 0 0 / 0.4);
+}

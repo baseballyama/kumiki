@@ -7,7 +7,7 @@
 </script>
 
 <Close
-  class={`-mr-1 inline-flex h-4 w-4 items-center justify-center rounded-full opacity-60 hover:opacity-100 hover:bg-black/10 ${className}`.trim()}
+  class={`ml-px -mr-1 inline-flex h-4 w-4 items-center justify-center rounded-full opacity-55 transition-[opacity,background-color] duration-150 hover:bg-black/10 hover:opacity-100 dark:hover:bg-white/10 ${className}`.trim()}
   {...rest}
 >
   {#if children}{@render children()}{:else}<span aria-hidden="true">×</span>{/if}

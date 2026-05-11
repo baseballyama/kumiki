@@ -7,7 +7,7 @@
 </script>
 
 <Viewport
-  class={`pointer-events-none fixed bottom-4 right-4 z-50 flex max-h-screen w-full max-w-sm flex-col-reverse gap-2 ${className}`.trim()}
+  class={`pointer-events-none fixed bottom-5 right-5 z-50 flex max-h-screen w-full max-w-sm flex-col-reverse gap-2.5 ${className}`.trim()}
   {...rest}
 >
   {#if children}{@render children()}{/if}

@@ -1,0 +1,28 @@
+/**
+ * @kumiki/atelier — base token definitions.
+ *
+ * Documents every semantic CSS variable the styled components consume.
+ * This file ITSELF holds no concrete values — concrete values live in the
+ * per-theme files (shu, matcha, ai, sumi).
+ *
+ * Consumers normally import one of the theme files, not this one. The
+ * `where(...)` wrapping keeps default specificity at 0,0,0 so that
+ * downstream `:root[data-theme="..."]` or component-level overrides win.
+ *
+ * Naming convention
+ * -----------------
+ *   --kumiki-color-* — semantic colour tokens
+ *   --kumiki-radius-*, --kumiki-shadow-*, --kumiki-dur-*, --kumiki-ease — non-colour primitives
+ *
+ * Override pattern
+ * ----------------
+ *   :root { --kumiki-color-accent: hsl(220 90% 56%); }          /* whole page */
+ *   .my-card { --kumiki-color-accent: oklch(0.6 0.18 145); }    /* one subtree */
+ *
+ * Dark mode
+ * ---------
+ *   Each theme file ships a paired `[data-theme="dark"]` block that
+ *   re-assigns the same tokens with dark values. The Atelier components
+ *   themselves never reference `prefers-color-scheme` — they only read
+ *   the tokens defined here.
+ */

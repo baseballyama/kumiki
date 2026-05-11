@@ -6,6 +6,9 @@
   let { children, class: className = '', ...rest }: Props = $props();
 </script>
 
-<Title class={`font-semibold ${className}`.trim()} {...rest}>
+<Title
+  class={`text-[0.8125rem] font-semibold leading-tight tracking-[-0.011em] ${className}`.trim()}
+  {...rest}
+>
   {#if children}{@render children()}{/if}
 </Title>

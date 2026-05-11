@@ -15,11 +15,13 @@
     position: fixed;
     inset: 0;
     z-index: 40;
-    background: var(--kumiki-dialog-overlay-bg, oklch(0 0 0 / 0.6));
-    animation: kumiki-overlay-in 150ms ease-out;
+    background: var(--kumiki-dialog-overlay-bg, oklch(0.16 0.012 256 / 0.55));
+    backdrop-filter: blur(6px) saturate(140%);
+    -webkit-backdrop-filter: blur(6px) saturate(140%);
+    animation: kumiki-overlay-in 220ms cubic-bezier(0.32, 0.72, 0, 1);
   }
   :global(.kumiki-dialog-overlay[data-state='closed']) {
-    animation: kumiki-overlay-out 120ms ease-out forwards;
+    animation: kumiki-overlay-out 160ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
   }
 
   @keyframes kumiki-overlay-in {

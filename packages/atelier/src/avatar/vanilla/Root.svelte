@@ -31,9 +31,9 @@
 
 <style>
   :global(.kumiki-avatar) {
-    --kumiki-avatar-bg-fallback: hsl(220 10% 86%);
-    --kumiki-avatar-fg-fallback: hsl(220 10% 25%);
-    --kumiki-avatar-border: transparent;
+    --kumiki-avatar-bg-fallback: oklch(0.92 0.04 35);
+    --kumiki-avatar-fg-fallback: oklch(0.4 0.14 35);
+    --kumiki-avatar-border: oklch(0 0 0 / 0.04);
     --kumiki-avatar-radius: 999px;
     --kumiki-avatar-size: 2.25rem;
 
@@ -47,30 +47,38 @@
     height: var(--kumiki-avatar-size);
     border: 1px solid var(--kumiki-avatar-border);
     border-radius: var(--kumiki-avatar-radius);
-    background: var(--kumiki-avatar-bg-fallback);
+    background: linear-gradient(135deg, var(--kumiki-color-accent-soft), oklch(0.88 0.06 65));
     color: var(--kumiki-avatar-fg-fallback);
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
     line-height: 1;
   }
   :global(.kumiki-avatar[data-size='sm']) {
     --kumiki-avatar-size: 1.75rem;
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
   }
   :global(.kumiki-avatar[data-size='lg']) {
     --kumiki-avatar-size: 3rem;
     font-size: 1rem;
   }
-  :global(.kumiki-avatar [data-part='image']) {
+  :global {
+    :root[data-theme='dark'] .kumiki-avatar {
+      --kumiki-avatar-border: oklch(1 0 0 / 0.06);
+      --kumiki-avatar-fg-fallback: var(--kumiki-color-accent-soft-hover);
+      background: linear-gradient(135deg, oklch(0.32 0.1 35), oklch(0.28 0.1 65));
+    }
+  }
+  :global(.kumiki-avatar [data-component-part='image']) {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  :global(.kumiki-avatar [data-part='image'][data-hidden]),
-  :global(.kumiki-avatar [data-part='fallback'][data-hidden]) {
+  :global(.kumiki-avatar [data-component-part='image'][data-hidden]),
+  :global(.kumiki-avatar [data-component-part='fallback'][data-hidden]) {
     display: none;
   }
-  :global(.kumiki-avatar [data-part='fallback']) {
+  :global(.kumiki-avatar [data-component-part='fallback']) {
     display: inline-flex;
     align-items: center;
     justify-content: center;

@@ -8,7 +8,7 @@
   type Props = { class?: string; children?: Snippet; [k: string]: unknown };
   let { class: className = '', children, ...rest }: Props = $props();
 
-  const base = 'text-sm text-slate-600 dark:text-slate-400';
+  const base = 'm-0 text-sm leading-relaxed tracking-[-0.005em] text-slate-600 dark:text-slate-400';
 </script>
 
 <Dialog.Description class={`${base} ${className}`.trim()} {...rest}>

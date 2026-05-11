@@ -30,7 +30,7 @@
 </script>
 
 <div
-  class={`p-3 rounded-md border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900 text-sm ${className}`.trim()}
+  class={`p-3.5 rounded-xl border border-slate-200 bg-white text-[0.8125rem] tabular-nums tracking-[-0.005em] shadow-sm dark:border-slate-700 dark:bg-slate-900 ${className}`.trim()}
 >
   <Root bind:value bind:focusedDate {...rest}>{@render children()}</Root>
 </div>

@@ -27,6 +27,6 @@
   let { value = $bindable(undefined), children, class: className = '', ...rest }: Props = $props();
 </script>
 
-<div class={`flex flex-col gap-1 ${className}`.trim()}>
+<div class={`flex flex-col gap-[0.4375rem] ${className}`.trim()}>
   <Root bind:value {...rest}>{@render children()}</Root>
 </div>

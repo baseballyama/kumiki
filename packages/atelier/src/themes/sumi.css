@@ -1,0 +1,27 @@
+/**
+ * @kumiki/atelier theme: 墨 Sumi — monochrome / ink-only (opt-in).
+ *
+ * Activated by `data-kumiki-theme="sumi"` on `<html>` (or any ancestor).
+ * Pair with `shu.css` (the base / default) for the neutral skeleton.
+ */
+:where(:root[data-kumiki-theme='sumi']),
+:where([data-kumiki-theme='sumi']) {
+  --kumiki-color-accent: oklch(0.22 0.012 280);
+  --kumiki-color-accent-hover: oklch(0.16 0.012 280);
+  --kumiki-color-accent-active: oklch(0.1 0.012 280);
+  --kumiki-color-accent-soft: oklch(0.93 0.005 280);
+  --kumiki-color-accent-soft-hover: oklch(0.89 0.006 280);
+  --kumiki-color-accent-fg: oklch(0.985 0.006 80);
+  --kumiki-color-focus-ring: var(--kumiki-color-accent);
+}
+
+:where(:root[data-kumiki-theme='sumi'][data-theme='dark']),
+:where([data-theme='dark'] [data-kumiki-theme='sumi']),
+:where([data-kumiki-theme='sumi'][data-theme='dark']) {
+  --kumiki-color-accent: oklch(0.96 0.005 80);
+  --kumiki-color-accent-hover: oklch(1 0 0);
+  --kumiki-color-accent-active: oklch(0.9 0.005 80);
+  --kumiki-color-accent-soft: oklch(0.3 0.014 280);
+  --kumiki-color-accent-soft-hover: oklch(0.36 0.016 280);
+  --kumiki-color-accent-fg: oklch(0.16 0.012 280);
+}

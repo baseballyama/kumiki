@@ -6,6 +6,6 @@
 </script>
 
 <Input
-  class={`h-9 w-20 border-0 bg-transparent px-2 text-sm tabular-nums focus-visible:outline-none ${className}`.trim()}
+  class={`h-9 w-20 border-0 bg-transparent px-2.5 text-right text-[0.8125rem] tabular-nums tracking-[-0.01em] text-slate-900 focus-visible:outline-none dark:text-slate-50 ${className}`.trim()}
   {...rest}
 />

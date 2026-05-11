@@ -19,12 +19,12 @@
   let { value = $bindable(undefined), class: className = '', ...rest }: Props = $props();
 
   const base =
-    'inline-flex h-4 w-4 shrink-0 items-center justify-center rounded border border-slate-400 bg-white text-white transition-colors data-[state=checked]:bg-slate-900 data-[state=checked]:border-slate-900 data-[state=mixed]:bg-slate-900 data-[state=mixed]:border-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 dark:border-slate-600 dark:bg-slate-900 dark:data-[state=checked]:bg-slate-100 dark:data-[state=checked]:border-slate-100 dark:data-[state=checked]:text-slate-900';
+    'inline-flex h-[1.0625rem] w-[1.0625rem] shrink-0 items-center justify-center rounded-[5px] border border-slate-300 bg-white text-white shadow-[0_1px_1px_rgb(0_0_0_/_0.04),inset_0_1px_0_rgb(255_255_255_/_0.6)] transition-[background-color,border-color,box-shadow] duration-150 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-slate-400 data-[state=checked]:bg-orange-600 data-[state=checked]:border-orange-600 data-[state=checked]:shadow-[0_1px_2px_rgb(67_56_202_/_0.18),inset_0_1px_0_rgb(255_255_255_/_0.1)] data-[state=mixed]:bg-orange-600 data-[state=mixed]:border-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-orange-500 focus-visible:ring-offset-white data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-slate-500 dark:data-[state=checked]:bg-orange-500 dark:data-[state=checked]:border-orange-500 dark:data-[state=mixed]:bg-orange-500 dark:data-[state=mixed]:border-orange-500 dark:focus-visible:ring-offset-slate-950 motion-reduce:transition-none';
 </script>
 
 <Root bind:value class={`${base} ${className}`.trim()} {...rest}>
-  {#snippet child({ props, state })}
-    <button {...props} class={`${base} ${className}`.trim()}>
+  {#snippet child({ props, state, attachment })}
+    <button {...props} class={`${base} ${className}`.trim()} {@attach attachment}>
       {#if state.value === 'checked'}
         <svg
           viewBox="0 0 16 16"

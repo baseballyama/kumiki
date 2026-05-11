@@ -4,9 +4,13 @@
   import type { CalendarDate } from '@internationalized/date';
 
   type Props = { date: CalendarDate; children?: Snippet; class?: string; [k: string]: unknown };
-  let { children, class: className = '', ...rest }: Props = $props();
+  let { date, children, class: className = '', ...rest }: Props = $props();
 </script>
 
-<Day class={className} {...rest}>
-  {#if children}{@render children()}{/if}
-</Day>
+{#if children}
+  <Day {date} class={className} {...rest}>
+    {@render children()}
+  </Day>
+{:else}
+  <Day {date} class={className} {...rest} />
+{/if}

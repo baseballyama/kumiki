@@ -6,6 +6,9 @@
   let { children, class: className = '', ...rest }: Props = $props();
 </script>
 
-<Errors class={`text-xs text-rose-600 dark:text-rose-400 ${className}`.trim()} {...rest}>
+<Errors
+  class={`text-xs font-medium tracking-[-0.003em] text-rose-600 dark:text-rose-400 ${className}`.trim()}
+  {...rest}
+>
   {#if children}{@render children()}{/if}
 </Errors>

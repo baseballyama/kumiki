@@ -7,6 +7,10 @@
   let { children, class: className = '', ...rest }: Props = $props();
 </script>
 
-<Item class={className} {...rest}>
-  {#if children}{@render children()}{/if}
-</Item>
+{#if children}
+  <Item class={className} {...rest}>
+    {@render children()}
+  </Item>
+{:else}
+  <Item class={className} {...rest} />
+{/if}

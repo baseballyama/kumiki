@@ -21,15 +21,21 @@
   let { variant = 'ghost', size = 'md', icon, class: className = '', ...rest }: Props = $props();
 
   const variantClasses = {
-    primary: 'bg-slate-900 text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900',
-    secondary: 'border border-slate-300 bg-white text-slate-900 hover:bg-slate-50',
+    primary:
+      'bg-orange-600 text-white hover:bg-orange-700 dark:bg-orange-500 dark:hover:bg-orange-400',
+    secondary:
+      'border border-slate-200 bg-white text-slate-900 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50 dark:hover:bg-slate-800',
     ghost:
-      'bg-transparent text-slate-900 hover:bg-slate-100 dark:text-slate-50 dark:hover:bg-slate-800',
-    danger: 'bg-rose-600 text-white hover:bg-rose-700',
+      'bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-50',
+    danger: 'text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/40',
   } as const;
-  const sizeClasses = { sm: 'h-8 w-8', md: 'h-9 w-9', lg: 'h-10 w-10' } as const;
+  const sizeClasses = {
+    sm: 'h-8 w-8 rounded-[7px]',
+    md: 'h-9 w-9 rounded-lg',
+    lg: 'h-10 w-10 rounded-[9px]',
+  } as const;
   const base =
-    'inline-flex items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-slate-300';
+    'inline-flex shrink-0 items-center justify-center transition-[background-color,color,transform] duration-150 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-orange-500 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950 disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none motion-reduce:active:scale-100';
 </script>
 
 <Root

@@ -6,6 +6,10 @@
   let { children, class: className = '', ...rest }: Props = $props();
 </script>
 
-<Header class={className} {...rest}>
-  {#if children}{@render children()}{/if}
-</Header>
+{#if children}
+  <Header class={className} {...rest}>
+    {@render children()}
+  </Header>
+{:else}
+  <Header class={className} {...rest} />
+{/if}

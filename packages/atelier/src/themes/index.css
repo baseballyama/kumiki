@@ -1,0 +1,11 @@
+/**
+ * @kumiki/atelier — default theme export.
+ *
+ * Re-exports `shu.css` so a consumer can do:
+ *   import '@kumiki/atelier/themes';
+ *
+ * and get the default vermillion palette. To pick a different one,
+ * import the specific theme file:
+ *   import '@kumiki/atelier/themes/matcha.css';
+ */
+@import './shu.css';

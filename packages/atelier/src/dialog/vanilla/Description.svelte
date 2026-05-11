@@ -17,11 +17,13 @@
   :global(.kumiki-dialog-description) {
     margin: 0;
     font-size: 0.875rem;
-    color: var(--kumiki-dialog-muted, oklch(0.55 0 0));
+    line-height: 1.55;
+    letter-spacing: -0.005em;
+    color: var(--kumiki-dialog-muted, var(--kumiki-color-fg-muted));
   }
-  @media (prefers-color-scheme: dark) {
-    :global(.kumiki-dialog-description) {
-      --kumiki-dialog-muted: oklch(0.7 0 0);
+  :global {
+    :root[data-theme='dark'] .kumiki-dialog-description {
+      --kumiki-dialog-muted: var(--kumiki-color-fg-quiet);
     }
   }
 </style>
