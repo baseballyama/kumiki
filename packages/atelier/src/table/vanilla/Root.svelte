@@ -54,7 +54,7 @@
   }
   :global(.kumiki-table [data-part='caption']) {
     margin-top: 1rem;
-    color: hsl(220 10% 50%);
+    color: hsl(220 10% 38%);
     font-size: 0.875rem;
     caption-side: bottom;
   }

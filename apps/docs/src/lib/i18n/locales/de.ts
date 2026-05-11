@@ -140,8 +140,12 @@ export const dict: DocDict = {
       'Zugängliche Namen auf Type-Ebene erzwungen — title / aria-label / aria-labelledby.',
     ],
     apgRead: 'W3C-ARIA-APG-Muster lesen ↗',
-    placeholder:
-      'Diese Schicht wird per Code konsumiert, nicht visuell. Funktionierende Beispiele siehe Snippets unten.',
+    machineTitle: 'Zustandsmaschine',
+    machineSource: 'Quellpaket',
+    machineInitial: 'Anfangszustand',
+    machineStates: 'Top-Level-Zustände',
+    machineJson: 'toJSON()-Snapshot',
+    machineViz: 'In stately.ai/viz öffnen',
     backToCatalogue: '← Komponenten',
     catalogueAll: 'Alle',
     layerL3: 'L3 — Attach',
@@ -160,6 +164,12 @@ export const dict: DocDict = {
       'Zusammengesetzte Komponenten (`<Root>` / `<Trigger>` / …). Markup festgelegt, Styling frei. Gleicher Kompromiss wie typische Headless-UI-Bibliotheken.',
       'Stylte, kopier-und-einfügbare Presets (Preview). `pnpm kumiki add` kopiert den Quellcode in dein Projekt zur freien Anpassung.',
     ],
+  },
+  codeBlock: {
+    copy: 'Kopieren',
+    copied: 'Kopiert',
+    copyError: 'Fehlgeschlagen',
+    copyAria: (title) => `Code kopieren: ${title}`,
   },
   sidebar: {
     sections: 'Abschnitte',

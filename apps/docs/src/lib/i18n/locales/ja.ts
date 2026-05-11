@@ -139,8 +139,12 @@ export const dict: DocDict = {
       '型レベルでアクセシブル名を必須化 — title / aria-label / aria-labelledby。',
     ],
     apgRead: 'W3C ARIA APG パターンを読む ↗',
-    placeholder:
-      'この階層はコードで消費するもので、視覚的には扱いません。下のスニペットから動く例を確認してください。',
+    machineTitle: '状態機械',
+    machineSource: 'ソースパッケージ',
+    machineInitial: '初期状態',
+    machineStates: 'トップレベル状態',
+    machineJson: 'toJSON() スナップショット',
+    machineViz: 'stately.ai/viz で開く',
     backToCatalogue: '← コンポーネント',
     catalogueAll: 'すべて',
     layerL3: 'L3 — Attach',
@@ -159,6 +163,12 @@ export const dict: DocDict = {
       'コンパウンドコンポーネント(`<Root>` `<Trigger>` …)。マークアップは決まっていますが、スタイルはまだ無し。一般的なヘッドレス UI と同じ。',
       'スタイル付きの完成形(プレビュー)。`pnpm kumiki add` でプロジェクトにコピーして自由に編集してください。',
     ],
+  },
+  codeBlock: {
+    copy: 'コピー',
+    copied: 'コピー済',
+    copyError: '失敗',
+    copyAria: (title) => `コードをコピー: ${title}`,
   },
   sidebar: {
     sections: 'セクション',

@@ -5,7 +5,12 @@ import {
   PLAYGROUNDS,
   type PlaygroundEntry,
 } from '$lib/playgrounds/registry.js';
-import { SNIPPETS, DEFAULT_SNIPPETS, type Snippet } from '$lib/playgrounds/snippets.js';
+import { findMachineSpec } from '$lib/playgrounds/machine-specs-index.js';
+import {
+  SNIPPETS,
+  DEFAULT_SNIPPETS,
+  type HighlightedSnippet as Snippet,
+} from '$lib/playgrounds/highlighted-snippets.js';
 import type { PageLoad } from './$types.js';
 
 /**
@@ -36,6 +41,20 @@ function dotPascal(family: string): string {
 }
 
 /**
+ * Plain HTML-escape wrapper for synthesized snippets. They share the same
+ * shape as `HighlightedSnippet` but skip Shiki — the synthesized templates
+ * are short and cross-layer, not the primary teaching surface.
+ */
+function plainHtml(code: string): string {
+  const escaped = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return `<pre class="shiki"><code>${escaped}</code></pre>`;
+}
+
+function syn(title: string, lang: Snippet['lang'], code: string): Snippet {
+  return { title, lang, code, html: plainHtml(code) };
+}
+
+/**
  * When a sibling has no curated snippet, synthesize a minimal usage example
  * from its package name so the family section never shows a layer with
  * empty code. Layers that genuinely have no userland surface (Layer 0 types,
@@ -46,32 +65,32 @@ function synthesizeSnippet(entry: PlaygroundEntry): Snippet | null {
   const Pascal = dotPascal(family);
   switch (entry.layer) {
     case 5:
-      return {
-        title: 'Drop-in styled wrapper',
-        lang: 'svelte',
-        code: `<script lang="ts">
-  import { ${Pascal} } from '${entry.name}';
+      return syn(
+        'Drop-in styled wrapper',
+        'svelte',
+        `<script lang="ts">
+  import { Tailwind as ${Pascal} } from '${entry.name}';
 </script>
 
-<${Pascal} />`,
-      };
+<${Pascal}.Root />`,
+      );
     case 4:
-      return {
-        title: 'Compound usage',
-        lang: 'svelte',
-        code: `<script lang="ts">
+      return syn(
+        'Compound usage',
+        'svelte',
+        `<script lang="ts">
   import { ${Pascal} } from '${entry.name}';
 </script>
 
 <${Pascal}.Root>
   <!-- subcomponents go here -->
 </${Pascal}.Root>`,
-      };
+      );
     case 3:
-      return {
-        title: 'Attach to your own DOM',
-        lang: 'svelte',
-        code: `<script lang="ts">
+      return syn(
+        'Attach to your own DOM',
+        'svelte',
+        `<script lang="ts">
   import { create${Pascal} } from '${entry.name}';
   const ctl = create${Pascal}({});
 </script>
@@ -79,17 +98,17 @@ function synthesizeSnippet(entry: PlaygroundEntry): Snippet | null {
 <div {@attach ctl.root}>
   <!-- your markup -->
 </div>`,
-      };
+      );
     case 2:
-      return {
-        title: 'Pure-TS state machine',
-        lang: 'ts',
-        code: `import { create${Pascal}Machine } from '${entry.name}';
+      return syn(
+        'Pure-TS state machine',
+        'ts',
+        `import { create${Pascal}Machine } from '${entry.name}';
 
 const m = create${Pascal}Machine({});
 m.send({ type: '…' });
 console.log(m.state, m.context);`,
-      };
+      );
     default:
       return null;
   }
@@ -127,6 +146,12 @@ export const load: PageLoad = async ({ params }) => {
   }
   const activeSnippet = pickUsageSnippet(entry, snippets);
 
+  const machineSpec = findMachineSpec(entry.slug);
+  const machineSpecJsonUrl = machineSpec ? `/machine-specs/${machineSpec.name}.json` : null;
+  const machineSpecVizUrl = machineSpec
+    ? `https://stately.ai/viz?source=${encodeURIComponent(`https://kumiki.dev/machine-specs/${machineSpec.name}.json`)}`
+    : null;
+
   return {
     entry,
     snippets,
@@ -135,5 +160,8 @@ export const load: PageLoad = async ({ params }) => {
     siblings,
     siblingSnippets,
     activeSnippet,
+    machineSpec,
+    machineSpecJsonUrl,
+    machineSpecVizUrl,
   };
 };

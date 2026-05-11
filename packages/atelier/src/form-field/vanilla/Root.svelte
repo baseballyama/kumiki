@@ -35,7 +35,7 @@
   :global(.kumiki-form-field) {
     --kumiki-form-field-label-fg: hsl(220 10% 25%);
     --kumiki-form-field-label-fg-required: hsl(0 80% 50%);
-    --kumiki-form-field-description-fg: hsl(220 10% 50%);
+    --kumiki-form-field-description-fg: hsl(220 10% 38%);
     --kumiki-form-field-error-fg: hsl(0 80% 45%);
     --kumiki-form-field-gap: 0.25rem;
 

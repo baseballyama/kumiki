@@ -100,7 +100,13 @@ export type DocDict = {
     testTitle: string;
     testItems: ReadonlyArray<string>;
     apgRead: string;
-    placeholder: string;
+    /** Heading for the inline machine-spec card shown on Layer 2/3/4 pages. */
+    machineTitle: string;
+    machineSource: string;
+    machineInitial: string;
+    machineStates: string;
+    machineJson: string;
+    machineViz: string;
     backToCatalogue: string;
     catalogueAll: string;
     layerL3: string;
@@ -116,6 +122,12 @@ export type DocDict = {
     familyCurrent: string;
     /** Per-layer "when to use this layer" copy, indexed by layer number. */
     layerWhen: ReadonlyArray<string>;
+  };
+  codeBlock: {
+    copy: string;
+    copied: string;
+    copyError: string;
+    copyAria: (title: string) => string;
   };
   sidebar: {
     sections: string;

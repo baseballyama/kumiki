@@ -79,7 +79,7 @@
   }
   .demo :global(.trigger.ghost) {
     background: transparent;
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
     border: 1px solid var(--k-line-2);
   }
   .demo :global(.hint[hidden]) {
@@ -101,6 +101,6 @@
     font-size: 13px;
   }
   .state code {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
 </style>

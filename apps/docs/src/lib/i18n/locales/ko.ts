@@ -137,8 +137,12 @@ export const dict: DocDict = {
       '타입 수준에서 접근 가능한 이름 강제 — title / aria-label / aria-labelledby.',
     ],
     apgRead: 'W3C ARIA APG 패턴 읽기 ↗',
-    placeholder:
-      '이 계층은 코드로 소비되며 시각적으로 표현되지 않습니다. 아래 스니펫에서 작동 예시를 확인하세요.',
+    machineTitle: '상태 머신',
+    machineSource: '소스 패키지',
+    machineInitial: '초기 상태',
+    machineStates: '최상위 상태',
+    machineJson: 'toJSON() 스냅샷',
+    machineViz: 'stately.ai/viz에서 열기',
     backToCatalogue: '← 컴포넌트',
     catalogueAll: '전체',
     layerL3: 'L3 — Attach',
@@ -157,6 +161,12 @@ export const dict: DocDict = {
       '복합 컴포넌트(`<Root>` / `<Trigger>` / …). 마크업은 고정, 스타일은 자유. 일반적인 headless UI 와 동일한 트레이드오프.',
       '스타일이 적용된 복사 가능한 프리셋(프리뷰). `pnpm kumiki add` 로 소스를 프로젝트에 복사해 자유롭게 편집하세요.',
     ],
+  },
+  codeBlock: {
+    copy: '복사',
+    copied: '복사됨',
+    copyError: '실패',
+    copyAria: (title) => `코드 복사: ${title}`,
   },
   sidebar: {
     sections: '섹션',

@@ -63,7 +63,7 @@
     border-radius: 4px;
     border: 1px solid var(--k-line-2);
     background: var(--k-code-bg);
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
     font-size: 14px;
     line-height: 1;
     display: inline-flex;
@@ -119,7 +119,7 @@
     margin-top: 12px;
   }
   .state code {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
   .log {
     margin-top: 8px;

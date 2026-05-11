@@ -137,7 +137,7 @@
     font-family: var(--k-font-mono, monospace);
   }
   .canvas :global(.state code) {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
   .canvas :global(.log) {
     background: var(--k-code-bg) !important;

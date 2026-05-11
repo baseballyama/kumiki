@@ -72,7 +72,7 @@
   }
   .demo :global(.label) {
     display: block;
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
     font-weight: 600;
     font-size: 13px;
     margin-bottom: 6px;
@@ -89,7 +89,7 @@
   }
   .demo :global(.input:focus) {
     outline: none;
-    border-color: var(--k-matcha);
+    border-color: var(--k-matcha-ink);
   }
   .demo :global(.input[aria-invalid='true']) {
     border-color: var(--k-shu);
@@ -113,6 +113,6 @@
     font-size: 13px;
   }
   .state code {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
 </style>

@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import { findPlayground, LIVE_PLAYGROUNDS } from '$lib/playgrounds/registry.js';
 import { findMachineSpec } from '$lib/playgrounds/machine-specs-index.js';
-import { SNIPPETS, DEFAULT_SNIPPETS } from '$lib/playgrounds/snippets.js';
+import { SNIPPETS, DEFAULT_SNIPPETS } from '$lib/playgrounds/highlighted-snippets.js';
 import type { PageLoad } from './$types.js';
 
 export const load: PageLoad = async ({ params }) => {

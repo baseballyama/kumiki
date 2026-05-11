@@ -141,6 +141,6 @@
     margin-top: 16px;
   }
   .state code {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
 </style>

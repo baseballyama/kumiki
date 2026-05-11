@@ -97,7 +97,7 @@
   .demo :global(.panel h2) {
     margin: 0;
     font-size: 18px;
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
   .demo :global(.panel p) {
     margin: 0;
@@ -141,6 +141,6 @@
     font-size: 14px;
   }
   .state code {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
 </style>

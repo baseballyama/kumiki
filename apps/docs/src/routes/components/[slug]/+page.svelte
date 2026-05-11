@@ -6,10 +6,22 @@
   import StatusBadge from '$lib/components/StatusBadge.svelte';
   import DirectionToggle from '$lib/components/DirectionToggle.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import CodeBlock from '$lib/components/CodeBlock.svelte';
 
   let { data } = $props();
   // svelte-ignore state_referenced_locally
-  const { entry, snippets, hasDemo, family, siblings, siblingSnippets, activeSnippet } = data;
+  const {
+    entry,
+    snippets,
+    hasDemo,
+    family,
+    siblings,
+    siblingSnippets,
+    activeSnippet,
+    machineSpec,
+    machineSpecJsonUrl,
+    machineSpecVizUrl,
+  } = data;
 
   const t = $derived(dict(ui.locale).components);
 
@@ -50,6 +62,11 @@
   }
 
   const showFamily = $derived(siblings.length > 0);
+
+  let activeFamilySlug = $state(entry.slug);
+  $effect(() => {
+    activeFamilySlug = entry.slug;
+  });
 
   // Keyboard reference. APG-derived where available. Effects are key-only;
   // human descriptions are localised in dict per language.
@@ -277,13 +294,7 @@
         <div role="tabpanel" class="panel">
           <div class="snips">
             {#each snippets as s, i (i)}
-              <article class="snip">
-                <header>
-                  <h3>{s.title}</h3>
-                  <span class="lang">{s.lang}</span>
-                </header>
-                <pre dir="ltr"><code class={`lang-${s.lang}`}>{s.code}</code></pre>
-              </article>
+              <CodeBlock title={s.title} lang={s.lang} code={s.code} html={s.html} />
             {/each}
           </div>
         </div>
@@ -333,16 +344,38 @@
     </section>
   {:else}
     <section class="stage placeholder">
-      <p>{t.placeholder}</p>
+      {#if machineSpec}
+        <article class="machine-spec">
+          <header>
+            <h2>{t.machineTitle}</h2>
+            <p class="machine-blurb">{machineSpec.blurb}</p>
+          </header>
+          <dl class="machine-meta">
+            <dt>{t.machineSource}</dt>
+            <dd><code dir="ltr">{machineSpec.pkg}</code></dd>
+            <dt>{t.machineInitial}</dt>
+            <dd><code dir="ltr">{machineSpec.initial}</code></dd>
+            <dt>{t.machineStates}</dt>
+            <dd>
+              {#each machineSpec.states as s, i (s)}<code dir="ltr">{s}</code
+                >{#if i < machineSpec.states.length - 1},
+                {/if}{/each}
+            </dd>
+          </dl>
+          <p class="machine-links">
+            <a href={machineSpecJsonUrl} target="_blank" rel="noopener noreferrer">
+              {t.machineJson} ↗
+            </a>
+            <span class="sep" aria-hidden="true">·</span>
+            <a href={machineSpecVizUrl} target="_blank" rel="noopener noreferrer">
+              {t.machineViz} ↗
+            </a>
+          </p>
+        </article>
+      {/if}
       <div class="snips">
         {#each snippets as s, i (i)}
-          <article class="snip">
-            <header>
-              <h3>{s.title}</h3>
-              <span class="lang">{s.lang}</span>
-            </header>
-            <pre dir="ltr"><code class={`lang-${s.lang}`}>{s.code}</code></pre>
-          </article>
+          <CodeBlock title={s.title} lang={s.lang} code={s.code} html={s.html} />
         {/each}
       </div>
     </section>
@@ -356,42 +389,68 @@
         <p class="lede">{t.familyLede}</p>
       </header>
 
-      <ol class="family-list">
+      <div role="tablist" aria-label={t.familyTitle} class="family-tabs">
         {#each familyEntries as item (item.slug)}
-          {@const isActive = item.slug === entry.slug}
-          {@const snip = snippetForSlug(item.slug)}
-          <li class="family-item" class:active={isActive} data-layer={item.layer}>
-            <div class="family-tag">
-              <span class="layer-num">L{item.layer}</span>
-              {#if isActive}<span class="current">· {t.familyCurrent}</span>{/if}
-            </div>
-            <div class="family-body">
-              <h3>
-                {#if isActive}
-                  <span>{pretty(item.name)}</span>
-                {:else}
-                  <a href="/components/{item.slug}">{pretty(item.name)}</a>
-                {/if}
-              </h3>
-              <code class="pkg" dir="ltr">{item.name}</code>
-              <p class="summary">{item.summary}</p>
-              <p class="when">
-                <span class="when-label">{t.familyWhen}:</span>
-                {t.layerWhen[item.layer]}
-              </p>
-              {#if snip}
-                <figure class="layer-snip">
-                  <figcaption>
-                    <span>{snip.title}</span>
-                    <span class="lang">{snip.lang}</span>
-                  </figcaption>
-                  <pre dir="ltr"><code class={`lang-${snip.lang}`}>{snip.code}</code></pre>
-                </figure>
-              {/if}
-            </div>
-          </li>
+          {@const isSelected = item.slug === activeFamilySlug}
+          {@const isCurrent = item.slug === entry.slug}
+          <button
+            role="tab"
+            type="button"
+            id={`family-tab-${item.slug}`}
+            aria-controls={`family-panel-${item.slug}`}
+            aria-selected={isSelected}
+            tabindex={isSelected ? 0 : -1}
+            class="family-tab"
+            class:on={isSelected}
+            class:current={isCurrent}
+            onclick={() => (activeFamilySlug = item.slug)}
+          >
+            <span class="num">L{item.layer}</span>
+            <span class="name">{pretty(item.name)}</span>
+            {#if isCurrent}<span class="dot" aria-hidden="true"></span>{/if}
+          </button>
         {/each}
-      </ol>
+      </div>
+
+      {#each familyEntries as item (item.slug)}
+        {@const isSelected = item.slug === activeFamilySlug}
+        {@const isCurrent = item.slug === entry.slug}
+        {@const snip = snippetForSlug(item.slug)}
+        <div
+          role="tabpanel"
+          id={`family-panel-${item.slug}`}
+          aria-labelledby={`family-tab-${item.slug}`}
+          class="family-panel"
+          class:active={isCurrent}
+          data-layer={item.layer}
+          hidden={!isSelected}
+        >
+          <div class="family-tag">
+            <span class="layer-num">L{item.layer}</span>
+            {#if isCurrent}<span class="current">· {t.familyCurrent}</span>{/if}
+          </div>
+          <div class="family-body">
+            <h3>
+              {#if isCurrent}
+                <span>{pretty(item.name)}</span>
+              {:else}
+                <a href="/components/{item.slug}">{pretty(item.name)}</a>
+              {/if}
+            </h3>
+            <code class="pkg" dir="ltr">{item.name}</code>
+            <p class="summary">{item.summary}</p>
+            <p class="when">
+              <span class="when-label">{t.familyWhen}:</span>
+              {t.layerWhen[item.layer]}
+            </p>
+            {#if snip}
+              <div class="layer-snip">
+                <CodeBlock title={snip.title} lang={snip.lang} code={snip.code} html={snip.html} />
+              </div>
+            {/if}
+          </div>
+        </div>
+      {/each}
     </section>
   {/if}
 </div>
@@ -599,47 +658,83 @@
 
   .placeholder {
     padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
-  .placeholder > p {
+
+  .machine-spec {
+    border: 1px solid var(--k-line-1);
+    border-radius: 12px;
+    padding: 20px 24px;
+    background: var(--k-surface-1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .machine-spec h2 {
+    font-family: var(--k-font-display);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--k-ink-3);
-    margin-bottom: 24px;
+    margin: 0;
+  }
+  .machine-blurb {
+    color: var(--k-ink-2);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 4px 0 0;
     word-break: keep-all;
     overflow-wrap: anywhere;
     line-break: strict;
   }
+  .machine-meta {
+    display: grid;
+    grid-template-columns: minmax(120px, max-content) 1fr;
+    gap: 6px 16px;
+    font-size: 13px;
+    margin: 0;
+  }
+  .machine-meta dt {
+    color: var(--k-ink-3);
+  }
+  .machine-meta dd {
+    color: var(--k-ink-2);
+    margin: 0;
+  }
+  .machine-meta code,
+  .machine-spec code {
+    font-family: var(--k-font-mono);
+    font-size: 12.5px;
+    background: var(--k-surface-2);
+    color: var(--k-ink-1);
+    border: 1px solid var(--k-line-1);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  .machine-links {
+    font-size: 13px;
+    margin: 0;
+  }
+  .machine-links a {
+    color: var(--k-accent);
+    text-decoration: none;
+  }
+  .machine-links a:hover {
+    text-decoration: underline;
+  }
+  .machine-links .sep {
+    color: var(--k-ink-4);
+    margin: 0 8px;
+  }
 
-  /* Snippets */
+  /* Snippets — child <CodeBlock> components carry their own styling. */
   .snips {
     display: flex;
     flex-direction: column;
     gap: 16px;
-  }
-  .snip header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-  }
-  .snip h3 {
-    font-family: var(--k-font-display);
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--k-ink-2);
-    letter-spacing: -0.01em;
-  }
-  .snip .lang {
-    font-family: var(--k-font-mono);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--k-ink-4);
-    border: 1px solid var(--k-line-1);
-    padding: 2px 6px;
-    border-radius: 4px;
-  }
-  .snip pre {
-    line-height: 1.6;
-    font-size: 13px;
   }
 
   /* A11y panel */
@@ -770,14 +865,64 @@
     line-break: strict;
   }
 
-  .family-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 12px;
+  .family-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 16px;
+    border-block-end: 1px solid var(--k-line-1);
+    padding-block-end: 0;
   }
-  .family-item {
+  .family-tab {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    background: transparent;
+    border: 0;
+    border-block-end: 2px solid transparent;
+    padding: 10px 14px;
+    margin-block-end: -1px;
+    color: var(--k-ink-3);
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 0;
+    transition:
+      color var(--k-dur-fast),
+      border-color var(--k-dur-fast),
+      background var(--k-dur-fast);
+  }
+  .family-tab:hover {
+    color: var(--k-ink-1);
+    background: var(--k-surface-1);
+  }
+  .family-tab:focus-visible {
+    outline: 2px solid var(--k-shu);
+    outline-offset: -2px;
+  }
+  .family-tab.on {
+    color: var(--k-ink-1);
+    border-block-end-color: var(--k-shu);
+  }
+  .family-tab .num {
+    font-family: var(--k-font-mono);
+    font-size: 11px;
+    color: var(--k-shu);
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+  .family-tab .name {
+    font-family: var(--k-font-display);
+    letter-spacing: -0.01em;
+  }
+  .family-tab .dot {
+    inline-size: 6px;
+    block-size: 6px;
+    border-radius: 999px;
+    background: var(--k-shu);
+    align-self: center;
+  }
+  .family-panel {
     display: grid;
     grid-template-columns: 88px 1fr;
     gap: 16px;
@@ -785,16 +930,13 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     background: var(--k-surface-0);
-    transition:
-      border-color var(--k-dur-fast),
-      background var(--k-dur-fast);
   }
-  .family-item:hover {
-    border-color: var(--k-line-3);
-  }
-  .family-item.active {
+  .family-panel.active {
     border-color: color-mix(in oklab, var(--k-shu) 50%, transparent);
     background: color-mix(in oklab, var(--k-shu) 5%, var(--k-surface-0));
+  }
+  .family-panel[hidden] {
+    display: none;
   }
   .family-tag {
     display: flex;
@@ -865,41 +1007,9 @@
   }
   .layer-snip {
     margin: 12px 0 0;
-    padding: 0;
-    background: var(--k-code-bg);
-    border: 1px solid var(--k-code-line);
-    border-radius: var(--k-radius-sm);
-    overflow: hidden;
-  }
-  .layer-snip figcaption {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 12px;
-    font-family: var(--k-font-mono);
-    font-size: 11px;
-    color: var(--k-ink-3);
-    border-block-end: 1px solid var(--k-code-line);
-  }
-  .layer-snip figcaption .lang {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--k-ink-4);
-    border: 1px solid var(--k-line-1);
-    padding: 1px 5px;
-    border-radius: 3px;
-  }
-  .layer-snip pre {
-    margin: 0;
-    padding: 12px 14px;
-    line-height: 1.55;
-    font-size: 12.5px;
-    color: var(--k-ink-1);
-    overflow-x: auto;
   }
   @media (max-width: 540px) {
-    .family-item {
+    .family-panel {
       grid-template-columns: 1fr;
     }
   }

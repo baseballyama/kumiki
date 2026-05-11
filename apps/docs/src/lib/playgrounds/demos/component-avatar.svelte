@@ -90,6 +90,6 @@
     line-break: strict;
   }
   .hint code {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
 </style>

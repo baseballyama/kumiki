@@ -42,8 +42,11 @@
   }
   :global(.kumiki-pagination [data-component-part='page-item'] button),
   :global(.kumiki-pagination [data-component-part='page-item'] a),
+  :global(.kumiki-pagination [data-component-part='page-item'] a:visited),
   :global(.kumiki-pagination [data-component-part='prev']),
-  :global(.kumiki-pagination [data-component-part='next']) {
+  :global(.kumiki-pagination [data-component-part='next']),
+  :global(.kumiki-pagination [data-component-part='prev']:visited),
+  :global(.kumiki-pagination [data-component-part='next']:visited) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -83,7 +86,7 @@
     justify-content: center;
     min-width: 2.25rem;
     height: 2.25rem;
-    color: hsl(220 10% 50%);
+    color: hsl(220 10% 38%);
   }
   @media (prefers-color-scheme: dark) {
     :global(.kumiki-pagination) {

@@ -40,8 +40,9 @@
   --k-ai: oklch(0.42 0.13 250); /* 藍 indigo */
   --k-ai-soft: oklch(0.93 0.04 250);
 
-  --k-matcha: oklch(0.62 0.13 145); /* 抹茶 — success */
+  --k-matcha: oklch(0.62 0.13 145); /* 抹茶 — success (fills, badges) */
   --k-matcha-soft: oklch(0.93 0.05 145);
+  --k-matcha-ink: oklch(0.45 0.13 145); /* AA-compliant text variant */
 
   --k-yamabuki: oklch(0.78 0.14 80); /* 山吹 — warning */
   --k-yamabuki-soft: oklch(0.95 0.06 85);
@@ -145,6 +146,7 @@
 
   --k-matcha: oklch(0.78 0.14 145);
   --k-matcha-soft: oklch(0.3 0.06 145);
+  --k-matcha-ink: oklch(0.82 0.14 145);
 
   --k-yamabuki: oklch(0.85 0.14 80);
   --k-yamabuki-soft: oklch(0.32 0.08 85);
@@ -185,6 +187,7 @@
     --k-ai-soft: oklch(0.28 0.06 250);
     --k-matcha: oklch(0.78 0.14 145);
     --k-matcha-soft: oklch(0.3 0.06 145);
+    --k-matcha-ink: oklch(0.82 0.14 145);
     --k-yamabuki: oklch(0.85 0.14 80);
     --k-yamabuki-soft: oklch(0.32 0.08 85);
     --k-code-bg: oklch(0.205 0.014 280);

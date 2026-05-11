@@ -104,9 +104,9 @@
     --kumiki-button-fg: hsl(220 10% 10%);
   }
   :global(.kumiki-button[data-variant='danger']) {
-    --kumiki-button-bg: hsl(0 80% 55%);
-    --kumiki-button-bg-hover: hsl(0 80% 48%);
-    --kumiki-button-bg-active: hsl(0 80% 42%);
+    --kumiki-button-bg: hsl(0 78% 42%);
+    --kumiki-button-bg-hover: hsl(0 80% 36%);
+    --kumiki-button-bg-active: hsl(0 80% 30%);
   }
   :global(.kumiki-button:hover:not([data-disabled]):not([data-loading])) {
     background: var(--kumiki-button-bg-hover);

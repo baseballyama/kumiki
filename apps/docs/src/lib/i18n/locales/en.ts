@@ -138,8 +138,12 @@ export const dict: DocDict = {
       'Type-level required names — title / aria-label / aria-labelledby.',
     ],
     apgRead: 'Read the W3C ARIA APG pattern ↗',
-    placeholder:
-      'This Layer is consumed via code, not visually. See the snippets below for working examples.',
+    machineTitle: 'State machine',
+    machineSource: 'Source package',
+    machineInitial: 'Initial state',
+    machineStates: 'Top-level states',
+    machineJson: 'toJSON() snapshot',
+    machineViz: 'Open in stately.ai/viz',
     backToCatalogue: '← Components',
     catalogueAll: 'All',
     layerL3: 'L3 — Attach',
@@ -158,6 +162,12 @@ export const dict: DocDict = {
       'Compound components (`<Root>` / `<Trigger>` / …). Markup is fixed; styling is not. Same trade-off as a typical headless UI library.',
       'Styled, copy-paste presets (preview). Run `pnpm kumiki add` to drop the source into your project, then edit freely.',
     ],
+  },
+  codeBlock: {
+    copy: 'Copy',
+    copied: 'Copied',
+    copyError: 'Failed',
+    copyAria: (title) => `Copy code: ${title}`,
   },
   sidebar: {
     sections: 'Sections',

@@ -53,7 +53,7 @@
   }
   .demo :global(button[role='radio']:focus) {
     outline: none;
-    border-color: var(--k-matcha);
+    border-color: var(--k-matcha-ink);
   }
   .demo :global(button[role='radio'][aria-checked='true']) {
     border-color: var(--k-shu);
@@ -82,6 +82,6 @@
     margin-top: 16px;
   }
   .state code {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
 </style>

@@ -17,9 +17,9 @@
 
 <style>
   :global(.kumiki-breadcrumb) {
-    --kumiki-breadcrumb-link-fg: hsl(220 10% 45%);
+    --kumiki-breadcrumb-link-fg: hsl(220 10% 30%);
     --kumiki-breadcrumb-link-fg-current: hsl(220 10% 12%);
-    --kumiki-breadcrumb-separator-fg: hsl(220 10% 70%);
+    --kumiki-breadcrumb-separator-fg: hsl(220 10% 55%);
 
     color: var(--kumiki-breadcrumb-link-fg);
     font-size: 0.875rem;
@@ -37,12 +37,16 @@
     display: inline-flex;
     align-items: center;
   }
-  :global(.kumiki-breadcrumb [data-part='link']) {
-    color: inherit;
+  /* Explicit :visited override — browser UA default would otherwise leak a
+     low-contrast purple/pink for visited links on light backgrounds. */
+  :global(.kumiki-breadcrumb [data-part='link']),
+  :global(.kumiki-breadcrumb [data-part='link']:visited) {
+    color: var(--kumiki-breadcrumb-link-fg);
     text-decoration: none;
     transition: color 120ms ease;
   }
-  :global(.kumiki-breadcrumb [data-part='link']:hover) {
+  :global(.kumiki-breadcrumb [data-part='link']:hover),
+  :global(.kumiki-breadcrumb [data-part='link']:focus-visible) {
     color: var(--kumiki-breadcrumb-link-fg-current);
     text-decoration: underline;
   }
@@ -57,9 +61,9 @@
   }
   @media (prefers-color-scheme: dark) {
     :global(.kumiki-breadcrumb) {
-      --kumiki-breadcrumb-link-fg: hsl(220 10% 65%);
+      --kumiki-breadcrumb-link-fg: hsl(220 10% 78%);
       --kumiki-breadcrumb-link-fg-current: hsl(220 10% 96%);
-      --kumiki-breadcrumb-separator-fg: hsl(220 10% 45%);
+      --kumiki-breadcrumb-separator-fg: hsl(220 10% 55%);
     }
   }
 </style>

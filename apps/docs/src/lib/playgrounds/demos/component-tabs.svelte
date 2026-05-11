@@ -139,7 +139,7 @@
   }
   .demo :global([role='tabpanel'] h3) {
     font-size: 14px;
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
     margin: 0 0 8px;
   }
   .demo :global([role='tabpanel'] p) {
@@ -149,7 +149,7 @@
   }
   .demo :global([role='tabpanel'] code) {
     background: var(--k-surface-2);
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
     padding: 1px 6px;
     border-radius: 3px;
     font-size: 12px;
@@ -160,6 +160,6 @@
     font-size: 14px;
   }
   .state code {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
 </style>

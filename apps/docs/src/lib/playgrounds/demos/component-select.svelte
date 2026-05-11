@@ -56,7 +56,7 @@
   }
   .demo :global(.trigger:focus) {
     outline: none;
-    border-color: var(--k-matcha);
+    border-color: var(--k-matcha-ink);
   }
   .demo :global(.trigger .caret) {
     color: var(--k-ink-3);
@@ -87,7 +87,7 @@
     color: #fff;
   }
   .demo :global(.option[aria-selected='true']) {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
   .demo :global(.option[aria-selected='true'][data-highlighted]) {
     color: #fff;
@@ -98,6 +98,6 @@
     font-size: 14px;
   }
   .state code {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
 </style>

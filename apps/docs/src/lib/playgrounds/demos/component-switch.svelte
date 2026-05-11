@@ -110,7 +110,7 @@
     margin-top: 16px;
   }
   .state code {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
   }
   .log {
     margin-top: 8px;

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { LIVE_PLAYGROUNDS } from '$lib/playgrounds/registry.js';
   import type { Component } from 'svelte';
+  import CodeBlock from '$lib/components/CodeBlock.svelte';
 
   let { data } = $props();
   // svelte-ignore state_referenced_locally
@@ -88,22 +89,16 @@
       <p class="loading">Loading…</p>
     {/if}
   </section>
-{:else}
+{:else if entry.status === 'unreleased'}
   <section class="placeholder">
-    <p>
-      No live demo yet. {#if entry.status === 'unreleased'}This package is part of a future Phase{:else}This
-        Layer is consumed via code, not visually{/if} — see the snippets below.
-    </p>
+    <p>This package is part of a future Phase. See the snippets below for the intended surface.</p>
   </section>
 {/if}
 
 <section class="snippets">
   <h2>Code samples</h2>
   {#each snippets as s, i (i)}
-    <article class="snippet">
-      <h3>{s.title}</h3>
-      <pre><code class={`lang-${s.lang}`}>{s.code}</code></pre>
-    </article>
+    <CodeBlock title={s.title} lang={s.lang} code={s.code} html={s.html} />
   {/each}
 </section>
 
@@ -249,6 +244,9 @@
 
   .snippets {
     margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
   .snippets h2 {
     font-size: 14px;
@@ -256,27 +254,5 @@
     margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-  }
-  .snippet {
-    margin-bottom: 16px;
-  }
-  .snippet h3 {
-    font-size: 14px;
-    color: #ddd;
-    margin-bottom: 8px;
-  }
-  .snippet pre {
-    background: #0e0e1c;
-    border: 1px solid #2a2a4a;
-    border-radius: 8px;
-    padding: 16px;
-    overflow-x: auto;
-    font-size: 13px;
-    line-height: 1.5;
-    color: #d0d0d0;
-  }
-  .snippet code {
-    font-family: 'SF Mono', Menlo, Consolas, monospace;
-    background: transparent;
   }
 </style>

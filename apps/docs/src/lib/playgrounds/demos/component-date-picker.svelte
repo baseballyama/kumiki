@@ -123,7 +123,7 @@
     font-family: var(--k-font-mono);
   }
   .state code {
-    color: var(--k-matcha);
+    color: var(--k-matcha-ink);
     background: transparent;
     border: 0;
     padding: 0;
