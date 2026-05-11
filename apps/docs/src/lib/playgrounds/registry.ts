@@ -412,6 +412,140 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/menubar/',
     status: 'preview',
   },
+  {
+    slug: 'attachment-avatar',
+    name: '@kumiki/headless/avatar',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachment for Avatar — image load / fallback transition + decorative-by-default a11y semantics. No FSM; pure controller.',
+    live: false,
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-avatar-group',
+    name: '@kumiki/headless/avatar-group',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachment for AvatarGroup — overflow accounting (`+N` indicator) and group-level accessible name wiring.',
+    live: false,
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-badge',
+    name: '@kumiki/headless/badge',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachment for Badge — minimal ARIA wiring for the three accessible-name shapes (text, count + aria-label, decorative).',
+    live: false,
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-breadcrumb',
+    name: '@kumiki/headless/breadcrumb',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachments for Breadcrumb — `nav[aria-label]` + ordered-list semantics + `aria-current="page"` for the leaf item.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/',
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-chips',
+    name: '@kumiki/headless/chips',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachments for Chips — three variants (static / dismissible / selectable) with keyboard activation + dismiss wiring.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/button/',
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-date-picker',
+    name: '@kumiki/headless/date-picker',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachments for DatePicker — composition controller that wires a Popover trigger to an internal Calendar.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/grid/',
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-datetime-field',
+    name: '@kumiki/headless/datetime-field',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachments for DateTimeField — coordinates DatePart + TimePart over a shared `CalendarDateTime` value.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/',
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-definition-list',
+    name: '@kumiki/headless/definition-list',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachment for DefinitionList — semantic `<dl>` term/value pairing with id wiring for cross-references.',
+    live: false,
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-horizontal-rule',
+    name: '@kumiki/headless/horizontal-rule',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachment for HorizontalRule — semantic `<hr>` (or `role="separator"`) with horizontal/vertical orientation toggle.',
+    live: false,
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-icon-button',
+    name: '@kumiki/headless/icon-button',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachment for IconButton — thin wrapper that delegates to the Button controller, narrowing the required accessible name surface.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/button/',
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-loading-spinner',
+    name: '@kumiki/headless/loading-spinner',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachment for LoadingSpinner — wraps the spinner in a polite `role="status"` live region with reduced-motion awareness.',
+    live: false,
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-table',
+    name: '@kumiki/headless/table',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachments for Table — sortable header coordinator, row selection state (single / multiple / tri-state select-all), tree-row disclosure.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/table/',
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-time-field',
+    name: '@kumiki/headless/time-field',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachments for TimeField — per-segment spinbutton coordinators + group wrapper with locale-aware segment order.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/',
+    status: 'unreleased',
+  },
+  {
+    slug: 'attachment-toolbar',
+    name: '@kumiki/headless/toolbar',
+    layer: 3,
+    summary:
+      'Planned Svelte 5 attachment for Toolbar — roving-tabindex coordinator across enabled Items with Arrow / Home / End handling.',
+    live: false,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/',
+    status: 'unreleased',
+  },
 
   // ── Layer 4 — Compound components ────────────────────────────────────────
   {
@@ -702,6 +836,46 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     summary:
       'Compound `<Root>` / `<Trigger>` / `<Content>` — a Popover that anchors a Calendar for picking a single date. Fully localised, RTL-aware.',
     live: true,
+    status: 'preview',
+  },
+  {
+    slug: 'component-icon-button',
+    name: '@kumiki/components/icon-button',
+    layer: 4,
+    summary:
+      'Compound `<IconButton.Root>` — square icon-only Button variant. Inherits Button behavior; type-level enforces `aria-label` and the required `icon` snippet.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/button/',
+    status: 'preview',
+  },
+  {
+    slug: 'component-datetime-field',
+    name: '@kumiki/components/datetime-field',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Label>` / `<DatePart>` / `<TimePart>` — combined date + time-of-day input over a single `CalendarDateTime` value.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/',
+    status: 'preview',
+  },
+  {
+    slug: 'component-time-field',
+    name: '@kumiki/components/time-field',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Label>` / `<Input>` / `<Segment>` — locale-aware segmented time-of-day input (12/24-hour cycle).',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/',
+    status: 'preview',
+  },
+  {
+    slug: 'component-toolbar',
+    name: '@kumiki/components/toolbar',
+    layer: 4,
+    summary:
+      'Compound `<Root>` / `<Item>` / `<Separator>` — APG `toolbar` pattern with a single tab stop and arrow-key roving navigation between enabled items.',
+    live: true,
+    apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/',
     status: 'preview',
   },
 
@@ -1027,6 +1201,10 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-menu': () => import('./demos/component-menu.svelte'),
   'component-calendar': () => import('./demos/component-calendar.svelte'),
   'component-date-picker': () => import('./demos/component-date-picker.svelte'),
+  'component-icon-button': () => import('./demos/component-icon-button.svelte'),
+  'component-datetime-field': () => import('./demos/component-datetime-field.svelte'),
+  'component-time-field': () => import('./demos/component-time-field.svelte'),
+  'component-toolbar': () => import('./demos/component-toolbar.svelte'),
 
   // Layer 5 — Atelier (Vanilla CSS variant; self-contained styles).
   'atelier-button': () => import('./demos/atelier-button.svelte'),

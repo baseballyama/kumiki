@@ -40,8 +40,11 @@ async function loadSnippets() {
 
 const { SNIPPETS, DEFAULT_SNIPPETS } = await loadSnippets();
 
+// Kanagawa is a Japanese-inspired theme — pairs naturally with Kumiki's
+// paper / sumi / shu aesthetic. Lotus (light) leans warm; Wave (dark) keeps
+// the same hue family but pivots to twilight.
 const highlighter = await createHighlighter({
-  themes: ['github-light', 'github-dark'],
+  themes: ['kanagawa-lotus', 'kanagawa-wave'],
   langs: ['svelte', 'typescript', 'javascript', 'bash', 'json', 'html', 'css'],
 });
 
@@ -60,7 +63,7 @@ function highlight(code, lang) {
   const shikiLang = langMap[lang] ?? 'plaintext';
   return highlighter.codeToHtml(code, {
     lang: shikiLang,
-    themes: { light: 'github-light', dark: 'github-dark' },
+    themes: { light: 'kanagawa-lotus', dark: 'kanagawa-wave' },
     defaultColor: false,
   });
 }

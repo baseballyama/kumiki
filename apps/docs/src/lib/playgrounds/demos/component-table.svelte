@@ -66,6 +66,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
+    width: 480px;
+    min-height: 400px;
+    box-sizing: border-box;
   }
   .demo :global(table) {
     width: 100%;
@@ -93,7 +96,7 @@
     letter-spacing: 0.04em;
     background: var(--k-surface-1);
   }
-  .demo :global(button[data-part='sort-button']) {
+  .demo :global(button[data-component-part='sort-button']) {
     background: transparent;
     color: inherit;
     border: 0;
@@ -102,16 +105,56 @@
     font: inherit;
     text-transform: inherit;
   }
-  .demo :global(th[aria-sort='ascending'] button[data-part='sort-button']::after) {
+  .demo :global(th[aria-sort='ascending'] button[data-component-part='sort-button']::after) {
     content: ' ▲';
     color: var(--k-shu);
   }
-  .demo :global(th[aria-sort='descending'] button[data-part='sort-button']::after) {
+  .demo :global(th[aria-sort='descending'] button[data-component-part='sort-button']::after) {
     content: ' ▼';
     color: var(--k-shu);
   }
   .demo :global(tr[data-selected]) {
     background: rgba(229, 88, 22, 0.06);
+  }
+  .demo :global(button[data-component-part='select-button']),
+  .demo :global(button[data-component-part='select-all-button']) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    border: 1px solid var(--k-line-2);
+    border-radius: 4px;
+    background: var(--k-surface-0);
+    cursor: pointer;
+  }
+  .demo :global(button[data-component-part='select-button'][aria-checked='true']),
+  .demo :global(button[data-component-part='select-all-button'][aria-checked='true']),
+  .demo :global(button[data-component-part='select-all-button'][aria-checked='mixed']) {
+    background: var(--k-shu);
+    border-color: var(--k-shu);
+  }
+  .demo :global(button[data-component-part='select-button'][aria-checked='true'])::after,
+  .demo :global(button[data-component-part='select-all-button'][aria-checked='true'])::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    clip-path: polygon(14% 44%, 0% 60%, 40% 100%, 100% 20%, 84% 8%, 40% 70%);
+  }
+  .demo :global(button[data-component-part='select-all-button'][aria-checked='mixed'])::after {
+    content: '';
+    width: 8px;
+    height: 2px;
+    background: #fff;
+    border-radius: 1px;
+  }
+  .demo :global(button[data-component-part='select-button']:focus-visible),
+  .demo :global(button[data-component-part='select-all-button']:focus-visible) {
+    outline: 2px solid var(--k-shu);
+    outline-offset: 2px;
   }
   .state {
     margin-top: 12px;

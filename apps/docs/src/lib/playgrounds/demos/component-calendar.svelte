@@ -44,12 +44,14 @@
 
 <style>
   .demo {
-    width: 320px;
+    width: 420px;
     max-width: 100%;
     background: var(--k-surface-0);
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 16px;
+    min-height: 420px;
+    box-sizing: border-box;
   }
 
   .demo :global(.cal-header) {

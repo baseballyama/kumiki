@@ -27,6 +27,12 @@
           const theme = stored === 'dark' || stored === 'light' ? stored : sys;
           document.documentElement.setAttribute('data-theme', theme);
 
+          // Kumiki Atelier accent palette — independent of light/dark.
+          const ktheme = localStorage.getItem('kumiki:kumikiTheme');
+          if (ktheme && ['shu', 'matcha', 'ai', 'sumi'].includes(ktheme)) {
+            document.documentElement.setAttribute('data-kumiki-theme', ktheme);
+          }
+
           const lang = localStorage.getItem('kumiki:locale') || 'en';
           document.documentElement.setAttribute('lang', lang);
           const rtl = ['ar', 'he'].includes(lang) ? 'rtl' : 'ltr';

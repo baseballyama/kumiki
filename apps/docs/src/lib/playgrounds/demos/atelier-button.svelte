@@ -28,6 +28,9 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 360px;
+    min-height: 240px;
+    box-sizing: border-box;
   }
   .row {
     display: flex;

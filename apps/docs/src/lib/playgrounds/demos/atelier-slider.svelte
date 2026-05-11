@@ -32,6 +32,9 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 400px;
+    min-height: 220px;
+    box-sizing: border-box;
   }
   .row {
     display: grid;

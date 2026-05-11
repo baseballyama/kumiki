@@ -47,6 +47,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
+    width: 380px;
+    min-height: 260px;
+    box-sizing: border-box;
   }
   .row {
     display: flex;
@@ -67,7 +70,7 @@
     font-weight: 600;
     font-size: 14px;
   }
-  .demo :global(img[data-part='image']) {
+  .demo :global(img[data-component-part='image']) {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -77,7 +80,7 @@
   .demo :global(img[data-hidden]) {
     visibility: hidden;
   }
-  .demo :global(span[data-part='fallback'][data-hidden]) {
+  .demo :global(span[data-component-part='fallback'][data-hidden]) {
     visibility: hidden;
   }
   .hint {

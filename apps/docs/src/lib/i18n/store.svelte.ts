@@ -13,16 +13,32 @@ import { isRtl, LOCALES } from './dict.js';
 
 export type Theme = 'light' | 'dark';
 export type Direction = 'ltr' | 'rtl';
+export type KumikiTheme = 'shu' | 'matcha' | 'ai' | 'sumi';
+
+export const KUMIKI_THEMES: ReadonlyArray<{ id: KumikiTheme; ja: string; en: string }> = [
+  { id: 'shu', ja: '朱', en: 'Shu (vermillion)' },
+  { id: 'matcha', ja: '抹茶', en: 'Matcha (green)' },
+  { id: 'ai', ja: '藍', en: 'Ai (indigo)' },
+  { id: 'sumi', ja: '墨', en: 'Sumi (monochrome)' },
+];
 
 const THEME_KEY = 'kumiki:theme';
 const LOCALE_KEY = 'kumiki:locale';
 const DIR_OVERRIDE_KEY = 'kumiki:dirOverride';
+const KUMIKI_THEME_KEY = 'kumiki:kumikiTheme';
 
 function readTheme(): Theme {
   if (!browser) return 'light';
   const stored = localStorage.getItem(THEME_KEY);
   if (stored === 'light' || stored === 'dark') return stored;
   return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function readKumikiTheme(): KumikiTheme {
+  if (!browser) return 'shu';
+  const stored = localStorage.getItem(KUMIKI_THEME_KEY);
+  if (stored && KUMIKI_THEMES.some((t) => t.id === stored)) return stored as KumikiTheme;
+  return 'shu';
 }
 
 function readLocale(): LocaleCode {
@@ -41,6 +57,8 @@ function readDirOverride(): Direction | null {
 class UiState {
   theme = $state<Theme>(readTheme());
   locale = $state<LocaleCode>(readLocale());
+  /** Kumiki Atelier accent palette. Independent of light/dark. */
+  kumikiTheme = $state<KumikiTheme>(readKumikiTheme());
   /** When set, overrides the locale's natural direction (for RTL preview). */
   dirOverride = $state<Direction | null>(readDirOverride());
 
@@ -59,6 +77,14 @@ class UiState {
 
   toggleTheme(): void {
     this.setTheme(this.theme === 'light' ? 'dark' : 'light');
+  }
+
+  setKumikiTheme(t: KumikiTheme): void {
+    this.kumikiTheme = t;
+    if (browser) {
+      localStorage.setItem(KUMIKI_THEME_KEY, t);
+      document.documentElement.setAttribute('data-kumiki-theme', t);
+    }
   }
 
   setLocale(l: LocaleCode): void {

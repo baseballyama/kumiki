@@ -39,6 +39,9 @@
     border-radius: 12px;
     padding: 24px;
     position: relative;
+    width: 400px;
+    min-height: 360px;
+    box-sizing: border-box;
   }
   .demo :global(.trigger) {
     background: var(--k-line-1);

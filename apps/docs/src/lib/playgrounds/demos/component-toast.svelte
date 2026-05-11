@@ -53,7 +53,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
-    min-height: 200px;
+    width: 420px;
+    min-height: 380px;
+    box-sizing: border-box;
   }
   .actions {
     display: flex;

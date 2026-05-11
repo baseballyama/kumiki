@@ -43,7 +43,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
-    min-width: 280px;
+    width: 440px;
+    min-height: 480px;
+    box-sizing: border-box;
   }
   .demo :global(.dp-trigger) {
     display: inline-flex;

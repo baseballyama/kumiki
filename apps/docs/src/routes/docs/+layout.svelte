@@ -1,6 +1,5 @@
 <script lang="ts">
   import Sidebar from '$lib/components/Sidebar.svelte';
-  import { PLAYGROUNDS, type PlaygroundEntry } from '$lib/playgrounds/registry.js';
   import { ui } from '$lib/i18n/store.svelte.js';
   import { dict } from '$lib/i18n/dict.js';
 
@@ -8,29 +7,6 @@
   let sidebarOpen = $state(false);
 
   const sb = $derived(dict(ui.locale).sidebar);
-
-  // Strip the slug prefix (`component-`, `attachment-`, `machine-`, `atelier-`)
-  // and turn the rest into a human-friendly label. The package names themselves
-  // are not translated.
-  function entryLabel(p: PlaygroundEntry): string {
-    return p.slug.replace(/^(component|attachment|machine|atelier)-/, '').replace(/-/g, ' ');
-  }
-
-  function entryHref(p: PlaygroundEntry): string {
-    return `/components/${p.slug}`;
-  }
-
-  function itemsForLayer(layer: number): Array<{
-    href: string;
-    label: string;
-    status?: 'preview' | 'unreleased' | 'stable';
-  }> {
-    return PLAYGROUNDS.filter((p) => p.layer === layer).map((p) => ({
-      href: entryHref(p),
-      label: entryLabel(p),
-      status: p.status,
-    }));
-  }
 
   const sections = $derived([
     {
@@ -48,52 +24,15 @@
         { href: '/docs/layers-by-example', label: sb.layersByExample },
         { href: '/docs/composition', label: sb.composition },
         { href: '/docs/styling', label: sb.styling },
+        { href: '/docs/theming', label: sb.theming },
         { href: '/docs/accessibility', label: sb.accessibility },
         { href: '/docs/i18n', label: sb.i18n },
         { href: '/docs/bundle-budgets', label: sb.bundleBudgets },
       ],
     },
     {
-      title: sb.layer0,
-      items: itemsForLayer(0),
-      collapsible: true,
-      defaultOpen: false,
-      storageKey: 'layer-0',
-    },
-    {
-      title: sb.layer1,
-      items: itemsForLayer(1),
-      collapsible: true,
-      defaultOpen: false,
-      storageKey: 'layer-1',
-    },
-    {
-      title: sb.layer2,
-      items: itemsForLayer(2),
-      collapsible: true,
-      defaultOpen: false,
-      storageKey: 'layer-2',
-    },
-    {
-      title: sb.layer3,
-      items: itemsForLayer(3),
-      collapsible: true,
-      defaultOpen: false,
-      storageKey: 'layer-3',
-    },
-    {
-      title: sb.layer4,
-      items: itemsForLayer(4),
-      collapsible: true,
-      defaultOpen: true,
-      storageKey: 'layer-4',
-    },
-    {
-      title: sb.layer5,
-      items: itemsForLayer(5),
-      collapsible: true,
-      defaultOpen: false,
-      storageKey: 'layer-5',
+      title: sb.components,
+      items: [{ href: '/components', label: sb.componentsBrowse }],
     },
   ]);
 </script>

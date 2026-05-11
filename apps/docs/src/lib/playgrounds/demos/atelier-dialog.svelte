@@ -1,13 +1,10 @@
 <script lang="ts">
   import { Vanilla as Dialog } from '@kumiki/atelier/dialog';
-  import { Vanilla as Button } from '@kumiki/atelier/button';
 </script>
 
 <div class="demo">
   <Dialog.Root>
-    <Dialog.Trigger>
-      <Button.Root variant="primary">Edit profile</Button.Root>
-    </Dialog.Trigger>
+    <Dialog.Trigger>Edit profile</Dialog.Trigger>
     <Dialog.Overlay />
     <Dialog.Content>
       <Dialog.Title>Edit profile</Dialog.Title>
@@ -23,12 +20,8 @@
         </label>
       </form>
       <div class="actions">
-        <Dialog.Close>
-          <Button.Root variant="ghost">Cancel</Button.Root>
-        </Dialog.Close>
-        <Dialog.Close>
-          <Button.Root variant="primary">Save</Button.Root>
-        </Dialog.Close>
+        <Dialog.Close variant="ghost">Cancel</Dialog.Close>
+        <Dialog.Close variant="primary">Save</Dialog.Close>
       </div>
     </Dialog.Content>
   </Dialog.Root>
@@ -40,6 +33,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
+    width: 400px;
+    min-height: 200px;
+    box-sizing: border-box;
   }
   .form {
     display: flex;

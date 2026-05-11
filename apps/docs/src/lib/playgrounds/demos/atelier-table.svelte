@@ -62,5 +62,8 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
+    width: 480px;
+    min-height: 360px;
+    box-sizing: border-box;
   }
 </style>

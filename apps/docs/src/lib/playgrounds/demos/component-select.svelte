@@ -39,6 +39,9 @@
     border-radius: 12px;
     padding: 24px;
     position: relative;
+    width: 380px;
+    min-height: 320px;
+    box-sizing: border-box;
   }
   .demo :global(.trigger) {
     display: inline-flex;

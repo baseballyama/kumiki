@@ -29,6 +29,9 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 360px;
+    min-height: 280px;
+    box-sizing: border-box;
   }
   .block h3 {
     margin: 0 0 4px;

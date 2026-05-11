@@ -53,6 +53,9 @@
     padding: 24px;
     display: grid;
     gap: 16px;
+    width: 400px;
+    min-height: 240px;
+    box-sizing: border-box;
   }
   .row {
     display: flex;

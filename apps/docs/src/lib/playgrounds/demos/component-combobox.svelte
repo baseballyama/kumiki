@@ -64,6 +64,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: 12px;
     padding: 24px;
+    width: 420px;
+    min-height: 480px;
+    box-sizing: border-box;
   }
   .combobox label {
     display: block;

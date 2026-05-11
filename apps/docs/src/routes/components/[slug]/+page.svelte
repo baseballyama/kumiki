@@ -3,45 +3,18 @@
   import { LIVE_PLAYGROUNDS } from '$lib/playgrounds/registry.js';
   import { ui } from '$lib/i18n/store.svelte.js';
   import { dict } from '$lib/i18n/dict.js';
-  import StatusBadge from '$lib/components/StatusBadge.svelte';
   import DirectionToggle from '$lib/components/DirectionToggle.svelte';
+  import KumikiThemeSwitcher from '$lib/components/KumikiThemeSwitcher.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import CodeBlock from '$lib/components/CodeBlock.svelte';
+  import LiveThumb from '$lib/components/LiveThumb.svelte';
+  import { localizedSummary } from '$lib/playgrounds/summaries.js';
 
   let { data } = $props();
   // svelte-ignore state_referenced_locally
-  const {
-    entry,
-    snippets,
-    hasDemo,
-    family,
-    siblings,
-    siblingSnippets,
-    activeSnippet,
-    machineSpec,
-    machineSpecJsonUrl,
-    machineSpecVizUrl,
-  } = data;
+  const { entry, heroEntry, family, layers } = data;
 
   const t = $derived(dict(ui.locale).components);
-
-  let DemoComponent: Component | undefined = $state(undefined);
-  let demoError = $state<string | undefined>(undefined);
-  let active = $state<'preview' | 'code' | 'a11y'>('preview');
-
-  $effect(() => {
-    if (!hasDemo) return;
-    const loader = LIVE_PLAYGROUNDS[entry.slug];
-    if (!loader) return;
-    loader().then(
-      (mod) => {
-        DemoComponent = mod.default as Component;
-      },
-      (err) => {
-        demoError = String(err);
-      },
-    );
-  });
 
   function pretty(name: string): string {
     const last = name.split('/').pop() ?? name;
@@ -51,51 +24,101 @@
       .join('');
   }
 
-  // Order the entire family ascending by layer, with the active entry merged in.
-  const familyEntries = $derived(
-    [entry, ...siblings].sort((a, b) => a.layer - b.layer || a.slug.localeCompare(b.slug)),
-  );
-
-  function snippetForSlug(slug: string) {
-    if (slug === entry.slug) return activeSnippet;
-    return siblingSnippets[slug] ?? null;
+  function prettyFromFamily(fam: string): string {
+    return fam
+      .split('-')
+      .map((w) => w[0]?.toUpperCase() + w.slice(1))
+      .join('');
   }
 
-  const showFamily = $derived(siblings.length > 0);
+  /**
+   * Split a string on backtick-delimited spans so we can render `code` inline
+   * without falling back to `{@html}`. Returns alternating segments where
+   * odd indices are code and even indices are plain text.
+   */
+  function tokenizeInlineCode(text: string): ReadonlyArray<{ code: boolean; text: string }> {
+    const out: { code: boolean; text: string }[] = [];
+    const parts = text.split('`');
+    parts.forEach((p, i) => {
+      if (p === '') return;
+      out.push({ code: i % 2 === 1, text: p });
+    });
+    return out;
+  }
 
-  let activeFamilySlug = $state(entry.slug);
+  // Default to L5 (Atelier) when present, otherwise step down through L4 / L3 / L2.
+  // The URL slug determines the canonical entry, but the most polished view
+  // (styled L5 demo) leads — visitors arriving on any layer's URL still see
+  // the friendliest entry first and can drill down through the tabs.
+  function pickDefault(): string {
+    const l5 = layers.find((l) => l.entry.layer === 5);
+    if (l5) return l5.entry.slug;
+    const l4 = layers.find((l) => l.entry.layer === 4);
+    if (l4) return l4.entry.slug;
+    return layers[layers.length - 1]?.entry.slug ?? entry.slug;
+  }
+
+  let activeSlug = $state(pickDefault());
+  const activeLayer = $derived(layers.find((l) => l.entry.slug === activeSlug) ?? layers[0]);
+
+  // Per-slug demo cache. Each slug's lazy module is loaded at most once.
+  const demoCache = new Map<string, Promise<Component>>();
+  let activeDemo = $state<Component | undefined>(undefined);
+  let demoError = $state<string | undefined>(undefined);
+
+  function ensureDemo(slug: string): Promise<Component> | undefined {
+    const loader = LIVE_PLAYGROUNDS[slug];
+    if (!loader) return undefined;
+    const cached = demoCache.get(slug);
+    if (cached) return cached;
+    const p = loader().then((m) => m.default as Component);
+    demoCache.set(slug, p);
+    return p;
+  }
+
   $effect(() => {
-    activeFamilySlug = entry.slug;
+    const slug = activeSlug;
+    activeDemo = undefined;
+    demoError = undefined;
+    const p = ensureDemo(slug);
+    if (!p) return;
+    p.then(
+      (c) => {
+        if (activeSlug === slug) activeDemo = c;
+      },
+      (err) => {
+        if (activeSlug === slug) demoError = String(err);
+      },
+    );
   });
 
-  // Keyboard reference. APG-derived where available. Effects are key-only;
-  // human descriptions are localised in dict per language.
+  // APG-derived keyboard tables, keyed by family name so all layer URLs share.
   const KEYBOARD_MAP: Record<
     string,
     ReadonlyArray<{ keys: string; effect: { en: string; ja: string } }>
   > = {
-    'component-toggle': [
+    toggle: [
       {
         keys: 'Space, Enter',
         effect: { en: 'Toggles pressed state.', ja: 'pressed 状態を切り替え。' },
       },
       { keys: 'Tab', effect: { en: 'Move focus into / out.', ja: 'フォーカスの出入り。' } },
     ],
-    'component-switch': [
+    switch: [
       {
         keys: 'Space, Enter',
         effect: { en: 'Toggles checked state.', ja: 'checked 状態を切り替え。' },
       },
       { keys: 'Tab', effect: { en: 'Move focus.', ja: 'フォーカス移動。' } },
     ],
-    'component-checkbox': [
+    checkbox: [
       {
         keys: 'Space',
         effect: { en: 'Toggles checked / unchecked.', ja: 'checked / unchecked を切り替え。' },
       },
       { keys: 'Tab', effect: { en: 'Move focus.', ja: 'フォーカス移動。' } },
     ],
-    'component-radio-group': [
+    'radio-group': [
       {
         keys: 'Arrow ↑/↓ ←/→',
         effect: { en: 'Move focus and select adjacent item.', ja: '隣接項目へ移動し選択。' },
@@ -106,7 +129,7 @@
         effect: { en: 'Move focus into / out of the group.', ja: 'グループへ出入り。' },
       },
     ],
-    'component-tabs': [
+    tabs: [
       {
         keys: 'Arrow ←/→',
         effect: { en: 'Move focus to adjacent tab.', ja: '隣のタブへフォーカス移動。' },
@@ -120,7 +143,7 @@
         },
       },
     ],
-    'component-combobox': [
+    combobox: [
       { keys: 'Type', effect: { en: 'Filters listbox.', ja: 'リストを絞り込む。' } },
       {
         keys: 'Arrow ↓ / ↑',
@@ -135,7 +158,7 @@
         effect: { en: 'Close listbox; clear if open.', ja: 'リストを閉じる。開いていればクリア。' },
       },
     ],
-    'component-dialog': [
+    dialog: [
       {
         keys: 'Escape',
         effect: { en: 'Close (when policy allows).', ja: '閉じる(ポリシーが許可している場合)。' },
@@ -145,19 +168,19 @@
         effect: { en: 'Cycle focus within trap.', ja: 'トラップ内でフォーカスを循環。' },
       },
     ],
-    'component-tooltip': [
+    tooltip: [
       { keys: 'Focus / Hover', effect: { en: 'Open after delay.', ja: '遅延後に表示。' } },
       {
         keys: 'Escape',
         effect: { en: 'Dismiss when content is hovered.', ja: 'ホバー中なら閉じる。' },
       },
     ],
-    'component-popover': [
+    popover: [
       { keys: 'Click trigger', effect: { en: 'Toggle.', ja: 'トリガーで切り替え。' } },
       { keys: 'Escape', effect: { en: 'Dismiss (policy-aware).', ja: '閉じる(ポリシー準拠)。' } },
       { keys: 'Tab', effect: { en: 'Focus moves into content.', ja: 'コンテンツへフォーカス。' } },
     ],
-    'component-menu': [
+    menu: [
       { keys: 'Arrow ↓ / ↑', effect: { en: 'Move active item.', ja: 'アクティブ項目を移動。' } },
       { keys: 'Home / End', effect: { en: 'First / last item.', ja: '最初 / 最後の項目。' } },
       {
@@ -166,7 +189,7 @@
       },
       { keys: 'Enter', effect: { en: 'Activate item.', ja: '項目を有効化。' } },
     ],
-    'component-slider': [
+    slider: [
       { keys: 'Arrow ←/→ ↑/↓', effect: { en: 'Step value by `step`.', ja: 'step ぶん値を変更。' } },
       {
         keys: 'PageUp / PageDown',
@@ -174,7 +197,7 @@
       },
       { keys: 'Home / End', effect: { en: 'Jump to min / max.', ja: '最小 / 最大へジャンプ。' } },
     ],
-    'component-number-field': [
+    'number-field': [
       {
         keys: 'Arrow ↑ / ↓',
         effect: { en: 'Increment / decrement by step.', ja: 'step で増減。' },
@@ -184,10 +207,55 @@
         effect: { en: 'Increment / decrement by pageStep.', ja: 'pageStep で増減。' },
       },
     ],
+    accordion: [
+      {
+        keys: 'Arrow ↑ / ↓',
+        effect: {
+          en: 'Move focus to previous / next trigger.',
+          ja: '前/次のトリガーへフォーカス移動。',
+        },
+      },
+      {
+        keys: 'Home / End',
+        effect: { en: 'First / last trigger.', ja: '最初 / 最後のトリガーへ。' },
+      },
+      {
+        keys: 'Space, Enter',
+        effect: {
+          en: 'Toggle the focused panel.',
+          ja: 'フォーカス中のパネルを開閉。',
+        },
+      },
+      {
+        keys: 'Tab',
+        effect: {
+          en: 'Move focus out of the accordion.',
+          ja: 'アコーディオン外へフォーカス。',
+        },
+      },
+    ],
   };
 
-  const keyboard = $derived(KEYBOARD_MAP[entry.slug] ?? []);
+  const keyboard = $derived(KEYBOARD_MAP[family] ?? []);
   const localeKey = $derived<'ja' | 'en'>(ui.locale === 'ja' ? 'ja' : 'en');
+
+  function layerRole(n: 0 | 1 | 2 | 3 | 4 | 5): { ja: string; en: string } {
+    return (
+      [
+        { ja: '型', en: 'Types' },
+        { ja: 'プリミティブ', en: 'Primitives' },
+        { ja: 'マシン', en: 'Machine' },
+        { ja: 'ヘッドレス', en: 'Headless' },
+        { ja: 'コンポーネント', en: 'Compound' },
+        { ja: 'アトリエ', en: 'Atelier' },
+      ][n] ?? { ja: `Layer ${n}`, en: `Layer ${n}` }
+    );
+  }
+
+  // Active layer info for the panel header / when-to-use copy.
+  const activeWhen = $derived(activeLayer ? (t.layerWhen[activeLayer.entry.layer] ?? '') : '');
+
+  const heroSummary = $derived(localizedSummary(entry.slug, entry.summary, ui.locale));
 </script>
 
 <svelte:head>
@@ -200,259 +268,220 @@
     <a href="/components">{t.backToCatalogue}</a>
   </nav>
 
+  <!-- Hero: large showcase thumbnail + family identity -->
   <header class="hero">
-    <div class="hero-main">
-      <p class="layer-tag">L{entry.layer} · {t.layerLabel(entry.layer)}</p>
+    <div class="hero-thumb" aria-hidden="true">
+      <div class="thumb-frame">
+        <LiveThumb slug={heroEntry.slug} maxScale={1.0} pad={20} />
+      </div>
+      <span class="thumb-tag" dir="ltr">L{heroEntry.layer}</span>
+    </div>
+    <div class="hero-meta">
+      <p class="kicker" dir="ltr">/ {family}</p>
       <h1>
-        <span class="name">{pretty(entry.name)}</span>
+        <span class="display">{prettyFromFamily(family)}</span>
       </h1>
       <code class="pkg" dir="ltr">{entry.name}</code>
-      <p class="summary">{entry.summary}</p>
+      <p class="summary">
+        {#each tokenizeInlineCode(heroSummary) as part, i (i)}
+          {#if part.code}<code dir="ltr">{part.text}</code>{:else}{part.text}{/if}
+        {/each}
+      </p>
 
       <ul class="meta">
-        <li>
-          <StatusBadge status={entry.status} />
-        </li>
         {#if entry.apgUrl}
           <li>
-            <a class="apg" href={entry.apgUrl} target="_blank" rel="noopener noreferrer">
-              {t.apgPattern} ↗
+            <a class="link" href={entry.apgUrl} target="_blank" rel="noopener noreferrer">
+              {t.apgPattern} <span aria-hidden="true">↗</span>
             </a>
           </li>
         {/if}
         <li>
           <a
-            class="src"
+            class="link"
             href="https://github.com/baseballyama/kumiki/tree/main/packages"
             target="_blank"
             rel="noopener noreferrer"
           >
-            {t.source} ↗
+            {t.source} <span aria-hidden="true">↗</span>
           </a>
         </li>
       </ul>
     </div>
-
-    <aside class="hero-side">
-      <div class="kanji-box" aria-hidden="true">
-        {pretty(entry.name).slice(0, 1)}
-      </div>
-    </aside>
   </header>
 
-  {#if hasDemo}
-    <section class="stage">
-      <div class="stage-head">
-        <div role="tablist" aria-label="View" class="tabs">
-          <button
-            role="tab"
-            aria-selected={active === 'preview'}
-            class:on={active === 'preview'}
-            onclick={() => (active = 'preview')}
-          >
-            {t.livePreview}
-          </button>
-          <button
-            role="tab"
-            aria-selected={active === 'code'}
-            class:on={active === 'code'}
-            onclick={() => (active = 'code')}
-          >
-            {t.code}
-          </button>
-          <button
-            role="tab"
-            aria-selected={active === 'a11y'}
-            class:on={active === 'a11y'}
-            onclick={() => (active = 'a11y')}
-          >
-            {t.a11y}
-          </button>
-        </div>
-        <div class="stage-tools">
-          <DirectionToggle />
-        </div>
-      </div>
-
-      {#if active === 'preview'}
-        <div role="tabpanel" class="panel">
-          <PreviewFrame>
-            {#if demoError}
-              <p class="err">Failed to load demo: <code>{demoError}</code></p>
-            {:else if DemoComponent}
-              <DemoComponent />
-            {:else}
-              <p class="loading">Loading…</p>
-            {/if}
-          </PreviewFrame>
-
-          <div class="panel-meta">
-            <p>{t.panelMeta}</p>
-          </div>
-        </div>
-      {:else if active === 'code'}
-        <div role="tabpanel" class="panel">
-          <div class="snips">
-            {#each snippets as s, i (i)}
-              <CodeBlock title={s.title} lang={s.lang} code={s.code} html={s.html} />
-            {/each}
-          </div>
-        </div>
-      {:else if active === 'a11y'}
-        <div role="tabpanel" class="panel">
-          <div class="a11y-grid">
-            <article class="a11y-card">
-              <h3>{t.keyboardTitle}</h3>
-              {#if keyboard.length}
-                <table>
-                  <thead>
-                    <tr>
-                      <th>{t.keyboardKey}</th>
-                      <th>{t.keyboardEffect}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {#each keyboard as row, i (i)}
-                      <tr>
-                        <td><kbd dir="ltr">{row.keys}</kbd></td>
-                        <td>{row.effect[localeKey]}</td>
-                      </tr>
-                    {/each}
-                  </tbody>
-                </table>
-              {:else}
-                <p class="muted">{t.keyboardEmpty}</p>
-              {/if}
-            </article>
-
-            <article class="a11y-card">
-              <h3>{t.testTitle}</h3>
-              <ul>
-                {#each t.testItems as item, i (i)}
-                  <li>{item}</li>
-                {/each}
-              </ul>
-              {#if entry.apgUrl}
-                <a class="more" href={entry.apgUrl} target="_blank" rel="noopener noreferrer">
-                  {t.apgRead}
-                </a>
-              {/if}
-            </article>
-          </div>
-        </div>
-      {/if}
-    </section>
-  {:else}
-    <section class="stage placeholder">
-      {#if machineSpec}
-        <article class="machine-spec">
-          <header>
-            <h2>{t.machineTitle}</h2>
-            <p class="machine-blurb">{machineSpec.blurb}</p>
-          </header>
-          <dl class="machine-meta">
-            <dt>{t.machineSource}</dt>
-            <dd><code dir="ltr">{machineSpec.pkg}</code></dd>
-            <dt>{t.machineInitial}</dt>
-            <dd><code dir="ltr">{machineSpec.initial}</code></dd>
-            <dt>{t.machineStates}</dt>
-            <dd>
-              {#each machineSpec.states as s, i (s)}<code dir="ltr">{s}</code
-                >{#if i < machineSpec.states.length - 1},
-                {/if}{/each}
-            </dd>
-          </dl>
-          <p class="machine-links">
-            <a href={machineSpecJsonUrl} target="_blank" rel="noopener noreferrer">
-              {t.machineJson} ↗
-            </a>
-            <span class="sep" aria-hidden="true">·</span>
-            <a href={machineSpecVizUrl} target="_blank" rel="noopener noreferrer">
-              {t.machineViz} ↗
-            </a>
-          </p>
-        </article>
-      {/if}
-      <div class="snips">
-        {#each snippets as s, i (i)}
-          <CodeBlock title={s.title} lang={s.lang} code={s.code} html={s.html} />
-        {/each}
-      </div>
-    </section>
-  {/if}
-
-  {#if showFamily}
-    <section class="family">
-      <header>
-        <p class="kicker" dir="ltr">/ {family}</p>
-        <h2>{t.familyTitle}</h2>
-        <p class="lede">{t.familyLede}</p>
-      </header>
-
-      <div role="tablist" aria-label={t.familyTitle} class="family-tabs">
-        {#each familyEntries as item (item.slug)}
-          {@const isSelected = item.slug === activeFamilySlug}
-          {@const isCurrent = item.slug === entry.slug}
+  <!-- Layer view: top-level tabs (L2 / L3 / L4 / L5) with split panels -->
+  <section class="layers" aria-labelledby="layer-stage-title">
+    <div class="layer-head">
+      <h2 id="layer-stage-title" class="sr-only">{t.familyTitle}</h2>
+      <div role="tablist" class="layer-tabs" aria-label={t.familyTitle}>
+        {#each layers as l (l.entry.slug)}
+          {@const isOn = activeSlug === l.entry.slug}
+          {@const role = layerRole(l.entry.layer)}
           <button
             role="tab"
             type="button"
-            id={`family-tab-${item.slug}`}
-            aria-controls={`family-panel-${item.slug}`}
-            aria-selected={isSelected}
-            tabindex={isSelected ? 0 : -1}
-            class="family-tab"
-            class:on={isSelected}
-            class:current={isCurrent}
-            onclick={() => (activeFamilySlug = item.slug)}
+            id={`layer-tab-${l.entry.slug}`}
+            aria-controls={`layer-panel-${l.entry.slug}`}
+            aria-selected={isOn}
+            tabindex={isOn ? 0 : -1}
+            class="layer-tab"
+            class:on={isOn}
+            onclick={() => (activeSlug = l.entry.slug)}
           >
-            <span class="num">L{item.layer}</span>
-            <span class="name">{pretty(item.name)}</span>
-            {#if isCurrent}<span class="dot" aria-hidden="true"></span>{/if}
+            <span class="tab-num" dir="ltr">L{l.entry.layer}</span>
+            <span class="tab-role">{role[localeKey]}</span>
           </button>
         {/each}
       </div>
+    </div>
 
-      {#each familyEntries as item (item.slug)}
-        {@const isSelected = item.slug === activeFamilySlug}
-        {@const isCurrent = item.slug === entry.slug}
-        {@const snip = snippetForSlug(item.slug)}
-        <div
-          role="tabpanel"
-          id={`family-panel-${item.slug}`}
-          aria-labelledby={`family-tab-${item.slug}`}
-          class="family-panel"
-          class:active={isCurrent}
-          data-layer={item.layer}
-          hidden={!isSelected}
-        >
-          <div class="family-tag">
-            <span class="layer-num">L{item.layer}</span>
-            {#if isCurrent}<span class="current">· {t.familyCurrent}</span>{/if}
-          </div>
-          <div class="family-body">
-            <h3>
-              {#if isCurrent}
-                <span>{pretty(item.name)}</span>
-              {:else}
-                <a href="/components/{item.slug}">{pretty(item.name)}</a>
-              {/if}
-            </h3>
-            <code class="pkg" dir="ltr">{item.name}</code>
-            <p class="summary">{item.summary}</p>
-            <p class="when">
-              <span class="when-label">{t.familyWhen}:</span>
-              {t.layerWhen[item.layer]}
-            </p>
-            {#if snip}
-              <div class="layer-snip">
-                <CodeBlock title={snip.title} lang={snip.lang} code={snip.code} html={snip.html} />
+    {#each layers as l (l.entry.slug)}
+      {@const isOn = activeSlug === l.entry.slug}
+      <div
+        role="tabpanel"
+        id={`layer-panel-${l.entry.slug}`}
+        aria-labelledby={`layer-tab-${l.entry.slug}`}
+        class="layer-panel"
+        hidden={!isOn}
+      >
+        <p class="panel-when">
+          {#each tokenizeInlineCode(t.layerWhen[l.entry.layer] ?? '') as part, i (i)}
+            {#if part.code}<code dir="ltr">{part.text}</code>{:else}{part.text}{/if}
+          {/each}
+        </p>
+
+        <div class="split" class:single={!l.hasLive && !l.machineSpec}>
+          <!-- Left pane: live preview, machine spec card, or a "you write the markup" note -->
+          {#if l.hasLive}
+            <div class="pane pane-preview">
+              <div class="pane-bar">
+                <span class="pane-label">{t.livePreview}</span>
+                <div class="pane-tools">
+                  {#if l.entry.layer === 5}
+                    <KumikiThemeSwitcher />
+                  {/if}
+                  <DirectionToggle />
+                </div>
               </div>
-            {/if}
+              <div class="pane-body preview-body">
+                <PreviewFrame>
+                  {#if isOn}
+                    {#if demoError}
+                      <p class="err">Failed to load demo: <code>{demoError}</code></p>
+                    {:else if activeDemo}
+                      {@const Demo = activeDemo}
+                      <Demo />
+                    {:else}
+                      <p class="loading">{t.livePreview}…</p>
+                    {/if}
+                  {/if}
+                </PreviewFrame>
+              </div>
+            </div>
+          {:else if l.machineSpec}
+            <div class="pane pane-spec">
+              <div class="pane-bar">
+                <span class="pane-label">{t.machineTitle}</span>
+              </div>
+              <div class="pane-body spec-body">
+                <p class="spec-blurb">{l.machineSpec.blurb}</p>
+                <dl class="spec-meta">
+                  <dt>{t.machineSource}</dt>
+                  <dd><code dir="ltr">{l.machineSpec.pkg}</code></dd>
+                  <dt>{t.machineInitial}</dt>
+                  <dd><code dir="ltr">{l.machineSpec.initial}</code></dd>
+                  <dt>{t.machineStates}</dt>
+                  <dd>
+                    {#each l.machineSpec.states as s, i (s)}<code dir="ltr">{s}</code
+                      >{#if i < l.machineSpec.states.length - 1},
+                      {/if}{/each}
+                  </dd>
+                </dl>
+                <p class="spec-links">
+                  <a
+                    href={`/machine-specs/${l.machineSpec.name}.json`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t.machineJson} <span aria-hidden="true">↗</span>
+                  </a>
+                  <span class="sep" aria-hidden="true">·</span>
+                  <a
+                    href={`https://stately.ai/viz?source=${encodeURIComponent(`https://kumiki.dev/machine-specs/${l.machineSpec.name}.json`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t.machineViz} <span aria-hidden="true">↗</span>
+                  </a>
+                </p>
+              </div>
+            </div>
+          {/if}
+
+          <!-- Right pane: code snippets -->
+          <div class="pane pane-code">
+            <div class="pane-body code-body">
+              <div class="snips">
+                {#each l.snippets as s, i (i)}
+                  <CodeBlock title={s.title} lang={s.lang} code={s.code} html={s.html} />
+                {/each}
+              </div>
+            </div>
           </div>
         </div>
-      {/each}
-    </section>
-  {/if}
+      </div>
+    {/each}
+  </section>
+
+  <!-- Accessibility showcase: trust signal for kumiki's a11y commitment -->
+  <section class="a11y-section" aria-labelledby="a11y-title">
+    <header class="a11y-head">
+      <p class="a11y-kicker" dir="ltr">/ accessibility</p>
+      <h2 id="a11y-title">{t.a11y}</h2>
+      <p class="a11y-lede">{t.testItems[0]}</p>
+    </header>
+
+    <div class="a11y-grid">
+      <article class="a11y-card">
+        <h3>{t.keyboardTitle}</h3>
+        {#if keyboard.length}
+          <table>
+            <thead>
+              <tr>
+                <th>{t.keyboardKey}</th>
+                <th>{t.keyboardEffect}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {#each keyboard as row, i (i)}
+                <tr>
+                  <td><kbd dir="ltr">{row.keys}</kbd></td>
+                  <td>{row.effect[localeKey]}</td>
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        {:else}
+          <p class="muted">{t.keyboardEmpty}</p>
+        {/if}
+      </article>
+
+      <article class="a11y-card">
+        <h3>{t.testTitle}</h3>
+        <ul>
+          {#each t.testItems as item, i (i)}
+            <li>{item}</li>
+          {/each}
+        </ul>
+        {#if entry.apgUrl}
+          <a class="more" href={entry.apgUrl} target="_blank" rel="noopener noreferrer">
+            {t.apgRead}
+          </a>
+        {/if}
+      </article>
+    </div>
+  </section>
 </div>
 
 <style>
@@ -473,34 +502,85 @@
     color: var(--k-ink-1);
   }
 
-  /* Hero */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ─── Hero ──────────────────────────────────────────────────────────── */
   .hero {
     display: grid;
-    grid-template-columns: 1fr 200px;
-    gap: 32px;
-    align-items: end;
-    padding-bottom: 32px;
+    grid-template-columns: minmax(320px, 0.95fr) 1fr;
+    gap: 40px;
+    align-items: center;
+    padding-block: 8px 36px;
     border-bottom: 1px solid var(--k-line-1);
     margin-bottom: 32px;
   }
-  .layer-tag {
+  .hero-thumb {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+  }
+  .thumb-frame {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--k-line-2);
+    background: var(--k-surface-1);
+    border-radius: var(--k-radius-lg);
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 1px 0 color-mix(in oklab, var(--k-ink-1) 4%, transparent),
+      0 18px 40px -22px color-mix(in oklab, var(--k-ink-1) 22%, transparent);
+  }
+  .thumb-frame :global(.thumb) {
+    aspect-ratio: 4 / 3;
+    background: var(--k-surface-1);
+    border-radius: 0;
+  }
+  .thumb-tag {
+    position: absolute;
+    inset-block-end: 12px;
+    inset-inline-end: 12px;
+    font-family: var(--k-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    color: var(--k-ink-3);
+    background: color-mix(in oklab, var(--k-surface-0) 92%, transparent);
+    border: 1px solid var(--k-line-1);
+    padding: 3px 8px;
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+  }
+  .hero-meta {
+    min-width: 0;
+  }
+  .kicker {
     font-family: var(--k-font-mono);
     font-size: 11px;
-    text-transform: uppercase;
+    text-transform: lowercase;
     letter-spacing: 0.16em;
     color: var(--k-shu);
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
   h1 {
-    font-size: clamp(2rem, 3.8vw, 3.2rem);
-    line-height: 1.1;
+    font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+    line-height: 1;
     letter-spacing: -0.035em;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     font-variation-settings:
       'opsz' 144,
       'SOFT' 30;
   }
-  h1 .name {
+  h1 .display {
     color: var(--k-ink-1);
   }
   .pkg {
@@ -515,10 +595,10 @@
   }
   .summary {
     font-family: var(--k-font-display);
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 1.05rem;
+    line-height: 1.55;
     color: var(--k-ink-2);
-    max-width: 60ch;
+    max-width: 56ch;
     font-variation-settings:
       'opsz' 36,
       'SOFT' 30;
@@ -526,186 +606,253 @@
     overflow-wrap: anywhere;
     line-break: strict;
   }
+  .summary code {
+    font-family: var(--k-font-mono);
+    font-size: 0.86em;
+    background: var(--k-surface-2);
+    color: var(--k-ink-1);
+    border: 1px solid var(--k-line-1);
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-inline: 2px;
+    letter-spacing: 0;
+  }
   .meta {
     list-style: none;
-    margin-top: 24px;
+    margin-top: 20px;
+    padding: 0;
     display: inline-flex;
     align-items: center;
-    gap: 16px;
+    gap: 18px;
     flex-wrap: wrap;
   }
-  .meta a {
+  .meta .link {
     font-family: var(--k-font-mono);
     font-size: 12px;
     color: var(--k-ink-3);
+    text-decoration: none;
+    border-block-end: 1px solid transparent;
+    padding-block-end: 1px;
+    transition:
+      color var(--k-dur-fast),
+      border-color var(--k-dur-fast);
   }
-  .meta a:hover {
+  .meta .link:hover {
     color: var(--k-shu-ink);
+    border-block-end-color: color-mix(in oklab, var(--k-shu) 40%, transparent);
   }
 
-  .hero-side {
-    display: grid;
-    place-items: end;
-  }
-  .kanji-box {
-    width: 160px;
-    height: 160px;
-    border: 1px solid var(--k-line-1);
-    background: var(--k-surface-1);
-    display: grid;
-    place-items: center;
-    font-family: var(--k-font-display);
-    font-size: 96px;
-    color: var(--k-ink-1);
-    border-radius: var(--k-radius-md);
-    position: relative;
-    font-variation-settings:
-      'opsz' 144,
-      'SOFT' 30;
-    letter-spacing: -0.03em;
-  }
-  .kanji-box::before,
-  .kanji-box::after {
-    content: '';
-    position: absolute;
-    background: var(--k-shu);
-  }
-  .kanji-box::before {
-    width: 8px;
-    height: 8px;
-    inset-block-start: 12px;
-    inset-inline-end: 12px;
-    border-radius: 999px;
-  }
-  .kanji-box::after {
-    inset: auto 12px 12px auto;
-    width: 32px;
-    height: 1px;
-  }
-
-  @media (max-width: 720px) {
+  @media (max-width: 880px) {
     .hero {
       grid-template-columns: 1fr;
+      gap: 24px;
     }
-    .hero-side {
-      display: none;
+    .hero-thumb {
+      max-width: 100%;
+    }
+    .thumb-frame {
+      aspect-ratio: 16 / 9;
     }
   }
 
-  /* Stage */
-  .stage {
-    background: var(--k-surface-0);
-    border: 1px solid var(--k-line-1);
-    border-radius: var(--k-radius-md);
-    overflow: hidden;
+  /* ─── Layer stage ───────────────────────────────────────────────────── */
+  .layers {
+    margin-block-start: 8px;
   }
-  .stage-head {
+  .layer-head {
+    border-block-end: 1px solid var(--k-line-1);
+    margin-block-end: 20px;
+  }
+  .layer-tabs {
     display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  .pane-tools {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--k-line-1);
-    background: var(--k-surface-1);
+    gap: 12px;
     flex-wrap: wrap;
   }
-  .tabs {
+  .layer-tab {
+    position: relative;
     display: inline-flex;
-    gap: 4px;
-    background: var(--k-surface-0);
-    border: 1px solid var(--k-line-1);
-    border-radius: var(--k-radius-sm);
-    padding: 3px;
-  }
-  .tabs button {
+    align-items: baseline;
+    gap: 10px;
     background: transparent;
     border: 0;
-    padding: 6px 14px;
+    border-block-end: 2px solid transparent;
+    padding: 14px 20px 12px;
+    margin-block-end: -1px;
     color: var(--k-ink-3);
-    font-size: 13px;
     cursor: pointer;
-    border-radius: var(--k-radius-xs);
+    border-radius: 0;
     transition:
-      background var(--k-dur-fast),
-      color var(--k-dur-fast);
+      color var(--k-dur-fast),
+      border-color var(--k-dur-fast),
+      background var(--k-dur-fast);
   }
-  .tabs button:hover {
+  .layer-tab:hover {
     color: var(--k-ink-1);
+    background: var(--k-surface-1);
   }
-  .tabs button.on {
-    background: var(--k-ink-1);
-    color: var(--k-surface-0);
+  .layer-tab:focus-visible {
+    outline: 2px solid var(--k-shu);
+    outline-offset: -2px;
+    border-radius: 2px;
   }
-  .stage-tools {
-    display: inline-flex;
-    gap: 8px;
-    align-items: center;
+  .layer-tab.on {
+    color: var(--k-ink-1);
+    border-block-end-color: var(--k-shu);
   }
-  .panel {
-    padding: 24px;
+  .layer-tab .tab-num {
+    font-family: var(--k-font-mono);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--k-shu);
+    font-weight: 600;
   }
-  .panel-meta {
-    margin-top: 16px;
+  .layer-tab .tab-role {
+    font-family: var(--k-font-display);
+    font-size: 14.5px;
+    letter-spacing: -0.005em;
+    font-variation-settings:
+      'opsz' 36,
+      'SOFT' 30;
+  }
+
+  .layer-panel[hidden] {
+    display: none;
+  }
+  .panel-when {
     color: var(--k-ink-3);
     font-size: 13.5px;
-    line-height: 1.6;
-    border-block-start: 1px dashed var(--k-line-1);
-    padding-block-start: 16px;
+    line-height: 1.5;
+    margin: 0 0 14px;
     word-break: keep-all;
     overflow-wrap: anywhere;
     line-break: strict;
   }
-
-  .placeholder {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+  .panel-when code {
+    font-family: var(--k-font-mono);
+    font-size: 12px;
+    background: var(--k-surface-2);
+    color: var(--k-ink-1);
+    border: 1px solid var(--k-line-1);
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-inline: 2px;
   }
 
-  .machine-spec {
+  /* Split view */
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 16px;
+    align-items: stretch;
     border: 1px solid var(--k-line-1);
-    border-radius: 12px;
-    padding: 20px 24px;
+    border-radius: var(--k-radius-md);
+    background: var(--k-surface-0);
+    overflow: hidden;
+  }
+  .split.single {
+    grid-template-columns: 1fr;
+  }
+  .split.single .pane-code {
+    border-inline-start: 0;
+  }
+  @media (max-width: 960px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+    .split .pane-code {
+      border-inline-start: 0 !important;
+      border-block-start: 1px solid var(--k-line-1);
+    }
+  }
+  .pane {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .pane-code {
+    border-inline-start: 1px solid var(--k-line-1);
+    background: var(--k-surface-0);
+  }
+  .pane-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 16px;
     background: var(--k-surface-1);
+    border-block-end: 1px solid var(--k-line-1);
+    min-height: 48px;
+  }
+  .pane-label {
+    font-family: var(--k-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--k-ink-4);
+  }
+  .pane-body {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .preview-body {
+    padding: 16px;
+  }
+  .preview-body :global(.frame) {
+    min-height: 320px;
+    border-radius: var(--k-radius-sm);
+  }
+  .code-body {
+    padding: 16px;
+    max-height: 640px;
+    overflow-y: auto;
+  }
+  .snips {
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
-  .machine-spec h2 {
-    font-family: var(--k-font-display);
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--k-ink-3);
-    margin: 0;
+
+  /* L2 machine-spec pane */
+  .spec-body {
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
-  .machine-blurb {
+  .spec-blurb {
     color: var(--k-ink-2);
     font-size: 14px;
     line-height: 1.6;
-    margin: 4px 0 0;
+    margin: 0;
     word-break: keep-all;
     overflow-wrap: anywhere;
     line-break: strict;
   }
-  .machine-meta {
+  .spec-meta {
     display: grid;
     grid-template-columns: minmax(120px, max-content) 1fr;
     gap: 6px 16px;
     font-size: 13px;
     margin: 0;
   }
-  .machine-meta dt {
-    color: var(--k-ink-3);
+  .spec-meta dt {
+    color: var(--k-ink-4);
+    font-family: var(--k-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
-  .machine-meta dd {
+  .spec-meta dd {
     color: var(--k-ink-2);
     margin: 0;
   }
-  .machine-meta code,
-  .machine-spec code {
+  .spec-meta code {
     font-family: var(--k-font-mono);
     font-size: 12.5px;
     background: var(--k-surface-2);
@@ -713,31 +860,74 @@
     border: 1px solid var(--k-line-1);
     padding: 1px 6px;
     border-radius: 4px;
+    margin-inline-end: 6px;
   }
-  .machine-links {
+  .spec-links {
     font-size: 13px;
     margin: 0;
+    font-family: var(--k-font-mono);
   }
-  .machine-links a {
-    color: var(--k-accent);
+  .spec-links a {
+    color: var(--k-shu-ink);
     text-decoration: none;
   }
-  .machine-links a:hover {
+  :global([data-theme='dark']) .spec-links a {
+    color: var(--k-shu);
+  }
+  .spec-links a:hover {
     text-decoration: underline;
   }
-  .machine-links .sep {
+  .spec-links .sep {
     color: var(--k-ink-4);
     margin: 0 8px;
   }
 
-  /* Snippets — child <CodeBlock> components carry their own styling. */
-  .snips {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  .err,
+  .loading {
+    color: var(--k-ink-3);
+    padding: 24px;
+    font-family: var(--k-font-mono);
+    font-size: 12.5px;
   }
 
-  /* A11y panel */
+  /* ─── Accessibility section ─────────────────────────────────────────── */
+  .a11y-section {
+    margin-block-start: 56px;
+    padding-block-start: 36px;
+    border-block-start: 1px solid var(--k-line-1);
+  }
+  .a11y-head {
+    margin-bottom: 24px;
+    max-width: 80ch;
+  }
+  .a11y-kicker {
+    font-family: var(--k-font-mono);
+    font-size: 11px;
+    text-transform: lowercase;
+    letter-spacing: 0.16em;
+    color: var(--k-ink-4);
+    margin-bottom: 8px;
+  }
+  .a11y-section h2 {
+    font-family: var(--k-font-display);
+    font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--k-ink-1);
+    font-variation-settings:
+      'opsz' 36,
+      'SOFT' 30;
+  }
+  .a11y-lede {
+    color: var(--k-ink-2);
+    font-size: 14px;
+    line-height: 1.65;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    line-break: strict;
+  }
+
   .a11y-grid {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
@@ -788,6 +978,8 @@
   }
   .a11y-card ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -819,198 +1011,5 @@
     font-size: 13px;
     word-break: keep-all;
     overflow-wrap: anywhere;
-  }
-
-  .err,
-  .loading {
-    color: var(--k-ink-3);
-    padding: 24px;
-  }
-
-  /* Family / cross-Layer breakdown */
-  .family {
-    margin-block-start: 48px;
-    padding-block-start: 32px;
-    border-block-start: 1px solid var(--k-line-1);
-  }
-  .family > header {
-    margin-bottom: 24px;
-    max-width: 80ch;
-  }
-  .family .kicker {
-    font-family: var(--k-font-mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: var(--k-ink-4);
-    margin-bottom: 8px;
-  }
-  .family h2 {
-    font-family: var(--k-font-display);
-    font-size: clamp(1.4rem, 2.6vw, 1.8rem);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    margin-bottom: 8px;
-    color: var(--k-ink-1);
-    font-variation-settings:
-      'opsz' 36,
-      'SOFT' 30;
-  }
-  .family .lede {
-    color: var(--k-ink-2);
-    font-size: 14px;
-    line-height: 1.65;
-    word-break: keep-all;
-    overflow-wrap: anywhere;
-    line-break: strict;
-  }
-
-  .family-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-bottom: 16px;
-    border-block-end: 1px solid var(--k-line-1);
-    padding-block-end: 0;
-  }
-  .family-tab {
-    position: relative;
-    display: inline-flex;
-    align-items: baseline;
-    gap: 8px;
-    background: transparent;
-    border: 0;
-    border-block-end: 2px solid transparent;
-    padding: 10px 14px;
-    margin-block-end: -1px;
-    color: var(--k-ink-3);
-    font-size: 13px;
-    cursor: pointer;
-    border-radius: 0;
-    transition:
-      color var(--k-dur-fast),
-      border-color var(--k-dur-fast),
-      background var(--k-dur-fast);
-  }
-  .family-tab:hover {
-    color: var(--k-ink-1);
-    background: var(--k-surface-1);
-  }
-  .family-tab:focus-visible {
-    outline: 2px solid var(--k-shu);
-    outline-offset: -2px;
-  }
-  .family-tab.on {
-    color: var(--k-ink-1);
-    border-block-end-color: var(--k-shu);
-  }
-  .family-tab .num {
-    font-family: var(--k-font-mono);
-    font-size: 11px;
-    color: var(--k-shu);
-    letter-spacing: 0.08em;
-    font-weight: 500;
-  }
-  .family-tab .name {
-    font-family: var(--k-font-display);
-    letter-spacing: -0.01em;
-  }
-  .family-tab .dot {
-    inline-size: 6px;
-    block-size: 6px;
-    border-radius: 999px;
-    background: var(--k-shu);
-    align-self: center;
-  }
-  .family-panel {
-    display: grid;
-    grid-template-columns: 88px 1fr;
-    gap: 16px;
-    padding: 16px 18px;
-    border: 1px solid var(--k-line-1);
-    border-radius: var(--k-radius-md);
-    background: var(--k-surface-0);
-  }
-  .family-panel.active {
-    border-color: color-mix(in oklab, var(--k-shu) 50%, transparent);
-    background: color-mix(in oklab, var(--k-shu) 5%, var(--k-surface-0));
-  }
-  .family-panel[hidden] {
-    display: none;
-  }
-  .family-tag {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    align-items: flex-start;
-  }
-  .family-tag .layer-num {
-    font-family: var(--k-font-mono);
-    font-size: 11px;
-    color: var(--k-shu);
-    letter-spacing: 0.08em;
-    font-weight: 500;
-  }
-  .family-tag .current {
-    font-family: var(--k-font-mono);
-    font-size: 10px;
-    color: var(--k-ink-4);
-    letter-spacing: 0.05em;
-  }
-  .family-body h3 {
-    font-family: var(--k-font-display);
-    font-size: 16px;
-    color: var(--k-ink-1);
-    letter-spacing: -0.01em;
-    margin-bottom: 4px;
-  }
-  .family-body h3 a {
-    color: inherit;
-  }
-  .family-body h3 a:hover {
-    color: var(--k-shu-ink);
-  }
-  .family-body .pkg {
-    font-family: var(--k-font-mono);
-    font-size: 11px;
-    color: var(--k-ink-4);
-    background: transparent;
-    padding: 0;
-    border: 0;
-    display: block;
-    margin-bottom: 8px;
-  }
-  .family-body .summary {
-    color: var(--k-ink-3);
-    font-size: 13.5px;
-    line-height: 1.55;
-    margin-bottom: 8px;
-    word-break: keep-all;
-    overflow-wrap: anywhere;
-    line-break: strict;
-  }
-  .family-body .when {
-    color: var(--k-ink-2);
-    font-size: 13px;
-    line-height: 1.6;
-    word-break: keep-all;
-    overflow-wrap: anywhere;
-    line-break: strict;
-  }
-  .family-body .when .when-label {
-    font-family: var(--k-font-mono);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--k-ink-4);
-    margin-inline-end: 4px;
-  }
-  .layer-snip {
-    margin: 12px 0 0;
-  }
-  @media (max-width: 540px) {
-    .family-panel {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

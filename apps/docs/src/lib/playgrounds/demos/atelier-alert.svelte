@@ -40,6 +40,9 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 400px;
+    min-height: 420px;
+    box-sizing: border-box;
   }
   .hint {
     color: var(--k-ink-3);

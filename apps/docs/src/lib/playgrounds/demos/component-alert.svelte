@@ -42,6 +42,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
+    width: 420px;
+    min-height: 280px;
+    box-sizing: border-box;
   }
   .controls {
     display: flex;
@@ -95,7 +98,7 @@
     border-color: #166534;
     background: #102a17;
   }
-  .demo :global([data-part='close']) {
+  .demo :global([data-component-part='close']) {
     grid-row: 1 / span 2;
     grid-column: 2;
     background: transparent;

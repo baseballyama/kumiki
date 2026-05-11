@@ -35,12 +35,15 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
+    width: 400px;
+    min-height: 200px;
+    box-sizing: border-box;
   }
-  .demo :global(nav[data-part='root']) {
+  .demo :global(nav[data-component-part='root']) {
     color: var(--k-ink-2);
     font-size: 14px;
   }
-  .demo :global(ol[data-part='list']) {
+  .demo :global(ol[data-component-part='list']) {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -49,19 +52,19 @@
     gap: 6px;
     flex-wrap: wrap;
   }
-  .demo :global([data-part='link']) {
+  .demo :global([data-component-part='link']) {
     color: var(--k-shu);
     text-decoration: none;
   }
-  .demo :global([data-part='link']:hover) {
+  .demo :global([data-component-part='link']:hover) {
     text-decoration: underline;
   }
-  .demo :global([data-part='link'][data-current]) {
+  .demo :global([data-component-part='link'][data-current]) {
     color: var(--k-ink-1);
     font-weight: 600;
     cursor: default;
   }
-  .demo :global([data-part='separator']) {
+  .demo :global([data-component-part='separator']) {
     color: var(--k-ink-3);
     list-style: none;
   }

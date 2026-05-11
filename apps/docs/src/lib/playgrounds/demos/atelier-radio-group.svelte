@@ -14,7 +14,10 @@
 <div class="demo">
   <RadioGroup.Root items={plans} bind:value aria-label="Plan">
     {#each plans as p (p.id)}
-      <RadioGroup.Item value={p}>{p.label}</RadioGroup.Item>
+      <label class="row">
+        <RadioGroup.Item value={p} />
+        <span>{p.label}</span>
+      </label>
     {/each}
   </RadioGroup.Root>
 
@@ -27,6 +30,18 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
+    width: 360px;
+    min-height: 260px;
+    box-sizing: border-box;
+  }
+  .demo :global(.row) {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--k-ink-1);
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
   }
   .state {
     margin-top: 16px;

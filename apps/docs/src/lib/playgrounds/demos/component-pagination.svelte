@@ -44,6 +44,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
+    width: 460px;
+    min-height: 240px;
+    box-sizing: border-box;
   }
   .controls {
     display: flex;
@@ -65,13 +68,13 @@
     padding: 4px 8px;
     width: 70px;
   }
-  .demo :global(nav[data-part='root']) {
+  .demo :global(nav[data-component-part='root']) {
     display: flex;
     align-items: center;
     gap: 6px;
     flex-wrap: wrap;
   }
-  .demo :global(ul[data-part='page-list']) {
+  .demo :global(ul[data-component-part='page-list']) {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -79,9 +82,9 @@
     align-items: center;
     gap: 4px;
   }
-  .demo :global(button[data-part='prev']),
-  .demo :global(button[data-part='next']),
-  .demo :global(button[data-part='page-item']) {
+  .demo :global(button[data-component-part='prev']),
+  .demo :global(button[data-component-part='next']),
+  .demo :global(button[data-component-part='page-item']) {
     background: var(--k-surface-2);
     color: var(--k-ink-1);
     border: 1px solid var(--k-line-2);
@@ -100,7 +103,7 @@
     opacity: 0.45;
     cursor: not-allowed;
   }
-  .demo :global([data-part='ellipsis']) {
+  .demo :global([data-component-part='ellipsis']) {
     color: var(--k-ink-3);
     padding: 0 6px;
   }

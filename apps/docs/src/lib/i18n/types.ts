@@ -143,19 +143,10 @@ export type DocDict = {
     bundleBudgets: string;
     layersByExample: string;
     styling: string;
+    theming: string;
     components: string;
-    /** Layer 0 — Types section title. */
-    layer0: string;
-    /** Layer 1 — Primitives + Locale section title. */
-    layer1: string;
-    /** Layer 2 — Runtime + Machines section title. */
-    layer2: string;
-    /** Layer 3 — Headless attachments section title. */
-    layer3: string;
-    /** Layer 4 — Compound components section title. */
-    layer4: string;
-    /** Layer 5 — Atelier styled presets section title. */
-    layer5: string;
+    /** Label for the single item that links to the components catalogue. */
+    componentsBrowse: string;
     soonBadge: string;
     previewBadge: string;
   };

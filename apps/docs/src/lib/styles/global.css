@@ -6,6 +6,7 @@
  */
 
 @import './tokens.css';
+@import '@kumiki/atelier/themes/all.css';
 
 *,
 *::before,

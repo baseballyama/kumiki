@@ -28,7 +28,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
-    min-height: 220px;
+    width: 400px;
+    min-height: 320px;
+    box-sizing: border-box;
   }
   .actions {
     display: flex;

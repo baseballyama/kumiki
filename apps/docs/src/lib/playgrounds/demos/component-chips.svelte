@@ -53,6 +53,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
+    width: 400px;
+    min-height: 380px;
+    box-sizing: border-box;
   }
   .grp {
     margin: 18px 0 8px;
@@ -71,7 +74,7 @@
     gap: 8px;
     flex-wrap: wrap;
   }
-  .demo :global([data-part='root']) {
+  .demo :global([data-component-part='root']) {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -82,16 +85,16 @@
     color: var(--k-ink-1);
     font-size: 13px;
   }
-  .demo :global(button[data-part='root']) {
+  .demo :global(button[data-component-part='root']) {
     cursor: pointer;
     font: inherit;
   }
-  .demo :global(button[data-part='root'][aria-pressed='true']) {
+  .demo :global(button[data-component-part='root'][aria-pressed='true']) {
     background: var(--k-shu);
     border-color: var(--k-shu);
     color: white;
   }
-  .demo :global([data-part='close']) {
+  .demo :global([data-component-part='close']) {
     background: transparent;
     border: 0;
     color: var(--k-ink-3);

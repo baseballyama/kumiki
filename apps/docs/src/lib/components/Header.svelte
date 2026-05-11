@@ -56,7 +56,6 @@
         </svg>
       </button>
       <Logo />
-      <span class="version" aria-label="Status">pre-α</span>
     </div>
 
     <nav class="primary" aria-label="Primary">
@@ -141,17 +140,6 @@
     color: var(--k-ink-2);
     cursor: pointer;
   }
-  .version {
-    font-family: var(--k-font-mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--k-shu);
-    border: 1px solid color-mix(in oklab, var(--k-shu) 35%, transparent);
-    padding: 2px 6px;
-    border-radius: 999px;
-  }
-
   .primary {
     display: flex;
     gap: 4px;

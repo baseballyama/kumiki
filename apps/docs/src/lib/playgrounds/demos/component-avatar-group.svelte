@@ -44,6 +44,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
+    width: 380px;
+    min-height: 220px;
+    box-sizing: border-box;
   }
   .controls {
     display: flex;
@@ -66,24 +69,24 @@
     padding: 4px 8px;
     width: 64px;
   }
-  .demo :global(ul[data-part='group']) {
+  .demo :global(ul[data-component-part='group']) {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     align-items: center;
   }
-  .demo :global(li[data-part='item']),
-  .demo :global(li[data-part='overflow']) {
+  .demo :global(li[data-component-part='item']),
+  .demo :global(li[data-component-part='overflow']) {
     margin-left: -8px;
     border: 2px solid var(--k-surface-0);
     border-radius: 50%;
     background: var(--k-surface-2);
   }
-  .demo :global(li[data-part='item']:first-child) {
+  .demo :global(li[data-component-part='item']:first-child) {
     margin-left: 0;
   }
-  .demo :global(li[data-part='overflow']) {
+  .demo :global(li[data-component-part='overflow']) {
     width: 40px;
     height: 40px;
     display: inline-flex;
@@ -107,7 +110,7 @@
     font-weight: 600;
     font-size: 13px;
   }
-  .demo :global(img[data-part='image']) {
+  .demo :global(img[data-component-part='image']) {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -115,7 +118,7 @@
     object-fit: cover;
   }
   .demo :global(img[data-hidden]),
-  .demo :global(span[data-part='fallback'][data-hidden]) {
+  .demo :global(span[data-component-part='fallback'][data-hidden]) {
     visibility: hidden;
   }
   .hint {

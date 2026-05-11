@@ -25,7 +25,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
-    min-height: 180px;
+    width: 360px;
+    min-height: 220px;
+    box-sizing: border-box;
   }
   .state {
     margin-top: 16px;

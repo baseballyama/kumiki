@@ -5,7 +5,7 @@ import {
   PLAYGROUNDS,
   type PlaygroundEntry,
 } from '$lib/playgrounds/registry.js';
-import { findMachineSpec } from '$lib/playgrounds/machine-specs-index.js';
+import { findMachineSpec, type MachineSpecMeta } from '$lib/playgrounds/machine-specs-index.js';
 import {
   SNIPPETS,
   DEFAULT_SNIPPETS,
@@ -15,22 +15,16 @@ import type { PageLoad } from './$types.js';
 
 /**
  * Slug → family. The slug prefix encodes the layer:
- *   `machine-button`     → family `button` (Layer 2)
- *   `attachment-button`  → family `button` (Layer 3)
- *   `component-button`   → family `button` (Layer 4)
- *   `atelier-button`     → family `button` (Layer 5)
+ *   `machine-accordion`     → family `accordion` (Layer 2)
+ *   `attachment-accordion`  → family `accordion` (Layer 3)
+ *   `component-accordion`   → family `accordion` (Layer 4)
+ *   `atelier-accordion`     → family `accordion` (Layer 5)
  *
  * Foundation packages (`runtime`, `primitives`, `types`, `locale`) have no
  * prefix — their family is the slug itself, and they never have siblings.
  */
 function familyForSlug(slug: string): string {
   return slug.replace(/^(machine|attachment|component|atelier)-/, '');
-}
-
-function siblingsForFamily(family: string, currentSlug: string): readonly PlaygroundEntry[] {
-  return PLAYGROUNDS.filter((p) => familyForSlug(p.slug) === family && p.slug !== currentSlug).sort(
-    (a, b) => a.layer - b.layer,
-  );
 }
 
 function dotPascal(family: string): string {
@@ -40,11 +34,6 @@ function dotPascal(family: string): string {
     .join('');
 }
 
-/**
- * Plain HTML-escape wrapper for synthesized snippets. They share the same
- * shape as `HighlightedSnippet` but skip Shiki — the synthesized templates
- * are short and cross-layer, not the primary teaching surface.
- */
 function plainHtml(code: string): string {
   const escaped = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   return `<pre class="shiki"><code>${escaped}</code></pre>`;
@@ -55,10 +44,8 @@ function syn(title: string, lang: Snippet['lang'], code: string): Snippet {
 }
 
 /**
- * When a sibling has no curated snippet, synthesize a minimal usage example
- * from its package name so the family section never shows a layer with
- * empty code. Layers that genuinely have no userland surface (Layer 0 types,
- * Layer 1 framework-agnostic primitives consumed indirectly) return `null`.
+ * When a layer has no curated snippet, synthesize a minimal usage example from
+ * its package name so every layer panel renders something actionable.
  */
 function synthesizeSnippet(entry: PlaygroundEntry): Snippet | null {
   const family = familyForSlug(entry.slug);
@@ -69,7 +56,7 @@ function synthesizeSnippet(entry: PlaygroundEntry): Snippet | null {
         'Drop-in styled wrapper',
         'svelte',
         `<script lang="ts">
-  import { Tailwind as ${Pascal} } from '${entry.name}';
+  import { Vanilla as ${Pascal} } from '${entry.name}';
 </script>
 
 <${Pascal}.Root />`,
@@ -114,13 +101,11 @@ console.log(m.state, m.context);`,
   }
 }
 
-function pickUsageSnippet(
-  entry: PlaygroundEntry,
-  curated?: ReadonlyArray<Snippet>,
-): Snippet | null {
-  const set = curated ?? SNIPPETS[entry.slug];
-  const found = set?.find((s) => s.lang !== 'bash');
-  return found ?? synthesizeSnippet(entry);
+export interface LayerPanelData {
+  readonly entry: PlaygroundEntry;
+  readonly snippets: ReadonlyArray<Snippet>;
+  readonly hasLive: boolean;
+  readonly machineSpec: MachineSpecMeta | undefined;
 }
 
 export const load: PageLoad = async ({ params }) => {
@@ -129,39 +114,44 @@ export const load: PageLoad = async ({ params }) => {
     error(404, `Unknown Kumiki package: ${params.slug}`);
   }
 
-  const snippets = SNIPPETS[entry.slug] ?? DEFAULT_SNIPPETS;
-  const demoLoader = entry.live ? LIVE_PLAYGROUNDS[entry.slug] : undefined;
-
   const family = familyForSlug(entry.slug);
-  const siblings = siblingsForFamily(family, entry.slug);
 
-  // Pluck the most relevant userland-snippet per sibling layer. We pick the
-  // first non-`Install` snippet — that's typically the canonical
-  // "this is what you write" example. If a slug has no curated snippet, we
-  // synthesize a minimal import-and-render example from the package name so
-  // every layer renders something actionable.
-  const siblingSnippets: Record<string, Snippet | null> = {};
-  for (const sib of siblings) {
-    siblingSnippets[sib.slug] = pickUsageSnippet(sib);
-  }
-  const activeSnippet = pickUsageSnippet(entry, snippets);
+  // Build the full layer cross-section for this family, sorted ascending.
+  const familyEntries = [...PLAYGROUNDS]
+    .filter((p) => familyForSlug(p.slug) === family)
+    .sort((a, b) => a.layer - b.layer);
 
-  const machineSpec = findMachineSpec(entry.slug);
-  const machineSpecJsonUrl = machineSpec ? `/machine-specs/${machineSpec.name}.json` : null;
-  const machineSpecVizUrl = machineSpec
-    ? `https://stately.ai/viz?source=${encodeURIComponent(`https://kumiki.dev/machine-specs/${machineSpec.name}.json`)}`
-    : null;
+  const layers: ReadonlyArray<LayerPanelData> = familyEntries.map((e) => {
+    const curated = SNIPPETS[e.slug];
+    let snippets: ReadonlyArray<Snippet>;
+    if (curated && curated.length > 0) {
+      snippets = curated;
+    } else {
+      const fallback = synthesizeSnippet(e);
+      snippets = fallback ? [fallback] : DEFAULT_SNIPPETS;
+    }
+    return {
+      entry: e,
+      snippets,
+      hasLive: Boolean(LIVE_PLAYGROUNDS[e.slug]),
+      machineSpec: e.layer === 2 ? findMachineSpec(e.slug) : undefined,
+    };
+  });
+
+  // Pick the canonical hero entry — prefer L5 (most visually polished),
+  // then fall back through L4, L3, L2. We display the family identity in
+  // the hero rather than the URL-slug's specific entry so visitors landing
+  // on any layer's URL get the same first impression.
+  const heroEntry =
+    familyEntries.find((e) => e.layer === 5) ??
+    familyEntries.find((e) => e.layer === 4) ??
+    familyEntries.find((e) => e.layer === 3) ??
+    entry;
 
   return {
     entry,
-    snippets,
-    hasDemo: Boolean(demoLoader),
+    heroEntry,
     family,
-    siblings,
-    siblingSnippets,
-    activeSnippet,
-    machineSpec,
-    machineSpecJsonUrl,
-    machineSpecVizUrl,
+    layers,
   };
 };

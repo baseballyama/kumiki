@@ -46,7 +46,9 @@
     border: 1px solid var(--k-line-1);
     border-radius: var(--k-radius-md);
     padding: 24px;
-    min-height: 280px;
+    width: 400px;
+    min-height: 480px;
+    box-sizing: border-box;
   }
   .demo :global(li[role='option']) {
     display: flex;
