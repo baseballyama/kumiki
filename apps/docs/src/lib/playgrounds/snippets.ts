@@ -1373,19 +1373,31 @@ scope.next('desc')     // "kumiki-dialog-2-desc"`,
   'atelier-button': [
     { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
     {
-      title: 'Drop-in styled Button',
+      title: 'Drop-in styled Button (Tailwind v4)',
       lang: 'svelte',
       code: `<script lang="ts">
-  import { Button } from '@kumiki/atelier/button';
+  import { Tailwind as Button } from '@kumiki/atelier/button';
   let busy = $state(false);
 </script>
 
-<Button variant="primary" size="md" loading={busy} onclick={() => (busy = !busy)}>
+<Button.Root variant="primary" size="md" loading={busy} onclick={() => (busy = !busy)}>
   Save
-</Button>
+</Button.Root>
 
-<Button variant="danger" onclick={remove}>Delete</Button>
-<Button variant="ghost" size="sm">Cancel</Button>`,
+<Button.Root variant="danger">Delete</Button.Root>
+<Button.Root variant="ghost" size="sm">Cancel</Button.Root>`,
+    },
+    {
+      title: 'Vanilla CSS variant',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Vanilla as Button } from '@kumiki/atelier/button';
+</script>
+
+<Button.Root variant="primary">Save</Button.Root>
+
+<!-- Override CSS custom properties via global stylesheet:
+     .kumiki-button { --kumiki-button-bg: hsl(170 60% 40%); } -->`,
     },
     {
       title: 'Copy into your project',
@@ -1628,6 +1640,773 @@ scope.next('desc')     // "kumiki-dialog-2-desc"`,
     {/each}
   </Table.Body>
 </Table.Root>`,
+    },
+  ],
+
+  'atelier-icon-button': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Square icon-only Button',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as IconButton } from '@kumiki/atelier/icon-button';
+  import XIcon from '$lib/icons/x.svelte';
+</script>
+
+<IconButton.Root variant="ghost" size="md" aria-label="Close">
+  {#snippet icon()}<XIcon />{/snippet}
+</IconButton.Root>`,
+    },
+  ],
+
+  'atelier-alert': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Inline status surface',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Alert } from '@kumiki/atelier/alert';
+  let dismissed = $state(false);
+</script>
+
+{#if !dismissed}
+  <Alert.Root severity="warn" dismissible onDismiss={() => (dismissed = true)}>
+    <Alert.Title>Heads up</Alert.Title>
+    <Alert.Description>Your trial expires in 3 days.</Alert.Description>
+    <Alert.Close />
+  </Alert.Root>
+{/if}`,
+    },
+  ],
+
+  'atelier-badge': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Status pill',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Badge } from '@kumiki/atelier/badge';
+</script>
+
+<Badge.Root variant="success">Active</Badge.Root>
+<Badge.Root variant="warn" size="sm">Pending</Badge.Root>
+<Badge.Root variant="error">Failed</Badge.Root>`,
+    },
+  ],
+
+  'atelier-loading-spinner': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Inline busy indicator',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Spinner } from '@kumiki/atelier/loading-spinner';
+</script>
+
+<Spinner.Root mode="inline" size="md">Saving…</Spinner.Root>
+
+<!-- Region mode (announced as a polite live region): -->
+<Spinner.Root mode="region" size="lg">Loading dashboard…</Spinner.Root>`,
+    },
+  ],
+
+  'atelier-horizontal-rule': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Section divider',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as HR } from '@kumiki/atelier/horizontal-rule';
+</script>
+
+<section>…</section>
+<HR.Root />
+<section>…</section>
+
+<!-- Vertical orientation (renders as a div with role=separator): -->
+<HR.Root orientation="vertical" />`,
+    },
+  ],
+
+  'atelier-definition-list': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Two-column key/value layout',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as DL } from '@kumiki/atelier/definition-list';
+</script>
+
+<DL.Root layout="inline">
+  <DL.Term>Plan</DL.Term>
+  <DL.Description>Pro</DL.Description>
+  <DL.Term>Renews</DL.Term>
+  <DL.Description>2026-12-01</DL.Description>
+</DL.Root>`,
+    },
+  ],
+
+  'atelier-avatar': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Image with initials fallback',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Avatar } from '@kumiki/atelier/avatar';
+</script>
+
+<Avatar.Root size="md">
+  <Avatar.Image src="/u/123.jpg" alt="Akari Suzuki" />
+  <Avatar.Fallback>AS</Avatar.Fallback>
+</Avatar.Root>`,
+    },
+  ],
+
+  'atelier-avatar-group': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Stacked avatars with overflow',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as AvatarGroup } from '@kumiki/atelier/avatar-group';
+
+  const members = [
+    { id: '1', name: 'Akari', src: '/u/1.jpg' },
+    { id: '2', name: 'Ben',   src: '/u/2.jpg' },
+    { id: '3', name: 'Cora',  src: '/u/3.jpg' },
+    { id: '4', name: 'Dai',   src: '/u/4.jpg' },
+  ];
+</script>
+
+<AvatarGroup.Root max={3} aria-label="Project members">
+  {#each members as m (m.id)}
+    <AvatarGroup.Item src={m.src} alt={m.name} />
+  {/each}
+  <AvatarGroup.Overflow />
+</AvatarGroup.Root>`,
+    },
+  ],
+
+  'atelier-chips': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Dismissible filter chips',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Chips } from '@kumiki/atelier/chips';
+  let tags = $state(['svelte', 'a11y', 'i18n']);
+</script>
+
+{#each tags as tag (tag)}
+  <Chips.Root
+    variant="dismissible"
+    label={tag}
+    onDismiss={() => (tags = tags.filter((t) => t !== tag))}
+  >
+    <Chips.Label>{tag}</Chips.Label>
+    <Chips.Close />
+  </Chips.Root>
+{/each}`,
+    },
+  ],
+
+  'atelier-breadcrumb': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Hierarchical navigation',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Breadcrumb } from '@kumiki/atelier/breadcrumb';
+</script>
+
+<Breadcrumb.Root aria-label="Breadcrumb">
+  <Breadcrumb.Item><Breadcrumb.Link href="/">Home</Breadcrumb.Link></Breadcrumb.Item>
+  <Breadcrumb.Separator />
+  <Breadcrumb.Item><Breadcrumb.Link href="/docs">Docs</Breadcrumb.Link></Breadcrumb.Item>
+  <Breadcrumb.Separator />
+  <Breadcrumb.Item><Breadcrumb.Link current>Atelier</Breadcrumb.Link></Breadcrumb.Item>
+</Breadcrumb.Root>`,
+    },
+  ],
+
+  'atelier-pagination': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Page-list controls',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Pagination } from '@kumiki/atelier/pagination';
+  let page = $state(1);
+</script>
+
+<Pagination.Root {page} pageCount={20} onPageChange={(p) => (page = p)}>
+  <Pagination.Prev>‹</Pagination.Prev>
+  <Pagination.PageList>
+    {#snippet item({ page: n, isCurrent, isEllipsis })}
+      {#if isEllipsis}
+        <Pagination.Ellipsis />
+      {:else}
+        <Pagination.PageItem page={n} data-current={isCurrent ? '' : undefined}>
+          {n}
+        </Pagination.PageItem>
+      {/if}
+    {/snippet}
+  </Pagination.PageList>
+  <Pagination.Next>›</Pagination.Next>
+</Pagination.Root>`,
+    },
+  ],
+
+  'atelier-table': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Sortable + selectable',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Table } from '@kumiki/atelier/table';
+  import type { SortState } from '@kumiki/components/table';
+
+  let sort = $state<SortState | null>(null);
+  let selection = $state(new Set<string>());
+
+  const rows = [
+    { id: '1', name: 'Akari', role: 'Eng' },
+    { id: '2', name: 'Ben',   role: 'PM' },
+  ];
+</script>
+
+<Table.Root
+  {sort}
+  onSortChange={(s) => (sort = s)}
+  {selection}
+  onSelectionChange={(s) => (selection = s)}
+  selectionMode="multiple"
+>
+  <Table.Caption>Members</Table.Caption>
+  <Table.Header>
+    <Table.HeaderRow>
+      <Table.SelectAllCell />
+      <Table.HeaderCell column="name" sortable>Name</Table.HeaderCell>
+      <Table.HeaderCell column="role">Role</Table.HeaderCell>
+    </Table.HeaderRow>
+  </Table.Header>
+  <Table.Body>
+    {#each rows as row (row.id)}
+      <Table.Row rowId={row.id} selectable>
+        <Table.SelectCell />
+        <Table.Cell>{row.name}</Table.Cell>
+        <Table.Cell>{row.role}</Table.Cell>
+      </Table.Row>
+    {/each}
+  </Table.Body>
+</Table.Root>`,
+    },
+  ],
+
+  'atelier-toggle': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Drop-in styled Toggle (Tailwind v4)',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Toggle } from '@kumiki/atelier/toggle';
+  let bold = $state(false);
+</script>
+
+<Toggle.Root bind:pressed={bold} variant="outline" size="md">
+  Bold
+</Toggle.Root>`,
+    },
+    {
+      title: 'Vanilla CSS variant',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Vanilla as Toggle } from '@kumiki/atelier/toggle';
+</script>
+
+<Toggle.Root size="lg">Italic</Toggle.Root>
+
+<!-- Theme via CSS custom properties:
+     .kumiki-toggle { --kumiki-toggle-bg-on: oklch(0.85 0.15 252); } -->`,
+    },
+  ],
+
+  'atelier-switch': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Track + thumb Switch',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Switch } from '@kumiki/atelier/switch';
+  let notify = $state<boolean | undefined>(true);
+</script>
+
+<label>
+  <Switch.Root bind:checked={notify} aria-label="Notifications" />
+  <span>Email notifications</span>
+</label>`,
+    },
+  ],
+
+  'atelier-checkbox': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Tri-state checkbox',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Checkbox } from '@kumiki/atelier/checkbox';
+  import type { CheckboxValue } from '@kumiki/components/checkbox';
+
+  let agreed = $state<CheckboxValue>('unchecked');
+</script>
+
+<label>
+  <Checkbox.Root id="agree" bind:value={agreed} />
+  <span>I agree to the terms</span>
+</label>`,
+    },
+  ],
+
+  'atelier-radio-group': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Plan picker',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as RadioGroup } from '@kumiki/atelier/radio-group';
+  import type { RadioItem } from '@kumiki/components/radio-group';
+
+  type Plan = 'free' | 'pro' | 'team';
+  const plans: RadioItem<Plan>[] = [
+    { id: 'free', value: 'free', label: 'Free' },
+    { id: 'pro',  value: 'pro',  label: 'Pro'  },
+    { id: 'team', value: 'team', label: 'Team' },
+  ];
+  let value = $state<Plan | null>('pro');
+</script>
+
+<RadioGroup.Root items={plans} bind:value aria-label="Plan">
+  {#each plans as p (p.id)}
+    <RadioGroup.Item value={p}>{p.label}</RadioGroup.Item>
+  {/each}
+</RadioGroup.Root>`,
+    },
+  ],
+
+  'atelier-tabs': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Settings tabs',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Tabs } from '@kumiki/atelier/tabs';
+  import type { TabItem } from '@kumiki/components/tabs';
+
+  const items: TabItem[] = [
+    { id: 'account',  value: 'account',  label: 'Account' },
+    { id: 'team',     value: 'team',     label: 'Team' },
+    { id: 'security', value: 'security', label: 'Security' },
+  ];
+</script>
+
+<Tabs.Root {items} defaultValue="account">
+  <Tabs.List>
+    {#each items as t (t.id)}<Tabs.Tab value={t}>{t.label}</Tabs.Tab>{/each}
+  </Tabs.List>
+  <Tabs.Panel value={items[0]!}>…</Tabs.Panel>
+  <Tabs.Panel value={items[1]!}>…</Tabs.Panel>
+  <Tabs.Panel value={items[2]!}>…</Tabs.Panel>
+</Tabs.Root>`,
+    },
+  ],
+
+  'atelier-dialog': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Modal dialog (Tailwind v4)',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Dialog } from '@kumiki/atelier/dialog';
+</script>
+
+<Dialog.Root>
+  <Dialog.Trigger>Edit profile</Dialog.Trigger>
+  <Dialog.Overlay />
+  <Dialog.Content>
+    <Dialog.Title>Edit profile</Dialog.Title>
+    <Dialog.Description>Update your account details.</Dialog.Description>
+    <!-- form goes here -->
+    <Dialog.Close>Close</Dialog.Close>
+  </Dialog.Content>
+</Dialog.Root>`,
+    },
+    {
+      title: 'Vanilla CSS variant',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Vanilla as Dialog } from '@kumiki/atelier/dialog';
+</script>
+
+<Dialog.Root>
+  <Dialog.Trigger>Open</Dialog.Trigger>
+  <Dialog.Overlay />
+  <Dialog.Content>
+    <Dialog.Title>Hello</Dialog.Title>
+    <Dialog.Close />
+  </Dialog.Content>
+</Dialog.Root>`,
+    },
+  ],
+
+  'atelier-tooltip': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Hover/focus tooltip',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Tooltip } from '@kumiki/atelier/tooltip';
+</script>
+
+<Tooltip.Root>
+  <Tooltip.Trigger>Save</Tooltip.Trigger>
+  <Tooltip.Content>Saves the document (⌘S)</Tooltip.Content>
+</Tooltip.Root>`,
+    },
+  ],
+
+  'atelier-popover': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Floating panel',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Popover } from '@kumiki/atelier/popover';
+</script>
+
+<Popover.Root>
+  <Popover.Trigger>Notifications</Popover.Trigger>
+  <Popover.Content>
+    <Popover.Title>Inbox</Popover.Title>
+    <Popover.Description>You have 3 unread items.</Popover.Description>
+    <Popover.Close>Dismiss</Popover.Close>
+  </Popover.Content>
+</Popover.Root>`,
+    },
+  ],
+
+  'atelier-menu': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Menu (single-level)',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Menu } from '@kumiki/atelier/menu';
+  import type { MenuItem } from '@kumiki/components/menu';
+
+  const items: MenuItem[] = [
+    { id: 'save',      label: 'Save' },
+    { id: 'duplicate', label: 'Duplicate' },
+    { id: 'sep',       label: '', kind: 'separator' },
+    { id: 'delete',    label: 'Delete' },
+  ];
+</script>
+
+<Menu.Root {items} onSelect={(item) => console.log(item.id)}>
+  {#snippet children({ items: live })}
+    <Menu.Trigger>Actions ▾</Menu.Trigger>
+    <Menu.Menu>
+      {#each live as item (item.id)}
+        {#if item.kind === 'separator'}
+          <Menu.Separator {item} />
+        {:else}
+          <Menu.Item {item}>{item.label}</Menu.Item>
+        {/if}
+      {/each}
+    </Menu.Menu>
+  {/snippet}
+</Menu.Root>`,
+    },
+  ],
+
+  'atelier-toast': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Auto-dismissing toasts',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Toast } from '@kumiki/atelier/toast';
+  let counter = 0;
+</script>
+
+<Toast.Toaster defaultDuration={4000}>
+  {#snippet children({ toasts, controller })}
+    <button onclick={() =>
+      controller.add({
+        id: \`s-\${++counter}\`,
+        title: 'Saved',
+        description: 'Your changes were saved.',
+        type: 'success',
+      })}
+    >Save</button>
+
+    <Toast.Viewport>
+      {#each toasts as toast (toast.id)}
+        <Toast.Item {toast}>
+          <Toast.Title>{toast.title}</Toast.Title>
+          {#if toast.description}<Toast.Description>{toast.description}</Toast.Description>{/if}
+          <Toast.Close />
+        </Toast.Item>
+      {/each}
+    </Toast.Viewport>
+  {/snippet}
+</Toast.Toaster>`,
+    },
+  ],
+
+  'atelier-select': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Native-like Select',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Select } from '@kumiki/atelier/select';
+  type Fruit = 'apple' | 'banana' | 'cherry';
+  const items = [
+    { id: 'apple',  value: 'apple',  label: 'Apple'  },
+    { id: 'banana', value: 'banana', label: 'Banana' },
+    { id: 'cherry', value: 'cherry', label: 'Cherry' },
+  ];
+  let value = $state<Fruit | null>(null);
+</script>
+
+<Select.Root {items} bind:value>
+  <Select.Trigger>{value ?? 'Pick a fruit'}</Select.Trigger>
+  <Select.Listbox>
+    {#each items as it (it.id)}
+      <Select.Option value={it}>{it.label}</Select.Option>
+    {/each}
+  </Select.Listbox>
+</Select.Root>`,
+    },
+  ],
+
+  'atelier-combobox': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Filterable Combobox',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Combobox } from '@kumiki/atelier/combobox';
+
+  const items = [
+    { id: '1', value: 'apple',  label: 'Apple'  },
+    { id: '2', value: 'banana', label: 'Banana' },
+    { id: '3', value: 'cherry', label: 'Cherry' },
+  ];
+  let query = $state('');
+  const filtered = $derived(
+    items.filter((i) => i.label.toLowerCase().includes(query.toLowerCase())),
+  );
+</script>
+
+<Combobox.Root {items}>
+  <Combobox.Input bind:value={query} aria-label="Fruit" />
+  <Combobox.Trigger />
+  <Combobox.Listbox>
+    {#each filtered as i (i.id)}
+      <Combobox.Item value={i}>{i.label}</Combobox.Item>
+    {/each}
+  </Combobox.Listbox>
+</Combobox.Root>`,
+    },
+  ],
+
+  'atelier-form-field': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Field with Standard Schema validation',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Field } from '@kumiki/atelier/form-field';
+  import { z } from 'zod';
+
+  const validator = z.string().email('Enter a valid email');
+  let value = $state('');
+</script>
+
+<Field.Root initialValue="" bind:value name="email" {validator} validateOn="blur">
+  <Field.Label>Email</Field.Label>
+  <Field.Input type="email" autocomplete="email" />
+  <Field.Description>We never share your address.</Field.Description>
+  <Field.Errors />
+</Field.Root>`,
+    },
+  ],
+
+  'atelier-accordion': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'FAQ accordion',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Accordion } from '@kumiki/atelier/accordion';
+  import type { AccordionItem } from '@kumiki/components/accordion';
+
+  type Q = { question: string; answer: string };
+  const items: AccordionItem<Q>[] = [
+    { id: 'q1', value: { question: 'Why Svelte 5?',         answer: '…' } },
+    { id: 'q2', value: { question: 'How are styles split?', answer: '…' } },
+  ];
+</script>
+
+<Accordion.Root {items} mode="single" collapsible>
+  {#each items as q (q.id)}
+    <Accordion.Item value={q}>
+      <Accordion.Trigger value={q}>{q.value.question}</Accordion.Trigger>
+      <Accordion.Panel value={q}>{q.value.answer}</Accordion.Panel>
+    </Accordion.Item>
+  {/each}
+</Accordion.Root>`,
+    },
+  ],
+
+  'atelier-slider': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Volume slider',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Slider } from '@kumiki/atelier/slider';
+  let value = $state(40);
+</script>
+
+<Slider.Root min={0} max={100} step={1} bind:value aria-label="Volume">
+  <Slider.Thumb />
+</Slider.Root>`,
+    },
+  ],
+
+  'atelier-number-field': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Quantity stepper',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as NumberField } from '@kumiki/atelier/number-field';
+  let qty = $state<number | null>(1);
+</script>
+
+<NumberField.Root min={0} max={99} step={1} bind:value={qty}>
+  <NumberField.Decrement aria-label="Decrease" />
+  <NumberField.Input aria-label="Quantity" />
+  <NumberField.Increment aria-label="Increase" />
+</NumberField.Root>`,
+    },
+  ],
+
+  'atelier-calendar': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Internationalised Calendar',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Calendar } from '@kumiki/atelier/calendar';
+  import { type CalendarDate, today, getLocalTimeZone } from '@internationalized/date';
+
+  let value = $state<CalendarDate | null>(today(getLocalTimeZone()));
+</script>
+
+<Calendar.Root bind:value>
+  <Calendar.Header />
+  <Calendar.Grid>
+    {#snippet day(cell)}
+      <Calendar.Day date={cell.date} inMonth={cell.inMonth} />
+    {/snippet}
+  </Calendar.Grid>
+</Calendar.Root>`,
+    },
+  ],
+
+  'atelier-date-picker': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Popover-anchored DatePicker',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as DatePicker } from '@kumiki/atelier/date-picker';
+  import { type CalendarDate, today, getLocalTimeZone } from '@internationalized/date';
+
+  let value = $state<CalendarDate | null>(today(getLocalTimeZone()));
+</script>
+
+<DatePicker.Root bind:value>
+  <DatePicker.Trigger />
+  <DatePicker.Content />
+</DatePicker.Root>`,
+    },
+  ],
+
+  'atelier-datetime-field': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Segmented DateTime input',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as DateTimeField } from '@kumiki/atelier/datetime-field';
+  import { type CalendarDateTime, now, getLocalTimeZone } from '@internationalized/date';
+
+  let value = $state<CalendarDateTime | null>(
+    now(getLocalTimeZone()) as unknown as CalendarDateTime,
+  );
+</script>
+
+<DateTimeField.Root bind:value granularity="minute">
+  <DateTimeField.Label>Starts at</DateTimeField.Label>
+  <DateTimeField.DatePart />
+  <DateTimeField.TimePart />
+</DateTimeField.Root>`,
+    },
+  ],
+
+  'atelier-time-field': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Locale-aware time input',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as TimeField } from '@kumiki/atelier/time-field';
+  import { Time } from '@internationalized/date';
+
+  let value = $state(new Time(9, 30));
+</script>
+
+<TimeField.Root bind:value granularity="minute">
+  <TimeField.Label>Open at</TimeField.Label>
+  <TimeField.Input>
+    <TimeField.Segment kind="hour" />
+    <TimeField.Segment kind="minute" />
+    <TimeField.Segment kind="dayPeriod" />
+  </TimeField.Input>
+</TimeField.Root>`,
+    },
+  ],
+
+  'atelier-toolbar': [
+    { title: 'Install', lang: 'bash', code: 'pnpm add @kumiki/atelier' },
+    {
+      title: 'Editor toolbar',
+      lang: 'svelte',
+      code: `<script lang="ts">
+  import { Tailwind as Toolbar } from '@kumiki/atelier/toolbar';
+</script>
+
+<Toolbar.Root aria-label="Formatting">
+  <Toolbar.Item><b>B</b></Toolbar.Item>
+  <Toolbar.Item><i>I</i></Toolbar.Item>
+  <Toolbar.Item><u>U</u></Toolbar.Item>
+  <Toolbar.Separator />
+  <Toolbar.Item>Link</Toolbar.Item>
+</Toolbar.Root>`,
     },
   ],
 };

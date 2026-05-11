@@ -716,7 +716,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     layer: 5,
     summary:
       'Layer 5 preview — styled Button (Tailwind v4 + vanilla CSS variants). Owns the `data-variant` / `data-size` styling vocabulary that Layer 4 no longer ships.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -724,7 +724,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/icon-button',
     layer: 5,
     summary: 'Layer 5 preview — styled IconButton (Tailwind v4 + vanilla CSS variants).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -732,7 +732,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/alert',
     layer: 5,
     summary: 'Layer 5 preview — styled Alert (Tailwind v4 + vanilla CSS variants).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -740,7 +740,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/badge',
     layer: 5,
     summary: 'Layer 5 preview — styled Badge (Tailwind v4 + vanilla CSS variants).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -748,7 +748,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/loading-spinner',
     layer: 5,
     summary: 'Layer 5 preview — styled LoadingSpinner with reduced-motion-friendly default glyph.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -756,7 +756,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/horizontal-rule',
     layer: 5,
     summary: 'Layer 5 preview — styled HorizontalRule (horizontal + vertical orientations).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -764,7 +764,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/definition-list',
     layer: 5,
     summary: 'Layer 5 preview — styled DefinitionList with CSS-Grid two-column layout option.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -772,7 +772,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/avatar',
     layer: 5,
     summary: 'Layer 5 preview — styled Avatar with size vocabulary (sm/md/lg).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -780,7 +780,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/avatar-group',
     layer: 5,
     summary: 'Layer 5 preview — styled AvatarGroup with overflow indicator.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -788,7 +788,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/chips',
     layer: 5,
     summary: 'Layer 5 preview — styled Chips (static / dismissible / selectable).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -796,7 +796,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/breadcrumb',
     layer: 5,
     summary: 'Layer 5 preview — styled Breadcrumb with chevron separators.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -804,7 +804,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/pagination',
     layer: 5,
     summary: 'Layer 5 preview — styled Pagination with page-list controls.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -812,7 +812,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/table',
     layer: 5,
     summary: 'Layer 5 preview — styled Table with sortable headers, row selection, sticky header.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -828,7 +828,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/switch',
     layer: 5,
     summary: 'Layer 5 preview — styled Switch with track + thumb (Tailwind + vanilla).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -836,7 +836,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/checkbox',
     layer: 5,
     summary: 'Layer 5 preview — styled tri-state Checkbox (Tailwind + vanilla).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -844,7 +844,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/radio-group',
     layer: 5,
     summary: 'Layer 5 preview — styled RadioGroup (Tailwind + vanilla).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -852,7 +852,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/tabs',
     layer: 5,
     summary: 'Layer 5 preview — styled Tabs (manual + automatic activation).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -868,7 +868,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/tooltip',
     layer: 5,
     summary: 'Layer 5 preview — styled Tooltip with debounced delays.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -876,7 +876,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/popover',
     layer: 5,
     summary: 'Layer 5 preview — styled Popover with floating-panel preset.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -884,7 +884,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/menu',
     layer: 5,
     summary: 'Layer 5 preview — styled Menu (single-level) with floating-panel preset.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -892,7 +892,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/toast',
     layer: 5,
     summary: 'Layer 5 preview — styled Toast with auto-dismiss + hover-pause.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -900,7 +900,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/select',
     layer: 5,
     summary: 'Layer 5 preview — styled Select listbox with floating-panel preset.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -908,7 +908,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/combobox',
     layer: 5,
     summary: 'Layer 5 preview — styled Combobox listbox with floating-panel preset.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -916,7 +916,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/form-field',
     layer: 5,
     summary: 'Layer 5 preview — styled FormField with Standard Schema validation surfacing.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -924,7 +924,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/accordion',
     layer: 5,
     summary: 'Layer 5 preview — styled Accordion (single + multiple expansion modes).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -932,7 +932,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/slider',
     layer: 5,
     summary: 'Layer 5 preview — styled Slider (horizontal + vertical, RTL-aware).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -940,7 +940,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/number-field',
     layer: 5,
     summary: 'Layer 5 preview — styled NumberField with increment / decrement buttons.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -948,7 +948,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/calendar',
     layer: 5,
     summary: 'Layer 5 preview — styled Calendar (any internationalised calendar system).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -956,7 +956,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/date-picker',
     layer: 5,
     summary: 'Layer 5 preview — styled DatePicker (Popover-anchored Calendar).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -964,7 +964,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/datetime-field',
     layer: 5,
     summary: 'Layer 5 preview — styled DateTimeField with locale-aware segmented input.',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -972,7 +972,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/time-field',
     layer: 5,
     summary: 'Layer 5 preview — styled TimeField (any granularity, 12h / 24h cycle).',
-    live: false,
+    live: true,
     status: 'preview',
   },
   {
@@ -980,7 +980,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/atelier/toolbar',
     layer: 5,
     summary: 'Layer 5 preview — styled Toolbar (horizontal + vertical, RTL-aware).',
-    live: false,
+    live: true,
     status: 'preview',
   },
 ];
@@ -1027,4 +1027,40 @@ export const LIVE_PLAYGROUNDS: Record<string, LivePlaygroundLoader> = {
   'component-menu': () => import('./demos/component-menu.svelte'),
   'component-calendar': () => import('./demos/component-calendar.svelte'),
   'component-date-picker': () => import('./demos/component-date-picker.svelte'),
+
+  // Layer 5 — Atelier (Vanilla CSS variant; self-contained styles).
+  'atelier-button': () => import('./demos/atelier-button.svelte'),
+  'atelier-icon-button': () => import('./demos/atelier-icon-button.svelte'),
+  'atelier-alert': () => import('./demos/atelier-alert.svelte'),
+  'atelier-badge': () => import('./demos/atelier-badge.svelte'),
+  'atelier-loading-spinner': () => import('./demos/atelier-loading-spinner.svelte'),
+  'atelier-horizontal-rule': () => import('./demos/atelier-horizontal-rule.svelte'),
+  'atelier-definition-list': () => import('./demos/atelier-definition-list.svelte'),
+  'atelier-avatar': () => import('./demos/atelier-avatar.svelte'),
+  'atelier-avatar-group': () => import('./demos/atelier-avatar-group.svelte'),
+  'atelier-chips': () => import('./demos/atelier-chips.svelte'),
+  'atelier-breadcrumb': () => import('./demos/atelier-breadcrumb.svelte'),
+  'atelier-pagination': () => import('./demos/atelier-pagination.svelte'),
+  'atelier-table': () => import('./demos/atelier-table.svelte'),
+  'atelier-toggle': () => import('./demos/atelier-toggle.svelte'),
+  'atelier-switch': () => import('./demos/atelier-switch.svelte'),
+  'atelier-checkbox': () => import('./demos/atelier-checkbox.svelte'),
+  'atelier-radio-group': () => import('./demos/atelier-radio-group.svelte'),
+  'atelier-tabs': () => import('./demos/atelier-tabs.svelte'),
+  'atelier-dialog': () => import('./demos/atelier-dialog.svelte'),
+  'atelier-tooltip': () => import('./demos/atelier-tooltip.svelte'),
+  'atelier-popover': () => import('./demos/atelier-popover.svelte'),
+  'atelier-menu': () => import('./demos/atelier-menu.svelte'),
+  'atelier-toast': () => import('./demos/atelier-toast.svelte'),
+  'atelier-select': () => import('./demos/atelier-select.svelte'),
+  'atelier-combobox': () => import('./demos/atelier-combobox.svelte'),
+  'atelier-form-field': () => import('./demos/atelier-form-field.svelte'),
+  'atelier-accordion': () => import('./demos/atelier-accordion.svelte'),
+  'atelier-slider': () => import('./demos/atelier-slider.svelte'),
+  'atelier-number-field': () => import('./demos/atelier-number-field.svelte'),
+  'atelier-calendar': () => import('./demos/atelier-calendar.svelte'),
+  'atelier-date-picker': () => import('./demos/atelier-date-picker.svelte'),
+  'atelier-datetime-field': () => import('./demos/atelier-datetime-field.svelte'),
+  'atelier-time-field': () => import('./demos/atelier-time-field.svelte'),
+  'atelier-toolbar': () => import('./demos/atelier-toolbar.svelte'),
 };

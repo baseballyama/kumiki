@@ -59,6 +59,9 @@
           "target": "editing",
           "actions": ["input"]
         },
+        "SUBMIT_REQUEST": {
+          "actions": ["startValidating"]
+        },
         "VALIDATION_RESOLVE": {
           "target": "valid",
           "actions": ["resolve"]

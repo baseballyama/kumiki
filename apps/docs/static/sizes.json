@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-10T13:06:58.778Z",
+  "generatedAt": "2026-05-10T15:28:58.262Z",
   "packages": [
     {
       "package": "@kumiki/cli",
@@ -7,7 +7,7 @@
       "entries": [
         {
           "name": "default",
-          "size": 973,
+          "size": 967,
           "sizeLimit": 30000,
           "passed": true
         }
@@ -289,7 +289,7 @@
         },
         {
           "name": "machines/form-field (incremental)",
-          "size": 763,
+          "size": 768,
           "sizeLimit": 1000,
           "passed": true
         },

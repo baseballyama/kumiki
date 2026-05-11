@@ -14,6 +14,17 @@ Layer 5 preview — opinionated, styled component variants built on top of @kumi
 Prefer the per-component subpath (`@kumiki/atelier/toggle`) for tree-shake
 guarantees. This barrel exists for one-shot imports.
 
+Each namespace itself contains the `Tailwind` and `Vanilla` styled
+variants — pick one at the import site:
+
+```svelte
+<script>
+  import { Toggle } from '@kumiki/atelier';
+  const T = Toggle.Tailwind; // or Toggle.Vanilla
+</script>
+<T.Root>…</T.Root>
+```
+
 Implementation note: matches the `export * as` namespace pattern from
 `@kumiki/components` to handle generic Svelte components consistently
 (sveltejs/svelte#12785).
