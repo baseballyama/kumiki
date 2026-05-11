@@ -72,6 +72,26 @@ export interface CreateAccordionInput<V> {
   collapsible?: boolean;
 }
 
+/**
+ * Compare two AccordionItem values for "same selection" purposes.
+ * Reference equality first (cheap path for primitives + stable object refs),
+ * then a shallow structural compare so we still match when Svelte 5's
+ * `$bindable` proxies an object: the proxy is a different reference than the
+ * original but the shape is unchanged.
+ */
+function valueEquals<V>(a: V, b: V): boolean {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (typeof a !== 'object' || typeof b !== 'object') return false;
+  const ka = Object.keys(a as object);
+  const kb = Object.keys(b as object);
+  if (ka.length !== kb.length) return false;
+  for (const k of ka) {
+    if ((a as Record<string, unknown>)[k] !== (b as Record<string, unknown>)[k]) return false;
+  }
+  return true;
+}
+
 function idsForValue<V>(
   items: ReadonlyArray<AccordionItem<V>>,
   value: ReadonlyArray<V> | V | null,
@@ -79,10 +99,11 @@ function idsForValue<V>(
   if (value === null || value === undefined) return [];
   if (Array.isArray(value)) {
     return value
-      .map((v) => items.find((it) => it.value === v)?.id)
+      .map((v) => items.find((it) => valueEquals(it.value, v))?.id)
       .filter((id): id is string => id !== undefined);
   }
-  const id = items.find((it) => it.value === value)?.id;
+  const single = value as V;
+  const id = items.find((it) => valueEquals(it.value, single))?.id;
   return id ? [id] : [];
 }
 

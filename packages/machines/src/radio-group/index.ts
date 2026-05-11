@@ -58,9 +58,29 @@ export interface CreateRadioGroupInput<V> {
   navigation?: 'wrap' | 'clamp';
 }
 
+/**
+ * Compare two RadioItem values for "same selection" purposes. Reference
+ * equality first (cheap path for primitives + stable refs), then a shallow
+ * structural compare so we still match when Svelte 5's `$bindable` proxies an
+ * object value — the proxy is a different reference than the original but
+ * the shape is unchanged.
+ */
+function valueEquals<V>(a: V, b: V): boolean {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (typeof a !== 'object' || typeof b !== 'object') return false;
+  const ka = Object.keys(a as object);
+  const kb = Object.keys(b as object);
+  if (ka.length !== kb.length) return false;
+  for (const k of ka) {
+    if ((a as Record<string, unknown>)[k] !== (b as Record<string, unknown>)[k]) return false;
+  }
+  return true;
+}
+
 function idForValue<V>(items: ReadonlyArray<RadioItem<V>>, value: V | null): string | null {
   if (value === null) return null;
-  return items.find((it) => it.value === value)?.id ?? null;
+  return items.find((it) => valueEquals(it.value, value))?.id ?? null;
 }
 
 /**
@@ -160,7 +180,8 @@ export function createRadioGroupMachine<V>(input: CreateRadioGroupInput<V>): Rad
                 exec: (ctx, e) => {
                   if (e.type !== 'SET.ITEMS') return;
                   const stillThere =
-                    ctx.value !== null && e.items.some((it) => it.value === ctx.value);
+                    ctx.value !== null &&
+                    e.items.some((it) => valueEquals(it.value, ctx.value as V));
                   return {
                     items: e.items,
                     value: stillThere ? ctx.value : null,
