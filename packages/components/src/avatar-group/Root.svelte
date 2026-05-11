@@ -39,4 +39,4 @@
   } as AvatarGroupContextValue);
 </script>
 
-<ul role="list" {...rest} data-part="group">{@render children()}</ul>
+<ul role="list" {...rest} data-component-part="group">{@render children()}</ul>

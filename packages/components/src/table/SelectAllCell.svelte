@@ -39,7 +39,7 @@
 
 <th
   scope="col"
-  data-part="select-all-cell"
+  data-component-part="select-all-cell"
   data-state={ctx.selectAllState === 'mixed'
     ? 'indeterminate'
     : ctx.selectAllState === 'checked'
@@ -49,7 +49,7 @@
 >
   <button
     type="button"
-    data-part="select-all-button"
+    data-component-part="select-all-button"
     role="checkbox"
     aria-checked={ctx.selectAllState === 'mixed'
       ? 'mixed'

@@ -25,6 +25,7 @@
 <script lang="ts">
   import { onDestroy, untrack } from 'svelte';
   import { createToggle, type ToggleController } from '@kumiki/headless/toggle';
+  import type { Attachment } from 'svelte/attachments';
   import type { Snippet } from 'svelte';
 
   type ChildPayload = {
@@ -34,14 +35,17 @@
       'aria-disabled': 'true' | undefined;
       'data-state': 'on' | 'off';
       'data-disabled': '' | undefined;
-      onclick: (event: MouseEvent) => void;
-      onkeydown: (event: KeyboardEvent) => void;
       id: string;
     };
     state: {
       pressed: boolean;
       disabled: boolean;
     };
+    /**
+     * Attach to your rendered element via `{@attach attachment}` to wire
+     * click / keyboard interactions and ARIA paint-on-change.
+     */
+    attachment: Attachment;
   };
 
   type Props = {
@@ -107,16 +111,15 @@
     }
   });
 
-  // Build the props payload that {@attach controller.root} would normally apply.
-  // We expose a shape the user can spread on their own element via `child`.
+  // Build the props payload that the consumer spreads on their element.
+  // Interactions (click, keydown) are wired by the `attachment` payload, not
+  // by these props — keeping the props strictly declarative.
   const childProps = $derived<ChildPayload['props']>({
     type: 'button',
     'aria-pressed': snapPressed ? 'true' : 'false',
     'aria-disabled': snapDisabled ? 'true' : undefined,
     'data-state': snapPressed ? 'on' : 'off',
     'data-disabled': snapDisabled ? '' : undefined,
-    onclick: () => {}, // no-op — the attachment owns interactions
-    onkeydown: () => {}, // ditto
     id: controller.id,
   });
 </script>
@@ -125,6 +128,7 @@
   {@render child({
     props: childProps,
     state: { pressed: snapPressed, disabled: snapDisabled },
+    attachment: controller.root,
   })}
 {:else}
   <!--

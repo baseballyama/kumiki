@@ -99,9 +99,9 @@
   {onclick}
   {@attach controller.root}
 >
-  {#if icon}<span data-part="icon" aria-hidden="true">{@render icon()}</span>{/if}
+  {#if icon}<span data-component-part="icon" aria-hidden="true">{@render icon()}</span>{/if}
   {#if children}{@render children()}{/if}
-  {#if iconTrailing}<span data-part="icon-trailing" aria-hidden="true"
+  {#if iconTrailing}<span data-component-part="icon-trailing" aria-hidden="true"
       >{@render iconTrailing()}</span
     >{/if}
 </button>

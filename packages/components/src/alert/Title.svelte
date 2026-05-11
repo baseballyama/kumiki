@@ -23,6 +23,6 @@
 <svelte:element
   this={level ? `h${level}` : 'div'}
   id={controller.titleId}
-  data-part="title"
+  data-component-part="title"
   {...rest}>{@render children()}</svelte:element
 >

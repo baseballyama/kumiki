@@ -33,7 +33,7 @@
   {src}
   {loading}
   alt={ctx.meaningful ? (ctx.name ?? '') : ''}
-  data-part="image"
+  data-component-part="image"
   data-hidden={ctx.imageLoaded ? undefined : ''}
   onload={handleLoad}
   onerror={handleError}

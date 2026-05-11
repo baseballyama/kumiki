@@ -7,4 +7,4 @@
   let { children, ...rest }: Props = $props();
 </script>
 
-<li data-part="item" {...rest}>{@render children()}</li>
+<li data-component-part="item" {...rest}>{@render children()}</li>

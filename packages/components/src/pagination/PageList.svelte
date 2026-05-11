@@ -26,9 +26,9 @@
   const ctx = getContext<PaginationContextValue>(PAGINATION_CONTEXT_KEY);
 </script>
 
-<ul role="list" data-part="page-list" {...rest}>
+<ul role="list" data-component-part="page-list" {...rest}>
   {#each ctx.items as it, i (i)}
-    <li role="listitem" data-part="page-list-item">
+    <li role="listitem" data-component-part="page-list-item">
       {#if it.type === 'ellipsis'}
         {@render item({
           page: 0,

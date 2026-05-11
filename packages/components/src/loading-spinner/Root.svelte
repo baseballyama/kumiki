@@ -31,11 +31,11 @@
 </script>
 
 <div {...rest} role="status" aria-live="polite" aria-atomic="true" data-mode={mode}>
-  <span data-part="spinner" aria-hidden="true">
+  <span data-component-part="spinner" aria-hidden="true">
     {#if spinner}{@render spinner()}{:else}<span data-default-glyph></span>{/if}
   </span>
   {#if children}
-    <span data-part="label" data-visually-hidden={mode === 'inline' ? '' : undefined}>
+    <span data-component-part="label" data-visually-hidden={mode === 'inline' ? '' : undefined}>
       {@render children()}
     </span>
   {/if}

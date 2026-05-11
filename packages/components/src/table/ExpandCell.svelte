@@ -23,10 +23,10 @@
   }
 </script>
 
-<td data-part="expand-cell" {...rest}>
+<td data-component-part="expand-cell" {...rest}>
   <button
     type="button"
-    data-part="expand-button"
+    data-component-part="expand-button"
     aria-label={ariaLabel}
     aria-expanded={row.expanded ? 'true' : 'false'}
     onclick={handleClick}

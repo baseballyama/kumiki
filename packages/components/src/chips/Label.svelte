@@ -14,4 +14,4 @@
   let { children, ...rest }: Props = $props();
 </script>
 
-<span data-part="label" {...rest}>{@render children()}</span>
+<span data-component-part="label" {...rest}>{@render children()}</span>

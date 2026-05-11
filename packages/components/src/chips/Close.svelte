@@ -27,6 +27,12 @@
   }
 </script>
 
-<button {...rest} type="button" data-part="close" aria-label={ariaLabel} onclick={handleClick}>
+<button
+  {...rest}
+  type="button"
+  data-component-part="close"
+  aria-label={ariaLabel}
+  onclick={handleClick}
+>
   {#if children}{@render children()}{/if}
 </button>

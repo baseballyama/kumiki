@@ -83,7 +83,7 @@
   data-dismissible={dismissible ? '' : undefined}
   {@attach controller.root}
 >
-  {#if icon}<span data-part="icon" aria-hidden="true"
+  {#if icon}<span data-component-part="icon" aria-hidden="true"
       >{@render icon({ severity: snapSeverity })}</span
     >{/if}
   {@render children()}

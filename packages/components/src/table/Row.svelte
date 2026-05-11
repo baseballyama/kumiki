@@ -73,7 +73,7 @@
 
 <tr
   {...rest}
-  data-part="row"
+  data-component-part="row"
   data-row-id={rowId}
   data-selected={isSelected ? '' : undefined}
   data-expandable={expandable ? '' : undefined}

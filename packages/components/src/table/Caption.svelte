@@ -7,4 +7,4 @@
   let { children, ...rest }: Props = $props();
 </script>
 
-<caption data-part="caption" {...rest}>{@render children()}</caption>
+<caption data-component-part="caption" {...rest}>{@render children()}</caption>

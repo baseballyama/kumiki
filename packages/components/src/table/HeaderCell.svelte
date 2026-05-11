@@ -50,12 +50,17 @@
 <th
   {...rest}
   scope="col"
-  data-part="header-cell"
+  data-component-part="header-cell"
   data-sortable={sortable ? '' : undefined}
   aria-sort={ariaSort}
 >
   {#if sortable}
-    <button type="button" data-part="sort-button" aria-label={sortLabel} onclick={handleClick}>
+    <button
+      type="button"
+      data-component-part="sort-button"
+      aria-label={sortLabel}
+      onclick={handleClick}
+    >
       {@render children()}
     </button>
   {:else}

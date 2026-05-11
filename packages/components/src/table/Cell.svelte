@@ -7,6 +7,6 @@
   let { children, ...rest }: Props = $props();
 </script>
 
-<td data-part="cell" {...rest}
+<td data-component-part="cell" {...rest}
   >{#if children}{@render children()}{/if}</td
 >

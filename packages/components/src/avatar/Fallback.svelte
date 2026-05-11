@@ -32,7 +32,7 @@
 
 <span
   {...rest}
-  data-part="fallback"
+  data-component-part="fallback"
   data-hidden={ctx.imageLoaded ? '' : undefined}
   aria-hidden={ctx.meaningful ? 'true' : undefined}
 >

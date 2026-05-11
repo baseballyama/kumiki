@@ -38,7 +38,7 @@
 <svelte:element
   this={ctx.hrefFor ? 'a' : 'button'}
   {...rest}
-  data-part="prev"
+  data-component-part="prev"
   href={ctx.hrefFor && !isDisabled ? ctx.hrefFor(targetPage) : undefined}
   type={ctx.hrefFor ? undefined : 'button'}
   disabled={ctx.hrefFor ? undefined : isDisabled}

@@ -141,6 +141,6 @@
   } as TableContextValue);
 </script>
 
-<table {...rest} data-part="root" data-selection-mode={selectionMode}>
+<table {...rest} data-component-part="root" data-selection-mode={selectionMode}>
   {@render children()}
 </table>

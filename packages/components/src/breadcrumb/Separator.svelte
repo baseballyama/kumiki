@@ -10,6 +10,6 @@
   let { children, ...rest }: Props = $props();
 </script>
 
-<li role="presentation" data-part="separator" aria-hidden="true" {...rest}>
+<li role="presentation" data-component-part="separator" aria-hidden="true" {...rest}>
   {#if children}{@render children()}{:else}/{/if}
 </li>

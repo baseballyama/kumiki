@@ -38,7 +38,7 @@
 <svelte:element
   this={ctx.hrefFor ? 'a' : 'button'}
   {...rest}
-  data-part="page-item"
+  data-component-part="page-item"
   href={ctx.hrefFor?.(page)}
   type={ctx.hrefFor ? undefined : 'button'}
   aria-label={ariaLabel}

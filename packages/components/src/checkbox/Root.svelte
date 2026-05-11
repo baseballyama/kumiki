@@ -20,6 +20,7 @@
     type CheckboxController,
     type CheckboxValue,
   } from '@kumiki/headless/checkbox';
+  import type { Attachment } from 'svelte/attachments';
   import type { Snippet } from 'svelte';
 
   type ChildPayload = {
@@ -30,8 +31,6 @@
       'aria-disabled': 'true' | undefined;
       'data-state': CheckboxValue;
       'data-disabled': '' | undefined;
-      onclick: (event: MouseEvent) => void;
-      onkeydown: (event: KeyboardEvent) => void;
       id: string;
     };
     state: {
@@ -40,6 +39,11 @@
       indeterminate: boolean;
       disabled: boolean;
     };
+    /**
+     * Attach to your rendered element via `{@attach attachment}` to wire
+     * click / keyboard interactions and ARIA paint-on-change.
+     */
+    attachment: Attachment;
   };
 
   type Props = {
@@ -111,8 +115,6 @@
     'aria-disabled': snapDisabled ? 'true' : undefined,
     'data-state': snapValue,
     'data-disabled': snapDisabled ? '' : undefined,
-    onclick: () => {},
-    onkeydown: () => {},
     id: controller.id,
   });
 </script>
@@ -126,6 +128,7 @@
       indeterminate: snapValue === 'mixed',
       disabled: snapDisabled,
     },
+    attachment: controller.root,
   })}
 {:else}
   <!--

@@ -70,7 +70,7 @@
   {@const p = props as { pressed: boolean; disabled?: boolean }}
   <button
     type="button"
-    data-part="root"
+    data-component-part="root"
     data-variant="selectable"
     data-pressed={p.pressed ? '' : undefined}
     aria-pressed={p.pressed ? 'true' : 'false'}
@@ -81,7 +81,7 @@
     {@render props.children()}
   </button>
 {:else}
-  <span data-part="root" data-variant={variant}>
+  <span data-component-part="root" data-variant={variant}>
     {@render props.children()}
   </span>
 {/if}

@@ -27,6 +27,6 @@
   const ariaLabel = $derived(`+${computed} more`);
 </script>
 
-<li role="listitem" data-part="overflow" {...rest} aria-label={ariaLabel}>
+<li role="listitem" data-component-part="overflow" {...rest} aria-label={ariaLabel}>
   {#if children}{@render children()}{:else}+{computed}{/if}
 </li>

@@ -45,14 +45,26 @@
   }
 </script>
 
-<div class={className} {...rest}>
-  <button type="button" aria-label="Previous month" onclick={prevMonth} data-calendar-nav="prev">
+<div class={className} data-component-part="header" {...rest}>
+  <button
+    type="button"
+    aria-label="Previous month"
+    onclick={prevMonth}
+    data-component-part="prev"
+    data-calendar-nav="prev"
+  >
     ‹
   </button>
-  <div aria-live="polite" data-calendar-month-label>
+  <div aria-live="polite" data-component-part="label" data-calendar-month-label>
     {#if label}{@render label(focused)}{:else}{monthLabel}{/if}
   </div>
-  <button type="button" aria-label="Next month" onclick={nextMonth} data-calendar-nav="next">
+  <button
+    type="button"
+    aria-label="Next month"
+    onclick={nextMonth}
+    data-component-part="next"
+    data-calendar-nav="next"
+  >
     ›
   </button>
   {#if children}{@render children()}{/if}

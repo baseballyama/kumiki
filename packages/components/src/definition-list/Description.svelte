@@ -10,4 +10,4 @@
   let { children, ...rest }: Props = $props();
 </script>
 
-<dd {...rest}>{@render children()}</dd>
+<dd data-component-part="description" {...rest}>{@render children()}</dd>

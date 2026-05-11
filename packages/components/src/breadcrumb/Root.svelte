@@ -39,8 +39,8 @@
   );
 </script>
 
-<nav {...rest} data-part="root" aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
-  <ol data-part="list">
+<nav {...rest} data-component-part="root" aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
+  <ol data-component-part="list">
     {@render children()}
   </ol>
 </nav>

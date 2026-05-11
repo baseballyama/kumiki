@@ -23,11 +23,11 @@
   }
 </script>
 
-<td data-part="select-cell" {...rest}>
+<td data-component-part="select-cell" {...rest}>
   <button
     type="button"
     role="checkbox"
-    data-part="select-button"
+    data-component-part="select-button"
     aria-label={ariaLabel}
     aria-checked={isChecked ? 'true' : 'false'}
     data-state={isChecked ? 'checked' : 'unchecked'}

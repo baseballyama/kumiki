@@ -8,7 +8,7 @@
 <script lang="ts">
   import { getContext } from 'svelte';
   import type { Snippet } from 'svelte';
-  import type { CalendarDate } from '@internationalized/date';
+  import { type CalendarDate, today, getLocalTimeZone } from '@internationalized/date';
   import { CALENDAR_CONTEXT_KEY, type CalendarContextValue } from './context.js';
 
   type Props = {
@@ -23,13 +23,24 @@
   let { date, inMonth = true, children, class: className = '', ...rest }: Props = $props();
 
   const { controller } = getContext<CalendarContextValue>(CALENDAR_CONTEXT_KEY);
+  // `today` is read at render time so day cells correctly highlight when the
+  // wall clock crosses midnight. `getLocalTimeZone()` is host-locale-aware.
+  const isToday = $derived.by(() => {
+    try {
+      return today(getLocalTimeZone()).compare(date) === 0;
+    } catch {
+      return false;
+    }
+  });
 </script>
 
 <td>
   <button
     type="button"
     class={className}
+    data-component-part="day"
     data-in-month={inMonth ? '' : undefined}
+    data-today={isToday ? '' : undefined}
     {@attach controller.dayCell(date)}
     {...rest}
   >

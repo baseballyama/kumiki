@@ -19,6 +19,7 @@
 <script lang="ts">
   import { onDestroy, untrack } from 'svelte';
   import { createSwitch, type SwitchController } from '@kumiki/headless/switch';
+  import type { Attachment } from 'svelte/attachments';
   import type { Snippet } from 'svelte';
 
   type ChildPayload = {
@@ -29,14 +30,17 @@
       'aria-disabled': 'true' | undefined;
       'data-state': 'on' | 'off';
       'data-disabled': '' | undefined;
-      onclick: (event: MouseEvent) => void;
-      onkeydown: (event: KeyboardEvent) => void;
       id: string;
     };
     state: {
       checked: boolean;
       disabled: boolean;
     };
+    /**
+     * Attach to your rendered element via `{@attach attachment}` to wire
+     * click / keyboard interactions and ARIA paint-on-change.
+     */
+    attachment: Attachment;
   };
 
   type Props = {
@@ -102,8 +106,6 @@
     'aria-disabled': snapDisabled ? 'true' : undefined,
     'data-state': snapChecked ? 'on' : 'off',
     'data-disabled': snapDisabled ? '' : undefined,
-    onclick: () => {},
-    onkeydown: () => {},
     id: controller.id,
   });
 </script>
@@ -112,6 +114,7 @@
   {@render child({
     props: childProps,
     state: { checked: snapChecked, disabled: snapDisabled },
+    attachment: controller.root,
   })}
 {:else}
   <button

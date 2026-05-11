@@ -20,10 +20,10 @@
 
 {#if isCurrent}
   {@const { current: _c, children, ...rest } = props as Extract<Props, { current: true }>}
-  <span data-part="link" data-current="page" aria-current="page" {...rest}>
+  <span data-component-part="link" data-current="page" aria-current="page" {...rest}>
     {@render children()}
   </span>
 {:else}
   {@const { href, current: _c, children, ...rest } = props as Extract<Props, { href: string }>}
-  <a data-part="link" {href} {...rest}>{@render children()}</a>
+  <a data-component-part="link" {href} {...rest}>{@render children()}</a>
 {/if}

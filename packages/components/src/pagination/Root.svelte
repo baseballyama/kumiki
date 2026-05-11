@@ -77,6 +77,6 @@
   } as PaginationContextValue);
 </script>
 
-<nav {...rest} data-part="root" aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
+<nav {...rest} data-component-part="root" aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
   {@render children()}
 </nav>

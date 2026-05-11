@@ -87,7 +87,13 @@
   );
 </script>
 
-<table aria-label={computedAriaLabel} class={className} {@attach controller.root} {...rest}>
+<table
+  aria-label={computedAriaLabel}
+  class={className}
+  data-component-part="grid"
+  {@attach controller.root}
+  {...rest}
+>
   <thead>
     <tr>
       {#if weekdayHeader}

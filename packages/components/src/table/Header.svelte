@@ -7,4 +7,4 @@
   let { children, ...rest }: Props = $props();
 </script>
 
-<thead data-part="header" {...rest}>{@render children()}</thead>
+<thead data-component-part="header" {...rest}>{@render children()}</thead>

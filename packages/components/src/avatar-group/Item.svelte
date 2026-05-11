@@ -14,4 +14,4 @@
   let { children, ...rest }: Props = $props();
 </script>
 
-<li role="listitem" data-part="item" {...rest}>{@render children()}</li>
+<li role="listitem" data-component-part="item" {...rest}>{@render children()}</li>

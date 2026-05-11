@@ -18,6 +18,6 @@
   const { controller } = getContext<AlertContextValue>(ALERT_CONTEXT_KEY);
 </script>
 
-<div id={controller.descriptionId} data-part="description" {...rest}>
+<div id={controller.descriptionId} data-component-part="description" {...rest}>
   {@render children()}
 </div>

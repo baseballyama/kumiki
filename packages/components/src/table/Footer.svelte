@@ -7,4 +7,4 @@
   let { children, ...rest }: Props = $props();
 </script>
 
-<tfoot data-part="footer" {...rest}>{@render children()}</tfoot>
+<tfoot data-component-part="footer" {...rest}>{@render children()}</tfoot>
