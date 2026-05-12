@@ -209,11 +209,19 @@ async function buildOne(entry, label) {
   }
 }
 
+/**
+ * Subdirs under `packages/atelier/src/` that aren't components and so don't
+ * ship a tailwind/vanilla bundle. `themes/` is pure CSS (one file per
+ * palette preset) — measure-svelte-size has nothing to weigh there.
+ */
+const NON_COMPONENT_ATELIER_DIRS = new Set(['themes']);
+
 function listAtelierSubpaths(pkgDir) {
   const src = join(pkgDir, 'src');
   if (!existsSync(src)) return [];
   return readdirSync(src)
     .filter((name) => statSync(join(src, name)).isDirectory())
+    .filter((name) => !NON_COMPONENT_ATELIER_DIRS.has(name))
     .sort();
 }
 

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-10T15:28:58.262Z",
+  "generatedAt": "2026-05-12T00:44:15.137Z",
   "packages": [
     {
       "package": "@kumiki/cli",
@@ -91,13 +91,13 @@
         },
         {
           "name": "headless/slider (incremental)",
-          "size": 1289,
+          "size": 1319,
           "sizeLimit": 1500,
           "passed": true
         },
         {
           "name": "headless/accordion (incremental)",
-          "size": 1251,
+          "size": 1261,
           "sizeLimit": 1400,
           "passed": true
         },
@@ -225,114 +225,6 @@
           "name": "he",
           "size": 593,
           "sizeLimit": 1000,
-          "passed": true
-        }
-      ]
-    },
-    {
-      "package": "@kumiki/machines",
-      "directory": "packages/machines",
-      "entries": [
-        {
-          "name": "machines/toggle (incremental)",
-          "size": 489,
-          "sizeLimit": 500,
-          "passed": true
-        },
-        {
-          "name": "machines/switch (incremental)",
-          "size": 489,
-          "sizeLimit": 500,
-          "passed": true
-        },
-        {
-          "name": "machines/checkbox (incremental)",
-          "size": 531,
-          "sizeLimit": 600,
-          "passed": true
-        },
-        {
-          "name": "machines/radio-group (incremental)",
-          "size": 730,
-          "sizeLimit": 1000,
-          "passed": true
-        },
-        {
-          "name": "machines/tabs (incremental)",
-          "size": 899,
-          "sizeLimit": 1200,
-          "passed": true
-        },
-        {
-          "name": "machines/dialog (incremental)",
-          "size": 574,
-          "sizeLimit": 800,
-          "passed": true
-        },
-        {
-          "name": "machines/tooltip (incremental)",
-          "size": 548,
-          "sizeLimit": 800,
-          "passed": true
-        },
-        {
-          "name": "machines/combobox (incremental)",
-          "size": 1161,
-          "sizeLimit": 3000,
-          "passed": true
-        },
-        {
-          "name": "machines/select (incremental)",
-          "size": 917,
-          "sizeLimit": 1500,
-          "passed": true
-        },
-        {
-          "name": "machines/form-field (incremental)",
-          "size": 768,
-          "sizeLimit": 1000,
-          "passed": true
-        },
-        {
-          "name": "machines/slider (incremental)",
-          "size": 802,
-          "sizeLimit": 1200,
-          "passed": true
-        },
-        {
-          "name": "machines/accordion (incremental)",
-          "size": 974,
-          "sizeLimit": 1000,
-          "passed": true
-        },
-        {
-          "name": "machines/number-field (incremental)",
-          "size": 907,
-          "sizeLimit": 1200,
-          "passed": true
-        },
-        {
-          "name": "machines/popover (incremental)",
-          "size": 537,
-          "sizeLimit": 1500,
-          "passed": true
-        },
-        {
-          "name": "machines/toast (incremental)",
-          "size": 643,
-          "sizeLimit": 1200,
-          "passed": true
-        },
-        {
-          "name": "machines/menu (incremental)",
-          "size": 902,
-          "sizeLimit": 1500,
-          "passed": true
-        },
-        {
-          "name": "machines/calendar (incremental)",
-          "size": 796,
-          "sizeLimit": 1500,
           "passed": true
         }
       ]

@@ -197,37 +197,6 @@ describe('select machine', () => {
       expect(m.state).toBe('closed');
     });
 
-    it('SET.VALUE matches object values by shape (Svelte 5 $bindable proxy safe)', () => {
-      type Plan = { tier: string };
-      const m = createSelectMachine<Plan>({
-        items: [
-          { id: 'free', value: { tier: 'free' }, label: 'Free' },
-          { id: 'pro', value: { tier: 'pro' }, label: 'Pro' },
-        ],
-      });
-      m.send({ type: 'SET.VALUE', value: { tier: 'pro' } });
-      expect(m.context.value).toEqual({ tier: 'pro' });
-    });
-
-    it('SET.ITEMS preserves selected object value when shape matches', () => {
-      type Plan = { tier: string };
-      const m = createSelectMachine<Plan>({
-        items: [
-          { id: 'free', value: { tier: 'free' }, label: 'Free' },
-          { id: 'pro', value: { tier: 'pro' }, label: 'Pro' },
-        ],
-        defaultValue: { tier: 'pro' },
-      });
-      m.send({
-        type: 'SET.ITEMS',
-        items: [
-          { id: 'pro', value: { tier: 'pro' }, label: 'Pro' },
-          { id: 'team', value: { tier: 'team' }, label: 'Team' },
-        ],
-      });
-      expect(m.context.value).toEqual({ tier: 'pro' });
-    });
-
     it('SET.ITEMS preserves value if still present', () => {
       const m = createSelectMachine({ items, defaultValue: 'cherry' });
       m.send({

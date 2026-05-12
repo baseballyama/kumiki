@@ -65,24 +65,12 @@ export interface CreateFormFieldInput<T> {
 }
 
 /**
- * Compare two field values to decide if the field is dirty. Reference
- * equality first (cheap path for primitives + stable refs), then a shallow
- * structural compare so we don't mark a field dirty when Svelte 5's
- * `$bindable` proxies an object value — the proxy is a different reference
- * than the original initialValue but the shape is unchanged.
+ * Reference equality (cheap path for primitives + stable refs), falling back
+ * to a JSON-shape compare so Svelte 5's `$bindable` proxy (different
+ * reference, same shape) doesn't flip the dirty flag.
  */
-function valueEquals<T>(a: T, b: T): boolean {
-  if (Object.is(a, b)) return true;
-  if (a == null || b == null) return false;
-  if (typeof a !== 'object' || typeof b !== 'object') return false;
-  const ka = Object.keys(a as object);
-  const kb = Object.keys(b as object);
-  if (ka.length !== kb.length) return false;
-  for (const k of ka) {
-    if ((a as Record<string, unknown>)[k] !== (b as Record<string, unknown>)[k]) return false;
-  }
-  return true;
-}
+const valueEquals = (a: unknown, b: unknown): boolean =>
+  a === b || JSON.stringify(a) === JSON.stringify(b);
 
 function isDirty<T>(a: T, b: T): boolean {
   return !valueEquals(a, b);
