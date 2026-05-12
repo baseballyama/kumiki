@@ -490,43 +490,109 @@ Uses the **`spinner-`** abbreviation per §18.2 stable abbreviations table.
 
 ## 18.4 Atelier defaults — internal palette aliases
 
-Atelier's internal stylesheet defines a small palette that the
-component vars resolve to:
+Atelier ships a semantic token surface at the global scope. Every
+component-facing leaf (`--kumiki-button-bg`, `--kumiki-checkbox-*`, …)
+resolves to one of these shared tokens.
 
 ```css
-:where(html) {
-  --kumiki-color-bg-1: white;
-  --kumiki-color-bg-2: hsl(220 10% 96%);
-  --kumiki-color-bg-overlay: hsl(0 0% 0% / 0.5);
-  --kumiki-color-fg-1: hsl(220 10% 10%);
-  --kumiki-color-fg-2: hsl(220 10% 40%);
-  --kumiki-color-fg-disabled: hsl(220 10% 60%);
-  --kumiki-color-border: hsl(220 10% 86%);
-  --kumiki-color-primary: hsl(220 90% 55%);
-  --kumiki-color-primary-fg: white;
-  --kumiki-color-danger: hsl(0 80% 55%);
-  --kumiki-color-danger-fg: white;
-  --kumiki-color-success: hsl(140 60% 40%);
-  --kumiki-color-warning: hsl(40 95% 50%);
-  --kumiki-radius-sm: 4px;
-  --kumiki-radius-md: 6px;
-  --kumiki-radius-lg: 10px;
-  --kumiki-shadow-sm: 0 1px 2px hsl(0 0% 0% / 0.05);
-  --kumiki-shadow-md: 0 4px 12px hsl(0 0% 0% / 0.1);
-  /* ... */
+:where(:root) {
+  /* Surfaces */
+  --kumiki-color-bg: ...;
+  --kumiki-color-surface: ...;
+  --kumiki-color-surface-raised: ...;
+  --kumiki-color-surface-sunken: ...;
 
-  --kumiki-button-bg: var(--kumiki-color-primary);
-  --kumiki-button-fg: var(--kumiki-color-primary-fg);
-  --kumiki-button-radius: var(--kumiki-radius-md);
-  /* ... */
+  /* Ink (text) */
+  --kumiki-color-fg: ...;
+  --kumiki-color-fg-muted: ...;
+  --kumiki-color-fg-quiet: ...;
+  --kumiki-color-fg-faint: ...;
+
+  /* Lines */
+  --kumiki-color-line: ...;
+  --kumiki-color-line-strong: ...;
+
+  /* Accent (theme-driven; default 朱 vermillion) */
+  --kumiki-color-accent: ...;
+  --kumiki-color-accent-hover: ...;
+  --kumiki-color-accent-active: ...;
+  --kumiki-color-accent-soft: ...;
+  --kumiki-color-accent-soft-hover: ...;
+  --kumiki-color-accent-fg: ...;
+
+  /* Status */
+  --kumiki-color-success: ...;
+  --kumiki-color-success-soft: ...;
+  --kumiki-color-success-fg: ...;
+  --kumiki-color-warning: ...;
+  --kumiki-color-warning-soft: ...;
+  --kumiki-color-warning-fg: ...;
+  --kumiki-color-danger: ...;
+  --kumiki-color-danger-soft: ...;
+  --kumiki-color-danger-fg: ...;
+  --kumiki-color-info: ...;
+  --kumiki-color-info-soft: ...;
+  --kumiki-color-info-fg: ...;
+
+  /* Focus */
+  --kumiki-color-focus-ring: ...;
+  --kumiki-color-focus-ring-offset: ...;
+
+  /* Shape */
+  --kumiki-radius-xs: ...;
+  --kumiki-radius-sm: ...;
+  --kumiki-radius-md: ...;
+  --kumiki-radius-lg: ...;
+  --kumiki-radius-xl: ...;
+  --kumiki-radius-pill: 9999px;
+
+  /* Elevation */
+  --kumiki-shadow-xs: ...;
+  --kumiki-shadow-sm: ...;
+  --kumiki-shadow-md: ...;
+  --kumiki-shadow-lg: ...;
+
+  /* Motion */
+  --kumiki-dur-fast: ...;
+  --kumiki-dur-mid: ...;
+  --kumiki-dur-slow: ...;
+  --kumiki-ease-out: ...;
+  --kumiki-ease-spring: ...;
 }
 ```
 
+The accent palette ships in **four bundled themes** under
+`@kumiki/atelier/themes/`: `shu.css` (vermillion — default),
+`matcha.css` (green), `ai.css` (indigo), and `sumi.css` (monochrome).
+Toggle them at runtime via `data-kumiki-theme="<name>"` on `<html>`;
+the `all.css` bundle ships every preset for runtime switching.
+
 The palette aliases (`--kumiki-color-*`, `--kumiki-radius-*`,
-`--kumiki-shadow-*`) are atelier-internal — consumers may use them but
-should treat them as unstable across atelier minor versions. The
-component-facing leaves (`--kumiki-button-bg`, etc.) are stable
-contract.
+`--kumiki-shadow-*`, `--kumiki-dur-*`, `--kumiki-ease-*`) are
+atelier-internal — consumers may use them but should treat them as
+unstable across atelier minor versions. The component-facing leaves
+(`--kumiki-button-bg`, etc.) are stable contract.
+
+### 18.4.1 Pagination internals
+
+| Variable                               | Role                                |
+| -------------------------------------- | ----------------------------------- |
+| `--kumiki-pagination-fg`               | tile foreground (idle)              |
+| `--kumiki-pagination-fg-quiet`         | prev / next / ellipsis foreground   |
+| `--kumiki-pagination-fg-hover`         | tile foreground on hover            |
+| `--kumiki-pagination-fg-current`       | foreground on the current-page pill |
+| `--kumiki-pagination-bg-hover`         | tile background on hover            |
+| `--kumiki-pagination-bg-current`       | current-page pill fill              |
+| `--kumiki-pagination-bg-current-hover` | current-page pill fill on hover     |
+| `--kumiki-pagination-ring`             | focus ring colour                   |
+
+### 18.4.2 Slider internals
+
+| Variable                        | Role                                               |
+| ------------------------------- | -------------------------------------------------- |
+| `--kumiki-slider-pct`           | filled-range percentage (painted by L3 attachment) |
+| `--kumiki-slider-range-bg-soft` | filled-range gradient soft stop                    |
+| `--kumiki-slider-thumb-border`  | thumb inner border colour                          |
 
 ## 18.5 Mapping an external token system onto kumiki
 

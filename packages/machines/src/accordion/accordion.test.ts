@@ -152,6 +152,45 @@ describe('accordion machine', () => {
       expect(m.context.expandedIds).toEqual(['a', 'd']);
     });
 
+    it('SET.VALUE matches object values by shape (Svelte 5 $bindable proxy safe)', () => {
+      // Same shape, different object reference — the proxy case.
+      type Q = { question: string };
+      const objectItems = [
+        { id: 'q1', value: { question: 'a' } as Q },
+        { id: 'q2', value: { question: 'b' } as Q },
+      ];
+      const m = createAccordionMachine<Q>({ items: objectItems });
+      // Simulate `$bindable` returning a different reference with the same shape.
+      m.send({ type: 'SET.VALUE', value: { question: 'a' } });
+      expect(m.context.expandedIds).toEqual(['q1']);
+    });
+
+    it('SET.VALUE multiple matches object values by shape', () => {
+      type Q = { question: string };
+      const objectItems = [
+        { id: 'q1', value: { question: 'a' } as Q },
+        { id: 'q2', value: { question: 'b' } as Q },
+      ];
+      const m = createAccordionMachine<Q>({ items: objectItems, mode: 'multiple' });
+      m.send({ type: 'SET.VALUE', value: [{ question: 'a' }, { question: 'b' }] });
+      expect(m.context.expandedIds).toEqual(['q1', 'q2']);
+    });
+
+    it('SET.VALUE rejects values whose shape mismatches', () => {
+      type Q = { question: string };
+      const m = createAccordionMachine<Q>({
+        items: [{ id: 'q1', value: { question: 'a' } }],
+      });
+      m.send({ type: 'SET.VALUE', value: { question: 'z' } });
+      expect(m.context.expandedIds).toEqual([]);
+    });
+
+    it('SET.VALUE null / undefined clear the selection', () => {
+      const m = createAccordionMachine({ items, defaultValue: 'team' });
+      m.send({ type: 'SET.VALUE', value: null });
+      expect(m.context.expandedIds).toEqual([]);
+    });
+
     it('SET.ITEMS prunes removed expanded', () => {
       const m = createAccordionMachine({
         items,

@@ -32,8 +32,17 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const ATELIER_SRC = join(dirname(__filename), '..', 'packages', 'atelier', 'src');
 
+/**
+ * Directories under `packages/atelier/src/` that are NOT components and
+ * therefore don't follow the folder-shape contract (no `tailwind/` /
+ * `vanilla/` variants). Pure asset directories like `themes/` (CSS
+ * presets) are skipped.
+ */
+const NON_COMPONENT_DIRS = new Set(['themes']);
+
 const components = readdirSync(ATELIER_SRC)
   .filter((name) => {
+    if (NON_COMPONENT_DIRS.has(name)) return false;
     const p = join(ATELIER_SRC, name);
     return statSync(p).isDirectory();
   })

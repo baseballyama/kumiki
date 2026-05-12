@@ -151,6 +151,31 @@ describe('form-field machine', () => {
     });
   });
 
+  describe('isDirty (Svelte 5 $bindable proxy safe)', () => {
+    it('object values with identical shape stay clean', () => {
+      type Form = { name: string };
+      const m = createFormFieldMachine<Form>({ initialValue: { name: 'a' } });
+      // Different reference, same shape — simulates `$bindable` proxy.
+      m.send({ type: 'INPUT', value: { name: 'a' } });
+      expect(m.context.dirty).toBe(false);
+    });
+
+    it('object values with different shape become dirty', () => {
+      type Form = { name: string };
+      const m = createFormFieldMachine<Form>({ initialValue: { name: 'a' } });
+      m.send({ type: 'INPUT', value: { name: 'b' } });
+      expect(m.context.dirty).toBe(true);
+    });
+
+    it('primitives keep their reference-equal cheap path', () => {
+      const m = createFormFieldMachine({ initialValue: 'hello' });
+      m.send({ type: 'INPUT', value: 'hello' });
+      expect(m.context.dirty).toBe(false);
+      m.send({ type: 'INPUT', value: 'world' });
+      expect(m.context.dirty).toBe(true);
+    });
+  });
+
   describe('RESET', () => {
     it('returns to pristine + restores initial value', () => {
       const m = createFormFieldMachine({ initialValue: 'init' });

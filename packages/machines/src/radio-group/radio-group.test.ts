@@ -131,6 +131,18 @@ describe('radio-group machine', () => {
       m.send({ type: 'SET.VALUE', value: null });
       expect(m.context.value).toBe(null);
     });
+
+    it('matches object values by shape (Svelte 5 $bindable proxy safe)', () => {
+      type Plan = { tier: string };
+      const objectItems: RadioItem<Plan>[] = [
+        { id: 'free', value: { tier: 'free' } },
+        { id: 'pro', value: { tier: 'pro' } },
+      ];
+      const m = createRadioGroupMachine<Plan>({ items: objectItems });
+      // Different reference, same shape — must still resolve to `free`.
+      m.send({ type: 'SET.VALUE', value: { tier: 'free' } });
+      expect(m.context.value).toEqual({ tier: 'free' });
+    });
   });
 
   describe('SET.ITEMS', () => {
