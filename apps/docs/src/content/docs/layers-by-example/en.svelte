@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -34,9 +35,9 @@
   </p>
 
   <p>
-    We use <a href="/components/component-toggle">Toggle</a> as the worked example. The behaviour is
-    simple (press to flip), but the implementation is present in <strong>all four layers</strong>,
-    which makes it ideal for a side-by-side comparison.
+    We use <a href={resolve('/components/component-toggle')}>Toggle</a> as the worked example. The
+    behaviour is simple (press to flip), but the implementation is present in
+    <strong>all four layers</strong>, which makes it ideal for a side-by-side comparison.
   </p>
 
   <PreviewFrame>
@@ -259,12 +260,14 @@ npx kumiki add toggle --variant=vanilla`}</code
   <h2>What to read next</h2>
   <ul>
     <li>
-      <a href="/docs/styling">Styling</a> — how to use <code>data-*</code>, <code>class</code>
+      <a href={resolve('/docs/styling')}>Styling</a> — how to use <code>data-*</code>,
+      <code>class</code>
       pass-through, and the <code>child</code> snippet at Layer 4.
     </li>
-    <li><a href="/docs/architecture">Architecture</a> — the full five-layer model.</li>
+    <li><a href={resolve('/docs/architecture')}>Architecture</a> — the full five-layer model.</li>
     <li>
-      <a href="/docs/composition">Composition</a> — adding optional features via <code>with*</code> wrappers.
+      <a href={resolve('/docs/composition')}>Composition</a> — adding optional features via
+      <code>with*</code> wrappers.
     </li>
   </ul>
 </Prose>

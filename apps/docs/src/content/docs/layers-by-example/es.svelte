@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -47,7 +48,7 @@
   </p>
 
   <p>
-    Usamos <a href="/components/component-toggle">Toggle</a> como ejemplo trabajado. El
+    Usamos <a href={resolve('/components/component-toggle')}>Toggle</a> como ejemplo trabajado. El
     comportamiento es simple (pulsar para alternar) pero la implementación está en
     <strong>las cuatro capas</strong>, ideal para una comparativa lado a lado.
   </p>
@@ -272,12 +273,15 @@ npx kumiki add toggle --variant=vanilla`}</code
   <h2>Qué leer después</h2>
   <ul>
     <li>
-      <a href="/docs/styling">Estilos</a> — cómo usar <code>data-*</code>, paso de
+      <a href={resolve('/docs/styling')}>Estilos</a> — cómo usar <code>data-*</code>, paso de
       <code>class</code> y el snippet <code>child</code> en Layer 4.
     </li>
-    <li><a href="/docs/architecture">Arquitectura</a> — el modelo completo de cinco capas.</li>
     <li>
-      <a href="/docs/composition">Composición</a> — añadir características opcionales con wrappers
+      <a href={resolve('/docs/architecture')}>Arquitectura</a> — el modelo completo de cinco capas.
+    </li>
+    <li>
+      <a href={resolve('/docs/composition')}>Composición</a> — añadir características opcionales con
+      wrappers
       <code>with*</code>.
     </li>
   </ul>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -59,13 +60,13 @@
   <p>
     페이지 헤더에서 로케일을 바꿔 보세요. Toggle 자체에는 로컬라이즈된 문자열이 없지만 Combobox,
     Dialog, FormField 같은 컴포넌트는 즉시 전환됩니다. 일본어로 바꾼 뒤
-    <a href="/components/component-combobox">Combobox 데모</a> 를 시도해 보세요.
+    <a href={resolve('/components/component-combobox')}>Combobox 데모</a> 를 시도해 보세요.
   </p>
 
   <h2>다음은?</h2>
   <ul>
-    <li><a href="/docs/architecture">5 계층 아키텍처</a> 읽기.</li>
-    <li><a href="/docs/accessibility">접근성 모델</a> 훑어보기.</li>
-    <li>라이브 데모와 함께 <a href="/components">모든 컴포넌트</a> 둘러보기.</li>
+    <li><a href={resolve('/docs/architecture')}>5 계층 아키텍처</a> 읽기.</li>
+    <li><a href={resolve('/docs/accessibility')}>접근성 모델</a> 훑어보기.</li>
+    <li>라이브 데모와 함께 <a href={resolve('/components')}>모든 컴포넌트</a> 둘러보기.</li>
   </ul>
 </Prose>

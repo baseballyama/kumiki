@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -57,13 +58,15 @@
   <p>
     Changez la locale dans l'en-tête. Le Toggle lui-même n'a pas de chaînes traduites, mais les
     composants comme Combobox, Dialog et FormField basculent instantanément. Essayez la
-    <a href="/components/component-combobox">démo Combobox</a> après être passé au japonais.
+    <a href={resolve('/components/component-combobox')}>démo Combobox</a> après être passé au japonais.
   </p>
 
   <h2>Et maintenant ?</h2>
   <ul>
-    <li>Lisez l'<a href="/docs/architecture">architecture en cinq couches</a>.</li>
-    <li>Survolez le <a href="/docs/accessibility">modèle d'accessibilité</a>.</li>
-    <li>Parcourez <a href="/components">tous les composants</a> avec des démos en direct.</li>
+    <li>Lisez l'<a href={resolve('/docs/architecture')}>architecture en cinq couches</a>.</li>
+    <li>Survolez le <a href={resolve('/docs/accessibility')}>modèle d'accessibilité</a>.</li>
+    <li>
+      Parcourez <a href={resolve('/components')}>tous les composants</a> avec des démos en direct.
+    </li>
   </ul>
 </Prose>

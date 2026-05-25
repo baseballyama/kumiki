@@ -1,8 +1,0 @@
-# Cloudflare Pages headers — applied to static asset responses only.
-# Reference: https://svelte.dev/docs/kit/adapter-cloudflare/llms.txt
-/llms.txt
-  Content-Type: text/plain; charset=utf-8
-  Cache-Control: public, max-age=300
-/llms-full.txt
-  Content-Type: text/plain; charset=utf-8
-  Cache-Control: public, max-age=300

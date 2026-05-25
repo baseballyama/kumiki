@@ -8,6 +8,7 @@
   Run: `pnpm --filter @kumiki/docs dev` then visit /sandbox/atelier-gallery.
 -->
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import { Vanilla as Accordion } from '@kumiki/atelier/accordion';
   import { Vanilla as Alert } from '@kumiki/atelier/alert';
   import { Vanilla as Avatar } from '@kumiki/atelier/avatar';
@@ -161,7 +162,7 @@
     <HorizontalRule.Root />
     <Breadcrumb.Root>
       <Breadcrumb.Item>
-        <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
+        <Breadcrumb.Link href={resolve('/')}>Home</Breadcrumb.Link>
       </Breadcrumb.Item>
       <Breadcrumb.Separator />
       <Breadcrumb.Item>

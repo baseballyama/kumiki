@@ -8,6 +8,7 @@
     ?dir=rtl                     wrap in dir="rtl"
 -->
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import {
     Root,
     Label,

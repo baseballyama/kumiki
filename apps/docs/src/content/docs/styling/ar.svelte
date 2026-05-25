@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -369,13 +370,16 @@
   <h2>ماذا تقرأ بعدها</h2>
   <ul>
     <li>
-      <a href="/docs/layers-by-example">الطبقات بالمثال</a> — كيف يختلف كود المستخدم في Layer 2/3/4/5.
+      <a href={resolve('/docs/layers-by-example')}>الطبقات بالمثال</a> — كيف يختلف كود المستخدم في Layer
+      2/3/4/5.
     </li>
     <li>
-      <a href="/docs/composition">التركيب</a> — إضافة ميزات اختياريّة عبر مغلِّفات
+      <a href={resolve('/docs/composition')}>التركيب</a> — إضافة ميزات اختياريّة عبر مغلِّفات
       <code>with*</code>.
     </li>
-    <li><a href="/docs/i18n">i18n وRTL</a> — استخدام <code>data-direction</code> لتنسيق RTL.</li>
+    <li>
+      <a href={resolve('/docs/i18n')}>i18n وRTL</a> — استخدام <code>data-direction</code> لتنسيق RTL.
+    </li>
   </ul>
 </Prose>
 

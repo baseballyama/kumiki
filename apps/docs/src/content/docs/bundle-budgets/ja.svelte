@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
 
   const budgets = [
@@ -39,8 +40,8 @@
     <a href="https://github.com/baseballyama/kumiki/blob/main/docs/design/09-bundle-budget.md"
       >docs/design/09-bundle-budget.md</a
     >
-    にあります。現状の計測値は <a href="/sizes">/sizes</a> で、競合との比較は
-    <a href="/sizes/compare">/sizes/compare</a> です。
+    にあります。現状の計測値は <a href={resolve('/sizes')}>/sizes</a> で、競合との比較は
+    <a href={resolve('/sizes/compare')}>/sizes/compare</a> です。
   </p>
 
   <h2>予算の強制方法</h2>

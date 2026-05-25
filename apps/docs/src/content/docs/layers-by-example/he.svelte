@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -33,9 +34,9 @@
   </p>
 
   <p>
-    אנו משתמשים ב-<a href="/components/component-toggle">Toggle</a> כדוגמה מובנית. ההתנהגות פשוטה
-    (לחץ כדי להחליף), אבל היישום קיים ב<strong>כל ארבע השכבות</strong>, ולכן אידיאלי להשוואה זו לצד
-    זו.
+    אנו משתמשים ב-<a href={resolve('/components/component-toggle')}>Toggle</a> כדוגמה מובנית.
+    ההתנהגות פשוטה (לחץ כדי להחליף), אבל היישום קיים ב<strong>כל ארבע השכבות</strong>, ולכן אידיאלי
+    להשוואה זו לצד זו.
   </p>
 
   <PreviewFrame>
@@ -248,12 +249,13 @@ npx kumiki add toggle --variant=vanilla`}</code
   <h2>מה לקרוא בהמשך</h2>
   <ul>
     <li>
-      <a href="/docs/styling">עיצוב</a> — איך להשתמש ב-<code>data-*</code>, מעבר
+      <a href={resolve('/docs/styling')}>עיצוב</a> — איך להשתמש ב-<code>data-*</code>, מעבר
       <code>class</code> וסניפט <code>child</code> ב-Layer 4.
     </li>
-    <li><a href="/docs/architecture">ארכיטקטורה</a> — מודל חמש השכבות המלא.</li>
+    <li><a href={resolve('/docs/architecture')}>ארכיטקטורה</a> — מודל חמש השכבות המלא.</li>
     <li>
-      <a href="/docs/composition">הרכבה</a> — הוספת תכונות אופציונליות דרך עוטפי <code>with*</code>.
+      <a href={resolve('/docs/composition')}>הרכבה</a> — הוספת תכונות אופציונליות דרך עוטפי
+      <code>with*</code>.
     </li>
   </ul>
 </Prose>

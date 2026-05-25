@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -61,13 +62,13 @@
     ヘッダーのロケールを変更してみてください。Toggle
     自体には翻訳された文字列がありませんが、Combobox、Dialog、FormField
     といったコンポーネントは即座に切り替わります。日本語に切り替えたあと
-    <a href="/components/component-combobox">Combobox のデモ</a> を試してみてください。
+    <a href={resolve('/components/component-combobox')}>Combobox のデモ</a> を試してみてください。
   </p>
 
   <h2>次は?</h2>
   <ul>
-    <li><a href="/docs/architecture">5 階層アーキテクチャ</a> を読む。</li>
-    <li><a href="/docs/accessibility">アクセシビリティモデル</a> をざっと眺める。</li>
-    <li><a href="/components">全コンポーネント</a> をライブデモ付きで見る。</li>
+    <li><a href={resolve('/docs/architecture')}>5 階層アーキテクチャ</a> を読む。</li>
+    <li><a href={resolve('/docs/accessibility')}>アクセシビリティモデル</a> をざっと眺める。</li>
+    <li><a href={resolve('/components')}>全コンポーネント</a> をライブデモ付きで見る。</li>
   </ul>
 </Prose>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -388,15 +389,16 @@
   <h2>Qué leer después</h2>
   <ul>
     <li>
-      <a href="/docs/layers-by-example">Capas por ejemplo</a> — cómo difiere el código de usuario en Layer
-      2/3/4/5.
+      <a href={resolve('/docs/layers-by-example')}>Capas por ejemplo</a> — cómo difiere el código de usuario
+      en Layer 2/3/4/5.
     </li>
     <li>
-      <a href="/docs/composition">Composición</a> — añadir características opcionales con wrappers
+      <a href={resolve('/docs/composition')}>Composición</a> — añadir características opcionales con
+      wrappers
       <code>with*</code>.
     </li>
     <li>
-      <a href="/docs/i18n">i18n y RTL</a> — usar <code>data-direction</code> para estilos RTL.
+      <a href={resolve('/docs/i18n')}>i18n y RTL</a> — usar <code>data-direction</code> para estilos RTL.
     </li>
   </ul>
 </Prose>

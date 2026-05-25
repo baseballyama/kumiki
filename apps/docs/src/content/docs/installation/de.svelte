@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
 </script>
 
@@ -68,5 +69,5 @@
 </Toggle.Root>`}</code
     ></pre>
 
-  <p>Das war's. Schau dir den <a href="/components">Komponenten-Katalog</a> an.</p>
+  <p>Das war's. Schau dir den <a href={resolve('/components')}>Komponenten-Katalog</a> an.</p>
 </Prose>

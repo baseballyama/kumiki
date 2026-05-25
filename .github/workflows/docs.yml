@@ -9,17 +9,27 @@ on:
       - 'docs/**'
   workflow_dispatch:
 
+# Only one Pages deploy can run at a time per the GitHub Pages contract.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 permissions:
   contents: read
-  deployments: write
+  pages: write
+  id-token: write
 
 env:
   PNPM_VERSION: 9.15.0
   NODE_VERSION: 22
+  # GitHub Pages serves this repo at https://baseballyama.github.io/kumiki/.
+  # When a custom domain is wired up (e.g. kumiki.dev), drop this var and the
+  # site moves back to the root.
+  BASE_PATH: /kumiki
 
 jobs:
-  deploy:
-    name: Deploy to Cloudflare Pages
+  build:
+    name: Build docs site
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,11 +52,18 @@ jobs:
       - name: Build docs site
         run: pnpm build:docs
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: kumiki
-          directory: apps/docs/.svelte-kit/cloudflare
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          path: apps/docs/build
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

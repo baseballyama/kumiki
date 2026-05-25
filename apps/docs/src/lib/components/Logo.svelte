@@ -4,11 +4,12 @@
   and reads well at any size.
 -->
 <script lang="ts">
+  import { resolve } from '$app/paths';
   type Props = { size?: number; showWord?: boolean };
   let { size = 24, showWord = true }: Props = $props();
 </script>
 
-<a href="/" class="logo" aria-label="Kumiki — homepage">
+<a href={resolve('/')} class="logo" aria-label="Kumiki — homepage">
   <svg
     width={size}
     height={size}

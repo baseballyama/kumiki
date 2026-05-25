@@ -87,7 +87,7 @@ packages/                       9 packages, layer-level
 #   import { Root, Trigger } from '@kumiki/components/toggle'
 #   import { Toggle } from '@kumiki/components'   // dot-namespace barrel
 
-apps/docs/                  SvelteKit docs site → Cloudflare Pages
+apps/docs/                  SvelteKit docs site → GitHub Pages
 
 references/                 Shallow submodules of competitor libs (opt-in, ~400 MB)
 .github/workflows/          ci, release, preview, docs, scheduled-screen-reader
@@ -264,7 +264,7 @@ CI does not init submodules.
 - **Conversation in Japanese**, **code/comments/docs in English**.
 - For UI changes, run the dev server and verify in a browser before claiming done.
 - For design questions, prefer asking before assuming when the choice is load-bearing.
-- Confirmed answers from the design Q&A (May 2026): pnpm-only, tsdown, Layer 5 (Atelier) GA at v1.0 (per ADR 0017, supersedes 0010's preview plan), GitHub `baseballyama/kumiki`, Cloudflare Pages, independent versioning, dot-namespace components.
+- Confirmed answers from the design Q&A (May 2026): pnpm-only, tsdown, Layer 5 (Atelier) GA at v1.0 (per ADR 0017, supersedes 0010's preview plan), GitHub `baseballyama/kumiki`, GitHub Pages (`baseballyama.github.io/kumiki/`), independent versioning, dot-namespace components.
 
 ## Things to NOT do without confirmation
 

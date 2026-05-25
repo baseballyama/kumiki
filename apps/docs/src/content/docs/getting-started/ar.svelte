@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
 </script>
 
@@ -53,8 +54,8 @@
 
   <h2>الخطوات التالية</h2>
   <p>
-    التالي: <a href="/docs/installation">التثبيت</a> أو
-    <a href="/docs/architecture">البنية</a>. إن كنت تفضّل رؤية الأمور فعليًا،
-    <a href="/components">استعرض المكوّنات</a>.
+    التالي: <a href={resolve('/docs/installation')}>التثبيت</a> أو
+    <a href={resolve('/docs/architecture')}>البنية</a>. إن كنت تفضّل رؤية الأمور فعليًا،
+    <a href={resolve('/components')}>استعرض المكوّنات</a>.
   </p>
 </Prose>

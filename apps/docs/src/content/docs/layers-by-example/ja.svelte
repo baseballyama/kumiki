@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -38,7 +39,7 @@
   </p>
 
   <p>
-    題材として <a href="/components/component-toggle">Toggle</a>
+    題材として <a href={resolve('/components/component-toggle')}>Toggle</a>
     を選びました。挙動は単純(押したら反転)ですが、<strong>4 階層すべてで実装が揃っている</strong
     >ので比較に最適です。
   </p>
@@ -264,12 +265,14 @@ npx kumiki add toggle --variant=vanilla`}</code
   <h2>次に読むもの</h2>
   <ul>
     <li>
-      <a href="/docs/styling">スタイリング</a> — Layer 4 の <code>data-*</code>・<code>class</code>
+      <a href={resolve('/docs/styling')}>スタイリング</a> — Layer 4 の <code>data-*</code>・<code
+        >class</code
+      >
       パススルー・<code>child</code> snippet の使い分け。
     </li>
-    <li><a href="/docs/architecture">アーキテクチャ</a> — 5 階層モデルの全景。</li>
+    <li><a href={resolve('/docs/architecture')}>アーキテクチャ</a> — 5 階層モデルの全景。</li>
     <li>
-      <a href="/docs/composition">合成</a> — <code>with*</code> パターンによる任意機能の追加。
+      <a href={resolve('/docs/composition')}>合成</a> — <code>with*</code> パターンによる任意機能の追加。
     </li>
   </ul>
 </Prose>

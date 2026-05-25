@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -32,7 +33,8 @@
   </p>
 
   <p>
-    我們以 <a href="/components/component-toggle">Toggle</a> 作為實例。行為簡單(按下翻轉),但 實作
+    我們以 <a href={resolve('/components/component-toggle')}>Toggle</a>
+    作為實例。行為簡單(按下翻轉),但 實作
     <strong>四層皆有</strong>,非常適合並排比較。
   </p>
 
@@ -241,11 +243,13 @@ npx kumiki add toggle --variant=vanilla`}</code
   <h2>接下來閱讀</h2>
   <ul>
     <li>
-      <a href="/docs/styling">樣式</a> — 如何在 Layer 4 運用 <code>data-*</code>、
+      <a href={resolve('/docs/styling')}>樣式</a> — 如何在 Layer 4 運用 <code>data-*</code>、
       <code>class</code> 直通,以及 <code>child</code> snippet。
     </li>
-    <li><a href="/docs/architecture">架構</a> — 完整的五層模型。</li>
-    <li><a href="/docs/composition">組合</a> — 透過 <code>with*</code> 包裝器加入可選功能。</li>
+    <li><a href={resolve('/docs/architecture')}>架構</a> — 完整的五層模型。</li>
+    <li>
+      <a href={resolve('/docs/composition')}>組合</a> — 透過 <code>with*</code> 包裝器加入可選功能。
+    </li>
   </ul>
 </Prose>
 

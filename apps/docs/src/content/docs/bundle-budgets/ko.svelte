@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
 
   const budgets = [
@@ -40,8 +41,8 @@
       >docs/design/09-bundle-budget.md</a
     >
     에 있습니다. 현재 측정값은
-    <a href="/sizes">/sizes</a> 에서 확인 가능하며, 경쟁 제품과의 비교는
-    <a href="/sizes/compare">/sizes/compare</a> 에 있습니다.
+    <a href={resolve('/sizes')}>/sizes</a> 에서 확인 가능하며, 경쟁 제품과의 비교는
+    <a href={resolve('/sizes/compare')}>/sizes/compare</a> 에 있습니다.
   </p>
 
   <h2>예산은 어떻게 강제되는가</h2>

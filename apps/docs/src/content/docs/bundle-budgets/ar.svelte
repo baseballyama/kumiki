@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
 
   const budgets = [
@@ -39,8 +40,8 @@
     <a href="https://github.com/baseballyama/kumiki/blob/main/docs/design/09-bundle-budget.md"
       >docs/design/09-bundle-budget.md</a
     >. الأرقام المُقاسة الحاليّة في
-    <a href="/sizes">/sizes</a>؛ المقارنات مع المنافسين في
-    <a href="/sizes/compare">/sizes/compare</a>.
+    <a href={resolve('/sizes')}>/sizes</a>؛ المقارنات مع المنافسين في
+    <a href={resolve('/sizes/compare')}>/sizes/compare</a>.
   </p>
 
   <h2>كيف تُفرَض الميزانيات</h2>

@@ -10,6 +10,7 @@
     ?latency=N     fetcher delay in ms (default 200)
 -->
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import { onMount } from 'svelte';
   import { createCombobox } from '@kumiki/headless/combobox';
   import { withAsyncSearch } from '@kumiki/headless/combobox/with-async-search';

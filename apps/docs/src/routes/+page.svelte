@@ -9,6 +9,7 @@
   All translatable copy is sourced from `dict()` — no per-locale branches.
 -->
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import { ui } from '$lib/i18n/store.svelte.js';
   import { dict } from '$lib/i18n/dict.js';
 
@@ -57,7 +58,7 @@
       </h1>
       <p class="lede">{t.lede}</p>
       <div class="cta">
-        <a class="btn primary" href="/docs/getting-started">
+        <a class="btn primary" href={resolve('/docs/getting-started')}>
           {t.ctaPrimary}
           <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
             <path
@@ -70,7 +71,7 @@
             />
           </svg>
         </a>
-        <a class="btn ghost" href="/components">{t.ctaSecondary}</a>
+        <a class="btn ghost" href={resolve('/components')}>{t.ctaSecondary}</a>
       </div>
 
       <pre class="install" aria-label={t.installLabel} dir="ltr"><code

@@ -26,8 +26,10 @@ export interface BenchData {
   packages: ReadonlyArray<BenchPackage>;
 }
 
+import { asset } from '$app/paths';
+
 export const load: PageLoad = async ({ fetch }) => {
-  const response = await fetch('/benches.json');
+  const response = await fetch(asset('/benches.json'));
   if (!response.ok) {
     return { benches: null as BenchData | null };
   }

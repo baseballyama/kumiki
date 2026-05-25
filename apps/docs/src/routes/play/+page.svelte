@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import { PLAYGROUNDS } from '$lib/playgrounds/registry.js';
 
   const groups = $derived.by(() => {
@@ -42,7 +43,7 @@
       <ul class="cards">
         {#each groups[layer] ?? [] as p (p.slug)}
           <li class="card" class:has-demo={p.live}>
-            <a href="/play/{p.slug}">
+            <a href={resolve(`/play/${p.slug}`)}>
               <header>
                 <code>{p.name}</code>
                 <span class="status status-{p.status}">{p.status}</span>

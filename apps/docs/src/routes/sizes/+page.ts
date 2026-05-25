@@ -1,3 +1,4 @@
+import { asset } from '$app/paths';
 import type { PageLoad } from './$types';
 
 export interface SizeEntry {
@@ -19,7 +20,7 @@ export interface SizesData {
 }
 
 export const load: PageLoad = async ({ fetch }) => {
-  const response = await fetch('/sizes.json');
+  const response = await fetch(asset('/sizes.json'));
   if (!response.ok) {
     return { sizes: null as SizesData | null };
   }

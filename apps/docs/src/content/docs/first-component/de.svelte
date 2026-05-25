@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -61,14 +62,14 @@
   <p>
     Ändere die Locale im Header. Das Toggle selbst hat keine lokalisierten Strings, aber Komponenten
     wie Combobox, Dialog und FormField wechseln sofort. Probiere die
-    <a href="/components/component-combobox">Combobox-Demo</a>, nachdem du auf Japanisch gewechselt
-    hast.
+    <a href={resolve('/components/component-combobox')}>Combobox-Demo</a>, nachdem du auf Japanisch
+    gewechselt hast.
   </p>
 
   <h2>Was nun?</h2>
   <ul>
-    <li>Lies die <a href="/docs/architecture">Fünf-Schichten-Architektur</a>.</li>
-    <li>Überfliege das <a href="/docs/accessibility">Barriere­freiheitsmodell</a>.</li>
-    <li>Stöbere durch <a href="/components">alle Komponenten</a> mit Live-Demos.</li>
+    <li>Lies die <a href={resolve('/docs/architecture')}>Fünf-Schichten-Architektur</a>.</li>
+    <li>Überfliege das <a href={resolve('/docs/accessibility')}>Barriere­freiheitsmodell</a>.</li>
+    <li>Stöbere durch <a href={resolve('/components')}>alle Komponenten</a> mit Live-Demos.</li>
   </ul>
 </Prose>

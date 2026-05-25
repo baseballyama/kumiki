@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
 
   const budgets = [
@@ -39,8 +40,8 @@
     <a href="https://github.com/baseballyama/kumiki/blob/main/docs/design/09-bundle-budget.md"
       >docs/design/09-bundle-budget.md</a
     >. The current measured numbers are visible at
-    <a href="/sizes">/sizes</a>; competitor comparisons live at
-    <a href="/sizes/compare">/sizes/compare</a>.
+    <a href={resolve('/sizes')}>/sizes</a>; competitor comparisons live at
+    <a href={resolve('/sizes/compare')}>/sizes/compare</a>.
   </p>
 
   <h2>How budgets are enforced</h2>

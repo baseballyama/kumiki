@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   webServer: {
-    // `vite preview` doesn't know about adapter-cloudflare's output. The
+    // `vite preview` can serve adapter-static's `build/` output, but the
     // Playwright suite runs against the dev server, which faithfully reproduces
     // SSR + hydration. CI builds the docs site separately for size budgets.
     command: 'pnpm exec vite dev --port 4173 --strictPort',

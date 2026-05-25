@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -368,12 +369,14 @@
   <h2>다음으로 읽을 것</h2>
   <ul>
     <li>
-      <a href="/docs/layers-by-example">예제로 보는 계층</a> — 사용자 코드가 Layer 2/3/4/5 에서 어떻게
-      다른지.
+      <a href={resolve('/docs/layers-by-example')}>예제로 보는 계층</a> — 사용자 코드가 Layer 2/3/4/5
+      에서 어떻게 다른지.
     </li>
-    <li><a href="/docs/composition">합성</a> — <code>with*</code> 래퍼로 선택 기능 추가하기.</li>
     <li>
-      <a href="/docs/i18n">국제화와 RTL</a> — RTL 스타일링에 <code>data-direction</code> 사용하기.
+      <a href={resolve('/docs/composition')}>합성</a> — <code>with*</code> 래퍼로 선택 기능 추가하기.
+    </li>
+    <li>
+      <a href={resolve('/docs/i18n')}>국제화와 RTL</a> — RTL 스타일링에 <code>data-direction</code> 사용하기.
     </li>
   </ul>
 </Prose>

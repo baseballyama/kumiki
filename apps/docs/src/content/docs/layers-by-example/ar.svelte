@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -33,9 +34,9 @@
   </p>
 
   <p>
-    نستخدم <a href="/components/component-toggle">Toggle</a> مثالًا تطبيقيًّا. السلوك بسيط (اضغط
-    لتبديل)، لكنّ التنفيذ موجود في <strong>الطبقات الأربع</strong>، ما يجعله مثاليًّا لمقارنة جنبًا
-    إلى جنب.
+    نستخدم <a href={resolve('/components/component-toggle')}>Toggle</a> مثالًا تطبيقيًّا. السلوك
+    بسيط (اضغط لتبديل)، لكنّ التنفيذ موجود في <strong>الطبقات الأربع</strong>، ما يجعله مثاليًّا
+    لمقارنة جنبًا إلى جنب.
   </p>
 
   <PreviewFrame>
@@ -249,12 +250,12 @@ npx kumiki add toggle --variant=vanilla`}</code
   <h2>ماذا تقرأ بعد ذلك</h2>
   <ul>
     <li>
-      <a href="/docs/styling">التنسيق</a> — كيف تستخدم <code>data-*</code> وتمرير
+      <a href={resolve('/docs/styling')}>التنسيق</a> — كيف تستخدم <code>data-*</code> وتمرير
       <code>class</code> وscnippet <code>child</code> في Layer 4.
     </li>
-    <li><a href="/docs/architecture">البنية</a> — نموذج الطبقات الخمس الكامل.</li>
+    <li><a href={resolve('/docs/architecture')}>البنية</a> — نموذج الطبقات الخمس الكامل.</li>
     <li>
-      <a href="/docs/composition">التركيب</a> — إضافة ميزات اختيارية عبر مغلِّفات
+      <a href={resolve('/docs/composition')}>التركيب</a> — إضافة ميزات اختيارية عبر مغلِّفات
       <code>with*</code>.
     </li>
   </ul>

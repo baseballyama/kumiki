@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
 
   const budgets = [
@@ -39,8 +40,8 @@
     <a href="https://github.com/baseballyama/kumiki/blob/main/docs/design/09-bundle-budget.md"
       >docs/design/09-bundle-budget.md</a
     >。目前實測數字可見於
-    <a href="/sizes">/sizes</a>;與競品的對照位於
-    <a href="/sizes/compare">/sizes/compare</a>。
+    <a href={resolve('/sizes')}>/sizes</a>;與競品的對照位於
+    <a href={resolve('/sizes/compare')}>/sizes/compare</a>。
   </p>
 
   <h2>預算如何強制</h2>

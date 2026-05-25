@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
 </script>
 
@@ -34,7 +35,7 @@
   <pre><code
       >{`<Toggle.Root>
   {#snippet child({ props })}
-    <a href="/destination" {...props}>Navigieren</a>
+    <a href={resolve('/destination')} {...props}>Navigieren</a>
   {/snippet}
 </Toggle.Root>`}</code
     ></pre>

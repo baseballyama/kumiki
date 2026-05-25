@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { asset, resolve } from '$app/paths';
   import type { Component } from 'svelte';
   import { LIVE_PLAYGROUNDS } from '$lib/playgrounds/registry.js';
   import { ui } from '$lib/i18n/store.svelte.js';
@@ -265,7 +266,7 @@
 
 <div class="layout">
   <nav class="crumb" aria-label="Breadcrumb">
-    <a href="/components">{t.backToCatalogue}</a>
+    <a href={resolve('/components')}>{t.backToCatalogue}</a>
   </nav>
 
   <!-- Hero: large showcase thumbnail + family identity -->
@@ -400,7 +401,7 @@
                 </dl>
                 <p class="spec-links">
                   <a
-                    href={`/machine-specs/${l.machineSpec.name}.json`}
+                    href={asset(`/machine-specs/${l.machineSpec.name}.json`)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

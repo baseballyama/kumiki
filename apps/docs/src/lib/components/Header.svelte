@@ -3,6 +3,7 @@
   theme/locale toggles, and a mobile menu opener.
 -->
 <script lang="ts">
+  import { base, resolve } from '$app/paths';
   import { page } from '$app/state';
   import Logo from './Logo.svelte';
   import ThemeToggle from './ThemeToggle.svelte';
@@ -15,9 +16,18 @@
 
   let drawerOpen = $state(false);
 
-  function isActive(href: string): boolean {
-    if (href === '/') return path === '/';
-    return path === href || path.startsWith(href + '/');
+  // Pre-resolved hrefs for the primary nav. `docsActive` matches anything
+  // under `/docs/*` since the "Docs" tab covers the whole section, not just
+  // the landing page it links to.
+  const docsHref = resolve('/docs/getting-started');
+  const componentsHref = resolve('/components');
+  const architectureHref = resolve('/docs/architecture');
+  const sizesHref = resolve('/sizes');
+  const apiHref = resolve('/api');
+  const docsActive = $derived(path === `${base}/docs` || path.startsWith(`${base}/docs/`));
+
+  function isActive(target: string): boolean {
+    return path === target || path.startsWith(target + '/');
   }
 
   // Close drawer on route change
@@ -59,13 +69,13 @@
     </div>
 
     <nav class="primary" aria-label="Primary">
-      <a href="/docs/getting-started" class:active={isActive('/docs')}>{labels.docs}</a>
-      <a href="/components" class:active={isActive('/components')}>{labels.components}</a>
-      <a href="/docs/architecture" class:active={path.startsWith('/docs/architecture')}
+      <a href={docsHref} class:active={docsActive}>{labels.docs}</a>
+      <a href={componentsHref} class:active={isActive(componentsHref)}>{labels.components}</a>
+      <a href={architectureHref} class:active={path.startsWith(architectureHref)}
         >{labels.architecture}</a
       >
-      <a href="/sizes" class:active={isActive('/sizes')}>{labels.sizes}</a>
-      <a href="/api" class:active={isActive('/api')}>{labels.api}</a>
+      <a href={sizesHref} class:active={isActive(sizesHref)}>{labels.sizes}</a>
+      <a href={apiHref} class:active={isActive(apiHref)}>{labels.api}</a>
     </nav>
 
     <div class="actions">
@@ -91,13 +101,13 @@
 
   {#if drawerOpen}
     <nav class="drawer" aria-label="Mobile navigation">
-      <a href="/docs/getting-started" class:active={isActive('/docs')}>{labels.docs}</a>
-      <a href="/components" class:active={isActive('/components')}>{labels.components}</a>
-      <a href="/docs/architecture" class:active={path.startsWith('/docs/architecture')}
+      <a href={docsHref} class:active={docsActive}>{labels.docs}</a>
+      <a href={componentsHref} class:active={isActive(componentsHref)}>{labels.components}</a>
+      <a href={architectureHref} class:active={path.startsWith(architectureHref)}
         >{labels.architecture}</a
       >
-      <a href="/sizes" class:active={isActive('/sizes')}>{labels.sizes}</a>
-      <a href="/api" class:active={isActive('/api')}>{labels.api}</a>
+      <a href={sizesHref} class:active={isActive(sizesHref)}>{labels.sizes}</a>
+      <a href={apiHref} class:active={isActive(apiHref)}>{labels.api}</a>
       <a href="https://github.com/baseballyama/kumiki" rel="noopener noreferrer">
         {labels.github} ↗
       </a>

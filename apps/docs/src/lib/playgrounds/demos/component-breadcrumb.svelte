@@ -1,10 +1,11 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import { Breadcrumb } from '@kumiki/components/breadcrumb';
 
   const trail = [
-    { href: '/', label: 'Home' },
-    { href: '/components', label: 'Components' },
-    { href: '/components/breadcrumb', label: 'Breadcrumb' },
+    { href: resolve('/'), label: 'Home' },
+    { href: resolve('/components'), label: 'Components' },
+    { href: resolve('/components/breadcrumb'), label: 'Breadcrumb' },
   ];
 </script>
 

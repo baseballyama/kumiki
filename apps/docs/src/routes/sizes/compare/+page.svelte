@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import type { PageProps } from './$types';
 
   let { data }: PageProps = $props();
@@ -75,7 +76,10 @@
   <h2>Accessibility & i18n features</h2>
   <p class="meta">
     Headline capabilities each library ships out of the box. Sourced from
-    <a href="/docs/market-research"><code>docs/market-research.md</code></a> §4.5–§7. As of
+    <a href="https://github.com/baseballyama/kumiki/blob/main/docs/market-research.md"
+      ><code>docs/market-research.md</code></a
+    >
+    §4.5–§7. As of
     <time>{compare.featureMatrix.asOf}</time>.
   </p>
 

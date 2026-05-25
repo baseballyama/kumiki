@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -364,12 +365,14 @@
 
   <h2>下一步阅读</h2>
   <ul>
-    <li><a href="/docs/layers-by-example">分层示例</a> — 用户代码在 Layer 2/3/4/5 的差异。</li>
     <li>
-      <a href="/docs/composition">组合</a> — 通过 <code>with*</code> 包装器添加可选功能。
+      <a href={resolve('/docs/layers-by-example')}>分层示例</a> — 用户代码在 Layer 2/3/4/5 的差异。
     </li>
     <li>
-      <a href="/docs/i18n">国际化与 RTL</a> — 用 <code>data-direction</code> 做 RTL 样式。
+      <a href={resolve('/docs/composition')}>组合</a> — 通过 <code>with*</code> 包装器添加可选功能。
+    </li>
+    <li>
+      <a href={resolve('/docs/i18n')}>国际化与 RTL</a> — 用 <code>data-direction</code> 做 RTL 样式。
     </li>
   </ul>
 </Prose>

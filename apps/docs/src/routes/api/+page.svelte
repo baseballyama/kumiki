@@ -3,6 +3,7 @@
   package, with a header and a list of modules.
 -->
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import type { PageProps } from './$types';
   let { data }: PageProps = $props();
 </script>
@@ -51,7 +52,7 @@
       <ul class="modules">
         {#each pkg.modules as m, mIdx (m.slug)}
           <li style="animation-delay: calc(var(--col-stagger) + {mIdx * 28}ms)">
-            <a href={`/api/${m.slug}`}>
+            <a href={resolve(`/api/${m.slug}`)}>
               <span class="m-name">{m.name}</span>
               <span class="m-rule" aria-hidden="true"></span>
               <span class="m-count">{m.memberCount}</span>

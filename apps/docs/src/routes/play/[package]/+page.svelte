@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import { LIVE_PLAYGROUNDS } from '$lib/playgrounds/registry.js';
   import type { Component } from 'svelte';
   import CodeBlock from '$lib/components/CodeBlock.svelte';
@@ -31,7 +32,7 @@
 </svelte:head>
 
 <nav class="crumb">
-  <a href="/play">← All packages</a>
+  <a href={resolve('/play')}>← All packages</a>
 </nav>
 
 <header class="hero">

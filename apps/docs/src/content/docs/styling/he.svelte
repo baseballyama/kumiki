@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -364,11 +365,16 @@
 
   <h2>מה לקרוא בהמשך</h2>
   <ul>
-    <li><a href="/docs/layers-by-example">שכבות לדוגמה</a> — איך הקוד שלך שונה ב-Layer 2/3/4/5.</li>
     <li>
-      <a href="/docs/composition">הרכבה</a> — הוספת תכונות אופציונליות דרך עוטפי <code>with*</code>.
+      <a href={resolve('/docs/layers-by-example')}>שכבות לדוגמה</a> — איך הקוד שלך שונה ב-Layer 2/3/4/5.
     </li>
-    <li><a href="/docs/i18n">i18n ו-RTL</a> — שימוש ב-<code>data-direction</code> לעיצוב RTL.</li>
+    <li>
+      <a href={resolve('/docs/composition')}>הרכבה</a> — הוספת תכונות אופציונליות דרך עוטפי
+      <code>with*</code>.
+    </li>
+    <li>
+      <a href={resolve('/docs/i18n')}>i18n ו-RTL</a> — שימוש ב-<code>data-direction</code> לעיצוב RTL.
+    </li>
   </ul>
 </Prose>
 

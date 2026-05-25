@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -33,8 +34,9 @@
   </p>
 
   <p>
-    예제로 <a href="/components/component-toggle">Toggle</a> 을 사용합니다. 동작은 단순(눌러
-    뒤집기)하지만, 구현이 <strong>네 계층 모두</strong>에 존재하므로 나란히 비교하기에 이상적입니다.
+    예제로 <a href={resolve('/components/component-toggle')}>Toggle</a> 을 사용합니다. 동작은
+    단순(눌러 뒤집기)하지만, 구현이 <strong>네 계층 모두</strong>에 존재하므로 나란히 비교하기에
+    이상적입니다.
   </p>
 
   <PreviewFrame>
@@ -249,12 +251,12 @@ npx kumiki add toggle --variant=vanilla`}</code
   <h2>다음으로 읽을 것</h2>
   <ul>
     <li>
-      <a href="/docs/styling">스타일링</a> — Layer 4 에서 <code>data-*</code>,
+      <a href={resolve('/docs/styling')}>스타일링</a> — Layer 4 에서 <code>data-*</code>,
       <code>class</code> 패스스루, <code>child</code> 스니펫 사용법.
     </li>
-    <li><a href="/docs/architecture">아키텍처</a> — 5 계층 모델 전체.</li>
+    <li><a href={resolve('/docs/architecture')}>아키텍처</a> — 5 계층 모델 전체.</li>
     <li>
-      <a href="/docs/composition">합성</a> — <code>with*</code> 래퍼로 선택 기능 추가하기.
+      <a href={resolve('/docs/composition')}>합성</a> — <code>with*</code> 래퍼로 선택 기능 추가하기.
     </li>
   </ul>
 </Prose>

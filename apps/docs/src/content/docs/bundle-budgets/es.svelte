@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
 
   const budgets = [
@@ -39,8 +40,8 @@
     <a href="https://github.com/baseballyama/kumiki/blob/main/docs/design/09-bundle-budget.md"
       >docs/design/09-bundle-budget.md</a
     >. Los números medidos actuales se ven en
-    <a href="/sizes">/sizes</a>; las comparativas con la competencia están en
-    <a href="/sizes/compare">/sizes/compare</a>.
+    <a href={resolve('/sizes')}>/sizes</a>; las comparativas con la competencia están en
+    <a href={resolve('/sizes/compare')}>/sizes/compare</a>.
   </p>
 
   <h2>Cómo se aplican los presupuestos</h2>

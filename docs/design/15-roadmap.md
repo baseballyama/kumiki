@@ -63,7 +63,7 @@ Deliverables:
 - ✅ `llms.txt` and `llms-full.txt` builders running on every build (`apps/docs/scripts/build-llms-full.mjs`, output under `apps/docs/static/`).
 - 🟡 Size comparison page (`apps/docs/sizes/`): scaffolded, public publish pending — see [`v1-execution-plan` D-2](../release/v1-execution-plan.md).
 - ✅ Search (Pagefind) live (`postbuild` hook in `apps/docs/package.json`).
-- ✅ Cloudflare Pages deploy automated on every `main` push (`@sveltejs/adapter-cloudflare` + `.github/workflows/docs.yml`).
+- ✅ GitHub Pages deploy automated on every `main` push (`@sveltejs/adapter-static` + `.github/workflows/docs.yml`).
 
 ## 15.5 Phase 1 — MVP (end of 2026)
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { asset, resolve } from '$app/paths';
   import type { PageProps } from './$types';
 
   let { data }: PageProps = $props();
@@ -117,7 +118,7 @@
           <dt>Issued</dt>
           <dd>{generatedLabel}</dd>
           <dt>Source</dt>
-          <dd><a href="/sizes.json">/sizes.json</a></dd>
+          <dd><a href={asset('/sizes.json')}>/sizes.json</a></dd>
         </dl>
       {/if}
     </aside>
@@ -287,7 +288,7 @@
     <span class="colophon-rule"></span>
     <span class="colophon-text">
       Measured with <code>size-limit</code> · brotli · gzip equivalent ·
-      <a href="/sizes/compare">vs. peer libraries →</a>
+      <a href={resolve('/sizes/compare')}>vs. peer libraries →</a>
     </span>
   </footer>
 </article>

@@ -3,6 +3,7 @@
   member-kind tally chips on the right.
 -->
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import type { ApiModule, MemberKind } from '$lib/api/types.js';
   import MemberKindLabel from './MemberKindLabel.svelte';
 
@@ -28,7 +29,7 @@
 
 <header class="hero">
   <p class="crumb">
-    <a href="/api">Reference</a>
+    <a href={resolve('/api')}>Reference</a>
     <span class="sep" aria-hidden="true">／</span>
     <span class="package">{module.packageId}</span>
   </p>

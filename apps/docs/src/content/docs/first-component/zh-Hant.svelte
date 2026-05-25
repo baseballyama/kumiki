@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Prose from '$lib/components/Prose.svelte';
   import PreviewFrame from '$lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
@@ -56,13 +57,13 @@
   <p>
     在頁面標頭切換語言。Toggle 本身沒有翻譯字串,但 Combobox、Dialog、FormField
     會立即切換。切到日文後試試
-    <a href="/components/component-combobox">Combobox 範例</a>。
+    <a href={resolve('/components/component-combobox')}>Combobox 範例</a>。
   </p>
 
   <h2>接下來呢?</h2>
   <ul>
-    <li>閱讀 <a href="/docs/architecture">五層架構</a>。</li>
-    <li>瀏覽 <a href="/docs/accessibility">無障礙模型</a>。</li>
-    <li>看附即時範例的 <a href="/components">所有元件</a>。</li>
+    <li>閱讀 <a href={resolve('/docs/architecture')}>五層架構</a>。</li>
+    <li>瀏覽 <a href={resolve('/docs/accessibility')}>無障礙模型</a>。</li>
+    <li>看附即時範例的 <a href={resolve('/components')}>所有元件</a>。</li>
   </ul>
 </Prose>

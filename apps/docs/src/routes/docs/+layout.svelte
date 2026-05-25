@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Sidebar from '$lib/components/Sidebar.svelte';
   import { ui } from '$lib/i18n/store.svelte.js';
   import { dict } from '$lib/i18n/dict.js';
@@ -12,27 +13,27 @@
     {
       title: sb.gettingStarted,
       items: [
-        { href: '/docs/getting-started', label: sb.introduction },
-        { href: '/docs/installation', label: sb.installation },
-        { href: '/docs/first-component', label: sb.firstComponent },
+        { href: resolve('/docs/getting-started'), label: sb.introduction },
+        { href: resolve('/docs/installation'), label: sb.installation },
+        { href: resolve('/docs/first-component'), label: sb.firstComponent },
       ],
     },
     {
       title: sb.foundations,
       items: [
-        { href: '/docs/architecture', label: sb.architecture },
-        { href: '/docs/layers-by-example', label: sb.layersByExample },
-        { href: '/docs/composition', label: sb.composition },
-        { href: '/docs/styling', label: sb.styling },
-        { href: '/docs/theming', label: sb.theming },
-        { href: '/docs/accessibility', label: sb.accessibility },
-        { href: '/docs/i18n', label: sb.i18n },
-        { href: '/docs/bundle-budgets', label: sb.bundleBudgets },
+        { href: resolve('/docs/architecture'), label: sb.architecture },
+        { href: resolve('/docs/layers-by-example'), label: sb.layersByExample },
+        { href: resolve('/docs/composition'), label: sb.composition },
+        { href: resolve('/docs/styling'), label: sb.styling },
+        { href: resolve('/docs/theming'), label: sb.theming },
+        { href: resolve('/docs/accessibility'), label: sb.accessibility },
+        { href: resolve('/docs/i18n'), label: sb.i18n },
+        { href: resolve('/docs/bundle-budgets'), label: sb.bundleBudgets },
       ],
     },
     {
       title: sb.components,
-      items: [{ href: '/components', label: sb.componentsBrowse }],
+      items: [{ href: resolve('/components'), label: sb.componentsBrowse }],
     },
   ]);
 </script>

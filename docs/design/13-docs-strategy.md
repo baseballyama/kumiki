@@ -30,7 +30,12 @@ Treating LLMs as a first-class audience is part of the brief (Section 2.F) and i
 /llms-full.txt           Full type definitions + anti-patterns
 ```
 
-Built with **SvelteKit + adapter-cloudflare**. Deployed to Cloudflare Pages. Source: `apps/docs/`.
+Built with **SvelteKit + adapter-static** (full prerender; sandbox routes are
+SPA-fallback hydrated). Deployed to **GitHub Pages** at
+`https://baseballyama.github.io/kumiki/` — the deploy workflow sets
+`BASE_PATH=/kumiki` so internal links work under that project path. When a
+custom domain (`kumiki.dev`) is wired up, drop `BASE_PATH` and the site moves
+back to the root. Source: `apps/docs/`.
 
 ## 13.3 The component reference template
 
@@ -119,9 +124,13 @@ Auto-generated, much larger. Contains:
 
 Source-of-truth: each package's `dist/index.d.ts` plus its `keyboard.yaml`. The build script `apps/docs/scripts/build-llms-full.ts` (Phase 0c) compiles them.
 
-### Cloudflare headers
+### Content-Type for `/llms.txt`
 
-Static `_headers` (already created) sets `Content-Type: text/plain` and `Cache-Control: public, max-age=300` for `/llms.txt` and `/llms-full.txt` — per [SvelteKit's Cloudflare adapter doc](https://svelte.dev/docs/kit/adapter-cloudflare/llms.txt).
+GitHub Pages infers `Content-Type` from the file extension, so `/llms.txt` and
+`/llms-full.txt` are already served as `text/plain` — no per-file headers
+file is needed. If we later switch back to Cloudflare Pages (or any host that
+honours `_headers`) we can drop a static `_headers` file in `apps/docs/static/`
+to override caching.
 
 ## 13.6 JSDoc conventions
 
