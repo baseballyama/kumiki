@@ -43,7 +43,7 @@
      * Attach to your rendered element via `{@attach attachment}` to wire
      * click / keyboard interactions and ARIA paint-on-change.
      */
-    attachment: Attachment;
+    attachment: Attachment<HTMLElement>;
   };
 
   type Props = {
