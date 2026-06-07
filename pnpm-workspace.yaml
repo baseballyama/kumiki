@@ -72,7 +72,7 @@ catalog:
   'prettier-plugin-svelte': ^3.5.1
 
   # --- git hooks ---
-  lefthook: ^2.1.6
+  lefthook: ^2.1.9
 
   # --- docs site (SvelteKit + static) ---
   '@sveltejs/kit': ^2.59.0
