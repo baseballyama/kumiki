@@ -174,35 +174,46 @@ export function createNumberField(options: CreateNumberFieldOptions = {}): Numbe
       paint();
     }
 
+    const syncText = (): void => {
+      if (node instanceof HTMLInputElement)
+        node.value = machine.context.value === null ? '' : format(machine.context.value);
+    };
+
     const onKeydown = (event: KeyboardEvent): void => {
       if (machine.state === 'disabled') return;
       switch (event.key) {
         case 'ArrowUp':
           event.preventDefault();
           machine.send({ type: 'INCREMENT' });
+          syncText();
           break;
         case 'ArrowDown':
           event.preventDefault();
           machine.send({ type: 'DECREMENT' });
+          syncText();
           break;
         case 'PageUp':
           event.preventDefault();
           machine.send({ type: 'PAGE_INCREMENT' });
+          syncText();
           break;
         case 'PageDown':
           event.preventDefault();
           machine.send({ type: 'PAGE_DECREMENT' });
+          syncText();
           break;
         case 'Home':
           if (Number.isFinite(machine.context.min)) {
             event.preventDefault();
             machine.send({ type: 'TO_MIN' });
+            syncText();
           }
           break;
         case 'End':
           if (Number.isFinite(machine.context.max)) {
             event.preventDefault();
             machine.send({ type: 'TO_MAX' });
+            syncText();
           }
           break;
         case 'Enter':

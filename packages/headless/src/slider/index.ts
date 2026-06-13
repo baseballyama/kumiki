@@ -83,6 +83,11 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
 
   let direction: SliderDirection = options.direction ?? 'ltr';
 
+  // Registered paint closures (root + thumb). `setDirection` must repaint
+  // these synchronously because `--kumiki-slider-pct` and the thumb offset
+  // depend on `direction` but otherwise only run on `machine.subscribe`.
+  const paints = new Set<() => void>();
+
   let prevValue = machine.context.value;
   machine.subscribe(({ context }) => {
     if (context.value !== prevValue) {
@@ -127,6 +132,7 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
       node.style.setProperty('--kumiki-slider-pct', `${visualPct}%`);
     };
     paint();
+    paints.add(paint);
 
     let dragActive = false;
     function endDrag(): void {
@@ -162,6 +168,7 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
 
     return () => {
       unsub();
+      paints.delete(paint);
       endDrag();
       node.removeEventListener('pointerdown', onPointerDown);
       if (trackEl === node) trackEl = null;
@@ -188,6 +195,7 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
       else node.removeAttribute('aria-disabled');
     };
     paint();
+    paints.add(paint);
 
     function isPrev(key: string): boolean {
       if (machine.context.orientation === 'vertical') return key === 'ArrowDown';
@@ -238,6 +246,7 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
 
     return () => {
       unsub();
+      paints.delete(paint);
       node.removeEventListener('keydown', onKeydown);
     };
   };
@@ -266,6 +275,7 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
     setOrientation: (v) => machine.send({ type: 'SET.ORIENTATION', value: v }),
     setDirection: (v) => {
       direction = v;
+      for (const paint of paints) paint();
     },
     setDisabled: (v) => machine.send({ type: v ? 'DISABLE' : 'ENABLE' } as SliderEvent),
     subscribe: machine.subscribe.bind(machine),

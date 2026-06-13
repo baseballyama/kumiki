@@ -221,6 +221,21 @@ describe('createNumberField', () => {
     ui.teardown();
   });
 
+  it('ArrowUp keeps displayed text in sync while focused (no blur revert)', () => {
+    const c = createNumberField({ defaultValue: 5, min: 0, max: 10 });
+    const ui = mount(c);
+    ui.input.focus();
+    expect(document.activeElement).toBe(ui.input);
+    ui.input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
+    // Text reflects the incremented value despite the focus guard in paint().
+    expect(ui.input.value).toBe('6');
+    // Commit on blur must not revert to a stale 5.
+    ui.input.dispatchEvent(new Event('blur'));
+    expect(c.value).toBe(6);
+    expect(ui.input.value).toBe('6');
+    ui.teardown();
+  });
+
   it('subscribe fires onValueChange', () => {
     const log: (number | null)[] = [];
     const c = createNumberField({ defaultValue: 5, onValueChange: (v) => log.push(v) });

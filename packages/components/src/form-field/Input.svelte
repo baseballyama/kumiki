@@ -27,7 +27,6 @@
 
 <input
   data-component-part="input"
-  id={controller.inputId}
   name={localName ?? ctx.name}
   {...rest}
   {@attach controller.input}
