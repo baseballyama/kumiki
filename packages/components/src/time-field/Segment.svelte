@@ -43,18 +43,10 @@
   let typedBuffer = $state('');
 
   const config = $derived.by(() => {
-    switch (kind) {
-      case 'hour':
-        return ctx.hourCycle === 12
-          ? { min: 1, max: 12, pad: 2, isNumeric: true as const }
-          : { min: 0, max: 23, pad: 2, isNumeric: true as const };
-      case 'minute':
-        return { min: 0, max: 59, pad: 2, isNumeric: true as const };
-      case 'second':
-        return { min: 0, max: 59, pad: 2, isNumeric: true as const };
-      case 'dayPeriod':
-        return { min: 0, max: 1, pad: 0, isNumeric: false as const };
-    }
+    if (kind === 'dayPeriod') return { min: 0, max: 1, pad: 0 };
+    if (kind === 'hour')
+      return { min: ctx.hourCycle === 12 ? 1 : 0, max: ctx.hourCycle === 12 ? 12 : 23, pad: 2 };
+    return { min: 0, max: 59, pad: 2 };
   });
 
   const ariaLabel = $derived.by(() => {
@@ -75,44 +67,48 @@
     if (kind === 'dayPeriod') return value === 'PM' ? pmLabel : amLabel;
     return String(value).padStart(config.pad, '0');
   });
-  const ariaValueText = $derived(value === null ? placeholder : display);
   const ariaValueNow = $derived.by(() => {
     if (value === null) return undefined;
     if (kind === 'dayPeriod') return value === 'PM' ? 1 : 0;
     return value as number;
   });
 
+  // Single tab stop: only the active segment is `tabindex="0"`. `segmentRef`
+  // stays `null` until `{@attach}` runs (post-hydration), so SSR markup keeps
+  // every segment at `tabindex="-1"` and the active segment only becomes the
+  // tab stop once the field is interactive.
+  let segmentRef = $state<HTMLElement | null>(null);
+  const isTabStop = $derived(segmentRef !== null && segmentRef === ctx.tabStop);
+
   function attach(node: HTMLElement): () => void {
-    return ctx.registerSegment(node, kind);
+    segmentRef = node;
+    return untrack(() => ctx.registerSegment(node));
   }
 
-  function increment(): void {
+  function bump(dir: 1 | -1): void {
     if (kind === 'dayPeriod') {
       ctx.setSegmentValue(kind, value === 'PM' ? 'AM' : 'PM');
       return;
     }
     const numericValue = (value as number | null) ?? config.min;
-    const step = kind === 'minute' ? Math.max(1, ctx.minuteStep) : 1;
+    const step = (kind === 'minute' ? Math.max(1, ctx.minuteStep) : 1) * dir;
     const range = config.max - config.min + 1;
-    const next = ((numericValue - config.min + step) % range) + config.min;
-    typedBuffer = '';
-    ctx.setSegmentValue(kind, next);
-  }
-  function decrement(): void {
-    if (kind === 'dayPeriod') {
-      ctx.setSegmentValue(kind, value === 'PM' ? 'AM' : 'PM');
-      return;
-    }
-    const numericValue = (value as number | null) ?? config.min;
-    const step = kind === 'minute' ? Math.max(1, ctx.minuteStep) : 1;
-    const range = config.max - config.min + 1;
-    const next = ((numericValue - config.min - step + range) % range) + config.min;
+    const next = ((((numericValue - config.min + step) % range) + range) % range) + config.min;
     typedBuffer = '';
     ctx.setSegmentValue(kind, next);
   }
 
-  function typeDigit(d: string, currentNode: HTMLElement): void {
-    if (!config.isNumeric) return;
+  function advance(): void {
+    typedBuffer = '';
+    if (segmentRef) ctx.focusRelative(segmentRef, 'next');
+  }
+
+  function clear(): void {
+    typedBuffer = '';
+    ctx.setSegmentValue(kind, null);
+  }
+
+  function typeDigit(d: string): void {
     const candidate = (typedBuffer + d).slice(-config.pad);
     const candidateNum = Number(candidate);
     // If a 1-digit value already saturates the maximum two-digit space
@@ -125,11 +121,7 @@
       if (single >= config.min && single <= config.max) {
         typedBuffer = d;
         ctx.setSegmentValue(kind, single);
-        if (d.length >= config.pad || single * 10 > config.max) {
-          // Auto-advance.
-          typedBuffer = '';
-          untrack(() => ctx.focusRelative(currentNode, 'next'));
-        }
+        if (single * 10 > config.max) advance();
       }
       return;
     }
@@ -137,28 +129,20 @@
     ctx.setSegmentValue(kind, candidateNum);
     // If buffer is full or next digit can't fit, advance.
     const couldFitMore = candidateNum * 10 + 9 <= config.max;
-    if (typedBuffer.length >= config.pad || !couldFitMore) {
-      typedBuffer = '';
-      untrack(() => ctx.focusRelative(currentNode, 'next'));
-    }
-  }
-
-  function clear(): void {
-    typedBuffer = '';
-    ctx.setSegmentValue(kind, null);
+    if (typedBuffer.length >= config.pad || !couldFitMore) advance();
   }
 
   function handleKeydown(event: KeyboardEvent): void {
-    if (ctx.disabled || ctx.readonly) return;
-    const node = event.currentTarget as HTMLElement;
+    if (ctx.disabled || ctx.readonly || !segmentRef) return;
+    const node = segmentRef;
     switch (event.key) {
       case 'ArrowUp':
         event.preventDefault();
-        increment();
+        bump(1);
         return;
       case 'ArrowDown':
         event.preventDefault();
-        decrement();
+        bump(-1);
         return;
       case 'ArrowLeft':
         event.preventDefault();
@@ -172,24 +156,18 @@
         event.preventDefault();
         clear();
         return;
-      case 'a':
-      case 'A':
-        if (kind === 'dayPeriod') {
-          event.preventDefault();
-          ctx.setSegmentValue(kind, 'AM');
-        }
-        return;
-      case 'p':
-      case 'P':
-        if (kind === 'dayPeriod') {
-          event.preventDefault();
-          ctx.setSegmentValue(kind, 'PM');
-        }
-        return;
     }
-    if (config.isNumeric && /^[0-9]$/.test(event.key)) {
+    if (kind === 'dayPeriod') {
+      const k = event.key.toLowerCase();
+      if (k === 'a' || k === 'p') {
+        event.preventDefault();
+        ctx.setSegmentValue(kind, k === 'a' ? 'AM' : 'PM');
+      }
+      return;
+    }
+    if (/^[0-9]$/.test(event.key)) {
       event.preventDefault();
-      typeDigit(event.key, node);
+      typeDigit(event.key);
     }
   }
 
@@ -201,12 +179,12 @@
 <span
   {...rest}
   role="spinbutton"
-  tabindex={ctx.disabled ? -1 : 0}
+  tabindex={isTabStop && !ctx.disabled ? 0 : -1}
   aria-label={ariaLabel}
-  aria-valuemin={kind === 'dayPeriod' ? 0 : config.min}
-  aria-valuemax={kind === 'dayPeriod' ? 1 : config.max}
+  aria-valuemin={config.min}
+  aria-valuemax={config.max}
   aria-valuenow={ariaValueNow}
-  aria-valuetext={ariaValueText}
+  aria-valuetext={display}
   aria-disabled={ctx.disabled ? 'true' : undefined}
   aria-readonly={ctx.readonly ? 'true' : undefined}
   data-component-part="segment"

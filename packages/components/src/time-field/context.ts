@@ -26,7 +26,14 @@ export interface TimeFieldContextValue {
   /** Commit a new value for a segment. Triggers `onValueChange`. */
   setSegmentValue(kind: SegmentKind, next: number | 'AM' | 'PM' | null): void;
 
+  /**
+   * Register a focusable segment so the field can rove focus across it and
+   * decide which one currently hosts the single tab stop. Returns a
+   * deregister function to call on unmount.
+   */
+  registerSegment(node: HTMLElement): () => void;
+  /** The segment node that currently hosts the field's single tab stop. */
+  readonly tabStop: HTMLElement | null;
   /** Roving focus among segments — Arrow Left/Right handlers call this. */
-  registerSegment(node: HTMLElement, kind: SegmentKind): () => void;
   focusRelative(from: HTMLElement, dir: 'prev' | 'next'): void;
 }
