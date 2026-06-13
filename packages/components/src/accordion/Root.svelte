@@ -95,6 +95,6 @@
   setContext<AccordionContextValue<V>>(ACCORDION_CONTEXT_KEY, { controller });
 </script>
 
-<div {@attach controller.root}>
+<div id={controller.id} {@attach controller.root}>
   {@render children()}
 </div>

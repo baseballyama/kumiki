@@ -23,6 +23,12 @@
   const attachment = controller.trigger(value);
 </script>
 
-<button {...rest} type="button" {@attach attachment}>
+<button
+  {...rest}
+  type="button"
+  id={controller.triggerElementId(value.id)}
+  aria-controls={controller.panelElementId(value.id)}
+  {@attach attachment}
+>
   {#if children}{@render children()}{/if}
 </button>

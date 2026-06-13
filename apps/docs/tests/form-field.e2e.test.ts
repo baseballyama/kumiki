@@ -5,7 +5,11 @@ const ERRORS = '[data-testid="errors"]';
 const LABEL = '[data-testid="label"]';
 
 async function waitForHydration(page: Page): Promise<void> {
-  await expect(page.locator(`${INPUT}[id^="kumiki-form-field-"]`)).toBeAttached({
+  // The input id is now rendered in SSR (so the <label for> association is valid
+  // before hydration), so it can no longer prove hydration. The attachment
+  // paints `data-state` on mount, and it's absent from the SSR markup — a true
+  // post-hydration sentinel.
+  await expect(page.locator(`${INPUT}[data-state]`)).toBeAttached({
     timeout: 5000,
   });
 }
