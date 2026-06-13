@@ -34,6 +34,7 @@
       {items}
       bind:value
       {disabled}
+      aria-label="Sandbox options"
       onValueChange={(v: string | null) => append(`onValueChange(${v ?? 'null'})`)}
     >
       {#each items as item (item.id)}

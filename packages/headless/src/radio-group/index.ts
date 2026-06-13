@@ -13,6 +13,7 @@
 
 import {
   createRadioGroupMachine,
+  idForValue,
   type CreateRadioGroupInput,
   type RadioGroupContext,
   type RadioGroupEvent,
@@ -129,7 +130,12 @@ export function createRadioGroup<V>(options: CreateRadioGroupOptions<V>): RadioG
 
       const paint = (): void => {
         const isSelected = machine.context.value === item.value;
-        const tab = tabindexFor(machine.context.items, item.id, machine.context.focusedId);
+        // Roving tabindex anchor: the focused item while navigating, otherwise
+        // the selected item (so Tab returns to the user's choice, per APG), and
+        // only then the first enabled item (handled inside tabindexFor).
+        const anchor =
+          machine.context.focusedId ?? idForValue(machine.context.items, machine.context.value);
+        const tab = tabindexFor(machine.context.items, item.id, anchor);
         node.setAttribute('aria-checked', String(isSelected));
         node.setAttribute('data-state', isSelected ? 'checked' : 'unchecked');
         node.setAttribute('tabindex', String(tab));

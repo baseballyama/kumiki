@@ -66,7 +66,7 @@ export interface CreateRadioGroupInput<V> {
 const valueEquals = (a: unknown, b: unknown): boolean =>
   a === b || JSON.stringify(a) === JSON.stringify(b);
 
-function idForValue<V>(items: ReadonlyArray<RadioItem<V>>, value: V | null): string | null {
+export function idForValue<V>(items: ReadonlyArray<RadioItem<V>>, value: V | null): string | null {
   if (value === null) return null;
   return items.find((it) => valueEquals(it.value, value))?.id ?? null;
 }
@@ -122,8 +122,12 @@ export function createRadioGroupMachine<V>(input: CreateRadioGroupInput<V>): Rad
                   if (e.type !== 'FOCUS') return;
                   const item = ctx.items.find((it) => it.id === e.id);
                   if (!item || item.disabled) return;
-                  // APG: focusing a radio also selects it.
-                  return { focusedId: item.id, value: item.value };
+                  // Focus moves the roving anchor only — it must NOT select.
+                  // Tabbing into an unselected group would otherwise silently
+                  // commit the first option (an APG violation + form mutation).
+                  // Selection-follows-focus for arrow keys is handled by
+                  // NAVIGATE; pointer/Space selection by SELECT.
+                  return { focusedId: item.id };
                 },
               },
             ],

@@ -63,6 +63,18 @@ describe('createRadioGroup attachment', () => {
     expect(nodes['c']!.getAttribute('tabindex')).toBe('0');
   });
 
+  it('roving tabindex lands on the selected item when nothing is focused', () => {
+    // Programmatic setValue selects without setting focusedId — the canonical
+    // "pre-selected on mount / focus has left the group" case. Tab must return
+    // to the selected radio, not the first enabled one (APG).
+    const g = createRadioGroup({ items });
+    attachAll(g);
+    g.setValue('cherry');
+    expect(g.focusedId).toBe(null);
+    expect(nodes['a']!.getAttribute('tabindex')).toBe('-1');
+    expect(nodes['c']!.getAttribute('tabindex')).toBe('0');
+  });
+
   it('click selects and fires onValueChange', () => {
     const onValueChange = vi.fn();
     const g = createRadioGroup({ items, onValueChange });
