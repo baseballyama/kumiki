@@ -106,7 +106,10 @@ export function createMenuMachine(input: CreateMenuInput): MenuMachine {
     initial: input.defaultOpen ? 'open' : 'closed',
     context: {
       items,
-      highlightedId: null,
+      // When constructed already-open, the OPEN action never runs (entry
+      // actions don't fire on the initial state), so highlight the first item
+      // here — APG requires a menu to open with an item highlighted.
+      highlightedId: input.defaultOpen ? firstEnabledId(items) : null,
       typeahead: '',
       activatedId: null,
     },

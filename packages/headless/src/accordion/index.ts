@@ -129,12 +129,19 @@ export function createAccordion<V>(options: CreateAccordionOptions<V>): Accordio
       }
       node.setAttribute('data-component-part', 'trigger');
       node.setAttribute('aria-controls', panelElementId(item.id));
-      if (item.disabled) node.setAttribute('aria-disabled', 'true');
+
+      // Read the live disabled flag from machine context so a `setItems` update
+      // that toggles `disabled` on an item with the same id is reflected (the
+      // captured `item` closure would otherwise go stale).
+      const isDisabled = (): boolean =>
+        machine.context.items.find((it) => it.id === item.id)?.disabled ?? item.disabled ?? false;
 
       const paint = (): void => {
         const open = machine.context.expandedIds.includes(item.id);
         node.setAttribute('aria-expanded', String(open));
         node.setAttribute('data-state', open ? 'open' : 'closed');
+        if (isDisabled()) node.setAttribute('aria-disabled', 'true');
+        else node.removeAttribute('aria-disabled');
         const tab = tabindexFor(machine.context.items, item.id, machine.context.focusedId);
         node.setAttribute('tabindex', String(tab));
         if (machine.context.focusedId === item.id) {
@@ -146,14 +153,14 @@ export function createAccordion<V>(options: CreateAccordionOptions<V>): Accordio
       paint();
 
       const onFocus = (): void => {
-        if (item.disabled) return;
+        if (isDisabled()) return;
         machine.send({ type: 'FOCUS', id: item.id });
       };
       const onBlur = (): void => {
         if (machine.context.focusedId === item.id) machine.send({ type: 'BLUR' });
       };
       const onClick = (event: MouseEvent): void => {
-        if (item.disabled) return;
+        if (isDisabled()) return;
         event.preventDefault();
         machine.send({ type: 'TOGGLE', id: item.id });
       };

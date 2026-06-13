@@ -22,8 +22,9 @@ describe('createMenuMachine', () => {
   it('honors defaultOpen with first enabled item highlighted', () => {
     const m = createMenuMachine({ items: ITEMS, defaultOpen: true });
     expect(m.state).toBe('open');
-    // Note: defaultOpen jumps straight in; OPEN action does not run, so highlightedId stays null.
-    expect(m.context.highlightedId).toBeNull();
+    // Constructed already-open: the initial context seeds the first enabled
+    // item as highlighted (the OPEN entry action can't run on the initial state).
+    expect(m.context.highlightedId).toBe('new');
   });
 
   it('OPEN highlights first enabled non-separator item', () => {
