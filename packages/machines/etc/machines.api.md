@@ -51,7 +51,7 @@ export namespace popover {
 
 // @public (undocumented)
 export namespace radioGroup {
-    export { CreateRadioGroupInput, RadioGroupContext, RadioGroupEvent, RadioGroupMachine, RadioGroupState, RadioItem, createRadioGroupMachine };
+    export { CreateRadioGroupInput, RadioGroupContext, RadioGroupEvent, RadioGroupMachine, RadioGroupState, RadioItem, createRadioGroupMachine, idForValue };
 }
 
 // @public (undocumented)
@@ -71,7 +71,7 @@ export namespace switchMachine {
 
 // @public (undocumented)
 export namespace tabs {
-    export { CreateTabsInput, TabItem, TabsActivation, TabsContext, TabsEvent, TabsMachine, TabsState, createTabsMachine };
+    export { CreateTabsInput, TabItem, TabsActivation, TabsContext, TabsEvent, TabsMachine, TabsState, createTabsMachine, idForValue };
 }
 
 // @public (undocumented)

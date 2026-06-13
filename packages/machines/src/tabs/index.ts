@@ -72,7 +72,7 @@ function firstEnabledValue(items: ReadonlyArray<TabItem>): string | null {
   return items.find((it) => !it.disabled)?.value ?? null;
 }
 
-function idForValue(items: ReadonlyArray<TabItem>, value: string | null): string | null {
+export function idForValue(items: ReadonlyArray<TabItem>, value: string | null): string | null {
   if (value === null) return null;
   return items.find((it) => it.value === value)?.id ?? null;
 }

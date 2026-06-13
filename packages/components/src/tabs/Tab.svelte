@@ -25,18 +25,18 @@
   // repaints these post-hydration. value.id is constant for an instance.
   // svelte-ignore state_referenced_locally
   const isSelected = controller.value === value.value;
-  // svelte-ignore state_referenced_locally
-  const isFirstActive = controller.context.value === value.value;
 </script>
 
 <button
   {...rest}
   type="button"
   role="tab"
+  id={controller.tabElementId(value.id)}
+  aria-controls={controller.panelElementId(value.id)}
   aria-selected={isSelected ? 'true' : 'false'}
   aria-disabled={value.disabled ? 'true' : undefined}
   data-state={isSelected ? 'active' : 'inactive'}
-  tabindex={isFirstActive ? 0 : -1}
+  tabindex={isSelected ? 0 : -1}
   {@attach attachment}
 >
   {#if children}{@render children()}{/if}

@@ -31,6 +31,8 @@
 <div
   {...rest}
   role="tabpanel"
+  id={controller.panelElementId(value.id)}
+  aria-labelledby={controller.tabElementId(value.id)}
   data-state={isSelected ? 'active' : 'inactive'}
   hidden={!isSelected || undefined}
   tabindex="0"

@@ -22,6 +22,7 @@
 
 import {
   createTabsMachine,
+  idForValue,
   type CreateTabsInput,
   type TabItem,
   type TabsActivation,
@@ -157,7 +158,11 @@ export function createTabs(options: CreateTabsOptions): TabsController {
 
       const paint = (): void => {
         const isSelected = machine.context.value === item.value;
-        const tab = tabindexFor(machine.context.items, item.id, machine.context.focusedId);
+        // Roving tabindex anchor: the focused tab while navigating, otherwise
+        // the active tab (so Tab returns to it, per APG), then the first enabled.
+        const anchor =
+          machine.context.focusedId ?? idForValue(machine.context.items, machine.context.value);
+        const tab = tabindexFor(machine.context.items, item.id, anchor);
         node.setAttribute('aria-selected', String(isSelected));
         node.setAttribute('data-state', isSelected ? 'active' : 'inactive');
         node.setAttribute('tabindex', String(tab));

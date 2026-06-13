@@ -77,6 +77,18 @@ describe('createTabs attachment', () => {
     expect(tabNodes['t-d']!.getAttribute('tabindex')).toBe('-1');
   });
 
+  it('roving tabindex tracks the active tab when nothing is focused', () => {
+    // Programmatic setValue changes the active tab without focusing it (the
+    // controlled / "focus has left the tablist" case). Tab must return to the
+    // active tab, not the first one (APG).
+    const c = createTabs({ items });
+    attachAll(c);
+    c.setValue('team');
+    expect(c.focusedId).toBe(null);
+    expect(tabNodes['t-a']!.getAttribute('tabindex')).toBe('-1');
+    expect(tabNodes['t-c']!.getAttribute('tabindex')).toBe('0');
+  });
+
   it('click selects and fires onValueChange', () => {
     const onValueChange = vi.fn();
     const c = createTabs({ items, onValueChange });
