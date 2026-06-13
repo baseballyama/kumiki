@@ -62,6 +62,35 @@ describe('createSwitch attachment', () => {
     expect(onCheckedChange).not.toHaveBeenCalled();
   });
 
+  it('imperative toggle() fires onCheckedChange; no-op while disabled', () => {
+    const onCheckedChange = vi.fn();
+    const t = createSwitch({ onCheckedChange });
+    teardown = t.root(node);
+    t.toggle();
+    expect(t.checked).toBe(true);
+    expect(onCheckedChange).toHaveBeenCalledWith(true);
+
+    const onCheckedChange2 = vi.fn();
+    const node2 = document.createElement('button');
+    const t2 = createSwitch({ disabled: true, onCheckedChange: onCheckedChange2 });
+    const td2 = t2.root(node2);
+    t2.toggle();
+    expect(t2.checked).toBe(false);
+    expect(onCheckedChange2).not.toHaveBeenCalled();
+    td2?.();
+  });
+
+  it('non-button host gets role="switch" + tabindex="0"', () => {
+    const span = document.createElement('span');
+    document.body.appendChild(span);
+    const t = createSwitch();
+    const td = t.root(span);
+    expect(span.getAttribute('role')).toBe('switch');
+    expect(span.getAttribute('tabindex')).toBe('0');
+    td?.();
+    span.remove();
+  });
+
   it('non-button host: Space + Enter trigger toggling', () => {
     const span = document.createElement('span');
     document.body.appendChild(span);

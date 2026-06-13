@@ -114,7 +114,15 @@ const factory = /* @__PURE__ */ defineMachine<CheckboxContext, CheckboxEvent, Ch
       },
     },
     disabled: {
-      on: { ENABLE: 'unchecked' },
+      // Re-enable restores the visible state matching the preserved `value` so
+      // disable→enable never silently changes it.
+      on: {
+        ENABLE: [
+          { target: 'checked', cond: (ctx) => ctx.value === 'checked' },
+          { target: 'mixed', cond: (ctx) => ctx.value === 'mixed' },
+          { target: 'unchecked' },
+        ],
+      },
     },
   },
 });

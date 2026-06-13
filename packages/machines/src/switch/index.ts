@@ -55,8 +55,8 @@ const factory = /* @__PURE__ */ defineMachine<SwitchContext, SwitchEvent, Switch
         },
         SET: {
           target: 'on',
-          cond: (_, e) => e.type === 'SET' && e.checked === true,
-          actions: [{ type: 'controlledCheck', exec: () => ({ checked: true }) }],
+          cond: (_, e) => e.type === 'SET' && e.checked,
+          actions: [{ type: 'setOn', exec: () => ({ checked: true }) }],
         },
         DISABLE: 'disabled',
       },
@@ -71,14 +71,18 @@ const factory = /* @__PURE__ */ defineMachine<SwitchContext, SwitchEvent, Switch
         },
         SET: {
           target: 'off',
-          cond: (_, e) => e.type === 'SET' && e.checked === false,
-          actions: [{ type: 'controlledUncheck', exec: () => ({ checked: false }) }],
+          cond: (_, e) => e.type === 'SET' && !e.checked,
+          actions: [{ type: 'setOff', exec: () => ({ checked: false }) }],
         },
         DISABLE: 'disabled',
       },
     },
     disabled: {
-      on: { ENABLE: 'off' },
+      // Re-enable restores the visible state matching the preserved `checked`
+      // value so disable→enable never silently changes it.
+      on: {
+        ENABLE: [{ target: 'on', cond: (ctx) => ctx.checked }, { target: 'off' }],
+      },
     },
   },
 });

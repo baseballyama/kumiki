@@ -88,12 +88,26 @@ export function createCheckbox(options: CreateCheckboxOptions = {}): CheckboxCon
     node.setAttribute('data-state', ctx.value); // 'unchecked' | 'checked' | 'mixed'
   }
 
+  /**
+   * User-initiated toggle: cycles the machine and notifies via onCheckedChange.
+   * Shared by the DOM handlers and the imperative `toggle()`. A non-disabled
+   * TOGGLE always lands on a different value, so it's always a change.
+   */
+  function userToggle(): void {
+    if (machine.state === 'disabled') return;
+    machine.send({ type: 'TOGGLE' });
+    options.onCheckedChange?.(machine.context.value);
+  }
+
   const root: Attachment = (node) => {
     // Always emit role="checkbox" — even on a native <button>, since browsers
     // map <button> to "button" role by default.
     if (!node.hasAttribute('role')) node.setAttribute('role', 'checkbox');
-    if (!node.hasAttribute('type') && node.tagName === 'BUTTON') {
-      node.setAttribute('type', 'button');
+    if (node.tagName === 'BUTTON') {
+      if (!node.hasAttribute('type')) node.setAttribute('type', 'button');
+    } else if (!node.hasAttribute('tabindex')) {
+      // role="checkbox" on a non-button host must be keyboard-focusable.
+      node.setAttribute('tabindex', '0');
     }
     if (!node.id) node.id = id;
 
@@ -102,10 +116,7 @@ export function createCheckbox(options: CreateCheckboxOptions = {}): CheckboxCon
     const onClick = (event: MouseEvent): void => {
       if (machine.state === 'disabled') return;
       event.preventDefault();
-      const before = machine.context.value;
-      machine.send({ type: 'TOGGLE' });
-      const after = machine.context.value;
-      if (before !== after) options.onCheckedChange?.(after);
+      userToggle();
     };
 
     const onKeydown = (event: KeyboardEvent): void => {
@@ -114,10 +125,7 @@ export function createCheckbox(options: CreateCheckboxOptions = {}): CheckboxCon
       if (event.key !== ' ' && event.key !== 'Enter') return;
       if (machine.state === 'disabled') return;
       event.preventDefault();
-      const before = machine.context.value;
-      machine.send({ type: 'TOGGLE' });
-      const after = machine.context.value;
-      if (before !== after) options.onCheckedChange?.(after);
+      userToggle();
     };
 
     const unsubscribe = machine.subscribe(({ state, context }) => {
@@ -154,7 +162,7 @@ export function createCheckbox(options: CreateCheckboxOptions = {}): CheckboxCon
     get disabled() {
       return machine.state === 'disabled';
     },
-    toggle: () => machine.send({ type: 'TOGGLE' }),
+    toggle: userToggle,
     set: (value: CheckboxValue) => machine.send({ type: 'SET', value }),
     setDisabled: (disabled: boolean) =>
       machine.send({ type: disabled ? 'DISABLE' : 'ENABLE' } as CheckboxEvent),
