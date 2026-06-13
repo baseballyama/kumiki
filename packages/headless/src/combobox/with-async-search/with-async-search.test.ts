@@ -172,6 +172,52 @@ describe('withAsyncSearch', () => {
     expect(cb.error).toBeNull();
   });
 
+  // ── F-04: resource cleanup ──
+
+  it('destroy() aborts the in-flight fetch and unsubscribes', async () => {
+    let captured: AbortSignal | null = null;
+    const fetcher = vi.fn<AsyncFetcher<City>>((_q, signal) => {
+      captured = signal;
+      return new Promise((resolve) => setTimeout(() => resolve([]), 100));
+    });
+    const base = newCb();
+    const cb = withAsyncSearch(base, fetcher);
+    base.machine.send({ type: 'INPUT.CHANGE', value: 'to' });
+    expect(cb.status).toBe('loading');
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    cb.destroy();
+    expect((captured as AbortSignal | null)?.aborted).toBe(true);
+    // After destroy the subscriber is gone: a later query starts no new fetch.
+    base.machine.send({ type: 'INPUT.CHANGE', value: 'lo' });
+    await vi.advanceTimersByTimeAsync(150);
+    expect(fetcher).toHaveBeenCalledTimes(1);
+  });
+
+  it('destroy() clears a pending debounce timer', async () => {
+    const fetcher = vi.fn(makeFetcher(0));
+    const cb = withAsyncSearch(newCb(), fetcher, { debounceMs: 200 });
+    cb.machine.send({ type: 'INPUT.CHANGE', value: 'to' });
+    cb.destroy();
+    await vi.advanceTimersByTimeAsync(300);
+    // The debounced fetch was cancelled by destroy().
+    expect(fetcher).not.toHaveBeenCalled();
+  });
+
+  it('closing the listbox aborts the in-flight fetch', async () => {
+    let captured: AbortSignal | null = null;
+    const fetcher: AsyncFetcher<City> = (_q, signal) => {
+      captured = signal;
+      return new Promise((resolve) => setTimeout(() => resolve([]), 100));
+    };
+    const base = newCb();
+    const cb = withAsyncSearch(base, fetcher);
+    base.machine.send({ type: 'INPUT.CHANGE', value: 'to' }); // idle → open, starts fetch
+    expect(cb.isOpen).toBe(true);
+    expect(cb.status).toBe('loading');
+    base.machine.send({ type: 'CLOSE' }); // open → idle
+    expect((captured as AbortSignal | null)?.aborted).toBe(true);
+  });
+
   it('signal.aborted is true after a newer query supersedes it', async () => {
     let firstSignal: AbortSignal | null = null;
     const fetcher: AsyncFetcher<City> = (_query, signal) => {

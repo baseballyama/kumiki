@@ -46,6 +46,12 @@ export interface AsyncSearchOptions {
 export interface AsyncSearchCombobox<T extends ComboboxOption> extends ComboboxController<T> {
   readonly status: ComboboxStatus;
   readonly error: Error | null;
+
+  /**
+   * Tear down the wrapper: unsubscribe from the base machine, abort any
+   * in-flight fetch, and clear a pending debounce timer.
+   */
+  destroy(): void;
 }
 
 function isAbortError(e: unknown): boolean {
@@ -77,6 +83,7 @@ export function withAsyncSearch<T extends ComboboxOption>(
   let debounceHandle: ReturnType<typeof setTimeout> | null = null;
   let prevQuery = base.query;
   let prevToken = base.context.token;
+  let prevOpen = base.isOpen;
 
   function clearDebounce(): void {
     if (debounceHandle !== null) {
@@ -122,7 +129,17 @@ export function withAsyncSearch<T extends ComboboxOption>(
     }, debounceMs);
   }
 
-  base.subscribe(({ context }) => {
+  const unsubscribe = base.subscribe(({ state, context }) => {
+    // Abort any in-flight fetch the moment the listbox leaves `open` — the
+    // result can no longer land anywhere useful, and leaving the request live
+    // leaks a connection until it resolves.
+    const open = state === 'open';
+    if (prevOpen && !open) {
+      abortInFlight();
+      clearDebounce();
+    }
+    prevOpen = open;
+
     const nextToken = context.token;
     const nextQuery = context.query;
     if (nextToken === prevToken && nextQuery === prevQuery) return;
@@ -138,9 +155,16 @@ export function withAsyncSearch<T extends ComboboxOption>(
     scheduleFetch(nextQuery, nextToken);
   });
 
+  function destroy(): void {
+    unsubscribe();
+    abortInFlight();
+    clearDebounce();
+  }
+
   const wrapped: AsyncSearchCombobox<T> = Object.create(base, {
     status: { get: () => base.status, enumerable: true },
     error: { get: () => base.context.error ?? null, enumerable: true },
+    destroy: { value: destroy, enumerable: true },
   }) as AsyncSearchCombobox<T>;
 
   return wrapped;

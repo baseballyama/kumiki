@@ -144,4 +144,53 @@ describe('withVirtualization', () => {
     cb.setViewportHeight(256);
     expect(cb.visibleItems.length).toBeGreaterThan(before);
   });
+
+  // ── F-02: aria-setsize / aria-posinset against the FULL filtered list ──
+
+  it('option sets aria-setsize to total filtered length and 1-based aria-posinset', () => {
+    const base = newCb(100);
+    const cb = withVirtualization(base, { itemHeight: 32 });
+    const el = document.createElement('li');
+    // c7 is index 7 in the full list → posinset 8 of 100.
+    const teardown = cb.option(makeCities(100)[7]!)(el);
+    expect(el.getAttribute('aria-setsize')).toBe('100');
+    expect(el.getAttribute('aria-posinset')).toBe('8');
+    expect(el.getAttribute('role')).toBe('option'); // base wiring preserved
+    teardown?.();
+  });
+
+  it('explicit posInSet / setSize override the derived values', () => {
+    const cb = withVirtualization(newCb(100), { itemHeight: 32 });
+    const el = document.createElement('li');
+    const teardown = cb.option(makeCities(100)[3]!, 42, 500)(el);
+    expect(el.getAttribute('aria-setsize')).toBe('500');
+    expect(el.getAttribute('aria-posinset')).toBe('42');
+    teardown?.();
+  });
+
+  it('aria-posinset / setsize follow the filtered list as it narrows', () => {
+    const base = newCb(100);
+    const cb = withVirtualization(base, { itemHeight: 32 });
+    const target = makeCities(100)[11]!; // "City 11"
+    const el = document.createElement('li');
+    const teardown = cb.option(target)(el);
+    expect(el.getAttribute('aria-setsize')).toBe('100');
+    // Narrow to labels containing "City 11" → only "City 11" matches.
+    base.machine.send({ type: 'INPUT.CHANGE', value: 'City 11' });
+    expect(el.getAttribute('aria-setsize')).toBe('1');
+    expect(el.getAttribute('aria-posinset')).toBe('1');
+    teardown?.();
+  });
+
+  it('destroy() unsubscribes the base filtered watcher', () => {
+    const base = newCb(100);
+    const cb = withVirtualization(base, { itemHeight: 32, overscan: 0 });
+    cb.setViewportHeight(96);
+    cb.setScrollTop(0);
+    const before = cb.totalHeight;
+    cb.destroy();
+    base.machine.send({ type: 'INPUT.CHANGE', value: 'City 1' });
+    // Without the subscription, the cached window no longer re-computes.
+    expect(cb.totalHeight).toBe(before);
+  });
 });
