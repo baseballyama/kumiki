@@ -89,10 +89,11 @@ export function createSelect<V>(options: CreateSelectOptions<V>): SelectControll
 
   let prevValue: V | null = machine.context.value;
   let prevOpen = machine.state === 'open';
+  let programmaticValueSet = false;
   machine.subscribe(({ state, context }) => {
     if (context.value !== prevValue) {
       prevValue = context.value;
-      options.onValueChange?.(context.value);
+      if (!programmaticValueSet) options.onValueChange?.(context.value);
     }
     const nextOpen = state === 'open';
     if (nextOpen !== prevOpen) {
@@ -325,7 +326,11 @@ export function createSelect<V>(options: CreateSelectOptions<V>): SelectControll
     hide: () => machine.send({ type: 'CLOSE' }),
     toggle: () => machine.send({ type: 'TOGGLE' }),
     selectId: (id) => machine.send({ type: 'SELECT', id }),
-    setValue: (value) => machine.send({ type: 'SET.VALUE', value }),
+    setValue: (value) => {
+      programmaticValueSet = true;
+      machine.send({ type: 'SET.VALUE', value });
+      programmaticValueSet = false;
+    },
     setItems: (items) => machine.send({ type: 'SET.ITEMS', items }),
     subscribe: machine.subscribe.bind(machine),
     trigger,

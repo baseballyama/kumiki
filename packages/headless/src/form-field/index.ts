@@ -11,8 +11,9 @@
  * - `input` carries `aria-invalid` (true when state is invalid),
  *   `aria-describedby` pointing to the errors element (and the description
  *   element if present).
- * - `errors` is a polite live-region (`role="alert"`) that announces new
- *   errors to screen readers.
+ * - `errors` is an assertive alert region (`role="alert"`) that announces
+ *   new errors to screen readers. `role="alert"` implies assertive; no
+ *   additional `aria-live` attribute is set.
  * - `label` paints htmlFor on the input by id.
  *
  * @see https://standardschema.dev/
@@ -261,15 +262,18 @@ export function createFormField<T>(options: CreateFormFieldOptions<T>): FormFiel
   // ── errors ──────────────────────────────────────────────────────────
   const errors: Attachment = (node) => {
     if (!node.id) node.id = errorsId;
+    // role="alert" implies aria-live="assertive" — no redundant aria-live.
     node.setAttribute('role', 'alert');
-    node.setAttribute('aria-live', 'polite');
 
     const paint = (): void => {
       const list = machine.context.errors;
       node.toggleAttribute('hidden', list.length === 0);
-      // Render error messages as a plain list. Consumers can override by
-      // not using this factory; they get aria-live wiring via the host node.
-      node.textContent = list.map((iss) => iss.message).join(' ');
+      // Only overwrite text when the consumer has not placed element children
+      // (e.g. a custom `children` snippet). If element children are present,
+      // the consumer owns the rendering; we must not clobber it.
+      if (node.childElementCount === 0) {
+        node.textContent = list.map((iss) => iss.message).join(' ');
+      }
     };
     paint();
     return machine.subscribe(paint);

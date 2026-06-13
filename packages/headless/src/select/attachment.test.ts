@@ -187,6 +187,25 @@ describe('createSelect attachment', () => {
     expect(s.context.typeahead).toBe('');
   });
 
+  it('programmatic setValue updates value but does NOT call onValueChange', () => {
+    const onValueChange = vi.fn();
+    const s = createSelect({ items, onValueChange });
+    attachAll(s);
+    s.setValue('cherry');
+    expect(s.value).toBe('cherry');
+    expect(onValueChange).not.toHaveBeenCalled();
+  });
+
+  it('user selection via click DOES call onValueChange', () => {
+    const onValueChange = vi.fn();
+    const s = createSelect({ items, onValueChange });
+    attachAll(s);
+    s.show();
+    optNodes['s-c']!.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    expect(s.value).toBe('cherry');
+    expect(onValueChange).toHaveBeenCalledWith('cherry');
+  });
+
   it('teardown clears listeners + pending timer', () => {
     const s = createSelect({ items });
     attachAll(s);

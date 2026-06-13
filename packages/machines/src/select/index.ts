@@ -238,13 +238,15 @@ export function createSelectMachine<V>(input: CreateSelectInput<V>): SelectMachi
                   if (e.type !== 'TYPEAHEAD') return;
                   const buffer = ctx.typeahead + e.char;
                   // Single-char repeat → cycle through items starting with that char.
-                  const startFrom =
-                    buffer.length > 1 &&
-                    buffer[0] === buffer[buffer.length - 1] &&
-                    new Set(buffer).size === 1
-                      ? ctx.highlightedId
-                      : null;
-                  const matchId = findByTypeAhead(ctx.items, buffer, startFrom);
+                  // When all chars in the buffer are identical, pass only the
+                  // single char to findByTypeAhead (a buffer of "aa" would fail
+                  // startsWith checks) and start from the currently-highlighted
+                  // item so each press advances to the next match.
+                  // A Set of size 1 already means every char is identical.
+                  const isRepeat = buffer.length > 1 && new Set(buffer).size === 1;
+                  const query = isRepeat ? e.char : buffer;
+                  const startFrom = isRepeat ? ctx.highlightedId : null;
+                  const matchId = findByTypeAhead(ctx.items, query, startFrom);
                   if (matchId === null) {
                     return { typeahead: buffer };
                   }

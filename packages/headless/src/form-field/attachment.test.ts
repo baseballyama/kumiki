@@ -121,7 +121,7 @@ describe('createFormField attachment', () => {
     expect(f.context.errors[0]?.message).toBe('Required');
   });
 
-  it('errors element renders message text + aria-live=polite + role=alert', async () => {
+  it('errors element renders message text + role=alert (no aria-live; role implies assertive)', async () => {
     const f = createFormField<string>({
       initialValue: '',
       validator: makeNonEmptyValidator(),
@@ -134,8 +134,31 @@ describe('createFormField attachment', () => {
     await vi.runAllTimersAsync();
     expect(errors.textContent).toBe('Required');
     expect(errors.getAttribute('role')).toBe('alert');
-    expect(errors.getAttribute('aria-live')).toBe('polite');
+    // role="alert" implies assertive — the attachment must NOT set aria-live.
+    expect(errors.hasAttribute('aria-live')).toBe(false);
     expect(errors.hasAttribute('hidden')).toBe(false);
+  });
+
+  it('errors paint does not wipe element children when consumer provides them', async () => {
+    const f = createFormField<string>({
+      initialValue: '',
+      validator: makeNonEmptyValidator(),
+    });
+    // Attach a custom child element inside errors before attaching the factory.
+    const child = document.createElement('span');
+    child.textContent = 'custom';
+    errors.appendChild(child);
+    attachAll(f);
+    // Trigger validation to force a paint with errors.
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
+    input.dispatchEvent(new Event('blur'));
+    await vi.runAllTimersAsync();
+    expect(f.state).toBe('invalid');
+    // The child element must still be present — paint must not have called
+    // node.textContent = ... when childElementCount > 0.
+    expect(errors.querySelector('span')).toBe(child);
+    expect(child.textContent).toBe('custom');
   });
 
   it('aria-describedby points at errors when invalid', async () => {
