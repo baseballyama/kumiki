@@ -9,7 +9,7 @@
   <label class="row">
     <span>Volume</span>
     <Slider.Root min={0} max={100} step={1} bind:value={volume} aria-label="Volume">
-      <Slider.Thumb />
+      <Slider.Thumb aria-label="Volume" />
     </Slider.Root>
     <code>{volume}</code>
   </label>
@@ -17,7 +17,7 @@
   <label class="row">
     <span>Brightness</span>
     <Slider.Root min={0} max={100} step={5} bind:value={brightness} aria-label="Brightness">
-      <Slider.Thumb />
+      <Slider.Thumb aria-label="Brightness" />
     </Slider.Root>
     <code>{brightness}</code>
   </label>

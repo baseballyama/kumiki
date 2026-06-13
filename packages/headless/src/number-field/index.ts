@@ -243,7 +243,7 @@ export function createNumberField(options: CreateNumberFieldOptions = {}): Numbe
     return (node) => {
       node.setAttribute('aria-controls', inputId);
       node.setAttribute('tabindex', '-1');
-      if (node instanceof HTMLButtonElement && !node.type) node.type = 'button';
+      if (node instanceof HTMLButtonElement && !node.hasAttribute('type')) node.type = 'button';
       const paint = (): void => {
         const ctx = machine.context;
         const atBoundary =

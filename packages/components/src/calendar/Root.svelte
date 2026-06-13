@@ -123,6 +123,26 @@
   $effect(() => {
     if (disabled !== controller.disabled) controller.setDisabled(disabled);
   });
+  // FIX A: reactively propagate constraint changes to the machine so that
+  // changing minValue/maxValue/isDateUnavailable after mount takes effect.
+  $effect(() => {
+    const ctx = controller.context;
+    const minChanged =
+      minValue !== ctx.minValue &&
+      !(minValue === null
+        ? ctx.minValue === null
+        : ctx.minValue !== null && minValue.compare(ctx.minValue) === 0);
+    const maxChanged =
+      maxValue !== ctx.maxValue &&
+      !(maxValue === null
+        ? ctx.maxValue === null
+        : ctx.maxValue !== null && maxValue.compare(ctx.maxValue) === 0);
+    // Compare isDateUnavailable by reference — function identity.
+    const fnChanged = isDateUnavailable !== ctx.isDateUnavailable;
+    if (minChanged || maxChanged || fnChanged) {
+      controller.setConstraints({ minValue, maxValue, isDateUnavailable });
+    }
+  });
 </script>
 
 {@render children()}

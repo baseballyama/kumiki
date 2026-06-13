@@ -1,7 +1,9 @@
 <script lang="ts">
   import { Thumb } from '@kumiki/components/slider';
 
-  type Props = { class?: string; [k: string]: unknown };
+  type BaseProps = { class?: string; [k: string]: unknown };
+  type Props = (BaseProps & { 'aria-label': string }) | (BaseProps & { 'aria-labelledby': string });
+
   let { class: className = '', ...rest }: Props = $props();
 </script>
 

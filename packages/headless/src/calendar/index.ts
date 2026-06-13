@@ -19,7 +19,7 @@
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/grid/
  */
 
-import type { CalendarDate } from '@internationalized/date';
+import { startOfWeek, endOfWeek, type CalendarDate } from '@internationalized/date';
 import {
   createCalendarMachine,
   isCalendarDateSelectable,
@@ -28,6 +28,7 @@ import {
   type CalendarMachine,
   type CalendarState,
   type CreateCalendarInput,
+  type IsDateUnavailable,
 } from '@kumiki/machines/calendar';
 import { uid } from '@kumiki/primitives/id';
 
@@ -51,6 +52,11 @@ export interface CalendarController {
   select(date: CalendarDate): void;
   setValue(date: CalendarDate | null): void;
   setDisabled(disabled: boolean): void;
+  setConstraints(constraints: {
+    minValue?: CalendarDate | null;
+    maxValue?: CalendarDate | null;
+    isDateUnavailable?: IsDateUnavailable | null;
+  }): void;
 
   /** Compute the deterministic id for a day cell. */
   dayCellId(date: CalendarDate): string;
@@ -90,59 +96,6 @@ export interface CreateCalendarOptions extends CreateCalendarInput {
   id?: string;
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────
-
-/** Format a CalendarDate as `YYYY-MM-DD` (era-agnostic, calendar-aware). */
-function formatDateKey(date: CalendarDate): string {
-  const y = String(date.year).padStart(4, '0');
-  const m = String(date.month).padStart(2, '0');
-  const d = String(date.day).padStart(2, '0');
-  return `${y}-${m}-${d}`;
-}
-
-/** Map a keyboard event to a Calendar machine event. */
-function eventForKey(
-  e: KeyboardEvent,
-  direction: 'ltr' | 'rtl',
-  focusedDate: CalendarDate,
-): CalendarEvent | null {
-  const dirSign = direction === 'rtl' ? -1 : 1;
-  switch (e.key) {
-    case 'ArrowLeft':
-      return { type: 'FOCUS_DAY_DELTA', days: -1 * dirSign };
-    case 'ArrowRight':
-      return { type: 'FOCUS_DAY_DELTA', days: 1 * dirSign };
-    case 'ArrowUp':
-      return { type: 'FOCUS_DAY_DELTA', days: -7 };
-    case 'ArrowDown':
-      return { type: 'FOCUS_DAY_DELTA', days: 7 };
-    case 'PageUp':
-      return e.shiftKey
-        ? { type: 'FOCUS_YEAR_DELTA', years: -1 }
-        : { type: 'FOCUS_MONTH_DELTA', months: -1 };
-    case 'PageDown':
-      return e.shiftKey
-        ? { type: 'FOCUS_YEAR_DELTA', years: 1 }
-        : { type: 'FOCUS_MONTH_DELTA', months: 1 };
-    case 'Home': {
-      // First day of the focused month.
-      const firstOfMonth = focusedDate.set({ day: 1 });
-      return { type: 'FOCUS_DATE', date: firstOfMonth };
-    }
-    case 'End': {
-      // Last day of the focused month.
-      const monthLength = focusedDate.calendar.getDaysInMonth(focusedDate);
-      const lastOfMonth = focusedDate.set({ day: monthLength });
-      return { type: 'FOCUS_DATE', date: lastOfMonth };
-    }
-    case 'Enter':
-    case ' ':
-      return { type: 'SELECT', date: focusedDate };
-    default:
-      return null;
-  }
-}
-
 // ─── Implementation ──────────────────────────────────────────────────────
 
 export function createCalendar(options: CreateCalendarOptions): CalendarController {
@@ -151,24 +104,64 @@ export function createCalendar(options: CreateCalendarOptions): CalendarControll
   const direction = options.direction ?? 'ltr';
   const locale = options.locale ?? 'en-US';
 
-  // Lazily constructed, then cached per controller — one formatter shared by
-  // every day cell. Built inside `dayCell` (not at module scope) to keep the
-  // dual-environment contract: no Intl evaluation until a cell is attached.
   let dateLabelFmt: Intl.DateTimeFormat | undefined;
 
   function dayCellId(date: CalendarDate): string {
-    return `${id}-day-${formatDateKey(date)}`;
+    return `${id}-day-${date}`;
   }
 
   function isSelectable(date: CalendarDate): boolean {
     return isCalendarDateSelectable(date, machine.context);
   }
 
-  /** Move physical DOM focus to the cell for `date`, if it's mounted. */
   function moveDomFocusTo(date: CalendarDate): void {
     if (typeof document === 'undefined') return;
     const node = document.getElementById(dayCellId(date));
     if (node) node.focus();
+  }
+
+  function eventForKey(e: KeyboardEvent, focusedDate: CalendarDate): CalendarEvent | null {
+    const rtl = direction === 'rtl';
+    const k = e.key;
+    switch (k) {
+      case 'ArrowLeft':
+      case 'ArrowRight':
+      case 'ArrowUp':
+      case 'ArrowDown': {
+        const days: Record<string, number> = {
+          ArrowLeft: rtl ? 1 : -1,
+          ArrowRight: rtl ? -1 : 1,
+          ArrowUp: -7,
+          ArrowDown: 7,
+        };
+        return { type: 'FOCUS_DAY_DELTA', days: days[k]! };
+      }
+      case 'PageUp':
+      case 'PageDown': {
+        const delta = k === 'PageUp' ? -1 : 1;
+        return e.shiftKey
+          ? { type: 'FOCUS_YEAR_DELTA', years: delta }
+          : { type: 'FOCUS_MONTH_DELTA', months: delta };
+      }
+      case 'Home':
+      case 'End': {
+        const fromEnd = k === 'End';
+        const start = startOfWeek(focusedDate, locale);
+        const end = endOfWeek(focusedDate, locale);
+        const step = fromEnd ? -1 : 1;
+        let c = fromEnd ? end : start;
+        while (c.compare(fromEnd ? start : end) * -step >= 0) {
+          if (isSelectable(c)) return { type: 'FOCUS_DATE', date: c };
+          c = c.add({ days: step });
+        }
+        return null;
+      }
+      case 'Enter':
+      case ' ':
+        return { type: 'SELECT', date: focusedDate };
+      default:
+        return null;
+    }
   }
 
   // ── root attachment: keyboard nav at the grid level ────────────────────
@@ -177,7 +170,7 @@ export function createCalendar(options: CreateCalendarOptions): CalendarControll
 
     const onKeydown = (e: KeyboardEvent): void => {
       if (machine.state === 'disabled') return;
-      const event = eventForKey(e, direction, machine.context.focusedDate);
+      const event = eventForKey(e, machine.context.focusedDate);
       if (!event) return;
       e.preventDefault();
       const beforeFocus = machine.context.focusedDate;
@@ -202,16 +195,12 @@ export function createCalendar(options: CreateCalendarOptions): CalendarControll
   // ── per-day-cell attachment ────────────────────────────────────────────
   function dayCell(date: CalendarDate): Attachment {
     return (node) => {
-      const cellId = dayCellId(date);
-      node.id = cellId;
+      node.id = dayCellId(date);
 
       // Full human-readable date as the accessible name (APG), so screen
       // readers announce "June 9, 2026" rather than the bare "9".
       dateLabelFmt ??= new Intl.DateTimeFormat(locale, { dateStyle: 'long' });
-      node.setAttribute(
-        'aria-label',
-        dateLabelFmt.format(new Date(date.year, date.month - 1, date.day)),
-      );
+      node.ariaLabel = dateLabelFmt.format(new Date(date.year, date.month - 1, date.day));
 
       function paint(): void {
         const focused = machine.context.focusedDate.compare(date) === 0;
@@ -219,18 +208,12 @@ export function createCalendar(options: CreateCalendarOptions): CalendarControll
           machine.context.selectedDate !== null && machine.context.selectedDate.compare(date) === 0;
         const selectable = isSelectable(date);
 
-        node.tabIndex = focused ? 0 : -1;
-        node.setAttribute('aria-selected', selected ? 'true' : 'false');
-        if (!selectable) {
-          node.setAttribute('aria-disabled', 'true');
-          node.setAttribute('data-disabled', '');
-        } else {
-          node.removeAttribute('aria-disabled');
-          node.removeAttribute('data-disabled');
-        }
+        node.tabIndex = -+!focused;
+        node.ariaSelected = '' + selected;
+        node.ariaDisabled = selectable ? null : 'true';
+        node.toggleAttribute('data-disabled', !selectable);
         node.setAttribute('data-state', selected ? 'selected' : 'unselected');
-        if (focused) node.setAttribute('data-focused', '');
-        else node.removeAttribute('data-focused');
+        node.toggleAttribute('data-focused', focused);
       }
 
       paint();
@@ -239,8 +222,10 @@ export function createCalendar(options: CreateCalendarOptions): CalendarControll
         if (machine.state === 'disabled') return;
         if (!isSelectable(date)) return;
         e.preventDefault();
+        const beforeSelected = machine.context.selectedDate;
         machine.send({ type: 'SELECT', date });
-        options.onSelect?.(date);
+        const after = machine.context.selectedDate;
+        if (after !== beforeSelected && after !== null) options.onSelect?.(date);
       };
 
       const unsubscribe = machine.subscribe(() => paint());
@@ -277,16 +262,15 @@ export function createCalendar(options: CreateCalendarOptions): CalendarControll
     },
     select: (date: CalendarDate) => {
       machine.send({ type: 'SELECT', date });
-      if (machine.context.selectedDate?.compare(date) === 0) {
-        options.onSelect?.(date);
-      }
+      if (machine.context.selectedDate === date) options.onSelect?.(date);
     },
     setValue: (date: CalendarDate | null) => machine.send({ type: 'SET_VALUE', date }),
     setDisabled: (disabled: boolean) =>
       machine.send({ type: disabled ? 'DISABLE' : 'ENABLE' } as CalendarEvent),
+    setConstraints: (c) => machine.send({ type: 'SET_CONSTRAINTS', ...c }),
     dayCellId,
     isSelectable,
-    subscribe: machine.subscribe.bind(machine),
+    subscribe: machine.subscribe,
     root,
     dayCell,
     machine,

@@ -37,6 +37,16 @@ export type CalendarEvent =
   | { type: 'SELECT'; date: CalendarDate }
   /** Controlled-mode update from the parent component. */
   | { type: 'SET_VALUE'; date: CalendarDate | null }
+  /**
+   * Update constraint props (minValue / maxValue / isDateUnavailable) reactively.
+   * Fields are optional so callers can patch only what changed.
+   */
+  | {
+      type: 'SET_CONSTRAINTS';
+      minValue?: CalendarDate | null;
+      maxValue?: CalendarDate | null;
+      isDateUnavailable?: IsDateUnavailable | null;
+    }
   /** Disable / re-enable the calendar. */
   | { type: 'DISABLE' }
   | { type: 'ENABLE' };
@@ -215,16 +225,49 @@ const factory = /* @__PURE__ */ defineMachine<CalendarContext, CalendarEvent, Ca
             },
           ],
         },
+        SET_CONSTRAINTS: {
+          target: 'idle',
+          actions: [
+            {
+              type: 'setConstraints',
+              exec: (ctx, e) => {
+                if (e.type !== 'SET_CONSTRAINTS') return {};
+                const patch: Partial<CalendarContext> = {};
+                // Only update fields that were explicitly passed (undefined means "no change").
+                if ('minValue' in e) patch.minValue = e.minValue ?? null;
+                if ('maxValue' in e) patch.maxValue = e.maxValue ?? null;
+                if ('isDateUnavailable' in e) patch.isDateUnavailable = e.isDateUnavailable ?? null;
+                return patch;
+              },
+            },
+          ],
+        },
         DISABLE: 'disabled',
       },
     },
     disabled: {
       // Like Toggle, the disabled state ignores all interaction events. Only
-      // ENABLE returns control. Controlled SET_VALUE is also accepted in
-      // disabled state so the parent can preconfigure the value before
+      // ENABLE returns control. Controlled SET_VALUE and SET_CONSTRAINTS are
+      // also accepted in disabled state so the parent can preconfigure before
       // re-enabling.
       on: {
         ENABLE: 'idle',
+        SET_CONSTRAINTS: {
+          target: 'disabled',
+          actions: [
+            {
+              type: 'setConstraintsWhileDisabled',
+              exec: (ctx, e) => {
+                if (e.type !== 'SET_CONSTRAINTS') return {};
+                const patch: Partial<CalendarContext> = {};
+                if ('minValue' in e) patch.minValue = e.minValue ?? null;
+                if ('maxValue' in e) patch.maxValue = e.maxValue ?? null;
+                if ('isDateUnavailable' in e) patch.isDateUnavailable = e.isDateUnavailable ?? null;
+                return patch;
+              },
+            },
+          ],
+        },
         SET_VALUE: {
           target: 'disabled',
           cond: (ctx, e) => {

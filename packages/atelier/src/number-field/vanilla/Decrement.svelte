@@ -2,7 +2,11 @@
   import { Decrement } from '@kumiki/components/number-field';
   import type { Snippet } from 'svelte';
 
-  type Props = { children?: Snippet; class?: string; [k: string]: unknown };
+  type BaseProps = { class?: string; [k: string]: unknown };
+  type Props =
+    | (BaseProps & { children: Snippet; 'aria-label'?: never })
+    | (BaseProps & { 'aria-label': string; children?: Snippet });
+
   let { children, class: className = '', ...rest }: Props = $props();
 </script>
 

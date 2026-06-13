@@ -43,16 +43,23 @@ export const calendarKeyboardContract: KeyboardContract = {
       expect: [{ selector: FOCUSED_DAY, attribute: 'id', value: 'cal-day-2026-05-02' }],
     },
     {
-      name: 'Home jumps to first day of month',
+      // APG grid spec: Home moves to the first day of the CURRENT WEEK ROW
+      // (not the month). Sandbox is pinned to 2026-05-09 (Saturday).
+      // en-US week starts on Sunday, so the week row is 2026-05-03…09.
+      // First day of that week = 2026-05-03.
+      name: 'Home jumps to first day of the current week row',
       focus: FOCUSED_DAY,
       press: 'Home',
-      expect: [{ selector: FOCUSED_DAY, attribute: 'id', value: 'cal-day-2026-05-01' }],
+      expect: [{ selector: FOCUSED_DAY, attribute: 'id', value: 'cal-day-2026-05-03' }],
     },
     {
-      name: 'End jumps to last day of month',
+      // APG grid spec: End moves to the last day of the CURRENT WEEK ROW
+      // (not the month). 2026-05-09 is a Saturday (last day of en-US week).
+      // Last day of that week = 2026-05-09 (focused date itself).
+      name: 'End jumps to last day of the current week row',
       focus: FOCUSED_DAY,
       press: 'End',
-      expect: [{ selector: FOCUSED_DAY, attribute: 'id', value: 'cal-day-2026-05-31' }],
+      expect: [{ selector: FOCUSED_DAY, attribute: 'id', value: 'cal-day-2026-05-09' }],
     },
     {
       name: 'PageDown moves focus +1 month',

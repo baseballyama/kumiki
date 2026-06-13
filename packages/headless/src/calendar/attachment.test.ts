@@ -97,18 +97,22 @@ describe('createCalendar attachment', () => {
     expect(c.focusedDate.compare(d(2027, 5, 9))).toBe(0);
   });
 
-  it('keyboard: Home jumps to first day of month', () => {
-    const c = createCalendar({ focusedDate: d(2026, 5, 20) });
+  it('keyboard: Home jumps to first day of the current week row (APG grid spec)', () => {
+    // 2026-05-20 is a Wednesday; en-US week starts Sunday.
+    // Week row: May 17 (Sun) … May 23 (Sat) → Home → May 17.
+    const c = createCalendar({ focusedDate: d(2026, 5, 20), locale: 'en-US' });
     mountGridWithCells(c, [d(2026, 5, 20)]);
     grid.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home', bubbles: true }));
-    expect(c.focusedDate.compare(d(2026, 5, 1))).toBe(0);
+    expect(c.focusedDate.compare(d(2026, 5, 17))).toBe(0);
   });
 
-  it('keyboard: End jumps to last day of month', () => {
-    const c = createCalendar({ focusedDate: d(2026, 5, 20) });
+  it('keyboard: End jumps to last day of the current week row (APG grid spec)', () => {
+    // 2026-05-20 is a Wednesday; en-US week ends Saturday.
+    // Week row: May 17 (Sun) … May 23 (Sat) → End → May 23.
+    const c = createCalendar({ focusedDate: d(2026, 5, 20), locale: 'en-US' });
     mountGridWithCells(c, [d(2026, 5, 20)]);
     grid.dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }));
-    expect(c.focusedDate.compare(d(2026, 5, 31))).toBe(0);
+    expect(c.focusedDate.compare(d(2026, 5, 23))).toBe(0);
   });
 
   it('keyboard: Enter selects the focused date', () => {
@@ -142,6 +146,38 @@ describe('createCalendar attachment', () => {
     const cell = grid.querySelector<HTMLButtonElement>('[data-testid="day-1"]')!;
     cell.click();
     expect(c.selectedDate).toBeNull();
+  });
+
+  it('clicking a disabled cell does NOT fire onSelect (FIX B)', () => {
+    // The machine rejects SELECT for out-of-range dates; onSelect must only
+    // fire when the machine actually accepted the event (selectedDate changed).
+    let fired = false;
+    const c = createCalendar({
+      focusedDate: d(2026, 5, 9),
+      minValue: d(2026, 5, 5),
+      maxValue: d(2026, 5, 15),
+      onSelect: () => {
+        fired = true;
+      },
+    });
+    mountGridWithCells(c, [d(2026, 5, 1)]);
+    const cell = grid.querySelector<HTMLButtonElement>('[data-testid="day-1"]')!;
+    cell.click();
+    expect(fired).toBe(false);
+  });
+
+  it('setConstraints updates which cells are disabled (FIX A)', () => {
+    // Start with no constraints — all dates selectable.
+    const c = createCalendar({ focusedDate: d(2026, 5, 9) });
+    mountGridWithCells(c, [d(2026, 5, 1), d(2026, 5, 9), d(2026, 5, 20)]);
+    expect(grid.querySelector('[data-testid="day-1"]')!.getAttribute('aria-disabled')).toBeNull();
+    // Now tighten the range to May 5–15.
+    c.setConstraints({ minValue: d(2026, 5, 5), maxValue: d(2026, 5, 15) });
+    expect(grid.querySelector('[data-testid="day-1"]')!.getAttribute('aria-disabled')).toBe('true');
+    expect(grid.querySelector('[data-testid="day-9"]')!.getAttribute('aria-disabled')).toBeNull();
+    expect(grid.querySelector('[data-testid="day-20"]')!.getAttribute('aria-disabled')).toBe(
+      'true',
+    );
   });
 
   it('exposes deterministic dayCellId', () => {

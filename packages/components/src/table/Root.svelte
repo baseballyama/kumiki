@@ -24,14 +24,28 @@
     onSelectionChange?: (selection: Set<string>) => void;
     selectionMode?: SelectionMode;
     children: Snippet;
+    /** Extra attributes (`class`, `style`, `data-*`, …) forwarded to `<table>`. */
     [key: string]: unknown;
   };
 
-  // The accessible name comes from either an explicit aria-labelledby
-  // (if the consumer renders Table.Caption with their own id, or refers
-  // to a heading elsewhere) or the Caption text itself. Both are valid;
-  // we don't enforce one at the type level.
-  export type Props = CommonProps;
+  /**
+   * Table.Root — semantic `<table>` with sortable headers, row selection, and
+   * tree-row disclosure.
+   *
+   * A `<caption>` element provides an accessible name in HTML, but the
+   * presence of Caption cannot be enforced at the type level. Require one of
+   * `aria-label` or `aria-labelledby` so every table has a programmatic name
+   * regardless of whether Caption is rendered.
+   *
+   * @when-to-use Use `aria-label` for a literal description (e.g. "Project
+   * contributors") or `aria-labelledby` to reference a visible heading.
+   * @anti-pattern Omitting both leaves assistive technology users without
+   * context for what the table represents.
+   * @see https://www.w3.org/WAI/ARIA/apg/patterns/table/
+   */
+  export type Props =
+    | (CommonProps & { 'aria-label': string })
+    | (CommonProps & { 'aria-labelledby': string });
 </script>
 
 <script lang="ts">
