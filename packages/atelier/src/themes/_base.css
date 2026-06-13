@@ -16,8 +16,8 @@
  *
  * Override pattern
  * ----------------
- *   :root { --kumiki-color-accent: hsl(220 90% 56%); }          /* whole page */
- *   .my-card { --kumiki-color-accent: oklch(0.6 0.18 145); }    /* one subtree */
+ *   :root { --kumiki-color-accent: hsl(220 90% 56%); }          — whole page
+ *   .my-card { --kumiki-color-accent: oklch(0.6 0.18 145); }    — one subtree
  *
  * Dark mode
  * ---------
