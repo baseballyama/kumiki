@@ -50,6 +50,8 @@ export interface ToastController {
   setMax(value: number): void;
 
   subscribe(listener: (snapshot: { state: ToastState; context: ToastContext }) => void): () => void;
+  /** Cancel all pending auto-dismiss timers. Call on host teardown. */
+  destroy(): void;
 
   /** Stable id used as `aria-describedby` target by viewport. */
   readonly viewportId: string;
@@ -257,6 +259,10 @@ export function createToast(options: CreateToastOptions = {}): ToastController {
     clear: () => machine.send({ type: 'CLEAR' }),
     setMax: (value) => machine.send({ type: 'SET.MAX', value } as ToastEvent),
     subscribe: machine.subscribe.bind(machine),
+    destroy() {
+      for (const t of timers.values()) if (t.handle != null) clearTimeout(t.handle);
+      timers.clear();
+    },
     viewport,
     item,
     closeButton,
