@@ -81,6 +81,11 @@ export interface CreateCalendarOptions extends CreateCalendarInput {
    * to follow visual flow. Defaults to `'ltr'`.
    */
   direction?: 'ltr' | 'rtl';
+  /**
+   * BCP-47 locale used to build each day cell's `aria-label` (the full,
+   * human-readable date announced by screen readers). Defaults to `'en-US'`.
+   */
+  locale?: string;
   /** Stable id override. */
   id?: string;
 }
@@ -144,6 +149,12 @@ export function createCalendar(options: CreateCalendarOptions): CalendarControll
   const machine = createCalendarMachine(options);
   const id = options.id ?? uid('calendar');
   const direction = options.direction ?? 'ltr';
+  const locale = options.locale ?? 'en-US';
+
+  // Lazily constructed, then cached per controller — one formatter shared by
+  // every day cell. Built inside `dayCell` (not at module scope) to keep the
+  // dual-environment contract: no Intl evaluation until a cell is attached.
+  let dateLabelFmt: Intl.DateTimeFormat | undefined;
 
   function dayCellId(date: CalendarDate): string {
     return `${id}-day-${formatDateKey(date)}`;
@@ -163,7 +174,6 @@ export function createCalendar(options: CreateCalendarOptions): CalendarControll
   // ── root attachment: keyboard nav at the grid level ────────────────────
   const root: Attachment = (node) => {
     if (!node.hasAttribute('role')) node.setAttribute('role', 'grid');
-    node.setAttribute('aria-readonly', 'false');
 
     const onKeydown = (e: KeyboardEvent): void => {
       if (machine.state === 'disabled') return;
@@ -194,7 +204,14 @@ export function createCalendar(options: CreateCalendarOptions): CalendarControll
     return (node) => {
       const cellId = dayCellId(date);
       node.id = cellId;
-      if (!node.hasAttribute('role')) node.setAttribute('role', 'gridcell');
+
+      // Full human-readable date as the accessible name (APG), so screen
+      // readers announce "June 9, 2026" rather than the bare "9".
+      dateLabelFmt ??= new Intl.DateTimeFormat(locale, { dateStyle: 'long' });
+      node.setAttribute(
+        'aria-label',
+        dateLabelFmt.format(new Date(date.year, date.month - 1, date.day)),
+      );
 
       function paint(): void {
         const focused = machine.context.focusedDate.compare(date) === 0;

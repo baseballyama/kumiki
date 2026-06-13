@@ -41,6 +41,8 @@
     isDateUnavailable?: IsDateUnavailable | null;
     disabled?: boolean;
     direction?: 'ltr' | 'rtl';
+    /** BCP-47 locale for day-cell accessible names. Defaults to `'en-US'`. */
+    locale?: string;
     onSelect?: (date: CalendarDate) => void;
     onFocusChange?: (date: CalendarDate) => void;
     id?: string;
@@ -57,6 +59,7 @@
     isDateUnavailable = null,
     disabled = false,
     direction = 'ltr',
+    locale = 'en-US',
     onSelect,
     onFocusChange,
     id,
@@ -76,6 +79,7 @@
       isDateUnavailable,
       disabled,
       direction,
+      locale,
       id,
       onSelect: (date) => {
         value = date;
