@@ -186,17 +186,18 @@ export function createToast(options: CreateToastOptions = {}): ToastController {
     node.addEventListener('pointerenter', onEnter);
     node.addEventListener('pointerleave', onLeave);
     node.addEventListener('focusin', onEnter);
-    node.addEventListener('focusout', (event: FocusEvent) => {
+    const onFocusOut = (event: FocusEvent): void => {
       const next = event.relatedTarget as Node | null;
       if (next && node.contains(next)) return;
       onLeave();
-    });
+    };
+    node.addEventListener('focusout', onFocusOut);
 
     return () => {
       node.removeEventListener('pointerenter', onEnter);
       node.removeEventListener('pointerleave', onLeave);
       node.removeEventListener('focusin', onEnter);
-      // focusout listener removed by GC; we removed the wrapper inline.
+      node.removeEventListener('focusout', onFocusOut);
       if (viewportEl === node) viewportEl = null;
     };
   };

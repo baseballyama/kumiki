@@ -53,9 +53,9 @@
 
 <div
   {...rest}
+  id={controller.contentId}
   role="alertdialog"
-  aria-labelledby={controller.titleId}
-  aria-describedby={controller.descriptionId}
+  aria-labelledby={controller.descriptionId}
   data-component-host="popconfirm"
   data-state={initialOpen ? 'open' : 'closed'}
   hidden={!initialOpen || undefined}

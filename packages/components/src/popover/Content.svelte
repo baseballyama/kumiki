@@ -22,6 +22,7 @@
 
 <div
   {...rest}
+  id={controller.contentId}
   role="dialog"
   aria-labelledby={controller.titleId}
   aria-describedby={controller.descriptionId}
