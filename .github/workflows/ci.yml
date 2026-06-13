@@ -44,14 +44,18 @@ jobs:
         # check:node-compat needs dist/, so it runs after build below.
         run: pnpm check:layering && pnpm check:locale-shape && pnpm check:jsdoc
 
+      # Build first: per-package `typecheck`, `check:api-docs`, and
+      # `check:node-compat` all resolve `@kumiki/*` cross-package imports
+      # through each dependency's built `dist/` types, so the artifacts must
+      # exist before those gates run.
+      - name: Build packages
+        run: pnpm build
+
       - name: Typecheck
         run: pnpm typecheck
 
       - name: API docs (TypeDoc) — fail on JSDoc errors / drift
         run: pnpm check:api-docs
-
-      - name: Build packages
-        run: pnpm build
 
       - name: Node compatibility (Layer 1 / 2 / 3 import without DOM globals)
         run: pnpm check:node-compat
