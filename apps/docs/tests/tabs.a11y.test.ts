@@ -6,6 +6,7 @@ const STATES = [
   { url: '/sandbox/tabs?activation=manual', label: 'manual' },
   { url: '/sandbox/tabs?orientation=vertical', label: 'vertical' },
   { url: '/sandbox/tabs?disabled=1', label: 'disabled' },
+  { url: '/sandbox/tabs?child=1', label: 'child-delegation' },
 ];
 const DIRECTIONS = ['ltr', 'rtl'] as const;
 

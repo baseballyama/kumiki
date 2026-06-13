@@ -28,6 +28,10 @@
     page.url.searchParams.get('orientation') === 'vertical' ? 'vertical' : 'horizontal',
   );
   const initial = $derived(page.url.searchParams.get('initial'));
+  // `?child=1` swaps the default rendering for ADR-0007 `child` render
+  // delegation on List / Tab / Panel — proves the delegated path is wired
+  // and stays axe-clean (roles come from the spread `props`).
+  const useChild = $derived(page.url.searchParams.get('child') === '1');
 
   // svelte-ignore state_referenced_locally
   let value = $state<string | null>(initial ?? 'account');
@@ -55,17 +59,53 @@
       direction={dir}
       onValueChange={(v) => append(`onValueChange(${v ?? 'null'})`)}
     >
-      <List data-testid="tabs-list">
+      {#if useChild}
+        <List>
+          {#snippet child({ props, attachment })}
+            <div {...props} data-testid="tabs-list" data-delegated="list" {@attach attachment}>
+              {#each items as item (item.id)}
+                <Tab value={item}>
+                  {#snippet child({ props: tabProps, attachment: tabAttach, state })}
+                    <button
+                      {...tabProps}
+                      data-delegated="tab"
+                      data-selected={state.selected}
+                      {@attach tabAttach}>{item.label}</button
+                    >
+                  {/snippet}
+                </Tab>
+              {/each}
+            </div>
+          {/snippet}
+        </List>
         {#each items as item (item.id)}
-          <Tab value={item}>{item.label}</Tab>
+          <Panel value={item}>
+            {#snippet child({ props, attachment, state })}
+              <section
+                {...props}
+                data-testid={`panel-${item.value}`}
+                data-delegated="panel"
+                data-selected={state.selected}
+                {@attach attachment}
+              >
+                <p>Delegated panel for <strong>{item.label}</strong>.</p>
+              </section>
+            {/snippet}
+          </Panel>
         {/each}
-      </List>
-      {#each items as item (item.id)}
-        <Panel value={item} data-testid={`panel-${item.value}`}>
-          <p>Panel for <strong>{item.label}</strong>.</p>
-          <p>This content is only rendered for the active tab in the a11y tree.</p>
-        </Panel>
-      {/each}
+      {:else}
+        <List data-testid="tabs-list">
+          {#each items as item (item.id)}
+            <Tab value={item}>{item.label}</Tab>
+          {/each}
+        </List>
+        {#each items as item (item.id)}
+          <Panel value={item} data-testid={`panel-${item.value}`}>
+            <p>Panel for <strong>{item.label}</strong>.</p>
+            <p>This content is only rendered for the active tab in the a11y tree.</p>
+          </Panel>
+        {/each}
+      {/if}
     </Root>
   </div>
 

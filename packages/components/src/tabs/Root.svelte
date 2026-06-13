@@ -98,7 +98,12 @@
   let unsub = controller.subscribe(() => {});
   onDestroy(unsub);
 
-  setContext<TabsContextValue>(TABS_CONTEXT_KEY, { controller });
+  setContext<TabsContextValue>(TABS_CONTEXT_KEY, {
+    controller,
+    get orientation() {
+      return orientation;
+    },
+  });
 </script>
 
 {@render children()}

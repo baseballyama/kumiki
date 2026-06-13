@@ -114,4 +114,31 @@ test.describe('Tabs', () => {
     await waitForHydration(page);
     await expect(page.locator(TABLIST)).toHaveAttribute('aria-disabled', 'true');
   });
+
+  // ADR 0007 — `child` render delegation on List / Tab / Panel.
+  test('child delegation: roles + ARIA + interaction preserved on custom elements', async ({
+    page,
+  }) => {
+    await page.goto('/sandbox/tabs?child=1');
+    await waitForHydration(page);
+
+    // Delegated elements carry the spread declarative props (roles intact).
+    await expect(page.locator(`${TABLIST}[data-delegated="list"]`)).toBeVisible();
+    await expect(page.locator(TABLIST)).toHaveAttribute('aria-orientation', 'horizontal');
+
+    const tabs = page.locator(`${TABS}[data-delegated="tab"]`);
+    await expect(tabs).toHaveCount(4);
+    await expect(tabs.nth(0)).toHaveAttribute('aria-selected', 'true');
+    await expect(tabs.nth(1)).toHaveAttribute('aria-disabled', 'true');
+
+    // Delegated panel is a <section> but keeps role=tabpanel + visibility wiring.
+    await expect(page.locator(`section${PANEL('account')}`)).toBeVisible();
+    await expect(page.locator(PANEL('team'))).toBeHidden();
+
+    // Attachment wires interaction on the delegated <button>.
+    await tabs.nth(2).click();
+    await expect(tabs.nth(2)).toHaveAttribute('aria-selected', 'true');
+    await expect(page.locator(PANEL('team'))).toBeVisible();
+    await expect(page.locator(PANEL('account'))).toBeHidden();
+  });
 });
