@@ -140,6 +140,9 @@ jobs:
       - name: a11y tests (axe-core)
         run: pnpm --filter='./apps/docs' run test:e2e --project=a11y
 
+      - name: keyboard contracts (APG)
+        run: pnpm --filter='./apps/docs' run test:e2e --project=keyboard
+
       - name: Upload Playwright report
         if: failure()
         uses: actions/upload-artifact@v4

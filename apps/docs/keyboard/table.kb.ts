@@ -12,7 +12,7 @@
 import type { KeyboardContract } from '../tests/keyboard/_harness.js';
 
 const HOST = '[data-testid="table-host"]';
-const SORT_BUTTON = `${HOST} th[data-sortable] button[data-part="sort-button"]`;
+const SORT_BUTTON = `${HOST} th[data-sortable] button[data-component-part="sort-button"]`;
 const FIRST_HEADER_CELL = `${HOST} th[data-sortable]`;
 
 export const tableKeyboardContract: KeyboardContract = {
