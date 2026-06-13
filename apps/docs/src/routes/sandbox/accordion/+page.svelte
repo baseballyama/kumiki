@@ -111,4 +111,10 @@
     background: #0e0e1c;
     color: #e0e0e0;
   }
+  /* The docs global stylesheet colours headings/paragraphs with the (light-
+     theme) ink tokens; inside this dark panel they'd be unreadable, so panel
+     text inherits the panel's light colour. */
+  :global([data-component-host='accordion'] [role='region'] :is(h1, h2, h3, h4, p)) {
+    color: inherit;
+  }
 </style>
