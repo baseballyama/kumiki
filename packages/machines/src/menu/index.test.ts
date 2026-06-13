@@ -19,12 +19,12 @@ describe('createMenuMachine', () => {
     expect(m.context.activatedId).toBeNull();
   });
 
-  it('honors defaultOpen with first enabled item highlighted', () => {
+  it('honors defaultOpen and starts with no highlight (see index.ts note)', () => {
     const m = createMenuMachine({ items: ITEMS, defaultOpen: true });
     expect(m.state).toBe('open');
-    // Constructed already-open: the initial context seeds the first enabled
-    // item as highlighted (the OPEN entry action can't run on the initial state).
-    expect(m.context.highlightedId).toBe('new');
+    // Intentionally null — highlighting on default-open would surface an
+    // invalid aria-activedescendant on the trigger button (coupled follow-up).
+    expect(m.context.highlightedId).toBeNull();
   });
 
   it('OPEN highlights first enabled non-separator item', () => {

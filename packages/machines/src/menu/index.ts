@@ -106,10 +106,14 @@ export function createMenuMachine(input: CreateMenuInput): MenuMachine {
     initial: input.defaultOpen ? 'open' : 'closed',
     context: {
       items,
-      // When constructed already-open, the OPEN action never runs (entry
-      // actions don't fire on the initial state), so highlight the first item
-      // here — APG requires a menu to open with an item highlighted.
-      highlightedId: input.defaultOpen ? firstEnabledId(items) : null,
+      // NOTE: a constructed-open menu intentionally starts with no highlight.
+      // Highlighting the first item here surfaces a deeper issue — the menu
+      // sets `aria-activedescendant` on the trigger <button>, which ARIA does
+      // not permit on role=button (axe aria-allowed-attr). Fixing default-open
+      // highlight therefore requires first moving focus + aria-activedescendant
+      // onto the role=menu element (APG menu-button focus model). Tracked as a
+      // coupled follow-up; until then we keep the (axe-clean) null highlight.
+      highlightedId: null,
       typeahead: '',
       activatedId: null,
     },
