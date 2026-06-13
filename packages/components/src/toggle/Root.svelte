@@ -35,7 +35,6 @@
       'aria-disabled': 'true' | undefined;
       'data-state': 'on' | 'off';
       'data-disabled': '' | undefined;
-      id: string;
     };
     state: {
       pressed: boolean;
@@ -120,7 +119,6 @@
     'aria-disabled': snapDisabled ? 'true' : undefined,
     'data-state': snapPressed ? 'on' : 'off',
     'data-disabled': snapDisabled ? '' : undefined,
-    id: controller.id,
   });
 </script>
 
