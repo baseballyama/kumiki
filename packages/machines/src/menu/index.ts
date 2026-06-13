@@ -106,14 +106,11 @@ export function createMenuMachine(input: CreateMenuInput): MenuMachine {
     initial: input.defaultOpen ? 'open' : 'closed',
     context: {
       items,
-      // NOTE: a constructed-open menu intentionally starts with no highlight.
-      // Highlighting the first item here surfaces a deeper issue — the menu
-      // sets `aria-activedescendant` on the trigger <button>, which ARIA does
-      // not permit on role=button (axe aria-allowed-attr). Fixing default-open
-      // highlight therefore requires first moving focus + aria-activedescendant
-      // onto the role=menu element (APG menu-button focus model). Tracked as a
-      // coupled follow-up; until then we keep the (axe-clean) null highlight.
-      highlightedId: null,
+      // A constructed-open menu highlights its first enabled item. This is
+      // safe now that Layer 3 puts `aria-activedescendant` on the role=menu
+      // element (which permits it) rather than the trigger <button> (which
+      // does not — axe aria-allowed-attr). APG menu-button focus model.
+      highlightedId: input.defaultOpen ? firstEnabledId(items) : null,
       typeahead: '',
       activatedId: null,
     },

@@ -76,7 +76,10 @@ describe('createMenu', () => {
     expect(c.open).toBe(true);
     expect(ui.trigger.getAttribute('aria-expanded')).toBe('true');
     expect(c.highlightedId).toBe('new');
-    expect(ui.trigger.getAttribute('aria-activedescendant')).toBe(c.itemElementId('new'));
+    // APG menu-button focus model: aria-activedescendant lives on the
+    // role=menu element (which permits it), NOT the trigger <button>.
+    expect(ui.trigger.hasAttribute('aria-activedescendant')).toBe(false);
+    expect(ui.menu.getAttribute('aria-activedescendant')).toBe(c.itemElementId('new'));
     ui.teardown();
   });
 
@@ -111,9 +114,10 @@ describe('createMenu', () => {
     const c = createMenu({ items: ITEMS });
     const ui = mount(c);
     c.show(); // highlight = new
-    ui.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+    // Navigation keys are handled on the menu element (focus moved there).
+    ui.menu.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
     expect(c.highlightedId).toBe('open');
-    ui.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+    ui.menu.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
     expect(c.highlightedId).toBe('export'); // sep1 + save (disabled) skipped
     ui.teardown();
   });
@@ -123,8 +127,8 @@ describe('createMenu', () => {
     const c = createMenu({ items: ITEMS, onSelect });
     const ui = mount(c);
     c.show();
-    ui.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' })); // highlight = open
-    ui.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    ui.menu.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' })); // highlight = open
+    ui.menu.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
     expect(c.open).toBe(false);
     expect(onSelect).toHaveBeenCalledTimes(1);
     expect(onSelect.mock.calls[0]?.[0]).toMatchObject({ id: 'open' });
@@ -135,7 +139,7 @@ describe('createMenu', () => {
     const c = createMenu({ items: ITEMS });
     const ui = mount(c);
     c.show();
-    ui.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    ui.menu.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
     expect(c.open).toBe(false);
     ui.teardown();
   });
@@ -144,7 +148,7 @@ describe('createMenu', () => {
     const c = createMenu({ items: ITEMS });
     const ui = mount(c);
     c.show();
-    ui.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+    ui.menu.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
     expect(c.open).toBe(false);
     ui.teardown();
   });
@@ -202,7 +206,7 @@ describe('createMenu', () => {
     const c = createMenu({ items: ITEMS });
     const ui = mount(c);
     c.show();
-    ui.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'q' }));
+    ui.menu.dispatchEvent(new KeyboardEvent('keydown', { key: 'q' }));
     expect(c.highlightedId).toBe('quit');
     ui.teardown();
   });
@@ -238,6 +242,27 @@ describe('createMenu', () => {
     ];
     c.setItems(next);
     expect(c.context.items.map((it) => it.id)).toEqual(['a', 'b']);
+    ui.teardown();
+  });
+
+  it('moves DOM focus into the menu on open and back to the trigger on close', () => {
+    const c = createMenu({ items: ITEMS });
+    const ui = mount(c);
+    ui.trigger.focus();
+    c.show();
+    expect(document.activeElement).toBe(ui.menu);
+    c.hide();
+    expect(document.activeElement).toBe(ui.trigger);
+    ui.teardown();
+  });
+
+  it('default-open highlights the first item and sets aria-activedescendant on the menu', () => {
+    const c = createMenu({ items: ITEMS, defaultOpen: true });
+    const ui = mount(c);
+    expect(c.open).toBe(true);
+    expect(c.highlightedId).toBe('new');
+    expect(ui.menu.getAttribute('aria-activedescendant')).toBe(c.itemElementId('new'));
+    expect(ui.trigger.hasAttribute('aria-activedescendant')).toBe(false);
     ui.teardown();
   });
 

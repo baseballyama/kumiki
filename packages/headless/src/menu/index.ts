@@ -3,15 +3,17 @@
  * single-level Menu.
  *
  * Three factories: `trigger`, `menu`, `item(item)`. The trigger is a
- * button that pops the menu; the menu element uses `aria-activedescendant`
- * to track keyboard focus across items without rolling tabindex.
+ * button that pops the menu. On open, DOM focus moves INTO the role=menu
+ * element and `aria-activedescendant` (set on the menu, which permits it)
+ * tracks keyboard focus across items without rolling tabindex.
  *
- * Keyboard (per APG Menubar):
- * - On trigger: Enter / Space / ArrowDown opens the menu and highlights
- *   the first enabled item. ArrowUp opens and highlights the last.
- *   Printable chars open + seed the typeahead buffer.
- * - On open menu (focus stays on trigger; aria-activedescendant points
- *   at the highlighted item):
+ * Keyboard (per APG Menubar / menu-button focus model):
+ * - On trigger (menu closed): Enter / Space / ArrowDown opens the menu and
+ *   highlights the first enabled item. ArrowUp opens and highlights the
+ *   last. Printable chars open + seed the typeahead buffer. The trigger
+ *   handles ONLY these open-the-menu keys.
+ * - On the open menu (DOM focus is on the role=menu element;
+ *   aria-activedescendant on the menu points at the highlighted item):
  *   - ArrowDown / ArrowUp navigate (wrap)
  *   - Home / End jump
  *   - Enter / Space activate the highlighted item
@@ -42,6 +44,10 @@ import { uid } from '@kumiki/primitives/id';
 export type Attachment = (node: HTMLElement) => void | (() => void);
 
 const TYPEAHEAD_DEBOUNCE_MS = 500;
+
+function firstEnabledId(items: ReadonlyArray<MenuItem>): string | null {
+  return items.find((it) => !it.disabled && (it.kind ?? 'item') === 'item')?.id ?? null;
+}
 
 export interface MenuController {
   readonly id: string;
@@ -104,6 +110,7 @@ export function createMenu(options: CreateMenuOptions): MenuController {
   });
 
   let triggerEl: HTMLElement | null = null;
+  let menuEl: HTMLElement | null = null;
   let dismiss: Dismissable | null = null;
   let typeaheadTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -144,45 +151,101 @@ export function createMenu(options: CreateMenuOptions): MenuController {
     const paint = (): void => {
       node.setAttribute('aria-expanded', String(machine.state === 'open'));
       node.setAttribute('data-state', machine.state);
+    };
+    paint();
+
+    const onClick = (): void => machine.send({ type: 'TOGGLE' });
+    // The trigger handles ONLY the open-the-menu keys. Once open, DOM focus
+    // is on the role=menu element, so navigation keys are handled there.
+    const onKeydown = (event: KeyboardEvent): void => {
+      if (machine.state === 'open') return;
+      switch (event.key) {
+        case 'Enter':
+        case ' ':
+        case 'ArrowDown':
+          event.preventDefault();
+          machine.send({ type: 'OPEN' });
+          return;
+        case 'ArrowUp': {
+          event.preventDefault();
+          machine.send({ type: 'OPEN' });
+          // Highlight the LAST enabled item (APG: ArrowUp opens to bottom).
+          const last = lastEnabledId(machine.context.items);
+          if (last) machine.send({ type: 'HIGHLIGHT', id: last });
+          return;
+        }
+        default:
+          if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
+            event.preventDefault();
+            machine.send({ type: 'OPEN' });
+            machine.send({ type: 'TYPEAHEAD', char: event.key });
+            scheduleTypeaheadReset();
+          }
+          return;
+      }
+    };
+
+    node.addEventListener('click', onClick);
+    node.addEventListener('keydown', onKeydown);
+    const unsub = machine.subscribe(paint);
+
+    return () => {
+      unsub();
+      clearTypeaheadTimer();
+      node.removeEventListener('click', onClick);
+      node.removeEventListener('keydown', onKeydown);
+      if (triggerEl === node) triggerEl = null;
+    };
+  };
+
+  // ── menu ────────────────────────────────────────────────────────────
+  const menu: Attachment = (node) => {
+    if (!node.id) node.id = menuId;
+    node.setAttribute('role', 'menu');
+    node.setAttribute('tabindex', '-1');
+    node.setAttribute('aria-labelledby', triggerId);
+    menuEl = node;
+
+    let wasOpen = machine.state === 'open';
+
+    const paintActiveDescendant = (): void => {
       const highlight = machine.context.highlightedId;
-      if (highlight !== null) {
+      if (machine.state === 'open' && highlight !== null) {
         node.setAttribute('aria-activedescendant', itemElementId(highlight));
       } else {
         node.removeAttribute('aria-activedescendant');
       }
     };
-    paint();
 
-    const onClick = (): void => machine.send({ type: 'TOGGLE' });
-    const onKeydown = (event: KeyboardEvent): void => {
+    const paint = (): void => {
       const open = machine.state === 'open';
-      if (!open) {
-        switch (event.key) {
-          case 'Enter':
-          case ' ':
-          case 'ArrowDown':
-            event.preventDefault();
-            machine.send({ type: 'OPEN' });
-            return;
-          case 'ArrowUp': {
-            event.preventDefault();
-            machine.send({ type: 'OPEN' });
-            // Highlight the LAST enabled item (APG: ArrowUp opens to bottom).
-            const last = lastEnabledId(machine.context.items);
-            if (last) machine.send({ type: 'HIGHLIGHT', id: last });
-            return;
-          }
-          default:
-            if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
-              event.preventDefault();
-              machine.send({ type: 'OPEN' });
-              machine.send({ type: 'TYPEAHEAD', char: event.key });
-              scheduleTypeaheadReset();
-            }
-            return;
-        }
+      node.setAttribute('data-state', machine.state);
+      node.toggleAttribute('hidden', !open);
+      paintActiveDescendant();
+      if (open) {
+        ensureDismissable(node);
+        dismiss?.activate();
+      } else {
+        dismiss?.deactivate();
       }
 
+      // Move DOM focus across the open/close boundary (APG menu-button model):
+      // into the menu when it opens, back to the trigger when it closes.
+      if (open && !wasOpen) {
+        if (machine.context.highlightedId === null) {
+          const first = firstEnabledId(machine.context.items);
+          if (first) machine.send({ type: 'HIGHLIGHT', id: first });
+        }
+        node.focus();
+      } else if (!open && wasOpen) {
+        triggerEl?.focus();
+      }
+      wasOpen = open;
+    };
+    paint();
+
+    const onKeydown = (event: KeyboardEvent): void => {
+      if (machine.state !== 'open') return;
       switch (event.key) {
         case 'ArrowDown':
           event.preventDefault();
@@ -211,9 +274,10 @@ export function createMenu(options: CreateMenuOptions): MenuController {
         case 'Escape':
           event.preventDefault();
           machine.send({ type: 'ESCAPE' });
-          // Restore focus to trigger when ESC closes from inside the menu.
           break;
         case 'Tab':
+          // Let focus advance naturally; close first so focus returns to the
+          // trigger before the browser moves it onward.
           machine.send({ type: 'CLOSE' });
           break;
         default:
@@ -226,43 +290,16 @@ export function createMenu(options: CreateMenuOptions): MenuController {
       }
     };
 
-    node.addEventListener('click', onClick);
     node.addEventListener('keydown', onKeydown);
     const unsub = machine.subscribe(paint);
 
     return () => {
       unsub();
-      clearTypeaheadTimer();
-      node.removeEventListener('click', onClick);
       node.removeEventListener('keydown', onKeydown);
-      if (triggerEl === node) triggerEl = null;
-    };
-  };
-
-  // ── menu ────────────────────────────────────────────────────────────
-  const menu: Attachment = (node) => {
-    if (!node.id) node.id = menuId;
-    node.setAttribute('role', 'menu');
-    node.setAttribute('tabindex', '-1');
-    node.setAttribute('aria-labelledby', triggerId);
-
-    const paint = (): void => {
-      node.setAttribute('data-state', machine.state);
-      node.toggleAttribute('hidden', machine.state !== 'open');
-      if (machine.state === 'open') {
-        ensureDismissable(node);
-        dismiss?.activate();
-      } else {
-        dismiss?.deactivate();
-      }
-    };
-    paint();
-    const unsub = machine.subscribe(paint);
-
-    return () => {
-      unsub();
+      clearTypeaheadTimer();
       dismiss?.deactivate();
       dismiss = null;
+      if (menuEl === node) menuEl = null;
     };
   };
 
