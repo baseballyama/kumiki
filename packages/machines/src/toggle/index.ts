@@ -5,8 +5,11 @@
  * https://www.w3.org/WAI/ARIA/apg/patterns/button/
  *
  * - Two visible states: `unpressed` and `pressed`.
- * - One administrative state: `disabled`. From `disabled`, only `ENABLE` returns
- *   the machine to a usable state (always `unpressed`, matching browser default).
+ * - One administrative state: `disabled`. From `disabled`, `ENABLE` restores the
+ *   machine to the visible state it would hold for the current `pressed` value
+ *   (`pressed` if pressed, else `unpressed`). Disabling must never silently
+ *   change the value, so a toggle that was pressed when disabled comes back
+ *   pressed.
  * - `TOGGLE` is the everyday event (Space / Enter / click); flips the value.
  * - `SET` is for controlled mode (parent component drives the value); guarded
  *   so an idempotent `SET` doesn't fire a transition.
@@ -73,7 +76,7 @@ const factory = /* @__PURE__ */ defineMachine<ToggleContext, ToggleEvent, Toggle
         SET: {
           target: 'pressed',
           // Only transition when the controlled value actually changes.
-          cond: (_, e) => e.type === 'SET' && e.pressed === true,
+          cond: (_, e) => e.type === 'SET' && e.pressed,
           actions: [{ type: 'controlledPress', exec: () => ({ pressed: true }) }],
         },
         DISABLE: 'disabled',
@@ -89,7 +92,7 @@ const factory = /* @__PURE__ */ defineMachine<ToggleContext, ToggleEvent, Toggle
         },
         SET: {
           target: 'unpressed',
-          cond: (_, e) => e.type === 'SET' && e.pressed === false,
+          cond: (_, e) => e.type === 'SET' && !e.pressed,
           actions: [{ type: 'controlledRelease', exec: () => ({ pressed: false }) }],
         },
         DISABLE: 'disabled',
@@ -98,8 +101,10 @@ const factory = /* @__PURE__ */ defineMachine<ToggleContext, ToggleEvent, Toggle
     disabled: {
       // From `disabled`, the only transition is `ENABLE`. `TOGGLE` and `SET`
       // are intentionally no-ops — disabled toggles must not respond to input.
+      // `ENABLE` restores the visible state matching the preserved `pressed`
+      // value so disable→enable round-trips without losing the value.
       on: {
-        ENABLE: 'unpressed',
+        ENABLE: [{ target: 'pressed', cond: (ctx) => ctx.pressed }, { target: 'unpressed' }],
       },
     },
   },

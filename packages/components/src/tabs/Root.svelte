@@ -84,10 +84,14 @@
     }
   });
   $effect(() => {
-    controller.setOrientation(orientation);
+    if (orientation !== controller.context.orientation) {
+      controller.setOrientation(orientation);
+    }
   });
   $effect(() => {
-    controller.setDirection(direction);
+    if (direction !== controller.context.direction) {
+      controller.setDirection(direction);
+    }
   });
   $effect(() => {
     if (items !== controller.items) {
@@ -98,7 +102,12 @@
   let unsub = controller.subscribe(() => {});
   onDestroy(unsub);
 
-  setContext<TabsContextValue>(TABS_CONTEXT_KEY, { controller });
+  setContext<TabsContextValue>(TABS_CONTEXT_KEY, {
+    controller,
+    get orientation() {
+      return orientation;
+    },
+  });
 </script>
 
 {@render children()}

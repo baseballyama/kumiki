@@ -63,6 +63,16 @@ describe('createDialog attachment', () => {
     expect(content.hasAttribute('hidden')).toBe(true);
   });
 
+  it('a consumer-supplied aria-label suppresses the title aria-labelledby', () => {
+    const d = createDialog();
+    content.setAttribute('aria-label', 'Custom dialog name');
+    attachAll(d);
+    // aria-label is the name; pointing aria-labelledby at a possibly-absent
+    // title would be wrong, so it is omitted.
+    expect(content.hasAttribute('aria-labelledby')).toBe(false);
+    expect(content.getAttribute('aria-label')).toBe('Custom dialog name');
+  });
+
   it('clicking the trigger opens the dialog', () => {
     const d = createDialog();
     attachAll(d);
@@ -97,6 +107,16 @@ describe('createDialog attachment', () => {
     d.show();
     expect(document.activeElement).toBe(close); // first focusable in content
     d.hide();
+    expect(document.activeElement).toBe(trigger);
+  });
+
+  it('non-modal dialog does not trap focus (no focus-trap activated)', () => {
+    const d = createDialog({ modal: false });
+    attachAll(d);
+    trigger.focus();
+    d.show();
+    // A non-modal dialog must not trap focus, so it does not pull focus into
+    // the content the way the modal focus-trap does — Tab stays free to leave.
     expect(document.activeElement).toBe(trigger);
   });
 

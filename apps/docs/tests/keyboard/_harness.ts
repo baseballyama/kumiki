@@ -148,6 +148,28 @@ export function runKeyboardContract(contract: KeyboardContract): void {
             .first()
             .waitFor({ state: 'attached', timeout: 5000 });
         }
+        // Hydration gate for attachment-less, pure-Svelte components (chips,
+        // table, pagination, toolbar, …). Their interactive markup is
+        // byte-identical SSR vs. hydrated — no attachment paints a sentinel
+        // attribute — so `hydrationSelector` alone cannot prove the delegated
+        // `onclick`/`onkeydown` is wired. Svelte 5 stamps `__svelte_meta` on a
+        // node only once it has been hydrated, so waiting on it guarantees the
+        // handler is live before we dispatch keys. (The suite runs against the
+        // dev server per playwright.config.ts; `__svelte_meta` is dev-only,
+        // which is exactly our target.)
+        await page
+          .locator(c.focus)
+          .first()
+          .evaluate(
+            (node) =>
+              new Promise<void>((resolve) => {
+                const check = (): void => {
+                  if ('__svelte_meta' in node) resolve();
+                  else requestAnimationFrame(check);
+                };
+                check();
+              }),
+          );
         await page.locator(c.focus).focus();
         for (const k of c.prelude ?? []) {
           await page.keyboard.press(normalizeKey(k));

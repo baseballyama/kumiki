@@ -51,7 +51,7 @@ export namespace popover {
 
 // @public (undocumented)
 export namespace radioGroup {
-    export { CreateRadioGroupInput, RadioGroupContext, RadioGroupEvent, RadioGroupMachine, RadioGroupState, RadioItem, createRadioGroupMachine };
+    export { CreateRadioGroupInput, PhysicalArrowKey, RadioGroupContext, RadioGroupDirection, RadioGroupEvent, RadioGroupMachine, RadioGroupState, RadioItem, createRadioGroupMachine, idForValue };
 }
 
 // @public (undocumented)
@@ -61,7 +61,7 @@ export namespace select {
 
 // @public (undocumented)
 export namespace slider {
-    export { CreateSliderInput, SliderContext, SliderEvent, SliderMachine, SliderOrientation, SliderState, createSliderMachine };
+    export { CreateSliderInput, PhysicalArrowKey, SliderContext, SliderDirection, SliderEvent, SliderMachine, SliderOrientation, SliderState, createSliderMachine };
 }
 
 // @public (undocumented)
@@ -71,7 +71,7 @@ export namespace switchMachine {
 
 // @public (undocumented)
 export namespace tabs {
-    export { CreateTabsInput, TabItem, TabsActivation, TabsContext, TabsEvent, TabsMachine, TabsState, createTabsMachine };
+    export { CreateTabsInput, PhysicalArrowKey, TabItem, TabsActivation, TabsContext, TabsDirection, TabsEvent, TabsMachine, TabsOrientation, TabsState, createTabsMachine, idForValue, resolveArrow };
 }
 
 // @public (undocumented)

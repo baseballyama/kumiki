@@ -102,10 +102,26 @@ describe('toggle machine', () => {
       expect(m.context.pressed).toBe(true);
     });
 
-    it('ENABLE from disabled → unpressed (always; matches browser default)', () => {
+    it('ENABLE restores pressed when the toggle was pressed before disabling', () => {
       const m = createToggleMachine({ initial: true, disabled: true });
       m.send({ type: 'ENABLE' });
+      expect(m.state).toBe('pressed');
+      expect(m.context.pressed).toBe(true);
+    });
+
+    it('ENABLE returns to unpressed when the toggle was not pressed', () => {
+      const m = createToggleMachine({ disabled: true });
+      m.send({ type: 'ENABLE' });
       expect(m.state).toBe('unpressed');
+      expect(m.context.pressed).toBe(false);
+    });
+
+    it('DISABLE → ENABLE round-trips without changing the value', () => {
+      const m = createToggleMachine({ initial: true });
+      m.send({ type: 'DISABLE' });
+      m.send({ type: 'ENABLE' });
+      expect(m.state).toBe('pressed');
+      expect(m.context.pressed).toBe(true);
     });
   });
 
@@ -123,8 +139,10 @@ describe('toggle machine', () => {
         target: 'unpressed',
         actions: ['release'],
       });
+      // ENABLE is a guarded multi-transition; toJSON serializes the first
+      // candidate (target `pressed`) — guards themselves are not serialized.
       expect(json.states.disabled?.on?.ENABLE).toEqual({
-        target: 'unpressed',
+        target: 'pressed',
       });
     });
   });

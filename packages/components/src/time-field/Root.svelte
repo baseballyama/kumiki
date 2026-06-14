@@ -142,17 +142,25 @@
     commit(new Time(h, m, s));
   }
 
-  // ─── Roving focus across segments ────────────────────────────────────────
-  type SegEntry = { node: HTMLElement; kind: SegmentKind };
-  const segments: SegEntry[] = [];
+  // ─── Roving focus across segments (single tab stop) ──────────────────────
+  // The field is a single tab stop: exactly one segment is `tabindex="0"` at a
+  // time (the active segment), all others are `tabindex="-1"`. Tab moves
+  // into/out of the whole field; ArrowLeft/Right move the active segment.
+  const segments: HTMLElement[] = [];
+  let tabStopNode = $state<HTMLElement | null>(null);
+
+  function ensureTabStop(): void {
+    if (tabStopNode && segments.includes(tabStopNode)) return;
+    tabStopNode = segments[0] ?? null;
+  }
 
   function focusRelative(from: HTMLElement, dir: 'prev' | 'next'): void {
-    const idx = segments.findIndex((s) => s.node === from);
+    const idx = segments.indexOf(from);
     if (idx === -1) return;
-    const nextIdx = dir === 'next' ? idx + 1 : idx - 1;
-    const target = segments[nextIdx];
+    const target = segments[dir === 'next' ? idx + 1 : idx - 1];
     if (!target) return;
-    target.node.focus();
+    tabStopNode = target;
+    target.focus();
   }
 
   // ─── Label registration ──────────────────────────────────────────────────
@@ -194,13 +202,19 @@
     },
     getSegmentValue,
     setSegmentValue,
-    registerSegment(node, kind) {
-      const entry: SegEntry = { node, kind };
-      segments.push(entry);
+    registerSegment(node) {
+      segments.push(node);
+      ensureTabStop();
       return () => {
-        const idx = segments.indexOf(entry);
+        const idx = segments.indexOf(node);
         if (idx >= 0) segments.splice(idx, 1);
+        // `ensureTabStop` re-picks when the current tab stop is no longer
+        // registered, which covers removing the active segment.
+        ensureTabStop();
       };
+    },
+    get tabStop() {
+      return tabStopNode;
     },
     focusRelative,
   });

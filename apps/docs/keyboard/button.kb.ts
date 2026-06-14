@@ -18,7 +18,11 @@ export const buttonKeyboardContract: KeyboardContract = {
   component: 'button',
   apg: 'https://www.w3.org/WAI/ARIA/apg/patterns/button/',
   sandbox: '/sandbox/button',
-  hydrationSelector: '[data-testid="button-host"] button',
+  // `createButton`'s attachment paints `id="kumiki-button-…"` on mount (only
+  // when the host has no id — the sandbox passes none). The SSR markup has a
+  // bare `<button>` with no id, so this is a true post-hydration sentinel:
+  // waiting on the bare button raced the capture-phase keydown/click wiring.
+  hydrationSelector: '[data-testid="button-host"] button[id^="kumiki-button-"]',
   cases: [
     {
       name: 'Enter activates the button',

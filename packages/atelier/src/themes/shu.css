@@ -30,9 +30,12 @@
   --kumiki-color-line-strong: oklch(0.82 0.01 80);
 
   /* ─── Accent (朱 vermillion) ─── */
-  --kumiki-color-accent: oklch(0.62 0.18 35);
-  --kumiki-color-accent-hover: oklch(0.57 0.2 35);
-  --kumiki-color-accent-active: oklch(0.52 0.21 35);
+  /* Lightness tuned so white `--kumiki-color-accent-fg` clears WCAG AA (4.5:1)
+     on the accent fill used by primary buttons/CTAs; hue + chroma preserve the
+     vermillion identity. */
+  --kumiki-color-accent: oklch(0.55 0.2 35);
+  --kumiki-color-accent-hover: oklch(0.5 0.2 35);
+  --kumiki-color-accent-active: oklch(0.46 0.19 35);
   --kumiki-color-accent-soft: oklch(0.94 0.05 35);
   --kumiki-color-accent-soft-hover: oklch(0.9 0.06 35);
   --kumiki-color-accent-fg: oklch(1 0 0);

@@ -20,7 +20,7 @@
  * @see ../../../../../docs/design/11-composition.md §11.4
  */
 
-import type { ComboboxController } from '../index.js';
+import type { Attachment, ComboboxController } from '../index.js';
 import type { ComboboxOption } from '@kumiki/machines/combobox';
 
 export interface MultiSelectSnapshot<T extends ComboboxOption> {
@@ -39,6 +39,9 @@ export interface MultiSelectCombobox<T extends ComboboxOption> extends ComboboxC
   clear(): void;
 
   subscribeMultiSelect(listener: (snapshot: MultiSelectSnapshot<T>) => void): () => void;
+
+  /** Tear down the base subscription this wrapper holds. */
+  destroy(): void;
 }
 
 /**
@@ -97,7 +100,7 @@ export function withMultiSelect<T extends ComboboxOption>(
   // machine sets value as part of OPTION.SELECT (open → idle). Re-open
   // afterwards so multi-select flows keep the listbox visible.
   let prevValue = base.value;
-  base.subscribe(({ context }) => {
+  const unsubscribe = base.subscribe(({ context }) => {
     const next = context.value;
     if (next === prevValue) return;
     prevValue = next;
@@ -106,6 +109,42 @@ export function withMultiSelect<T extends ComboboxOption>(
     base.setValue(null);
     base.machine.send({ type: 'OPEN' });
   });
+
+  // Override the base option attachment: the wrapper resets `machine.value`
+  // to null after every pick, so the base `aria-selected` (value === option)
+  // is always "false". Reflect membership in `selected[]` instead. We compose
+  // the base attachment for all its other wiring (id, role, click/highlight)
+  // and re-apply our selection attributes after it — both after the base's own
+  // machine-driven repaint and on every selection change.
+  function option(item: T): Attachment {
+    const baseOption = base.option(item);
+    return (node) => {
+      const baseTeardown = baseOption(node);
+      const apply = (): void => {
+        const sel = indexOf(item) >= 0;
+        node.setAttribute('aria-selected', String(sel));
+        node.setAttribute('data-selected', String(sel));
+      };
+      apply();
+      const offMachine = base.subscribe(apply);
+      const offSelect = (() => {
+        listeners.add(apply);
+        return () => listeners.delete(apply);
+      })();
+      return () => {
+        offMachine();
+        offSelect();
+        baseTeardown?.();
+      };
+    };
+  }
+
+  // Augment the base listbox with aria-multiselectable.
+  function listbox(node: HTMLElement): void | (() => void) {
+    const teardown = base.listbox(node);
+    node.setAttribute('aria-multiselectable', 'true');
+    return teardown;
+  }
 
   const wrapped: MultiSelectCombobox<T> = Object.create(base, {
     selected: { get: () => selected, enumerable: true },
@@ -116,6 +155,8 @@ export function withMultiSelect<T extends ComboboxOption>(
     toggle: { value: toggle, enumerable: true },
     selectAll: { value: selectAll, enumerable: true },
     clear: { value: clear, enumerable: true },
+    option: { value: option, enumerable: true },
+    listbox: { value: listbox, enumerable: true },
     subscribeMultiSelect: {
       value: (listener: (snap: MultiSelectSnapshot<T>) => void) => {
         listeners.add(listener);
@@ -123,6 +164,7 @@ export function withMultiSelect<T extends ComboboxOption>(
       },
       enumerable: true,
     },
+    destroy: { value: () => unsubscribe(), enumerable: true },
   }) as MultiSelectCombobox<T>;
 
   return wrapped;

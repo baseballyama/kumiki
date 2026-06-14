@@ -3,7 +3,7 @@
   import type { Snippet } from 'svelte';
   import type { SortState, SelectionMode } from '@kumiki/components/table';
 
-  type Props = {
+  type BaseProps = {
     sort?: SortState | null;
     onSortChange?: (sort: SortState | null) => void;
     selection?: Set<string>;
@@ -14,6 +14,8 @@
     class?: string;
     [k: string]: unknown;
   };
+
+  type Props = (BaseProps & { 'aria-label': string }) | (BaseProps & { 'aria-labelledby': string });
 
   let {
     selection = $bindable(new Set<string>()),

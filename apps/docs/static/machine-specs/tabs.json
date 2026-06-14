@@ -14,7 +14,9 @@
     ],
     "value": "overview",
     "focusedId": null,
-    "activation": "automatic"
+    "activation": "automatic",
+    "orientation": "horizontal",
+    "direction": "ltr"
   },
   "states": {
     "idle": {
@@ -42,6 +44,12 @@
         },
         "SET.ACTIVATION": {
           "actions": ["setActivation"]
+        },
+        "SET.ORIENTATION": {
+          "actions": ["setOrientation"]
+        },
+        "SET.DIRECTION": {
+          "actions": ["setDirection"]
         },
         "DISABLE": {
           "target": "disabled"

@@ -32,6 +32,7 @@
     {selection}
     onSelectionChange={(s) => (selection = s)}
     selectionMode="multiple"
+    aria-label="Project contributors"
   >
     <Table.Caption>Project contributors (sortable, selectable)</Table.Caption>
     <Table.Header>

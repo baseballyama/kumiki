@@ -44,14 +44,18 @@ jobs:
         # check:node-compat needs dist/, so it runs after build below.
         run: pnpm check:layering && pnpm check:locale-shape && pnpm check:jsdoc
 
+      # Build first: per-package `typecheck`, `check:api-docs`, and
+      # `check:node-compat` all resolve `@kumiki/*` cross-package imports
+      # through each dependency's built `dist/` types, so the artifacts must
+      # exist before those gates run.
+      - name: Build packages
+        run: pnpm build
+
       - name: Typecheck
         run: pnpm typecheck
 
       - name: API docs (TypeDoc) — fail on JSDoc errors / drift
         run: pnpm check:api-docs
-
-      - name: Build packages
-        run: pnpm build
 
       - name: Node compatibility (Layer 1 / 2 / 3 import without DOM globals)
         run: pnpm check:node-compat
@@ -93,11 +97,11 @@ jobs:
         run: pnpm agadoo
 
       - name: size-limit (brotli budget)
-        # Compares against main and posts a comment on PRs.
-        uses: andresz1/size-limit-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          script: pnpm size
+        # Runs size-limit across every budgeted subpath; non-zero exit if any
+        # package is over its brotli budget. (The previous size-limit-action@v1
+        # wrapper was passed an unsupported `script` input and crashed with
+        # "results.reduce is not a function" before it could read the budgets.)
+        run: pnpm size
 
   # ─── Browser tests: e2e + axe ───
   browser:
@@ -126,11 +130,18 @@ jobs:
       - name: Build docs site
         run: pnpm build:docs
 
+      # NB: no `--` before the flags. Under pnpm v9, `pnpm run <script> -- <args>`
+      # forwards the literal `--` to the script, so Playwright received `--` as a
+      # positional test-file filter and reported "No tests found". Passing the
+      # flags directly forwards them to `playwright test` as intended.
       - name: e2e tests
-        run: pnpm --filter='./apps/docs' run test:e2e -- --project=e2e
+        run: pnpm --filter='./apps/docs' run test:e2e --project=e2e
 
       - name: a11y tests (axe-core)
-        run: pnpm --filter='./apps/docs' run test:e2e -- --project=a11y
+        run: pnpm --filter='./apps/docs' run test:e2e --project=a11y
+
+      - name: keyboard contracts (APG)
+        run: pnpm --filter='./apps/docs' run test:e2e --project=keyboard
 
       - name: Upload Playwright report
         if: failure()

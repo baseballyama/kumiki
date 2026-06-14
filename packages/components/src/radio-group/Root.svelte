@@ -20,6 +20,7 @@
   import {
     createRadioGroup,
     type RadioGroupController,
+    type RadioGroupDirection,
     type RadioItem,
   } from '@kumiki/headless/radio-group';
   import type { Snippet } from 'svelte';
@@ -31,6 +32,7 @@
     defaultValue?: V | null;
     disabled?: boolean;
     navigation?: 'wrap' | 'clamp';
+    direction?: RadioGroupDirection;
     onValueChange?: (value: V | null) => void;
     id?: string;
     children: Snippet;
@@ -44,6 +46,7 @@
     defaultValue = null,
     disabled = false,
     navigation = 'wrap',
+    direction = 'ltr',
     onValueChange,
     id,
     children,
@@ -56,6 +59,7 @@
       defaultValue: value ?? defaultValue,
       disabled,
       navigation,
+      direction,
       id,
       onValueChange: (next) => {
         value = next;
@@ -78,6 +82,11 @@
   $effect(() => {
     if (disabled !== controller.disabled) {
       controller.setDisabled(disabled);
+    }
+  });
+  $effect(() => {
+    if (direction !== controller.context.direction) {
+      controller.setDirection(direction);
     }
   });
   // Keep items in sync when the parent prop changes.

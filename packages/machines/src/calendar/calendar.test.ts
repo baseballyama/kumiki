@@ -142,6 +142,57 @@ describe('DISABLE / ENABLE', () => {
   });
 });
 
+describe('SET_CONSTRAINTS (FIX A — reactive constraints)', () => {
+  it('updates minValue so previously in-range dates become out-of-range', () => {
+    const m = createCalendarMachine({
+      focusedDate: d(2026, 5, 9),
+    });
+    // No constraints initially — May 1 is selectable.
+    m.send({ type: 'SELECT', date: d(2026, 5, 1) });
+    expect(m.context.selectedDate?.compare(d(2026, 5, 1))).toBe(0);
+    // Add a minValue that excludes May 1.
+    m.send({ type: 'SET_CONSTRAINTS', minValue: d(2026, 5, 5) });
+    expect(m.context.minValue?.compare(d(2026, 5, 5))).toBe(0);
+    // SELECT on May 1 now rejected.
+    m.send({ type: 'SET_VALUE', date: null }); // clear selection
+    m.send({ type: 'SELECT', date: d(2026, 5, 1) });
+    expect(m.context.selectedDate).toBeNull();
+  });
+
+  it('updates maxValue reactively', () => {
+    const m = createCalendarMachine({
+      focusedDate: d(2026, 5, 9),
+      maxValue: d(2026, 5, 31),
+    });
+    m.send({ type: 'SET_CONSTRAINTS', maxValue: d(2026, 5, 10) });
+    expect(m.context.maxValue?.compare(d(2026, 5, 10))).toBe(0);
+    m.send({ type: 'SELECT', date: d(2026, 5, 15) });
+    expect(m.context.selectedDate).toBeNull(); // rejected by new maxValue
+  });
+
+  it('updates isDateUnavailable reactively', () => {
+    const m = createCalendarMachine({ focusedDate: d(2026, 5, 9) });
+    // May 9 is selectable initially.
+    m.send({ type: 'SELECT', date: d(2026, 5, 9) });
+    expect(m.context.selectedDate?.compare(d(2026, 5, 9))).toBe(0);
+    // Now mark May 9 unavailable.
+    m.send({ type: 'SET_CONSTRAINTS', isDateUnavailable: (dt) => dt.day === 9 });
+    m.send({ type: 'SET_VALUE', date: null });
+    m.send({ type: 'SELECT', date: d(2026, 5, 9) });
+    expect(m.context.selectedDate).toBeNull();
+    // Other dates still selectable.
+    m.send({ type: 'SELECT', date: d(2026, 5, 10) });
+    expect(m.context.selectedDate?.compare(d(2026, 5, 10))).toBe(0);
+  });
+
+  it('also accepts SET_CONSTRAINTS while disabled', () => {
+    const m = createCalendarMachine({ focusedDate: d(2026, 5, 9), disabled: true });
+    m.send({ type: 'SET_CONSTRAINTS', minValue: d(2026, 5, 5) });
+    expect(m.state).toBe('disabled');
+    expect(m.context.minValue?.compare(d(2026, 5, 5))).toBe(0);
+  });
+});
+
 describe('isCalendarDateSelectable', () => {
   it('respects min/max', () => {
     const ctx = { minValue: d(2026, 1, 1), maxValue: d(2026, 12, 31), isDateUnavailable: null };

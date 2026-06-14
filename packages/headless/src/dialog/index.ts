@@ -76,12 +76,6 @@ export interface DialogController {
 export interface CreateDialogOptions extends CreateDialogInput {
   onOpenChange?: (open: boolean) => void;
   id?: string;
-  /**
-   * If true, the title attachment is required for the content to label
-   * itself. Defaults true — APG mandates an accessible name for modal
-   * dialogs. The Layer 4 component enforces this at the type level.
-   */
-  requireTitle?: boolean;
 }
 
 /**
@@ -150,7 +144,10 @@ export function createDialog(options: CreateDialogOptions = {}): DialogControlle
     if (!node.id) node.id = contentId;
     node.setAttribute('role', 'dialog');
     node.setAttribute('data-component-host', 'dialog');
-    node.setAttribute('aria-labelledby', titleId);
+    // The accessible name comes from <Dialog.Title> (via aria-labelledby) unless
+    // the consumer supplied their own aria-label — in which case pointing
+    // aria-labelledby at a (possibly absent) title would be wrong / dangling.
+    if (!node.hasAttribute('aria-label')) node.setAttribute('aria-labelledby', titleId);
 
     let trap: FocusTrap | null = null;
     let dismiss: Dismissable | null = null;
@@ -180,22 +177,25 @@ export function createDialog(options: CreateDialogOptions = {}): DialogControlle
     }
 
     function activate(): void {
-      if (trap) return;
-      trap = createFocusTrap(node);
+      if (dismiss) return;
+      // Only a MODAL dialog traps focus. A non-modal dialog must leave Tab /
+      // Shift+Tab free to move through the rest of the page (APG); it still
+      // dismisses on Escape / outside-click.
+      if (machine.context.modal) trap = createFocusTrap(node);
       dismiss = createDismissable(node, {
         ignore: triggerEl ? [() => triggerEl] : [],
         onEscape: () => machine.send({ type: 'ESCAPE' }),
         onOutsideClick: () => machine.send({ type: 'OUTSIDE_CLICK' }),
       });
       applyInert(true);
-      trap.activate();
+      trap?.activate();
       dismiss.activate();
     }
 
     function deactivate(): void {
-      if (!trap) return;
-      trap.deactivate();
-      dismiss?.deactivate();
+      if (!dismiss) return;
+      trap?.deactivate();
+      dismiss.deactivate();
       applyInert(false);
       trap = null;
       dismiss = null;

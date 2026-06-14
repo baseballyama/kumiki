@@ -42,12 +42,25 @@ describe('createToggle attachment', () => {
     expect(node.hasAttribute('role')).toBe(false);
   });
 
-  it('applies role="button" on non-button hosts', () => {
+  it('applies role="button" and tabindex="0" on non-button hosts', () => {
     const span = document.createElement('span');
     document.body.appendChild(span);
     const t = createToggle();
     const td = t.root(span);
     expect(span.getAttribute('role')).toBe('button');
+    // Without tabindex a role="button" span is unreachable by keyboard.
+    expect(span.getAttribute('tabindex')).toBe('0');
+    td?.();
+    span.remove();
+  });
+
+  it('does not override a caller-supplied tabindex on a non-button host', () => {
+    const span = document.createElement('span');
+    span.setAttribute('tabindex', '-1');
+    document.body.appendChild(span);
+    const t = createToggle();
+    const td = t.root(span);
+    expect(span.getAttribute('tabindex')).toBe('-1');
     td?.();
     span.remove();
   });
@@ -110,6 +123,27 @@ describe('createToggle attachment', () => {
     t.setDisabled(false);
     expect(node.hasAttribute('aria-disabled')).toBe(false);
     expect(node.hasAttribute('data-disabled')).toBe(false);
+  });
+
+  it('imperative toggle() fires onPressedChange like a user click', () => {
+    const onPressedChange = vi.fn();
+    const t = createToggle({ onPressedChange });
+    teardown = t.root(node);
+
+    t.toggle();
+    expect(t.pressed).toBe(true);
+    expect(onPressedChange).toHaveBeenCalledWith(true);
+    expect(onPressedChange).toHaveBeenCalledTimes(1);
+  });
+
+  it('imperative toggle() is a no-op while disabled', () => {
+    const onPressedChange = vi.fn();
+    const t = createToggle({ disabled: true, onPressedChange });
+    teardown = t.root(node);
+
+    t.toggle();
+    expect(t.pressed).toBe(false);
+    expect(onPressedChange).not.toHaveBeenCalled();
   });
 
   it('controlled set(pressed) updates DOM but does not fire onPressedChange', () => {

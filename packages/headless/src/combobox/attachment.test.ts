@@ -104,6 +104,16 @@ describe('createCombobox attachment', () => {
     expect(input.getAttribute('aria-expanded')).toBe('false');
   });
 
+  it('programmatic setValue updates value but does not fire onValueChange', () => {
+    const onValueChange = vi.fn();
+    const cb = createCombobox<User>({ options: users, onValueChange });
+    attachAll(cb);
+    cb.setValue(users[1]!);
+    expect(cb.value).toEqual(users[1]);
+    // setValue is the controlled-binding path, not a user selection.
+    expect(onValueChange).not.toHaveBeenCalled();
+  });
+
   it('aria-activedescendant points to highlighted option element id', () => {
     const cb = createCombobox<User>({ options: users });
     attachAll(cb);

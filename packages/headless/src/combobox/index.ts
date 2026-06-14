@@ -107,11 +107,15 @@ export function createCombobox<T extends ComboboxOption>(
   let prevValue: T | null = machine.context.value;
   let prevOpen = machine.state === 'open';
   let prevQuery = machine.context.query;
+  // Set while a programmatic `setValue()` is in flight so the resulting value
+  // change does not fire `onValueChange` — that callback reports user-initiated
+  // selection only (matching its JSDoc and the controlled-binding contract).
+  let programmaticValueSet = false;
 
   machine.subscribe(({ state, context }) => {
     if (context.value !== prevValue) {
       prevValue = context.value;
-      options.onValueChange?.(context.value);
+      if (!programmaticValueSet) options.onValueChange?.(context.value);
     }
     const open = state === 'open';
     if (open !== prevOpen) {
@@ -385,7 +389,11 @@ export function createCombobox<T extends ComboboxOption>(
     close: () => machine.send({ type: 'CLOSE' }),
     navigate: (direction: NavigateDirection) => machine.send({ type: 'INPUT.NAVIGATE', direction }),
     select: (option: T) => machine.send({ type: 'OPTION.SELECT', option }),
-    setValue: (value: T | null) => machine.send({ type: 'SET.VALUE', value }),
+    setValue: (value: T | null) => {
+      programmaticValueSet = true;
+      machine.send({ type: 'SET.VALUE', value });
+      programmaticValueSet = false;
+    },
     reset: () => machine.send({ type: 'RESET' }),
     setDisabled: (disabled: boolean) =>
       machine.send({ type: disabled ? 'DISABLE' : 'ENABLE' } as ComboboxEvent<T>),

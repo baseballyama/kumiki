@@ -20,7 +20,10 @@ export const datetimeFieldKeyboardContract: KeyboardContract = {
   component: 'datetime-field',
   apg: 'https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/',
   sandbox: '/sandbox/datetime-field',
-  hydrationSelector: TIME_HOUR,
+  // The time half is a single tab stop: the hour segment (first focusable
+  // segment) only gains `tabindex="0"` after the roving coordinator runs in an
+  // attachment, so this is a true post-hydration sentinel.
+  hydrationSelector: `${TIME_HOUR}[tabindex="0"]`,
   cases: [
     {
       name: 'Time-half hour segment is focusable',

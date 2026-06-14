@@ -80,12 +80,8 @@ export function createAccordion<V>(options: CreateAccordionOptions<V>): Accordio
   }
 
   let prevExpanded: ReadonlyArray<string> = machine.context.expandedIds;
-  function sameIds(a: ReadonlyArray<string>, b: ReadonlyArray<string>): boolean {
-    if (a === b) return true;
-    if (a.length !== b.length) return false;
-    for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
-    return true;
-  }
+  const sameIds = (a: ReadonlyArray<string>, b: ReadonlyArray<string>): boolean =>
+    a === b || (a.length === b.length && a.every((x, i) => x === b[i]));
   machine.subscribe(({ context }) => {
     if (!sameIds(context.expandedIds, prevExpanded)) {
       prevExpanded = context.expandedIds;
@@ -129,12 +125,19 @@ export function createAccordion<V>(options: CreateAccordionOptions<V>): Accordio
       }
       node.setAttribute('data-component-part', 'trigger');
       node.setAttribute('aria-controls', panelElementId(item.id));
-      if (item.disabled) node.setAttribute('aria-disabled', 'true');
+
+      // Read the live disabled flag from machine context so a `setItems` update
+      // that toggles `disabled` on an item with the same id is reflected (the
+      // captured `item` closure would otherwise go stale).
+      const isDisabled = (): boolean =>
+        machine.context.items.find((it) => it.id === item.id)?.disabled ?? item.disabled ?? false;
 
       const paint = (): void => {
         const open = machine.context.expandedIds.includes(item.id);
         node.setAttribute('aria-expanded', String(open));
         node.setAttribute('data-state', open ? 'open' : 'closed');
+        if (isDisabled()) node.setAttribute('aria-disabled', 'true');
+        else node.removeAttribute('aria-disabled');
         const tab = tabindexFor(machine.context.items, item.id, machine.context.focusedId);
         node.setAttribute('tabindex', String(tab));
         if (machine.context.focusedId === item.id) {
@@ -146,43 +149,24 @@ export function createAccordion<V>(options: CreateAccordionOptions<V>): Accordio
       paint();
 
       const onFocus = (): void => {
-        if (item.disabled) return;
+        if (isDisabled()) return;
         machine.send({ type: 'FOCUS', id: item.id });
       };
       const onBlur = (): void => {
         if (machine.context.focusedId === item.id) machine.send({ type: 'BLUR' });
       };
       const onClick = (event: MouseEvent): void => {
-        if (item.disabled) return;
+        if (isDisabled()) return;
         event.preventDefault();
         machine.send({ type: 'TOGGLE', id: item.id });
       };
       const onKeydown = (event: KeyboardEvent): void => {
-        switch (event.key) {
-          case 'ArrowDown':
-            event.preventDefault();
-            machine.send({ type: 'NAVIGATE', direction: 'next' });
-            focusCurrent(machine, triggerElementId);
-            break;
-          case 'ArrowUp':
-            event.preventDefault();
-            machine.send({ type: 'NAVIGATE', direction: 'prev' });
-            focusCurrent(machine, triggerElementId);
-            break;
-          case 'Home':
-            event.preventDefault();
-            machine.send({ type: 'NAVIGATE', direction: 'first' });
-            focusCurrent(machine, triggerElementId);
-            break;
-          case 'End':
-            event.preventDefault();
-            machine.send({ type: 'NAVIGATE', direction: 'last' });
-            focusCurrent(machine, triggerElementId);
-            break;
-          // Native button handles Space/Enter via click — no extra handler.
-          default:
-            break;
-        }
+        // Native button handles Space/Enter via click — no extra handler.
+        const direction = NAV_KEYS[event.key];
+        if (!direction) return;
+        event.preventDefault();
+        machine.send({ type: 'NAVIGATE', direction });
+        focusCurrent(machine, triggerElementId);
       };
 
       const unsub = machine.subscribe(paint);
@@ -255,16 +239,21 @@ export function createAccordion<V>(options: CreateAccordionOptions<V>): Accordio
   };
 }
 
+const NAV_KEYS: Record<string, 'next' | 'prev' | 'first' | 'last'> = {
+  ArrowDown: 'next',
+  ArrowUp: 'prev',
+  Home: 'first',
+  End: 'last',
+};
+
 function focusCurrent<V>(
   machine: AccordionMachine<V>,
   triggerElementId: (id: string) => string,
 ): void {
   const id = machine.context.focusedId;
-  if (id === null) return;
-  const el = typeof document !== 'undefined' ? document.getElementById(triggerElementId(id)) : null;
-  if (el && typeof (el as HTMLElement).focus === 'function') {
-    (el as HTMLElement).focus();
-  }
+  if (id === null || typeof document === 'undefined') return;
+  const el = document.getElementById(triggerElementId(id)) as HTMLElement | null;
+  el?.focus?.();
 }
 
 export type {

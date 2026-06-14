@@ -78,11 +78,25 @@ export function createSwitch(options: CreateSwitchOptions = {}): SwitchControlle
     node.setAttribute('data-state', isChecked ? 'on' : 'off');
   }
 
+  /**
+   * User-initiated toggle: flips the machine and notifies via onCheckedChange.
+   * Shared by the DOM handlers and the imperative `toggle()`. A non-disabled
+   * TOGGLE always flips `checked`, so the new value is always a change.
+   */
+  function userToggle(): void {
+    if (machine.state === 'disabled') return;
+    machine.send({ type: 'TOGGLE' });
+    options.onCheckedChange?.(machine.context.checked);
+  }
+
   const root: Attachment = (node) => {
     // Switches always have role="switch" — even on native <button>.
     if (!node.hasAttribute('role')) node.setAttribute('role', 'switch');
-    if (!node.hasAttribute('type') && node.tagName === 'BUTTON') {
-      node.setAttribute('type', 'button');
+    if (node.tagName === 'BUTTON') {
+      if (!node.hasAttribute('type')) node.setAttribute('type', 'button');
+    } else if (!node.hasAttribute('tabindex')) {
+      // role="switch" on a non-button host must be keyboard-focusable.
+      node.setAttribute('tabindex', '0');
     }
     if (!node.id) node.id = id;
 
@@ -91,10 +105,7 @@ export function createSwitch(options: CreateSwitchOptions = {}): SwitchControlle
     const onClick = (event: MouseEvent): void => {
       if (machine.state === 'disabled') return;
       event.preventDefault();
-      const before = machine.context.checked;
-      machine.send({ type: 'TOGGLE' });
-      const after = machine.context.checked;
-      if (before !== after) options.onCheckedChange?.(after);
+      userToggle();
     };
 
     const onKeydown = (event: KeyboardEvent): void => {
@@ -103,10 +114,7 @@ export function createSwitch(options: CreateSwitchOptions = {}): SwitchControlle
       if (event.key !== ' ' && event.key !== 'Enter') return;
       if (machine.state === 'disabled') return;
       event.preventDefault();
-      const before = machine.context.checked;
-      machine.send({ type: 'TOGGLE' });
-      const after = machine.context.checked;
-      if (before !== after) options.onCheckedChange?.(after);
+      userToggle();
     };
 
     const unsubscribe = machine.subscribe(({ state, context }) => {
@@ -137,7 +145,7 @@ export function createSwitch(options: CreateSwitchOptions = {}): SwitchControlle
     get disabled() {
       return machine.state === 'disabled';
     },
-    toggle: () => machine.send({ type: 'TOGGLE' }),
+    toggle: userToggle,
     set: (checked: boolean) => machine.send({ type: 'SET', checked }),
     setDisabled: (disabled: boolean) =>
       machine.send({ type: disabled ? 'DISABLE' : 'ENABLE' } as SwitchEvent),

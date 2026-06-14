@@ -87,6 +87,8 @@ describe('createCheckbox attachment', () => {
     const td = c.root(span);
 
     expect(span.getAttribute('role')).toBe('checkbox');
+    // A non-button host must be keyboard-focusable to receive Space/Enter.
+    expect(span.getAttribute('tabindex')).toBe('0');
     span.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', cancelable: true }));
     expect(c.value).toBe('checked');
     span.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', cancelable: true }));
@@ -94,6 +96,22 @@ describe('createCheckbox attachment', () => {
 
     td?.();
     span.remove();
+  });
+
+  it('imperative toggle() fires onCheckedChange; no-op while disabled', () => {
+    const onCheckedChange = vi.fn();
+    const c = createCheckbox({ onCheckedChange });
+    teardown = c.root(node);
+    c.toggle();
+    expect(c.value).toBe('checked');
+    expect(onCheckedChange).toHaveBeenCalledWith('checked');
+
+    const cb2 = createCheckbox({ disabled: true, onCheckedChange: vi.fn() });
+    const node2 = document.createElement('button');
+    const td2 = cb2.root(node2);
+    cb2.toggle();
+    expect(cb2.value).toBe('unchecked');
+    td2?.();
   });
 
   it('setDisabled flips disabled state', () => {

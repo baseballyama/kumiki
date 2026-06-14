@@ -65,6 +65,12 @@
 </div>
 
 <style>
+  /* The docs global stylesheet colours headings/paragraphs with the (light-
+     theme) ink tokens; inside this dark demo panel those would be unreadable,
+     so descendant text inherits the panel's light colour. */
+  :global(.panel :is(h1, h2, h3, h4, p)) {
+    color: inherit;
+  }
   :global(.panel) {
     background: #16162a;
     border: 1px solid #3a3a5a;

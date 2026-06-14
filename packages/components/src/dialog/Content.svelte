@@ -21,13 +21,16 @@
   const { controller } = ctx;
   const initialOpen = controller.open;
   const initialModal = controller.context.modal;
+  // A consumer-supplied aria-label is the accessible name; only fall back to
+  // the <Dialog.Title> association when they didn't provide one.
+  const hasAriaLabel = 'aria-label' in rest && Boolean(rest['aria-label']);
 </script>
 
 <div
   {...rest}
   role="dialog"
   aria-modal={initialModal ? 'true' : 'false'}
-  aria-labelledby={controller.titleId}
+  aria-labelledby={hasAriaLabel ? undefined : controller.titleId}
   data-component-host="dialog"
   data-state={initialOpen ? 'open' : 'closed'}
   hidden={!initialOpen || undefined}

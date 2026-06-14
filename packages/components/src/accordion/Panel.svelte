@@ -25,8 +25,17 @@
   const { controller } = getContext<AccordionContextValue<V>>(ACCORDION_CONTEXT_KEY);
   // svelte-ignore state_referenced_locally
   const attachment = controller.panel(value);
+  // svelte-ignore state_referenced_locally
+  const initialExpanded = controller.expandedIds.includes(value.id);
 </script>
 
-<div {...rest} {@attach attachment}>
+<div
+  {...rest}
+  id={controller.panelElementId(value.id)}
+  role="region"
+  aria-labelledby={controller.triggerElementId(value.id)}
+  hidden={!initialExpanded || undefined}
+  {@attach attachment}
+>
   {#if children}{@render children()}{/if}
 </div>

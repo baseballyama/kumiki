@@ -5,10 +5,11 @@ const LISTBOX = '[data-testid="listbox"]';
 const OPT = (v: string) => `[data-testid="opt-${v}"]`;
 
 async function waitForHydration(page: Page): Promise<void> {
-  // Wait for the listbox attachment to paint its id — the SSR template
-  // only carries role + aria-labelledby; the id is painted client-side and
-  // is the cleanest signal that all attachments have wired their listeners.
-  await expect(page.locator(`${LISTBOX}[id^="kumiki-select-"]`)).toBeAttached({
+  // The listbox id now ships in SSR (so the trigger's aria-controls resolves
+  // server-side), so it can't prove hydration. The listbox attachment paints
+  // `data-state` on mount — the SSR template never renders it — so it's the
+  // cleanest signal that all attachments have wired their listeners.
+  await expect(page.locator(`${LISTBOX}[data-state]`)).toBeAttached({
     timeout: 5000,
   });
 }

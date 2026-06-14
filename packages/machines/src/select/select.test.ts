@@ -8,6 +8,14 @@ const items: SelectItem<string>[] = [
   { id: 's-d', value: 'date', label: 'Date' },
 ];
 
+// Items sharing a starting char — needed for single-char cycling tests.
+const cycleItems: SelectItem<string>[] = [
+  { id: 'c-1', value: 'ant', label: 'Ant' },
+  { id: 'c-2', value: 'ape', label: 'Ape' },
+  { id: 'c-3', value: 'arc', label: 'Arc' },
+  { id: 'c-4', value: 'bee', label: 'Bee' },
+];
+
 describe('select machine', () => {
   describe('initial state', () => {
     it('starts closed with no value', () => {
@@ -154,15 +162,21 @@ describe('select machine', () => {
       expect(m.context.typeahead).toBe('c');
     });
 
-    it('repeated single char cycles', () => {
-      const m = createSelectMachine({ items });
+    it('repeated single char cycles through items sharing that char', () => {
+      const m = createSelectMachine({ items: cycleItems });
       m.send({ type: 'OPEN' });
+      // First 'a' → Ant (c-1)
       m.send({ type: 'TYPEAHEAD', char: 'a' });
-      // 'a' matches Apple → s-a
-      expect(m.context.highlightedId).toBe('s-a');
-      // No further "a" match — typeahead just records buffer.
+      expect(m.context.highlightedId).toBe('c-1');
+      // Second 'a' → cycles from c-1 → Ape (c-2)
       m.send({ type: 'TYPEAHEAD', char: 'a' });
-      expect(m.context.typeahead).toBe('aa');
+      expect(m.context.highlightedId).toBe('c-2');
+      // Third 'a' → cycles from c-2 → Arc (c-3)
+      m.send({ type: 'TYPEAHEAD', char: 'a' });
+      expect(m.context.highlightedId).toBe('c-3');
+      // Fourth 'a' → wraps back to Ant (c-1)
+      m.send({ type: 'TYPEAHEAD', char: 'a' });
+      expect(m.context.highlightedId).toBe('c-1');
     });
 
     it('extends buffer for multi-char queries', () => {

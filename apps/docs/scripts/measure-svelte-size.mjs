@@ -70,8 +70,8 @@ const L4_BUDGET = {
   toggle: 3_100, // [ADR 0018] reduction target 1_950 B (L3↔L4 attribute dedup)
   switch: 1_650, // [ADR 0018]
   checkbox: 1_800, // [ADR 0018]
-  'radio-group': 2_400, // [ADR 0018]
-  tabs: 2_950, // [ADR 0018]
+  'radio-group': 2_600, // [ADR 0022] +RTL-in-machine (was 2_400 / ADR 0018)
+  tabs: 3_250, // [ADR 0022] orientation+direction in machine (was 2_950 / ADR 0018)
   tooltip: 2_000,
   dialog: 3_500,
   'form-field': 2_800, // [ADR 0018] reduction target 1_950 B (with-validation split)

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createRadioGroupMachine, type RadioItem } from './index.ts';
+import { createRadioGroupMachine, idForValue, type RadioItem } from './index.ts';
 
 const items: RadioItem<string>[] = [
   { id: 'a', value: 'apple', label: 'Apple' },
@@ -51,11 +51,12 @@ describe('radio-group machine', () => {
   });
 
   describe('FOCUS / BLUR', () => {
-    it('FOCUS selects the focused item (APG select-on-focus)', () => {
+    it('FOCUS moves the roving anchor but does NOT select (Tab must not commit)', () => {
       const m = createRadioGroupMachine({ items });
       m.send({ type: 'FOCUS', id: 'd' });
       expect(m.context.focusedId).toBe('d');
-      expect(m.context.value).toBe('date');
+      // Selection-follows-focus is for arrow keys (NAVIGATE), not Tab/native focus.
+      expect(m.context.value).toBe(null);
     });
 
     it('FOCUS on disabled is a no-op', () => {
@@ -64,12 +65,20 @@ describe('radio-group machine', () => {
       expect(m.context.focusedId).toBe(null);
     });
 
-    it('BLUR clears focusedId but keeps value', () => {
+    it('BLUR clears focusedId but keeps the selected value', () => {
       const m = createRadioGroupMachine({ items });
+      m.send({ type: 'SELECT', id: 'a' });
       m.send({ type: 'FOCUS', id: 'a' });
       m.send({ type: 'BLUR' });
       expect(m.context.focusedId).toBe(null);
       expect(m.context.value).toBe('apple');
+    });
+
+    it('idForValue resolves the roving anchor after blur to the selected item', () => {
+      const m = createRadioGroupMachine({ items });
+      m.send({ type: 'SELECT', id: 'c' });
+      m.send({ type: 'BLUR' });
+      expect(idForValue(m.context.items, m.context.value)).toBe('c');
     });
   });
 
@@ -115,6 +124,51 @@ describe('radio-group machine', () => {
       m.send({ type: 'NAVIGATE', direction: 'next' });
       expect(m.context.focusedId).toBe('d');
       expect(m.context.value).toBe('date');
+    });
+  });
+
+  describe('NAVIGATE physical arrow resolution (RTL inversion in the machine)', () => {
+    it('LTR: ArrowRight = next, ArrowLeft = prev; ArrowDown/Up too', () => {
+      const m = createRadioGroupMachine({ items });
+      m.send({ type: 'NAVIGATE', key: 'ArrowRight' });
+      expect(m.context.focusedId).toBe('a');
+      m.send({ type: 'NAVIGATE', key: 'ArrowDown' });
+      expect(m.context.focusedId).toBe('c'); // skips disabled 'b'
+      m.send({ type: 'NAVIGATE', key: 'ArrowLeft' });
+      expect(m.context.focusedId).toBe('a');
+    });
+
+    it('RTL: ArrowLeft = next, ArrowRight = prev (horizontal inverted in the machine)', () => {
+      const m = createRadioGroupMachine({ items, direction: 'rtl' });
+      m.send({ type: 'NAVIGATE', key: 'ArrowLeft' });
+      expect(m.context.focusedId).toBe('a'); // first nav lands on first enabled
+      m.send({ type: 'NAVIGATE', key: 'ArrowLeft' });
+      expect(m.context.focusedId).toBe('c'); // RTL: Left advances
+      m.send({ type: 'NAVIGATE', key: 'ArrowRight' });
+      expect(m.context.focusedId).toBe('a');
+    });
+
+    it('RTL never inverts the vertical axis (ArrowDown = next, ArrowUp = prev)', () => {
+      const m = createRadioGroupMachine({ items, direction: 'rtl', defaultValue: 'cherry' });
+      m.send({ type: 'NAVIGATE', key: 'ArrowDown' });
+      expect(m.context.focusedId).toBe('d');
+      m.send({ type: 'NAVIGATE', key: 'ArrowUp' });
+      expect(m.context.focusedId).toBe('c');
+    });
+
+    it('SET.DIRECTION flips the inversion at runtime', () => {
+      const m = createRadioGroupMachine({ items, defaultValue: 'apple' });
+      m.send({ type: 'SET.DIRECTION', direction: 'rtl' });
+      expect(m.context.direction).toBe('rtl');
+      m.send({ type: 'NAVIGATE', key: 'ArrowLeft' });
+      expect(m.context.focusedId).toBe('c'); // RTL: Left = next, from apple → cherry
+    });
+
+    it('exposes the navigate action + SET.DIRECTION in toJSON (config is machine-side)', () => {
+      const json = createRadioGroupMachine({ items }).toJSON();
+      expect(json.context).toMatchObject({ direction: 'ltr' });
+      expect(json.states.idle!.on!['NAVIGATE']).toBeDefined();
+      expect(json.states.idle!.on!['SET.DIRECTION']).toBeDefined();
     });
   });
 

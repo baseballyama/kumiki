@@ -19,7 +19,11 @@ export const timeFieldKeyboardContract: KeyboardContract = {
   component: 'time-field',
   apg: 'https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/',
   sandbox: '/sandbox/time-field',
-  hydrationSelector: `${HOST} [role="spinbutton"]`,
+  // Single tab stop: the active segment only gains `tabindex="0"` once the
+  // field is interactive (the roving coordinator runs in an attachment). SSR
+  // markup keeps every segment at `tabindex="-1"`, so this is a true
+  // post-hydration sentinel.
+  hydrationSelector: `${HOST} [role="spinbutton"][tabindex="0"]`,
   cases: [
     {
       name: 'ArrowDown decrements the hour segment',

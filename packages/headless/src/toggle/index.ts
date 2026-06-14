@@ -112,14 +112,29 @@ export function createToggle(options: CreateToggleOptions = {}): ToggleControlle
     node.setAttribute('data-state', isPressed ? 'on' : 'off');
   }
 
+  /**
+   * Perform a user-initiated toggle and notify via `onPressedChange`. Shared by
+   * the DOM event handlers and the imperative `toggle()` so every user-driven
+   * path notifies consistently. A non-disabled `TOGGLE` always flips `pressed`,
+   * so the new value is always a change worth reporting.
+   */
+  function userToggle(): void {
+    if (machine.state === 'disabled') return;
+    machine.send({ type: 'TOGGLE' });
+    options.onPressedChange?.(machine.context.pressed);
+  }
+
   const root: Attachment = (node) => {
     // Ensure the element looks like a toggle button to ATs.
     if (!node.hasAttribute('type') && node.tagName === 'BUTTON') {
       node.setAttribute('type', 'button');
     }
-    if (!node.hasAttribute('role') && node.tagName !== 'BUTTON') {
-      // Non-button hosts get role="button"; native <button> already implies it.
-      node.setAttribute('role', 'button');
+    if (node.tagName !== 'BUTTON') {
+      // Non-button hosts get role="button" and must be keyboard-focusable;
+      // native <button> implies both. Without tabindex the host is skipped by
+      // Tab, violating APG button focus requirements.
+      if (!node.hasAttribute('role')) node.setAttribute('role', 'button');
+      if (!node.hasAttribute('tabindex')) node.setAttribute('tabindex', '0');
     }
     if (!node.id) node.id = id;
 
@@ -128,10 +143,7 @@ export function createToggle(options: CreateToggleOptions = {}): ToggleControlle
     const onClick = (event: MouseEvent): void => {
       if (machine.state === 'disabled') return;
       event.preventDefault();
-      const before = machine.context.pressed;
-      machine.send({ type: 'TOGGLE' });
-      const after = machine.context.pressed;
-      if (before !== after) options.onPressedChange?.(after);
+      userToggle();
     };
 
     const onKeydown = (event: KeyboardEvent): void => {
@@ -141,10 +153,7 @@ export function createToggle(options: CreateToggleOptions = {}): ToggleControlle
       if (event.key !== ' ' && event.key !== 'Enter') return;
       if (machine.state === 'disabled') return;
       event.preventDefault();
-      const before = machine.context.pressed;
-      machine.send({ type: 'TOGGLE' });
-      const after = machine.context.pressed;
-      if (before !== after) options.onPressedChange?.(after);
+      userToggle();
     };
 
     const unsubscribe = machine.subscribe(({ state, context }) => {
@@ -175,7 +184,7 @@ export function createToggle(options: CreateToggleOptions = {}): ToggleControlle
     get disabled() {
       return machine.state === 'disabled';
     },
-    toggle: () => machine.send({ type: 'TOGGLE' }),
+    toggle: userToggle,
     set: (pressed: boolean) => machine.send({ type: 'SET', pressed }),
     setDisabled: (disabled: boolean) =>
       machine.send({ type: disabled ? 'DISABLE' : 'ENABLE' } as ToggleEvent),

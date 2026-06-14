@@ -3,12 +3,13 @@
  *
  * Single linear value clamped to `[min, max]` and snapped to a `step`
  * grid. Increment / decrement events accept an optional `pageStep`
- * multiplier for PageUp / PageDown semantics. The Layer 3 attachment
- * translates physical key codes (and RTL inversion of horizontal arrows)
- * into the machine's logical INCREMENT / DECREMENT events.
+ * multiplier for PageUp / PageDown semantics.
  *
- * Orientation is metadata only — the machine doesn't care; the
- * controller uses it to choose which arrow keys map to which direction.
+ * `orientation` and `direction` live in the machine context. The Layer 3
+ * attachment forwards the *physical* arrow key via `NAVIGATE`; the machine
+ * resolves it to INCREMENT / DECREMENT using its own orientation + direction,
+ * so RTL inversion of horizontal arrows lives in one `toJSON`-visible place
+ * (the i18n bar in CLAUDE.md).
  *
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/slider/
  */
@@ -16,10 +17,15 @@
 import { defineMachine, type Machine } from '@kumiki/runtime';
 
 export type SliderOrientation = 'horizontal' | 'vertical';
+export type SliderDirection = 'ltr' | 'rtl';
+
+/** A physical arrow key, forwarded verbatim from the keyboard. */
+export type PhysicalArrowKey = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown';
 
 export type SliderEvent =
   | { type: 'INCREMENT' }
   | { type: 'DECREMENT' }
+  | { type: 'NAVIGATE'; key: PhysicalArrowKey }
   | { type: 'PAGE_INCREMENT' }
   | { type: 'PAGE_DECREMENT' }
   | { type: 'TO_MIN' }
@@ -30,6 +36,7 @@ export type SliderEvent =
   | { type: 'SET.STEP'; value: number }
   | { type: 'SET.PAGE_STEP'; value: number }
   | { type: 'SET.ORIENTATION'; value: SliderOrientation }
+  | { type: 'SET.DIRECTION'; value: SliderDirection }
   | { type: 'DISABLE' }
   | { type: 'ENABLE' };
 
@@ -40,6 +47,32 @@ export interface SliderContext {
   step: number;
   pageStep: number;
   orientation: SliderOrientation;
+  direction: SliderDirection;
+}
+
+/**
+ * Resolve a physical arrow key to a logical increment / decrement intent (or
+ * `null` if the key isn't a value-changing arrow for this orientation). RTL
+ * inversion of the horizontal axis lives here — the single source of truth.
+ */
+function resolveArrow(
+  key: PhysicalArrowKey,
+  orientation: SliderOrientation,
+  direction: SliderDirection,
+): 'increment' | 'decrement' | null {
+  if (orientation === 'vertical') {
+    if (key === 'ArrowUp') return 'increment';
+    if (key === 'ArrowDown') return 'decrement';
+    return null;
+  }
+  if (direction === 'rtl') {
+    if (key === 'ArrowLeft') return 'increment';
+    if (key === 'ArrowRight') return 'decrement';
+    return null;
+  }
+  if (key === 'ArrowRight') return 'increment';
+  if (key === 'ArrowLeft') return 'decrement';
+  return null;
 }
 
 export type SliderState = 'idle' | 'disabled';
@@ -54,6 +87,8 @@ export interface CreateSliderInput {
   /** PageUp/PageDown step. Default = step * 10. */
   pageStep?: number;
   orientation?: SliderOrientation;
+  /** Writing direction. Inverts horizontal arrows under `'rtl'`. */
+  direction?: SliderDirection;
   disabled?: boolean;
 }
 
@@ -101,6 +136,7 @@ export function createSliderMachine(input: CreateSliderInput = {}): SliderMachin
   const step = input.step ?? 1;
   const pageStep = input.pageStep ?? step * 10;
   const orientation = input.orientation ?? 'horizontal';
+  const direction = input.direction ?? 'ltr';
   const initialValue = clamp(snap(input.defaultValue ?? min, min, step), min, max);
 
   const factory = defineMachine<SliderContext, SliderEvent, SliderState>({
@@ -113,6 +149,7 @@ export function createSliderMachine(input: CreateSliderInput = {}): SliderMachin
       step,
       pageStep,
       orientation,
+      direction,
     },
     states: {
       idle: {
@@ -130,6 +167,22 @@ export function createSliderMachine(input: CreateSliderInput = {}): SliderMachin
               {
                 type: 'decrement',
                 exec: (ctx) => applyValue(ctx, ctx.value - ctx.step),
+              },
+            ],
+          },
+          NAVIGATE: {
+            actions: [
+              {
+                type: 'navigate',
+                exec: (ctx, e) => {
+                  if (e.type !== 'NAVIGATE') return;
+                  // Resolve the physical key using the machine's own
+                  // orientation + direction (RTL inversion lives here).
+                  const intent = resolveArrow(e.key, ctx.orientation, ctx.direction);
+                  if (intent === null) return;
+                  const delta = intent === 'increment' ? ctx.step : -ctx.step;
+                  return applyValue(ctx, ctx.value + delta);
+                },
               },
             ],
           },
@@ -219,6 +272,17 @@ export function createSliderMachine(input: CreateSliderInput = {}): SliderMachin
                 exec: (_, e) => {
                   if (e.type !== 'SET.ORIENTATION') return;
                   return { orientation: e.value };
+                },
+              },
+            ],
+          },
+          'SET.DIRECTION': {
+            actions: [
+              {
+                type: 'setDirection',
+                exec: (_, e) => {
+                  if (e.type !== 'SET.DIRECTION') return;
+                  return { direction: e.value };
                 },
               },
             ],

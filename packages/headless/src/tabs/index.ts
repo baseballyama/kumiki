@@ -10,8 +10,9 @@
  * `aria-selected="true"`. The rest get `tabindex="-1"` and
  * `aria-selected="false"`. Each panel is hidden when its tab is inactive.
  *
- * Orientation and RTL key inversion live here, **not** in the machine — the
- * machine receives logical `next` / `prev` directions only.
+ * Orientation and RTL key inversion live in the **machine** — the controller
+ * forwards the physical arrow key and the machine resolves it via its own
+ * `orientation` + `direction` context.
  *
  * - `horizontal` (default): ArrowLeft / ArrowRight move (inverted under RTL).
  * - `vertical`: ArrowUp / ArrowDown move; ArrowLeft/Right ignored.
@@ -22,21 +23,23 @@
 
 import {
   createTabsMachine,
+  idForValue,
+  resolveArrow,
   type CreateTabsInput,
+  type PhysicalArrowKey,
   type TabItem,
   type TabsActivation,
   type TabsContext,
+  type TabsDirection,
   type TabsEvent,
   type TabsMachine,
+  type TabsOrientation,
   type TabsState,
 } from '@kumiki/machines/tabs';
 import { tabindexFor } from '@kumiki/primitives/collection';
 import { uid } from '@kumiki/primitives/id';
 
 export type Attachment = (node: HTMLElement) => void | (() => void);
-
-export type TabsOrientation = 'horizontal' | 'vertical';
-export type TabsDirection = 'ltr' | 'rtl';
 
 export interface TabsController {
   readonly id: string;
@@ -103,8 +106,6 @@ export interface CreateTabsOptions extends CreateTabsInput {
 export function createTabs(options: CreateTabsOptions): TabsController {
   const machine = createTabsMachine(options);
   const id = options.id ?? uid('tabs');
-  let orientation: TabsOrientation = options.orientation ?? 'horizontal';
-  let direction: TabsDirection = options.direction ?? 'ltr';
 
   function tabElementId(itemId: string): string {
     return `${id}-tab-${itemId}`;
@@ -128,7 +129,7 @@ export function createTabs(options: CreateTabsOptions): TabsController {
     node.setAttribute('data-component', 'tabs');
 
     const paint = (): void => {
-      node.setAttribute('aria-orientation', orientation);
+      node.setAttribute('aria-orientation', machine.context.orientation);
       const isDisabled = machine.state === 'disabled';
       if (isDisabled) {
         node.setAttribute('aria-disabled', 'true');
@@ -157,7 +158,11 @@ export function createTabs(options: CreateTabsOptions): TabsController {
 
       const paint = (): void => {
         const isSelected = machine.context.value === item.value;
-        const tab = tabindexFor(machine.context.items, item.id, machine.context.focusedId);
+        // Roving tabindex anchor: the focused tab while navigating, otherwise
+        // the active tab (so Tab returns to it, per APG), then the first enabled.
+        const anchor =
+          machine.context.focusedId ?? idForValue(machine.context.items, machine.context.value);
+        const tab = tabindexFor(machine.context.items, item.id, anchor);
         node.setAttribute('aria-selected', String(isSelected));
         node.setAttribute('data-state', isSelected ? 'active' : 'inactive');
         node.setAttribute('tabindex', String(tab));
@@ -187,29 +192,17 @@ export function createTabs(options: CreateTabsOptions): TabsController {
       const onKeydown = (event: KeyboardEvent): void => {
         if (machine.state === 'disabled') return;
 
-        // Decide which keys count as next/prev for this orientation+dir.
-        const horiz = orientation === 'horizontal';
-        const isPrev = horiz
-          ? direction === 'rtl'
-            ? event.key === 'ArrowRight'
-            : event.key === 'ArrowLeft'
-          : event.key === 'ArrowUp';
-        const isNext = horiz
-          ? direction === 'rtl'
-            ? event.key === 'ArrowLeft'
-            : event.key === 'ArrowRight'
-          : event.key === 'ArrowDown';
-
-        if (isPrev) {
-          event.preventDefault();
-          machine.send({ type: 'NAVIGATE', direction: 'prev' });
-          focusCurrent(machine, tabElementId);
-          return;
-        }
-        if (isNext) {
-          event.preventDefault();
-          machine.send({ type: 'NAVIGATE', direction: 'next' });
-          focusCurrent(machine, tabElementId);
+        // Forward physical arrow keys; the machine resolves them to next/prev
+        // using its own orientation + direction (RTL inversion lives there).
+        // Consume only keys this orientation/direction navigates with (even at a
+        // clamp boundary); an off-axis arrow passes through so it doesn't block
+        // page scroll. `resolveArrow` is the machine's own resolver, reused.
+        if (isArrowKey(event.key)) {
+          if (resolveArrow(event.key, machine.context.orientation, machine.context.direction)) {
+            event.preventDefault();
+            machine.send({ type: 'NAVIGATE', key: event.key });
+            focusCurrent(machine, tabElementId);
+          }
           return;
         }
         switch (event.key) {
@@ -310,18 +303,18 @@ export function createTabs(options: CreateTabsOptions): TabsController {
     setItems: (items) => machine.send({ type: 'SET.ITEMS', items }),
     setActivation: (activation) => machine.send({ type: 'SET.ACTIVATION', activation }),
     setDisabled: (disabled) => machine.send({ type: disabled ? 'DISABLE' : 'ENABLE' } as TabsEvent),
-    setOrientation: (next) => {
-      orientation = next;
-    },
-    setDirection: (next) => {
-      direction = next;
-    },
+    setOrientation: (next) => machine.send({ type: 'SET.ORIENTATION', orientation: next }),
+    setDirection: (next) => machine.send({ type: 'SET.DIRECTION', direction: next }),
     subscribe: machine.subscribe.bind(machine),
     list,
     tab: makeTab,
     panel: makePanel,
     machine,
   };
+}
+
+function isArrowKey(key: string): key is PhysicalArrowKey {
+  return key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown';
 }
 
 function focusCurrent(machine: TabsMachine, tabElementId: (id: string) => string): void {
@@ -333,4 +326,13 @@ function focusCurrent(machine: TabsMachine, tabElementId: (id: string) => string
   }
 }
 
-export type { TabItem, TabsActivation, TabsContext, TabsEvent, TabsMachine, TabsState };
+export type {
+  TabItem,
+  TabsActivation,
+  TabsContext,
+  TabsDirection,
+  TabsEvent,
+  TabsMachine,
+  TabsOrientation,
+  TabsState,
+};

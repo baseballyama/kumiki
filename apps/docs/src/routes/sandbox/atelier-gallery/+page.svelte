@@ -147,9 +147,9 @@
     <h2>Inputs</h2>
     <div class="row">
       <NumberField.Root>
-        <NumberField.Decrement />
+        <NumberField.Decrement aria-label="Decrease" />
         <NumberField.Input aria-label="Quantity" />
-        <NumberField.Increment />
+        <NumberField.Increment aria-label="Increase" />
       </NumberField.Root>
       <Slider.Root min={0} max={100} aria-label="Volume">
         <Slider.Thumb aria-label="Volume" />
@@ -297,7 +297,7 @@
 
   <section>
     <h2>Table</h2>
-    <Table.Root>
+    <Table.Root aria-label="Kumiki components">
       <Table.Header>
         <Table.HeaderRow>
           <Table.HeaderCell>Component</Table.HeaderCell>

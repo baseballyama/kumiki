@@ -129,10 +129,29 @@ describe('checkbox machine', () => {
       expect(m.context.value).toBe('mixed');
     });
 
-    it('ENABLE returns to unchecked (matches browser default)', () => {
-      const m = createCheckboxMachine({ initial: 'checked', disabled: true });
+    it('ENABLE restores the state matching the preserved value', () => {
+      const checked = createCheckboxMachine({ initial: 'checked', disabled: true });
+      checked.send({ type: 'ENABLE' });
+      expect(checked.state).toBe('checked');
+      expect(checked.context.value).toBe('checked');
+
+      const mixed = createCheckboxMachine({ initial: 'mixed', disabled: true });
+      mixed.send({ type: 'ENABLE' });
+      expect(mixed.state).toBe('mixed');
+      expect(mixed.context.value).toBe('mixed');
+
+      const unchecked = createCheckboxMachine({ disabled: true });
+      unchecked.send({ type: 'ENABLE' });
+      expect(unchecked.state).toBe('unchecked');
+      expect(unchecked.context.value).toBe('unchecked');
+    });
+
+    it('DISABLE → ENABLE round-trips without changing the value', () => {
+      const m = createCheckboxMachine({ initial: 'checked' });
+      m.send({ type: 'DISABLE' });
       m.send({ type: 'ENABLE' });
-      expect(m.state).toBe('unchecked');
+      expect(m.state).toBe('checked');
+      expect(m.context.value).toBe('checked');
     });
   });
 

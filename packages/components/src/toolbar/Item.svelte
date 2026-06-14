@@ -91,6 +91,16 @@
     if (disabled || !buttonRef) return;
     ctx.notifyFocus(buttonRef);
   }
+
+  // aria-disabled keeps the item focusable, so activation (click / Enter /
+  // Space, which dispatch click) must be suppressed in JS.
+  function handleClick(event: MouseEvent): void {
+    if (disabled) {
+      event.preventDefault();
+      return;
+    }
+    onclick?.(event);
+  }
 </script>
 
 <button
@@ -99,7 +109,7 @@
   aria-disabled={disabled ? 'true' : undefined}
   data-disabled={disabled ? '' : undefined}
   tabindex={tabStop ? 0 : -1}
-  {onclick}
+  onclick={handleClick}
   onkeydown={handleKeydown}
   onfocus={handleFocus}
   {@attach attach}

@@ -212,6 +212,20 @@ describe('createSlider attachment', () => {
     expect(onValueChange.mock.calls).toEqual([[60], [40]]);
   });
 
+  it('setDirection repaints --kumiki-slider-pct without a machine event', () => {
+    const s = createSlider({ min: 0, max: 100, defaultValue: 25 });
+    attachAll(s);
+    // LTR: 25% fill.
+    expect(track.style.getPropertyValue('--kumiki-slider-pct')).toBe('25%');
+    expect(thumb.style.getPropertyValue('--kumiki-slider-pct')).toBe('25%');
+    const before = s.value;
+    s.setDirection('rtl');
+    // RTL inverts the visual percentage to 75% — no machine event sent.
+    expect(track.style.getPropertyValue('--kumiki-slider-pct')).toBe('75%');
+    expect(thumb.style.getPropertyValue('--kumiki-slider-pct')).toBe('75%');
+    expect(s.value).toBe(before);
+  });
+
   it('teardown removes listeners + ends pending drag', () => {
     const s = createSlider();
     attachAll(s);

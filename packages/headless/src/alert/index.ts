@@ -90,6 +90,21 @@ export function createAlert(options: CreateAlertOptions = {}): AlertController {
     const apply = (): void => {
       const { role, live } = deriveRoleLive(severity, liveOverride);
       paint(node, role, live);
+      // Name/describe the live region only when the referenced elements
+      // exist — a dangling reference would make screen readers announce
+      // nothing. A consumer-supplied aria-label takes precedence.
+      if (!node.hasAttribute('aria-label')) {
+        if (node.ownerDocument?.getElementById(titleId)) {
+          node.setAttribute('aria-labelledby', titleId);
+        } else {
+          node.removeAttribute('aria-labelledby');
+        }
+      }
+      if (node.ownerDocument?.getElementById(descriptionId)) {
+        node.setAttribute('aria-describedby', descriptionId);
+      } else {
+        node.removeAttribute('aria-describedby');
+      }
     };
     apply();
 

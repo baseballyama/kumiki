@@ -106,7 +106,11 @@ export function createMenuMachine(input: CreateMenuInput): MenuMachine {
     initial: input.defaultOpen ? 'open' : 'closed',
     context: {
       items,
-      highlightedId: null,
+      // A constructed-open menu highlights its first enabled item. This is
+      // safe now that Layer 3 puts `aria-activedescendant` on the role=menu
+      // element (which permits it) rather than the trigger <button> (which
+      // does not — axe aria-allowed-attr). APG menu-button focus model.
+      highlightedId: input.defaultOpen ? firstEnabledId(items) : null,
       typeahead: '',
       activatedId: null,
     },

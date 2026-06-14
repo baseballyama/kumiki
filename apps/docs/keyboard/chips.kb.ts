@@ -37,11 +37,11 @@ export const chipsKeyboardContract: KeyboardContract = {
     {
       name: 'Dismissible: Close has auto aria-label "Remove {label}"',
       url: '/sandbox/chips?variant=dismissible',
-      focus: `${CHIPS_HOST} button[data-part="close"]`,
+      focus: `${CHIPS_HOST} button[data-component-part="close"]`,
       press: 'Tab',
       expect: [
         {
-          selector: `${CHIPS_HOST} button[data-part="close"]`,
+          selector: `${CHIPS_HOST} button[data-component-part="close"]`,
           attribute: 'aria-label',
           value: 'Remove design',
         },

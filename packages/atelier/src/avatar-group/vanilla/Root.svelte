@@ -2,15 +2,15 @@
   import { Root } from '@kumiki/components/avatar-group';
   import type { Snippet } from 'svelte';
 
-  type Props = {
+  type BaseProps = {
     max?: number;
     total?: number;
-    'aria-label'?: string;
-    'aria-labelledby'?: string;
     children: Snippet;
     class?: string;
     [k: string]: unknown;
   };
+
+  type Props = (BaseProps & { 'aria-label': string }) | (BaseProps & { 'aria-labelledby': string });
 
   let { children, class: className = '', ...rest }: Props = $props();
 </script>

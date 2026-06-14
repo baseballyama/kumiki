@@ -16,7 +16,11 @@ export const iconButtonKeyboardContract: KeyboardContract = {
   component: 'icon-button',
   apg: 'https://www.w3.org/WAI/ARIA/apg/patterns/button/',
   sandbox: '/sandbox/icon-button',
-  hydrationSelector: '[data-testid="icon-button-host"] button',
+  // IconButton delegates to `createButton`, whose attachment paints
+  // `id="kumiki-button-…"` on mount (the sandbox passes no id). The SSR
+  // markup is a bare `<button>`, so this id is a true post-hydration
+  // sentinel — waiting on the bare button raced the activation wiring.
+  hydrationSelector: '[data-testid="icon-button-host"] button[id^="kumiki-button-"]',
   cases: [
     {
       name: 'IconButton has the required aria-label',

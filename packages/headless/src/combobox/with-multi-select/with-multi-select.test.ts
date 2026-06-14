@@ -133,4 +133,63 @@ describe('withMultiSelect', () => {
     cb.toggle({ id: 'svelte', value: 'svelte', label: 'Svelte (different clone)' });
     expect(cb.selected).toEqual([]);
   });
+
+  // ── F-01: aria-selected reflects selected[], listbox is multiselectable ──
+
+  it('option attachment reflects aria-selected from the selected[] array', () => {
+    const cb = withMultiSelect(newCb(), [TAGS[1]!]);
+    const el0 = document.createElement('li');
+    const el1 = document.createElement('li');
+    const t0 = cb.option(TAGS[0]!)(el0);
+    const t1 = cb.option(TAGS[1]!)(el1);
+    expect(el0.getAttribute('aria-selected')).toBe('false');
+    expect(el1.getAttribute('aria-selected')).toBe('true');
+    expect(el0.getAttribute('role')).toBe('option'); // base wiring preserved
+    t0?.();
+    t1?.();
+  });
+
+  it('aria-selected updates live as the selection changes', () => {
+    const cb = withMultiSelect(newCb());
+    const el = document.createElement('li');
+    const teardown = cb.option(TAGS[0]!)(el);
+    expect(el.getAttribute('aria-selected')).toBe('false');
+    cb.toggle(TAGS[0]!);
+    expect(el.getAttribute('aria-selected')).toBe('true');
+    cb.toggle(TAGS[0]!);
+    expect(el.getAttribute('aria-selected')).toBe('false');
+    teardown?.();
+  });
+
+  it('user commit through the base machine flips the rendered option to selected', () => {
+    const base = newCb();
+    const cb = withMultiSelect(base);
+    const el = document.createElement('li');
+    const teardown = cb.option(TAGS[0]!)(el);
+    base.open();
+    base.machine.send({ type: 'OPTION.SELECT', option: TAGS[0]! });
+    // Base machine value was reset to null, but the wrapper keeps it selected.
+    expect(cb.value).toBeNull();
+    expect(el.getAttribute('aria-selected')).toBe('true');
+    teardown?.();
+  });
+
+  it('listbox attachment sets aria-multiselectable="true"', () => {
+    const cb = withMultiSelect(newCb());
+    const el = document.createElement('ul');
+    const teardown = cb.listbox(el);
+    expect(el.getAttribute('aria-multiselectable')).toBe('true');
+    expect(el.getAttribute('role')).toBe('listbox'); // base wiring preserved
+    teardown?.();
+  });
+
+  it('destroy() unsubscribes the base value watcher', () => {
+    const base = newCb();
+    const cb = withMultiSelect(base);
+    cb.destroy();
+    base.open();
+    base.machine.send({ type: 'OPTION.SELECT', option: TAGS[0]! });
+    // After destroy the watcher no longer mirrors picks into selected[].
+    expect(cb.selected).toEqual([]);
+  });
 });

@@ -97,10 +97,26 @@ describe('switch machine', () => {
       expect(m.context.checked).toBe(true);
     });
 
-    it('ENABLE from disabled → off', () => {
+    it('ENABLE restores on when the switch was checked before disabling', () => {
       const m = createSwitchMachine({ initial: true, disabled: true });
       m.send({ type: 'ENABLE' });
+      expect(m.state).toBe('on');
+      expect(m.context.checked).toBe(true);
+    });
+
+    it('ENABLE returns to off when the switch was not checked', () => {
+      const m = createSwitchMachine({ disabled: true });
+      m.send({ type: 'ENABLE' });
       expect(m.state).toBe('off');
+      expect(m.context.checked).toBe(false);
+    });
+
+    it('DISABLE → ENABLE round-trips without changing the value', () => {
+      const m = createSwitchMachine({ initial: true });
+      m.send({ type: 'DISABLE' });
+      m.send({ type: 'ENABLE' });
+      expect(m.state).toBe('on');
+      expect(m.context.checked).toBe(true);
     });
   });
 

@@ -34,6 +34,8 @@
       {items}
       bind:value
       {disabled}
+      direction={dir}
+      aria-label="Sandbox options"
       onValueChange={(v: string | null) => append(`onValueChange(${v ?? 'null'})`)}
     >
       {#each items as item (item.id)}

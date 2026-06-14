@@ -23,7 +23,7 @@
  * @see ../../../../../docs/design/11-composition.md §11.4
  */
 
-import type { ComboboxController } from '../index.js';
+import type { Attachment, ComboboxController } from '../index.js';
 import type { ComboboxOption } from '@kumiki/machines/combobox';
 
 export interface VirtualizationOptions {
@@ -66,7 +66,21 @@ export interface VirtualizedCombobox<T extends ComboboxOption> extends ComboboxC
 
   getItemStyle(index: number): ItemStyle;
 
+  /**
+   * Option attachment that, on top of the base wiring, sets `aria-setsize` to
+   * the full filtered length and `aria-posinset` to `item`'s 1-based index in
+   * the full filtered list. Without these, a screen reader windowing only a
+   * few DOM nodes announces "N of <visible>" instead of "N of <total>".
+   *
+   * `posInSet` / `setSize` may be passed explicitly (e.g. from a
+   * `VirtualItem.index`); when omitted they are derived from `base.filtered`.
+   */
+  option(item: T, posInSet?: number, setSize?: number): Attachment;
+
   subscribeVirtualization(listener: (snapshot: VirtualizationSnapshot<T>) => void): () => void;
+
+  /** Tear down the base subscription this wrapper holds. */
+  destroy(): void;
 }
 
 /**
@@ -126,7 +140,7 @@ export function withVirtualization<T extends ComboboxOption>(
 
   // Re-window whenever the filtered list changes (machine subscribe).
   let prevFiltered = base.filtered;
-  base.subscribe(({ context }) => {
+  const unsubscribe = base.subscribe(({ context }) => {
     if (context.filtered !== prevFiltered) {
       prevFiltered = context.filtered;
       recompute();
@@ -155,6 +169,31 @@ export function withVirtualization<T extends ComboboxOption>(
     };
   }
 
+  // Compose the base option attachment, then set aria-setsize/aria-posinset
+  // against the FULL filtered list so SR announcements read "N of <total>"
+  // even when only a window of rows is in the DOM. Re-applied on filter change
+  // since an item's position in the full list can shift.
+  function option(item: T, posInSet?: number, setSize?: number): Attachment {
+    const baseOption = base.option(item);
+    return (node) => {
+      const baseTeardown = baseOption(node);
+      const apply = (): void => {
+        const filtered = base.filtered;
+        const total = setSize ?? filtered.length;
+        const pos = posInSet ?? filtered.findIndex((o) => o.id === item.id) + 1;
+        node.setAttribute('aria-setsize', String(total));
+        if (pos > 0) node.setAttribute('aria-posinset', String(pos));
+        else node.removeAttribute('aria-posinset');
+      };
+      apply();
+      const off = base.subscribe(apply);
+      return () => {
+        off();
+        baseTeardown?.();
+      };
+    };
+  }
+
   const wrapped: VirtualizedCombobox<T> = Object.create(base, {
     visibleItems: { get: () => snapshot().visibleItems, enumerable: true },
     totalHeight: { get: () => snapshot().totalHeight, enumerable: true },
@@ -163,6 +202,7 @@ export function withVirtualization<T extends ComboboxOption>(
     setScrollTop: { value: setScrollTop, enumerable: true },
     setViewportHeight: { value: setViewportHeight, enumerable: true },
     getItemStyle: { value: getItemStyle, enumerable: true },
+    option: { value: option, enumerable: true },
     subscribeVirtualization: {
       value: (listener: (snap: VirtualizationSnapshot<T>) => void) => {
         listeners.add(listener);
@@ -170,6 +210,7 @@ export function withVirtualization<T extends ComboboxOption>(
       },
       enumerable: true,
     },
+    destroy: { value: () => unsubscribe(), enumerable: true },
   }) as VirtualizedCombobox<T>;
 
   return wrapped;

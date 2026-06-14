@@ -21,12 +21,19 @@
   const initialOpen = controller.open;
 </script>
 
+<!--
+  `data-state` is intentionally omitted from the SSR template: the listbox
+  attachment paints it on mount (`hidden` drives visibility on its own, and
+  the styling hooks key off `[hidden]`, not `data-state`). That makes
+  `[data-state]` an attachment-only signal the e2e suite uses to detect
+  hydration.
+-->
 <ul
   {...rest}
+  id={controller.listboxId}
   role="listbox"
   aria-labelledby={controller.triggerId}
   tabindex="-1"
-  data-state={initialOpen ? 'open' : 'closed'}
   hidden={!initialOpen || undefined}
   {@attach controller.listbox}
 >

@@ -45,6 +45,7 @@
         append(`onSortChange(${JSON.stringify(s)})`);
       }}
       onSelectionChange={(s) => append(`onSelectionChange(${[...s].join(',')})`)}
+      aria-label="People"
     >
       <Table.Caption>People</Table.Caption>
       <Table.Header>

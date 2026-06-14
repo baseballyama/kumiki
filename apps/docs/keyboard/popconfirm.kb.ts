@@ -21,7 +21,10 @@ export const popconfirmKeyboardContract: KeyboardContract = {
   component: 'popconfirm',
   apg: 'https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/',
   sandbox: '/sandbox/popconfirm',
-  hydrationSelector: TRIGGER,
+  // The trigger gets its `id="kumiki-popover-…"` only after the attachment
+  // runs, so this is a true post-hydration sentinel — keying before then
+  // (the bare data-testid is in SSR) would race the keydown wiring.
+  hydrationSelector: `${TRIGGER}[id^="kumiki-popover-"]`,
   cases: [
     {
       name: 'Enter on trigger opens the popconfirm',

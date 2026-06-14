@@ -68,6 +68,49 @@ describe('slider machine', () => {
     });
   });
 
+  describe('NAVIGATE physical arrow resolution (RTL inversion in the machine)', () => {
+    it('horizontal LTR: ArrowRight increments, ArrowLeft decrements', () => {
+      const m = createSliderMachine({ defaultValue: 50 });
+      m.send({ type: 'NAVIGATE', key: 'ArrowRight' });
+      expect(m.context.value).toBe(51);
+      m.send({ type: 'NAVIGATE', key: 'ArrowLeft' });
+      expect(m.context.value).toBe(50);
+    });
+
+    it('horizontal RTL: ArrowLeft increments, ArrowRight decrements (inverted in the machine)', () => {
+      const m = createSliderMachine({ defaultValue: 50, direction: 'rtl' });
+      m.send({ type: 'NAVIGATE', key: 'ArrowLeft' });
+      expect(m.context.value).toBe(51); // RTL: Left = increment
+      m.send({ type: 'NAVIGATE', key: 'ArrowRight' });
+      expect(m.context.value).toBe(50);
+    });
+
+    it('SET.DIRECTION flips the inversion at runtime', () => {
+      const m = createSliderMachine({ defaultValue: 50 });
+      m.send({ type: 'SET.DIRECTION', value: 'rtl' });
+      expect(m.context.direction).toBe('rtl');
+      m.send({ type: 'NAVIGATE', key: 'ArrowLeft' });
+      expect(m.context.value).toBe(51); // now RTL → Left = increment
+    });
+
+    it('vertical: ArrowUp increments, ArrowDown decrements; horizontal arrows are no-ops', () => {
+      const m = createSliderMachine({ defaultValue: 50, orientation: 'vertical' });
+      m.send({ type: 'NAVIGATE', key: 'ArrowUp' });
+      expect(m.context.value).toBe(51);
+      m.send({ type: 'NAVIGATE', key: 'ArrowRight' }); // off-axis → ignored
+      expect(m.context.value).toBe(51);
+      m.send({ type: 'NAVIGATE', key: 'ArrowDown' });
+      expect(m.context.value).toBe(50);
+    });
+
+    it('exposes the navigate action + SET.DIRECTION in toJSON (config is machine-side)', () => {
+      const json = createSliderMachine().toJSON();
+      expect(json.context).toMatchObject({ direction: 'ltr', orientation: 'horizontal' });
+      expect(json.states.idle!.on!['NAVIGATE']).toBeDefined();
+      expect(json.states.idle!.on!['SET.DIRECTION']).toBeDefined();
+    });
+  });
+
   describe('PAGE_INCREMENT / PAGE_DECREMENT', () => {
     it('uses pageStep multiplier', () => {
       const m = createSliderMachine({ defaultValue: 50 });

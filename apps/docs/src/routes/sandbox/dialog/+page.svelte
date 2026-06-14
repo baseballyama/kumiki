@@ -97,6 +97,9 @@
   :global(.overlay) {
     position: fixed;
     inset: 0;
+    /* Sit above the docs site header (sticky, z-index 50) so the backdrop
+       covers the whole viewport — a real modal overlay would do the same. */
+    z-index: 1000;
     background: rgba(0, 0, 0, 0.5);
   }
   /* `[hidden]` UA rule is `display: none` — make sure custom `display`
@@ -108,6 +111,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
+    z-index: 1001;
     transform: translate(-50%, -50%);
     background: #fff;
     color: #111;

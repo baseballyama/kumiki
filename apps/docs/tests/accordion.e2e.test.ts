@@ -1,11 +1,13 @@
 import { test, expect, type Page } from '@playwright/test';
 
-const ROOT = '[data-testid="accordion-host"] [data-component-host="accordion"]';
 const TRIGGER = (v: string) => `[data-testid="trigger-${v}"]`;
 const PANEL = (v: string) => `[data-testid="panel-${v}"]`;
 
 async function waitForHydration(page: Page): Promise<void> {
-  await expect(page.locator(`${ROOT}[id^="kumiki-accordion-"]`)).toBeAttached({
+  // The trigger's id now ships in SSR, so it can't prove hydration. The
+  // trigger attachment paints `data-state` on mount, and the SSR template
+  // never renders it — so it's the cleanest hydration signal.
+  await expect(page.locator(`${TRIGGER('general')}[data-state]`)).toBeAttached({
     timeout: 5000,
   });
 }

@@ -19,11 +19,12 @@ describe('createMenuMachine', () => {
     expect(m.context.activatedId).toBeNull();
   });
 
-  it('honors defaultOpen with first enabled item highlighted', () => {
+  it('honors defaultOpen and highlights the first enabled item', () => {
     const m = createMenuMachine({ items: ITEMS, defaultOpen: true });
     expect(m.state).toBe('open');
-    // Note: defaultOpen jumps straight in; OPEN action does not run, so highlightedId stays null.
-    expect(m.context.highlightedId).toBeNull();
+    // Safe now that Layer 3 puts aria-activedescendant on the role=menu
+    // element (APG menu-button focus model), not the trigger button.
+    expect(m.context.highlightedId).toBe('new');
   });
 
   it('OPEN highlights first enabled non-separator item', () => {

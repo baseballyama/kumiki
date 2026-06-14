@@ -1,10 +1,11 @@
 <!--
-  @component Field.Errors — live-region container for validation errors.
+  @component Field.Errors — assertive alert region for validation errors.
 
-  Renders a `<div role="alert" aria-live="polite">`. Hidden when there are
-  no errors. The default rendering shows messages joined by space; override
-  by passing `children` and using the controller from context to render
-  whatever you like.
+  Renders a `<div role="alert">`. Hidden when there are no errors. The
+  default rendering shows messages joined by space; override by passing
+  `children` and using the controller from context to render whatever you
+  like. `role="alert"` implies aria-live="assertive" — do not add a
+  redundant aria-live attribute.
 -->
 <script lang="ts" generics="V">
   import { getContext } from 'svelte';
@@ -27,7 +28,6 @@
   {...rest}
   id={controller.errorsId}
   role="alert"
-  aria-live="polite"
   data-component-part="errors"
   hidden={initialHidden || undefined}
   {@attach controller.errors}

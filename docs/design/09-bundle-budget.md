@@ -98,8 +98,8 @@ Two columns: **Gate** is what CI enforces today; **Target** is the long-run redu
 | `@kumiki/components/toggle`       | 3_100 B | 1_950 B | L3↔L4 attribute-painting dedup deferred                                            |
 | `@kumiki/components/switch`       | 1_650 B | 1_650 B | Revised per ADR 0018                                                               |
 | `@kumiki/components/checkbox`     | 1_800 B | 1_800 B | Revised per ADR 0018                                                               |
-| `@kumiki/components/radio-group`  | 2_400 B | 2_400 B | Revised per ADR 0018                                                               |
-| `@kumiki/components/tabs`         | 2_950 B | 2_950 B | Revised per ADR 0018                                                               |
+| `@kumiki/components/radio-group`  | 2_600 B | 2_600 B | Revised per ADR 0022 (RTL inversion moved into machine)                            |
+| `@kumiki/components/tabs`         | 3_250 B | 3_250 B | Revised per ADR 0022 (orientation + direction in machine)                          |
 | `@kumiki/components/tooltip`      | 2 kB    | 2 kB    | + Floating UI peer dep amortized                                                   |
 | `@kumiki/components/dialog`       | 3.5 kB  | 3.5 kB  |                                                                                    |
 | `@kumiki/components/form-field`   | 2_800 B | 1_950 B | `with-validation` subpath split deferred                                           |

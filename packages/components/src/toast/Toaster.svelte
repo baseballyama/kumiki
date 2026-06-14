@@ -47,7 +47,10 @@
   const unsub = controller.subscribe(({ context }) => {
     toasts = context.toasts;
   });
-  onDestroy(unsub);
+  onDestroy(() => {
+    unsub();
+    controller.destroy(); // cancel any pending auto-dismiss timers
+  });
 
   $effect(() => {
     if (max !== undefined) controller.setMax(max);

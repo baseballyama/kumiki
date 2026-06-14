@@ -16,14 +16,17 @@
 
   export type LoadingSpinnerMode = 'inline' | 'region';
 
-  export type Props = {
+  type BaseProps = {
     mode?: LoadingSpinnerMode;
     /** Custom spinner glyph snippet. Default: a styled <span> for atelier to paint. */
     spinner?: Snippet;
-    /** Visible (region mode) or visually-hidden (inline mode) label content. */
-    children?: Snippet;
     [key: string]: unknown;
   };
+
+  // role="status" needs an accessible name: either label children or an
+  // explicit aria-label (which flows onto the status element via rest-spread).
+  export type Props = BaseProps &
+    ({ children: Snippet } | { 'aria-label': string; children?: undefined });
 </script>
 
 <script lang="ts">
