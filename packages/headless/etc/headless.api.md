@@ -67,7 +67,7 @@ export namespace popover {
 
 // @public (undocumented)
 export namespace radioGroup {
-    export { Attachment, CreateRadioGroupOptions, RadioGroupContext, RadioGroupController, RadioGroupEvent, RadioGroupMachine, RadioGroupState, RadioItem, createRadioGroup };
+    export { Attachment, CreateRadioGroupOptions, RadioGroupContext, RadioGroupController, RadioGroupDirection, RadioGroupEvent, RadioGroupMachine, RadioGroupState, RadioItem, createRadioGroup };
 }
 
 // @public (undocumented)

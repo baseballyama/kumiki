@@ -15,7 +15,9 @@ import {
   createRadioGroupMachine,
   idForValue,
   type CreateRadioGroupInput,
+  type PhysicalArrowKey,
   type RadioGroupContext,
+  type RadioGroupDirection,
   type RadioGroupEvent,
   type RadioGroupMachine,
   type RadioGroupState,
@@ -42,6 +44,11 @@ export interface RadioGroupController<V> {
   /** Replace the group's items (e.g., when filtered). */
   setItems(items: ReadonlyArray<RadioItem<V>>): void;
   setDisabled(disabled: boolean): void;
+  /**
+   * Update writing direction. RTL inverts the horizontal arrows (ArrowLeft
+   * becomes `next`, ArrowRight becomes `prev`); the vertical axis is unchanged.
+   */
+  setDirection(direction: RadioGroupDirection): void;
 
   subscribe(
     listener: (snapshot: { state: RadioGroupState; context: RadioGroupContext<V> }) => void,
@@ -65,6 +72,7 @@ export interface RadioGroupController<V> {
 export interface CreateRadioGroupOptions<V> extends CreateRadioGroupInput<V> {
   onValueChange?: (value: V | null) => void;
   id?: string;
+  direction?: RadioGroupDirection;
 }
 
 /**
@@ -158,19 +166,15 @@ export function createRadioGroup<V>(options: CreateRadioGroupOptions<V>): RadioG
       };
       const onKeydown = (event: KeyboardEvent): void => {
         if (machine.state === 'disabled') return;
+        // Forward physical arrow keys; the machine resolves them to next/prev
+        // using its own direction (RTL inverts the horizontal axis).
+        if (isArrowKey(event.key)) {
+          event.preventDefault();
+          machine.send({ type: 'NAVIGATE', key: event.key });
+          focusCurrentItem(machine, itemElementId);
+          return;
+        }
         switch (event.key) {
-          case 'ArrowDown':
-          case 'ArrowRight':
-            event.preventDefault();
-            machine.send({ type: 'NAVIGATE', direction: 'next' });
-            focusCurrentItem(machine, itemElementId);
-            break;
-          case 'ArrowUp':
-          case 'ArrowLeft':
-            event.preventDefault();
-            machine.send({ type: 'NAVIGATE', direction: 'prev' });
-            focusCurrentItem(machine, itemElementId);
-            break;
           case 'Home':
             event.preventDefault();
             machine.send({ type: 'NAVIGATE', direction: 'first' });
@@ -233,11 +237,16 @@ export function createRadioGroup<V>(options: CreateRadioGroupOptions<V>): RadioG
     setItems: (items) => machine.send({ type: 'SET.ITEMS', items }),
     setDisabled: (disabled) =>
       machine.send({ type: disabled ? 'DISABLE' : 'ENABLE' } as RadioGroupEvent<V>),
+    setDirection: (direction) => machine.send({ type: 'SET.DIRECTION', direction }),
     subscribe: machine.subscribe.bind(machine),
     root,
     item: makeItem,
     machine,
   };
+}
+
+function isArrowKey(key: string): key is PhysicalArrowKey {
+  return key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown';
 }
 
 /**
@@ -258,4 +267,11 @@ function focusCurrentItem<V>(
   }
 }
 
-export type { RadioGroupContext, RadioGroupEvent, RadioGroupMachine, RadioGroupState, RadioItem };
+export type {
+  RadioGroupContext,
+  RadioGroupDirection,
+  RadioGroupEvent,
+  RadioGroupMachine,
+  RadioGroupState,
+  RadioItem,
+};

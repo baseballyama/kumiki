@@ -9,6 +9,12 @@
  * Generic over the item value type `V`. Most consumers pass strings; richer
  * shapes work too as long as the value is referentially comparable.
  *
+ * `direction` lives in the machine context. The Layer 3 attachment forwards the
+ * *physical* arrow key via `NAVIGATE`; the machine resolves it to next/prev,
+ * inverting the horizontal axis under RTL. This keeps RTL inversion in one
+ * `toJSON`-visible place (the i18n bar in CLAUDE.md). The vertical axis
+ * (ArrowUp/ArrowDown) is never inverted.
+ *
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/radio/
  */
 
@@ -26,13 +32,26 @@ export interface RadioItem<V> extends CollectionItem {
   readonly disabled?: boolean;
 }
 
+export type RadioGroupDirection = 'ltr' | 'rtl';
+
+/** A physical arrow key, forwarded verbatim from the keyboard. */
+export type PhysicalArrowKey = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown';
+
+/**
+ * `NAVIGATE` carries *either* a logical direction (`first`/`last` — for
+ * Home/End, direction-agnostic) *or* a physical arrow `key`, which the machine
+ * resolves to next/prev using its own `direction` (RTL inverts the horizontal
+ * axis).
+ */
 export type RadioGroupEvent<V> =
   | { type: 'SELECT'; id: string }
   | { type: 'FOCUS'; id: string }
   | { type: 'BLUR' }
   | { type: 'NAVIGATE'; direction: NavigateDirection }
+  | { type: 'NAVIGATE'; key: PhysicalArrowKey }
   | { type: 'SET.VALUE'; value: V | null }
   | { type: 'SET.ITEMS'; items: ReadonlyArray<RadioItem<V>> }
+  | { type: 'SET.DIRECTION'; direction: RadioGroupDirection }
   | { type: 'DISABLE' }
   | { type: 'ENABLE' };
 
@@ -40,6 +59,18 @@ export interface RadioGroupContext<V> {
   items: ReadonlyArray<RadioItem<V>>;
   value: V | null;
   focusedId: string | null;
+  direction: RadioGroupDirection;
+}
+
+/**
+ * Resolve a physical arrow key to a logical `next`/`prev` direction. The
+ * vertical axis (ArrowDown=next, ArrowUp=prev) is never inverted; the
+ * horizontal axis inverts under RTL. The single source of truth for RadioGroup
+ * RTL inversion — used inside the machine's `NAVIGATE` action.
+ */
+function resolveArrow(key: PhysicalArrowKey, direction: RadioGroupDirection): 'next' | 'prev' {
+  const next = key === 'ArrowDown' || key === (direction === 'rtl' ? 'ArrowLeft' : 'ArrowRight');
+  return next ? 'next' : 'prev';
 }
 
 export type RadioGroupState = 'idle' | 'disabled';
@@ -56,6 +87,8 @@ export interface CreateRadioGroupInput<V> {
   disabled?: boolean;
   /** Whether arrow navigation wraps (default) or clamps. */
   navigation?: 'wrap' | 'clamp';
+  /** Writing direction. Inverts horizontal arrows under `'rtl'`. */
+  direction?: RadioGroupDirection;
 }
 
 /**
@@ -89,6 +122,7 @@ export function createRadioGroupMachine<V>(input: CreateRadioGroupInput<V>): Rad
   const navigation = input.navigation ?? 'wrap';
   const defaultValue = input.defaultValue ?? null;
   const disabled = input.disabled ?? false;
+  const direction = input.direction ?? 'ltr';
 
   const factory = defineMachine<RadioGroupContext<V>, RadioGroupEvent<V>, RadioGroupState>({
     id: 'radio-group',
@@ -97,6 +131,7 @@ export function createRadioGroupMachine<V>(input: CreateRadioGroupInput<V>): Rad
       items,
       value: defaultValue,
       focusedId: null,
+      direction,
     },
     states: {
       idle: {
@@ -141,8 +176,12 @@ export function createRadioGroupMachine<V>(input: CreateRadioGroupInput<V>): Rad
                 type: 'navigate',
                 exec: (ctx, e) => {
                   if (e.type !== 'NAVIGATE') return;
+                  // Resolve the physical key using the machine's own direction
+                  // (RTL inverts the horizontal axis). Home/End pass a logical
+                  // direction directly.
+                  const direction = 'key' in e ? resolveArrow(e.key, ctx.direction) : e.direction;
                   const fromId = ctx.focusedId ?? idForValue(ctx.items, ctx.value);
-                  const nextId = getNextEnabledId(ctx.items, fromId, e.direction, {
+                  const nextId = getNextEnabledId(ctx.items, fromId, direction, {
                     mode: navigation,
                   });
                   if (nextId === null) return;
@@ -161,6 +200,17 @@ export function createRadioGroupMachine<V>(input: CreateRadioGroupInput<V>): Rad
                 exec: (_, e) => {
                   if (e.type !== 'SET.VALUE') return;
                   return { value: e.value };
+                },
+              },
+            ],
+          },
+          'SET.DIRECTION': {
+            actions: [
+              {
+                type: 'setDirection',
+                exec: (_, e) => {
+                  if (e.type !== 'SET.DIRECTION') return;
+                  return { direction: e.direction };
                 },
               },
             ],

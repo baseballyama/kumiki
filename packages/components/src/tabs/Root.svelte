@@ -84,10 +84,14 @@
     }
   });
   $effect(() => {
-    controller.setOrientation(orientation);
+    if (orientation !== controller.context.orientation) {
+      controller.setOrientation(orientation);
+    }
   });
   $effect(() => {
-    controller.setDirection(direction);
+    if (direction !== controller.context.direction) {
+      controller.setDirection(direction);
+    }
   });
   $effect(() => {
     if (items !== controller.items) {

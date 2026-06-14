@@ -22,7 +22,9 @@
 import {
   createSliderMachine,
   type CreateSliderInput,
+  type PhysicalArrowKey,
   type SliderContext,
+  type SliderDirection,
   type SliderEvent,
   type SliderMachine,
   type SliderOrientation,
@@ -31,8 +33,6 @@ import {
 import { uid } from '@kumiki/primitives/id';
 
 export type Attachment = (node: HTMLElement) => void | (() => void);
-
-export type SliderDirection = 'ltr' | 'rtl';
 
 export interface SliderController {
   readonly id: string;
@@ -81,13 +81,6 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
   const trackId = `${id}-track`;
   const thumbId = `${id}-thumb`;
 
-  let direction: SliderDirection = options.direction ?? 'ltr';
-
-  // Registered paint closures (root + thumb). `setDirection` must repaint
-  // these synchronously because `--kumiki-slider-pct` and the thumb offset
-  // depend on `direction` but otherwise only run on `machine.subscribe`.
-  const paints = new Set<() => void>();
-
   let prevValue = machine.context.value;
   machine.subscribe(({ context }) => {
     if (context.value !== prevValue) {
@@ -108,7 +101,7 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
       pct = clamp01((rect.bottom - event.clientY) / rect.height);
     } else {
       pct = clamp01((event.clientX - rect.left) / rect.width);
-      if (direction === 'rtl') pct = 1 - pct;
+      if (ctx.direction === 'rtl') pct = 1 - pct;
     }
     return ctx.min + pct * (ctx.max - ctx.min);
   }
@@ -128,11 +121,11 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
       // the filled range as a background gradient or position decorative
       // children without needing a separate Range component.
       const pct = ctx.max === ctx.min ? 0 : ((ctx.value - ctx.min) / (ctx.max - ctx.min)) * 100;
-      const visualPct = ctx.orientation === 'horizontal' && direction === 'rtl' ? 100 - pct : pct;
+      const visualPct =
+        ctx.orientation === 'horizontal' && ctx.direction === 'rtl' ? 100 - pct : pct;
       node.style.setProperty('--kumiki-slider-pct', `${visualPct}%`);
     };
     paint();
-    paints.add(paint);
 
     let dragActive = false;
     function endDrag(): void {
@@ -168,7 +161,6 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
 
     return () => {
       unsub();
-      paints.delete(paint);
       endDrag();
       node.removeEventListener('pointerdown', onPointerDown);
       if (trackEl === node) trackEl = null;
@@ -189,34 +181,27 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
       node.setAttribute('aria-orientation', ctx.orientation);
       node.setAttribute('data-state', machine.state);
       const pct = ctx.max === ctx.min ? 0 : ((ctx.value - ctx.min) / (ctx.max - ctx.min)) * 100;
-      const visualPct = ctx.orientation === 'horizontal' && direction === 'rtl' ? 100 - pct : pct;
+      const visualPct =
+        ctx.orientation === 'horizontal' && ctx.direction === 'rtl' ? 100 - pct : pct;
       node.style.setProperty('--kumiki-slider-pct', `${visualPct}%`);
       if (machine.state === 'disabled') node.setAttribute('aria-disabled', 'true');
       else node.removeAttribute('aria-disabled');
     };
     paint();
-    paints.add(paint);
-
-    function isPrev(key: string): boolean {
-      if (machine.context.orientation === 'vertical') return key === 'ArrowDown';
-      // horizontal
-      return direction === 'rtl' ? key === 'ArrowRight' : key === 'ArrowLeft';
-    }
-    function isNext(key: string): boolean {
-      if (machine.context.orientation === 'vertical') return key === 'ArrowUp';
-      return direction === 'rtl' ? key === 'ArrowLeft' : key === 'ArrowRight';
-    }
 
     const onKeydown = (event: KeyboardEvent): void => {
       if (machine.state === 'disabled') return;
-      if (isPrev(event.key)) {
-        event.preventDefault();
-        machine.send({ type: 'DECREMENT' });
-        return;
-      }
-      if (isNext(event.key)) {
-        event.preventDefault();
-        machine.send({ type: 'INCREMENT' });
+      // Forward physical arrow keys; the machine resolves them to
+      // increment/decrement using its own orientation + direction (RTL here).
+      // Consume only keys on the active axis (direction-independent); an
+      // off-axis arrow passes through so it doesn't block page scroll.
+      if (isArrowKey(event.key)) {
+        const horizontalKey = event.key === 'ArrowLeft' || event.key === 'ArrowRight';
+        const onAxis = horizontalKey === (machine.context.orientation === 'horizontal');
+        if (onAxis) {
+          event.preventDefault();
+          machine.send({ type: 'NAVIGATE', key: event.key });
+        }
         return;
       }
       switch (event.key) {
@@ -246,7 +231,6 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
 
     return () => {
       unsub();
-      paints.delete(paint);
       node.removeEventListener('keydown', onKeydown);
     };
   };
@@ -273,10 +257,7 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
     setStep: (v) => machine.send({ type: 'SET.STEP', value: v }),
     setPageStep: (v) => machine.send({ type: 'SET.PAGE_STEP', value: v }),
     setOrientation: (v) => machine.send({ type: 'SET.ORIENTATION', value: v }),
-    setDirection: (v) => {
-      direction = v;
-      for (const paint of paints) paint();
-    },
+    setDirection: (v) => machine.send({ type: 'SET.DIRECTION', value: v }),
     setDisabled: (v) => machine.send({ type: v ? 'DISABLE' : 'ENABLE' } as SliderEvent),
     subscribe: machine.subscribe.bind(machine),
     root,
@@ -285,4 +266,15 @@ export function createSlider(options: CreateSliderOptions = {}): SliderControlle
   };
 }
 
-export type { SliderContext, SliderEvent, SliderMachine, SliderOrientation, SliderState };
+function isArrowKey(key: string): key is PhysicalArrowKey {
+  return key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown';
+}
+
+export type {
+  SliderContext,
+  SliderDirection,
+  SliderEvent,
+  SliderMachine,
+  SliderOrientation,
+  SliderState,
+};

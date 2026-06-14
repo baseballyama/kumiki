@@ -107,6 +107,33 @@ describe('createRadioGroup attachment', () => {
     expect(document.activeElement).toBe(nodes['c']);
   });
 
+  it('RTL: ArrowLeft = next, ArrowRight = prev (inversion now lives in the machine)', () => {
+    const g = createRadioGroup({ items, direction: 'rtl' });
+    attachAll(g);
+    nodes['a']!.focus();
+    nodes['a']!.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'ArrowLeft', cancelable: true, bubbles: true }),
+    );
+    // RTL: Left advances → next enabled → 'c' (skipping disabled 'b').
+    expect(g.focusedId).toBe('c');
+    expect(g.value).toBe('cherry');
+    nodes['c']!.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'ArrowRight', cancelable: true, bubbles: true }),
+    );
+    expect(g.focusedId).toBe('a');
+  });
+
+  it('setDirection flips the inversion at runtime', () => {
+    const g = createRadioGroup({ items });
+    attachAll(g);
+    g.setDirection('rtl');
+    nodes['a']!.focus();
+    nodes['a']!.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'ArrowLeft', cancelable: true, bubbles: true }),
+    );
+    expect(g.focusedId).toBe('c'); // RTL → Left = next
+  });
+
   it('Home / End jump', () => {
     const g = createRadioGroup({ items, defaultValue: 'cherry' });
     attachAll(g);

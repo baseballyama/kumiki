@@ -7,7 +7,8 @@
     "max": 100,
     "step": 1,
     "pageStep": 10,
-    "orientation": "horizontal"
+    "orientation": "horizontal",
+    "direction": "ltr"
   },
   "states": {
     "idle": {
@@ -17,6 +18,9 @@
         },
         "DECREMENT": {
           "actions": ["decrement"]
+        },
+        "NAVIGATE": {
+          "actions": ["navigate"]
         },
         "PAGE_INCREMENT": {
           "actions": ["pageIncrement"]
@@ -47,6 +51,9 @@
         },
         "SET.ORIENTATION": {
           "actions": ["setOrientation"]
+        },
+        "SET.DIRECTION": {
+          "actions": ["setDirection"]
         },
         "DISABLE": {
           "target": "disabled"

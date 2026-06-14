@@ -13,7 +13,8 @@
       }
     ],
     "value": null,
-    "focusedId": null
+    "focusedId": null,
+    "direction": "ltr"
   },
   "states": {
     "idle": {
@@ -32,6 +33,9 @@
         },
         "SET.VALUE": {
           "actions": ["setValue"]
+        },
+        "SET.DIRECTION": {
+          "actions": ["setDirection"]
         },
         "SET.ITEMS": {
           "actions": ["setItems"]

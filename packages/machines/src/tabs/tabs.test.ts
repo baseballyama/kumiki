@@ -152,6 +152,49 @@ describe('tabs machine', () => {
     });
   });
 
+  describe('NAVIGATE physical arrow resolution (RTL inversion in the machine)', () => {
+    it('horizontal LTR: ArrowRight = next, ArrowLeft = prev', () => {
+      const m = createTabsMachine({ items });
+      m.send({ type: 'NAVIGATE', key: 'ArrowRight' });
+      expect(m.context.focusedId).toBe('t-c'); // skips disabled t-b
+      m.send({ type: 'NAVIGATE', key: 'ArrowLeft' });
+      expect(m.context.focusedId).toBe('t-a');
+    });
+
+    it('horizontal RTL: ArrowLeft = next, ArrowRight = prev (inverted in the machine)', () => {
+      const m = createTabsMachine({ items, direction: 'rtl' });
+      m.send({ type: 'NAVIGATE', key: 'ArrowLeft' });
+      expect(m.context.focusedId).toBe('t-c'); // RTL: Left advances
+      m.send({ type: 'NAVIGATE', key: 'ArrowRight' });
+      expect(m.context.focusedId).toBe('t-a');
+    });
+
+    it('SET.DIRECTION flips the inversion at runtime', () => {
+      const m = createTabsMachine({ items });
+      m.send({ type: 'SET.DIRECTION', direction: 'rtl' });
+      expect(m.context.direction).toBe('rtl');
+      m.send({ type: 'NAVIGATE', key: 'ArrowLeft' });
+      expect(m.context.focusedId).toBe('t-c'); // now RTL → Left = next
+    });
+
+    it('vertical: ArrowDown = next, ArrowUp = prev; horizontal arrows are no-ops', () => {
+      const m = createTabsMachine({ items, orientation: 'vertical' });
+      m.send({ type: 'NAVIGATE', key: 'ArrowDown' });
+      expect(m.context.focusedId).toBe('t-c');
+      m.send({ type: 'NAVIGATE', key: 'ArrowRight' }); // off-axis → ignored
+      expect(m.context.focusedId).toBe('t-c');
+      m.send({ type: 'NAVIGATE', key: 'ArrowUp' });
+      expect(m.context.focusedId).toBe('t-a');
+    });
+
+    it('exposes the navigate action + SET.DIRECTION in toJSON (config is machine-side)', () => {
+      const json = createTabsMachine({ items }).toJSON();
+      expect(json.context).toMatchObject({ direction: 'ltr', orientation: 'horizontal' });
+      expect(json.states.idle!.on!['NAVIGATE']).toBeDefined();
+      expect(json.states.idle!.on!['SET.DIRECTION']).toBeDefined();
+    });
+  });
+
   describe('NAVIGATE (arrow keys) — manual', () => {
     it('moves focus but not value', () => {
       const m = createTabsMachine({ items, activation: 'manual', defaultValue: 'account' });

@@ -9,10 +9,12 @@
  * - `manual`: focus moves with arrow keys but activation requires Enter or
  *   Space. Best when each panel is expensive to render or has side effects.
  *
- * Orientation and RTL inversion are **not** the machine's concern — Layer 3
- * (the attachment) translates physical key events (`ArrowLeft`/`ArrowRight`/
- * `ArrowUp`/`ArrowDown`) into logical `next` / `prev` directions before
- * dispatching `NAVIGATE`. The machine is pure logical navigation.
+ * Orientation and RTL inversion **are** the machine's concern. `orientation`
+ * and `direction` live in the machine context; the Layer 3 attachment forwards
+ * the *physical* arrow key (`ArrowLeft`/`ArrowRight`/`ArrowUp`/`ArrowDown`) via
+ * `NAVIGATE`, and the machine resolves it to a logical `next`/`prev` using its
+ * own `orientation` + `direction`. This keeps RTL inversion in one auditable,
+ * `toJSON`-visible place (the i18n bar in CLAUDE.md).
  *
  * Defaults to selecting the first enabled item if no `defaultValue` is given —
  * an APG tablist *should* always have an active tab.
@@ -36,15 +38,29 @@ export interface TabItem extends CollectionItem {
 
 export type TabsActivation = 'automatic' | 'manual';
 
+export type TabsOrientation = 'horizontal' | 'vertical';
+export type TabsDirection = 'ltr' | 'rtl';
+
+/** A physical arrow key, forwarded verbatim from the keyboard. */
+export type PhysicalArrowKey = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown';
+
+/**
+ * `NAVIGATE` carries *either* a logical direction (`first`/`last` — these are
+ * direction-agnostic, used by Home/End) *or* a physical arrow `key`, which the
+ * machine resolves to next/prev using its own `orientation` + `direction`.
+ */
 export type TabsEvent =
   | { type: 'SELECT'; id: string }
   | { type: 'FOCUS'; id: string }
   | { type: 'BLUR' }
   | { type: 'NAVIGATE'; direction: NavigateDirection }
+  | { type: 'NAVIGATE'; key: PhysicalArrowKey }
   | { type: 'ACTIVATE_FOCUSED' }
   | { type: 'SET.VALUE'; value: string | null }
   | { type: 'SET.ITEMS'; items: ReadonlyArray<TabItem> }
   | { type: 'SET.ACTIVATION'; activation: TabsActivation }
+  | { type: 'SET.ORIENTATION'; orientation: TabsOrientation }
+  | { type: 'SET.DIRECTION'; direction: TabsDirection }
   | { type: 'DISABLE' }
   | { type: 'ENABLE' };
 
@@ -53,6 +69,8 @@ export interface TabsContext {
   value: string | null;
   focusedId: string | null;
   activation: TabsActivation;
+  orientation: TabsOrientation;
+  direction: TabsDirection;
 }
 
 export type TabsState = 'idle' | 'disabled';
@@ -66,6 +84,35 @@ export interface CreateTabsInput {
   disabled?: boolean;
   /** Whether arrow navigation wraps (default per APG) or clamps. */
   navigation?: 'wrap' | 'clamp';
+  /** Visual orientation. Decides which physical arrows navigate. */
+  orientation?: TabsOrientation;
+  /** Writing direction. Inverts horizontal arrows under `'rtl'`. */
+  direction?: TabsDirection;
+}
+
+/**
+ * Resolve a physical arrow key to a logical `next`/`prev` direction (or `null`
+ * if the key isn't a navigation key for this orientation). RTL inversion of the
+ * horizontal axis lives here — the single source of truth.
+ */
+export function resolveArrow(
+  key: PhysicalArrowKey,
+  orientation: TabsOrientation,
+  direction: TabsDirection,
+): 'next' | 'prev' | null {
+  if (orientation === 'vertical') {
+    if (key === 'ArrowDown') return 'next';
+    if (key === 'ArrowUp') return 'prev';
+    return null;
+  }
+  if (direction === 'rtl') {
+    if (key === 'ArrowLeft') return 'next';
+    if (key === 'ArrowRight') return 'prev';
+    return null;
+  }
+  if (key === 'ArrowRight') return 'next';
+  if (key === 'ArrowLeft') return 'prev';
+  return null;
 }
 
 function firstEnabledValue(items: ReadonlyArray<TabItem>): string | null {
@@ -95,6 +142,8 @@ export function createTabsMachine(input: CreateTabsInput): TabsMachine {
   const navigation = input.navigation ?? 'wrap';
   const activation = input.activation ?? 'automatic';
   const disabled = input.disabled ?? false;
+  const orientation = input.orientation ?? 'horizontal';
+  const direction = input.direction ?? 'ltr';
   const initialValue =
     input.defaultValue !== undefined ? input.defaultValue : firstEnabledValue(items);
 
@@ -106,6 +155,8 @@ export function createTabsMachine(input: CreateTabsInput): TabsMachine {
       value: initialValue,
       focusedId: null,
       activation,
+      orientation,
+      direction,
     },
     states: {
       idle: {
@@ -149,8 +200,13 @@ export function createTabsMachine(input: CreateTabsInput): TabsMachine {
                 type: 'navigate',
                 exec: (ctx, e) => {
                   if (e.type !== 'NAVIGATE') return;
+                  // Resolve the physical key to a logical direction using the
+                  // machine's own orientation + direction (RTL inversion here).
+                  const direction =
+                    'key' in e ? resolveArrow(e.key, ctx.orientation, ctx.direction) : e.direction;
+                  if (direction === null) return;
                   const fromId = ctx.focusedId ?? idForValue(ctx.items, ctx.value);
-                  const nextId = getNextEnabledId(ctx.items, fromId, e.direction, {
+                  const nextId = getNextEnabledId(ctx.items, fromId, direction, {
                     mode: navigation,
                   });
                   if (nextId === null) return;
@@ -220,6 +276,28 @@ export function createTabsMachine(input: CreateTabsInput): TabsMachine {
                 exec: (_, e) => {
                   if (e.type !== 'SET.ACTIVATION') return;
                   return { activation: e.activation };
+                },
+              },
+            ],
+          },
+          'SET.ORIENTATION': {
+            actions: [
+              {
+                type: 'setOrientation',
+                exec: (_, e) => {
+                  if (e.type !== 'SET.ORIENTATION') return;
+                  return { orientation: e.orientation };
+                },
+              },
+            ],
+          },
+          'SET.DIRECTION': {
+            actions: [
+              {
+                type: 'setDirection',
+                exec: (_, e) => {
+                  if (e.type !== 'SET.DIRECTION') return;
+                  return { direction: e.direction };
                 },
               },
             ],
