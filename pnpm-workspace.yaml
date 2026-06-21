@@ -15,7 +15,7 @@ catalog:
   # --- runtime peers ---
   # `{@attach}` requires Svelte 5.29+; we pin the floor accordingly.
   svelte: ^5.55.0
-  typescript: ^5.7.0
+  typescript: ^5.9.3
   # @internationalized/date — framework-agnostic date primitives from Adobe.
   # Powers @kumiki/components/calendar + @kumiki/components/date-picker
   # (Phase 2). Peer dep of those packages so users can pick the calendars
