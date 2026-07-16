@@ -59,7 +59,7 @@ catalog:
   # Lighthouse CI — runs against the built apps/docs to gate perf budgets.
   '@lhci/cli': ^0.15.1
   # Pagefind — static-site search index for the docs.
-  pagefind: ^1.4.0
+  pagefind: ^1.5.2
 
   # --- lint / format ---
   # Migrated 2026-05 from ESLint + Prettier to the oxc toolchain. Rust-
