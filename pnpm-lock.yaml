@@ -25,8 +25,8 @@ catalogs:
       specifier: ^0.15.0
       version: 0.15.0
     '@internationalized/date':
-      specifier: ^3.12.1
-      version: 3.12.1
+      specifier: ^3.12.4
+      version: 3.12.4
     '@lhci/cli':
       specifier: ^0.15.1
       version: 0.15.1
@@ -184,7 +184,7 @@ importers:
     dependencies:
       '@internationalized/date':
         specifier: 'catalog:'
-        version: 3.12.1
+        version: 3.12.4
       '@kumiki/atelier':
         specifier: workspace:*
         version: link:../../packages/atelier
@@ -261,7 +261,7 @@ importers:
     devDependencies:
       '@internationalized/date':
         specifier: 'catalog:'
-        version: 3.12.1
+        version: 3.12.4
       '@sveltejs/package':
         specifier: 'catalog:'
         version: 2.5.7(svelte@5.55.5(@typescript-eslint/types@8.59.1))(typescript@5.9.3)
@@ -298,7 +298,7 @@ importers:
     devDependencies:
       '@internationalized/date':
         specifier: 'catalog:'
-        version: 3.12.1
+        version: 3.12.4
       '@sveltejs/package':
         specifier: 'catalog:'
         version: 2.5.7(svelte@5.55.5(@typescript-eslint/types@8.59.1))(typescript@5.9.3)
@@ -416,7 +416,7 @@ importers:
     devDependencies:
       '@internationalized/date':
         specifier: 'catalog:'
-        version: 3.12.1
+        version: 3.12.4
       '@size-limit/preset-small-lib':
         specifier: 'catalog:'
         version: 12.1.0(size-limit@12.1.0)
@@ -447,7 +447,7 @@ importers:
     devDependencies:
       '@internationalized/date':
         specifier: 'catalog:'
-        version: 3.12.1
+        version: 3.12.4
       '@size-limit/preset-small-lib':
         specifier: 'catalog:'
         version: 12.1.0(size-limit@12.1.0)
@@ -850,8 +850,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@internationalized/date@3.12.1':
-    resolution: {integrity: sha512-6IedsVWXyq4P9Tj+TxuU8WGWM70hYLl12nbYU8jkikVpa6WXapFazPUcHUMDMoWftIDE2ILDkFFte6W2nFCkRQ==}
+  '@internationalized/date@3.12.4':
+    resolution: {integrity: sha512-M1dEn4c1U1HsSlaVR8upZtSqvXrTkHDfv18H01uCSJyjVLDxnBR38v/fMxecmlwXKR4i9HeZcmgQAPE6A+aGJQ==}
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -4462,7 +4462,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.19.17
 
-  '@internationalized/date@3.12.1':
+  '@internationalized/date@3.12.4':
     dependencies:
       '@swc/helpers': 0.5.21
 
