@@ -21,7 +21,7 @@ catalog:
   # (Phase 2). Peer dep of those packages so users can pick the calendars
   # they ship — Gregorian + Japanese imperial at v1.0; Buddhist / Hijri /
   # Hebrew Phase 2 (see ADR 0013).
-  '@internationalized/date': ^3.12.1
+  '@internationalized/date': ^3.12.4
 
   # --- build / publish ---
   # tsdown is pre-1.0 (Rolldown-based, VoidZero); pin tightly and watch the changelog.
