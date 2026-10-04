@@ -53,7 +53,7 @@ catalog:
   '@guidepup/virtual-screen-reader': ^0.32.1
 
   # --- docs / api ---
-  typedoc: ^0.28.19
+  typedoc: ^0.28.20
   'typedoc-plugin-markdown': ^4.11.0
   '@microsoft/api-extractor': ^7.58.7
   # Lighthouse CI — runs against the built apps/docs to gate perf budgets.
