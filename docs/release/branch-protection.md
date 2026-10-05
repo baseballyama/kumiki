@@ -9,6 +9,7 @@ Every PR must pass the following checks before merging:
 - `Build & test (Linux)` — from `.github/workflows/ci.yml`
 - `Publish health` — publint + attw + agadoo + size-limit + custom QA scripts
 - `Browser tests (e2e + axe)` — Playwright e2e + axe in LTR / RTL across documented states
+- `Package smoke (pack + install)` — `pnpm pack` every package, install the tarballs into a clean consumer, import / resolve every subpath (no registry writes)
 
 ## Required PR settings
 
@@ -42,12 +43,12 @@ Every PR must pass the following checks before merging:
 
 ## Secrets required (Settings → Secrets and variables → Actions)
 
-| Secret                  | Used by                      | Purpose                |
-| ----------------------- | ---------------------------- | ---------------------- |
-| `NPM_TOKEN`             | `release.yml`, `preview.yml` | Publishing to npm      |
-| `CLOUDFLARE_API_TOKEN`  | `docs.yml`                   | Deploying docs site    |
-| `CLOUDFLARE_ACCOUNT_ID` | `docs.yml`                   | Cloudflare account ref |
-| `GITHUB_TOKEN`          | all workflows                | provided automatically |
+| Secret                  | Used by       | Purpose                |
+| ----------------------- | ------------- | ---------------------- |
+| `NPM_TOKEN`             | `release.yml` | Publishing to npm      |
+| `CLOUDFLARE_API_TOKEN`  | `docs.yml`    | Deploying docs site    |
+| `CLOUDFLARE_ACCOUNT_ID` | `docs.yml`    | Cloudflare account ref |
+| `GITHUB_TOKEN`          | all workflows | provided automatically |
 
 ## Manual verification checklist
 

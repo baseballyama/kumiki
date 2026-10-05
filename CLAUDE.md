@@ -90,7 +90,7 @@ packages/                       9 packages, layer-level
 apps/docs/                  SvelteKit docs site → GitHub Pages
 
 references/                 Shallow submodules of competitor libs (opt-in, ~400 MB)
-.github/workflows/          ci, release, preview, docs, scheduled-screen-reader
+.github/workflows/          ci, release, docs, lighthouse, scheduled-*
 .changeset/                 Independent versioning
 pnpm-workspace.yaml         Catalog (Svelte 5.29, tsdown 0.21, etc.)
 ```

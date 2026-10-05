@@ -103,6 +103,53 @@ jobs:
         # "results.reduce is not a function" before it could read the budgets.)
         run: pnpm size
 
+  # ─── Package smoke: pack → clean install → import, no registry writes ───
+  # Replaces the old per-PR `preview` npm snapshot publish (preview.yml).
+  # `pnpm pack` rewrites `workspace:*` / `catalog:` exactly as a publish
+  # would, so the tarballs are what npm would receive. They are installed
+  # into a consumer outside the workspace and imported (TS packages) or
+  # resolved (Svelte packages) from there, then uploaded as an artifact.
+  package-smoke:
+    name: Package smoke (pack + install)
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      # No `registry-url`: this job never authenticates to a registry.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Pack publishable packages
+        run: |
+          mkdir -p "$RUNNER_TEMP/tarballs"
+          pnpm -r --filter='@kumiki/*' --filter='!@kumiki/docs' \
+            exec pnpm pack --pack-destination "$RUNNER_TEMP/tarballs"
+          ls -l "$RUNNER_TEMP/tarballs"
+
+      - name: Install tarballs into a clean consumer and import them
+        run: node scripts/check-pack-smoke.mjs "$RUNNER_TEMP/tarballs" "$RUNNER_TEMP/consumer"
+
+      - name: Upload package tarballs
+        uses: actions/upload-artifact@v4
+        with:
+          name: kumiki-packages-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/tarballs/*.tgz
+          retention-days: 14
+          if-no-files-found: error
+
   # ─── Browser tests: e2e + axe ───
   browser:
     name: Browser tests (e2e + axe)

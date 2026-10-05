@@ -13,6 +13,6 @@ This directory holds [changesets](https://github.com/changesets/changesets) — 
 
 Kumiki uses **independent versioning**. Each package can move at its own SemVer pace. See `docs/design/14-versioning-release.md` for the full policy and what counts as a breaking change.
 
-## Layer 5 preview
+## PR packages
 
-`@kumiki/atelier` is published with the `preview` npm dist-tag during the v1.0 series (per ADR 0010). Use the `--snapshot preview` workflow described in `docs/design/14-versioning-release.md` to publish.
+PRs are not published to npm. CI's **Package smoke** job packs every publishable package, installs the tarballs into a clean consumer, and uploads them as the `kumiki-packages-<head sha>` artifact. To try them, install every tarball together, listing each one as `file:<path>` in both `dependencies` and `pnpm.overrides` (the cross-package `0.0.0` dependencies must resolve to the tarballs, not the registry; `scripts/check-pack-smoke.mjs` builds exactly this consumer). The `preview` dist-tag for Atelier is retired (ADR 0017, superseding ADR 0010); drop `publishConfig.tag: "preview"` from `packages/atelier/package.json` with the first GA release.
