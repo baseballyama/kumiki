@@ -191,6 +191,11 @@ jobs:
       - name: lefthook pre-commit (all files)
         run: pnpm exec lefthook run pre-commit --all-files
 
+      # The pre-push hook assumes a developer checkout with built `dist/`
+      # (typecheck / tests / ci:health resolve @kumiki/* through dist).
+      - name: Build packages
+        run: pnpm build
+
       - name: lefthook pre-push
         run: pnpm exec lefthook run pre-push
 
