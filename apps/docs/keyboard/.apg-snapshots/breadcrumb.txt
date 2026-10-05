@@ -1,0 +1,7 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/
+# kb: apps/docs/keyboard/breadcrumb.kb.ts
+
+Keyboard Interaction
+
+Not applicable.

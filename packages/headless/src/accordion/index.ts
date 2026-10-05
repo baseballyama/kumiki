@@ -9,9 +9,10 @@
  * - `panel(item)` — the disclosure region; role="region",
  *   aria-labelledby, hidden when collapsed
  *
- * Triggers form a roving-tabindex set within the accordion. Arrow keys
- * move focus between enabled triggers; Home / End jump. Click and
- * Enter / Space toggle the item per machine policy.
+ * Every trigger stays in the page Tab sequence (APG dropped the optional
+ * Arrow / Home / End header navigation in 2026). Click and Enter / Space
+ * toggle the item per machine policy; the machine's `NAVIGATE` event
+ * remains available for consumers that want programmatic focus moves.
  *
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/accordion/
  */
@@ -26,7 +27,6 @@ import {
   type AccordionState,
   type CreateAccordionInput,
 } from '@kumiki/machines/accordion';
-import { tabindexFor } from '@kumiki/primitives/collection';
 import { uid } from '@kumiki/primitives/id';
 
 export type Attachment = (node: HTMLElement) => void | (() => void);
@@ -138,8 +138,6 @@ export function createAccordion<V>(options: CreateAccordionOptions<V>): Accordio
         node.setAttribute('data-state', open ? 'open' : 'closed');
         if (isDisabled()) node.setAttribute('aria-disabled', 'true');
         else node.removeAttribute('aria-disabled');
-        const tab = tabindexFor(machine.context.items, item.id, machine.context.focusedId);
-        node.setAttribute('tabindex', String(tab));
         if (machine.context.focusedId === item.id) {
           node.setAttribute('data-focused', '');
         } else {
@@ -160,27 +158,17 @@ export function createAccordion<V>(options: CreateAccordionOptions<V>): Accordio
         event.preventDefault();
         machine.send({ type: 'TOGGLE', id: item.id });
       };
-      const onKeydown = (event: KeyboardEvent): void => {
-        // Native button handles Space/Enter via click — no extra handler.
-        const direction = NAV_KEYS[event.key];
-        if (!direction) return;
-        event.preventDefault();
-        machine.send({ type: 'NAVIGATE', direction });
-        focusCurrent(machine, triggerElementId);
-      };
 
       const unsub = machine.subscribe(paint);
       node.addEventListener('focus', onFocus);
       node.addEventListener('blur', onBlur);
       node.addEventListener('click', onClick);
-      node.addEventListener('keydown', onKeydown);
 
       return () => {
         unsub();
         node.removeEventListener('focus', onFocus);
         node.removeEventListener('blur', onBlur);
         node.removeEventListener('click', onClick);
-        node.removeEventListener('keydown', onKeydown);
       };
     };
   }
@@ -237,23 +225,6 @@ export function createAccordion<V>(options: CreateAccordionOptions<V>): Accordio
     panel: makePanel,
     machine,
   };
-}
-
-const NAV_KEYS: Record<string, 'next' | 'prev' | 'first' | 'last'> = {
-  ArrowDown: 'next',
-  ArrowUp: 'prev',
-  Home: 'first',
-  End: 'last',
-};
-
-function focusCurrent<V>(
-  machine: AccordionMachine<V>,
-  triggerElementId: (id: string) => string,
-): void {
-  const id = machine.context.focusedId;
-  if (id === null || typeof document === 'undefined') return;
-  const el = document.getElementById(triggerElementId(id)) as HTMLElement | null;
-  el?.focus?.();
 }
 
 export type {

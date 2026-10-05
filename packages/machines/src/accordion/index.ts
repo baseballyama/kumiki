@@ -10,10 +10,11 @@
  *   close the only-open panel; `collapsible: false` always keeps one open.
  * - `multiple`: any subset of panels may be open simultaneously.
  *
- * Roving focus across the headers — arrow keys move focus between header
- * buttons (skipping disabled), `Home` jumps to first, `End` to last. The
- * machine sees logical `next`/`prev`/`first`/`last` directions; the
- * Layer 3 attachment translates DOM key codes.
+ * `NAVIGATE` moves the logical focus between headers (skipping disabled)
+ * for consumers that want programmatic focus moves. The Layer 3
+ * attachment does not bind it to keys: APG dropped the optional
+ * Arrow / Home / End header navigation, and every header stays in the
+ * page Tab sequence.
  *
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/accordion/
  */

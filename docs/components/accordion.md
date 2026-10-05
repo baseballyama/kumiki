@@ -26,9 +26,10 @@ Source: [APG Accordion keyboard interaction](https://www.w3.org/WAI/ARIA/apg/pat
 | Key               | When       | Effect                                                         |
 | ----------------- | ---------- | -------------------------------------------------------------- |
 | `Space` / `Enter` | on trigger | Toggle panel (and, in `single` mode, close any other open one) |
-| `ArrowDown`       | on trigger | Move focus to the next trigger                                 |
-| `ArrowUp`         | on trigger | Move focus to the previous trigger                             |
-| `Home` / `End`    | on trigger | Move focus to the first / last trigger                         |
+| `Tab`             | on trigger | Move focus to the next focusable element (every trigger)       |
+| `Shift` + `Tab`   | on trigger | Move focus to the previous focusable element                   |
+
+APG removed the optional `ArrowDown` / `ArrowUp` / `Home` / `End` header navigation, so Kumiki no longer intercepts those keys and does not use a roving tabindex.
 
 ## ARIA
 

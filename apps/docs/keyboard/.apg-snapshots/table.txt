@@ -1,0 +1,7 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/table/
+# kb: apps/docs/keyboard/table.kb.ts
+
+Keyboard Interaction
+
+Not applicable.

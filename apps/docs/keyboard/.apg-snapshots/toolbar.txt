@@ -1,0 +1,46 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/
+# kb: apps/docs/keyboard/toolbar.kb.ts
+
+Keyboard Interaction
+
+- 
+[Tab] and [Shift] + [Tab]: Move focus into and out of the toolbar.
+When focus moves into a toolbar:
+
+- If focus is moving into the toolbar for the first time, focus is set on the first control that is not disabled.
+
+- 
+If the toolbar has previously contained focus, focus is optionally set on the control that last had focus.
+Otherwise, it is set on the first control that is not disabled.
+
+- 
+For a horizontal toolbar (the default):
+
+- 
+[Left Arrow]: Moves focus to the previous control.
+Optionally, focus movement may wrap from the first element to the last element.
+
+- 
+[Right Arrow]: Moves focus to the next control.
+Optionally, focus movement may wrap from the last element to the first element.
+
+- [Home] (Optional): Moves focus to first element.
+
+- [End] (Optional): Moves focus to last element.
+
+Note
+
+- 
+If the items in a toolbar are arranged vertically:
+
+- [Down Arrow] performs as [Right Arrow] is described above.
+
+- [Up Arrow] performs as [Left Arrow] is described above.
+
+- 
+Typically, disabled elements are not focusable when navigating with a keyboard.
+However, in circumstances where discoverability of a function is crucial, it may be helpful if disabled controls are focusable so screen reader users are more likely to be aware of their presence.
+For additional guidance, see Focusability of disabled controls.
+
+- In applications where quick access to a toolbar is important, such as accessing an editor's toolbar from its text area, a documented shortcut key for moving focus from the relevant context to its corresponding toolbar is recommended.

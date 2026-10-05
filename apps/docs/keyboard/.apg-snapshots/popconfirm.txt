@@ -1,0 +1,7 @@
+# Keyboard Interaction snapshot
+# source: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
+# kb: apps/docs/keyboard/popconfirm.kb.ts
+
+Keyboard Interaction
+
+See the keyboard interaction section for the modal dialog pattern.

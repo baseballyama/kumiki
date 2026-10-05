@@ -357,7 +357,7 @@ export const PLAYGROUNDS: ReadonlyArray<PlaygroundEntry> = [
     name: '@kumiki/headless/accordion',
     layer: 3,
     summary:
-      'Svelte 5 attachments for Accordion — root / item / trigger / panel compound primitive with roving-tabindex nav.',
+      'Svelte 5 attachments for Accordion — root / item / trigger / panel compound primitive.',
     live: false,
     apgUrl: 'https://www.w3.org/WAI/ARIA/apg/patterns/accordion/',
     status: 'preview',

@@ -18,15 +18,3 @@ Some implementations require one panel to be expanded at all times and allow onl
 - [Tab]: Moves focus to the next focusable element; all focusable elements in the accordion are included in the page [Tab] sequence.
 
 - [Shift] + [Tab]: Moves focus to the previous focusable element; all focusable elements in the accordion are included in the page [Tab] sequence.
-
-- 
-[Down Arrow] (Optional): If focus is on an accordion header, moves focus to the next accordion header.
-If focus is on the last accordion header, either does nothing or moves focus to the first accordion header.
-
-- 
-[Up Arrow] (Optional): If focus is on an accordion header, moves focus to the previous accordion header.
-If focus is on the first accordion header, either does nothing or moves focus to the last accordion header.
-
-- [Home] (Optional): When focus is on an accordion header, moves focus to the first accordion header.
-
-- [End] (Optional): When focus is on an accordion header, moves focus to the last accordion header.
