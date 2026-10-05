@@ -6,7 +6,7 @@
 -->
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import { ui } from '$lib/i18n/store.svelte.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
   import { LocaleProvider } from '@kumiki/components';
   import type { Messages } from '@kumiki/locale';
 

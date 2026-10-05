@@ -10,7 +10,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
   import { page } from '$app/state';
-  import type { ApiPackage } from '$lib/api/types.js';
+  import type { ApiPackage } from '#lib/api/types.js';
 
   let {
     packages,
@@ -35,7 +35,7 @@
   });
 
   function isActive(slug: string): boolean {
-    return path === resolve(`/api/${slug}`);
+    return path === resolve('/api/[...slug]', { slug: slug });
   }
 </script>
 
@@ -94,7 +94,10 @@
           <ul>
             {#each pkg.modules as m (m.slug)}
               <li>
-                <a href={resolve(`/api/${m.slug}`)} class:active={isActive(m.slug)}>
+                <a
+                  href={resolve('/api/[...slug]', { slug: m.slug })}
+                  class:active={isActive(m.slug)}
+                >
                   <span class="m-name">{m.name}</span>
                   <span class="m-count" aria-hidden="true">{m.memberCount}</span>
                 </a>

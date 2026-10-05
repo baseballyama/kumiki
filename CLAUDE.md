@@ -92,7 +92,7 @@ apps/docs/                  SvelteKit docs site → GitHub Pages
 references/                 Shallow submodules of competitor libs (opt-in, ~400 MB)
 .github/workflows/          ci, release, preview, docs, scheduled-screen-reader
 .changeset/                 Independent versioning
-pnpm-workspace.yaml         Catalog (Svelte 5.29, tsdown 0.21, etc.)
+pnpm-workspace.yaml         Catalog (Svelte 5.57, tsdown 0.23, etc.)
 ```
 
 ## Runtime targets — Node + browser

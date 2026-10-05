@@ -4,8 +4,8 @@
   detail pages, since the rest of the chrome doesn't depend on it.
 -->
 <script lang="ts">
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { dict } from '$lib/i18n/dict.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { dict } from '#lib/i18n/dict.js';
 
   const labels = $derived(dict(ui.locale).nav);
   const components = $derived(dict(ui.locale).components);

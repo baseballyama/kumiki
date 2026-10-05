@@ -10,75 +10,75 @@ packages:
 
 # Catalog: pinned versions shared across workspace packages.
 # Reference from a package.json with `"svelte": "catalog:"`.
-# All versions verified against npm on 2026-05.
+# All versions verified against npm on 2026-10.
 catalog:
   # --- runtime peers ---
   # `{@attach}` requires Svelte 5.29+; we pin the floor accordingly.
-  svelte: ^5.55.0
-  typescript: ^5.7.0
+  svelte: ^5.57.1
+  typescript: ^6.0.3
   # @internationalized/date — framework-agnostic date primitives from Adobe.
   # Powers @kumiki/components/calendar + @kumiki/components/date-picker
   # (Phase 2). Peer dep of those packages so users can pick the calendars
   # they ship — Gregorian + Japanese imperial at v1.0; Buddhist / Hijri /
   # Hebrew Phase 2 (see ADR 0013).
-  '@internationalized/date': ^3.12.1
+  '@internationalized/date': ^3.12.4
 
   # --- build / publish ---
   # tsdown is pre-1.0 (Rolldown-based, VoidZero); pin tightly and watch the changelog.
-  tsdown: ^0.21.10
-  '@sveltejs/package': ^2.5.7
-  'svelte-check': ^4.4.7
-  publint: ^0.3.18
-  '@arethetypeswrong/cli': ^0.18.2
+  tsdown: ^0.23.0
+  '@sveltejs/package': ^3.0.0
+  'svelte-check': ^4.7.6
+  publint: ^0.3.25
+  '@arethetypeswrong/cli': ^0.18.5
   agadoo: ^3.0.0
-  'size-limit': ^12.1.0
-  '@size-limit/preset-small-lib': ^12.1.0
-  '@size-limit/esbuild': ^12.1.0
+  'size-limit': ^14.1.0
+  '@size-limit/preset-small-lib': ^14.1.0
+  '@size-limit/esbuild': ^14.1.0
 
   # --- versioning ---
-  '@changesets/cli': ^2.31.0
-  '@changesets/changelog-github': ^0.6.0
+  '@changesets/cli': ^3.0.3
+  '@changesets/changelog-github': ^1.0.1
 
   # --- testing ---
-  vitest: ^4.1.5
-  '@vitest/coverage-v8': ^4.1.5
-  jsdom: ^25.0.1
-  playwright: ^1.59.1
-  '@playwright/test': ^1.59.1
-  '@axe-core/playwright': ^4.11.3
-  'axe-core': ^4.11.4
+  vitest: ^5.0.3
+  '@vitest/coverage-v8': ^5.0.3
+  jsdom: ^30.1.2
+  playwright: ^1.63.0
+  '@playwright/test': ^1.63.0
+  '@axe-core/playwright': ^4.13.0
+  'axe-core': ^4.13.0
   # @guidepup/guidepup is the canonical package name; the older bare `guidepup` no longer publishes.
-  '@guidepup/guidepup': ^0.24.1
-  '@guidepup/playwright': ^0.15.0
-  '@guidepup/virtual-screen-reader': ^0.32.1
+  '@guidepup/guidepup': ^0.35.0
+  '@guidepup/playwright': ^0.19.1
+  '@guidepup/virtual-screen-reader': ^0.33.0
 
   # --- docs / api ---
-  typedoc: ^0.28.19
-  'typedoc-plugin-markdown': ^4.11.0
-  '@microsoft/api-extractor': ^7.58.7
+  typedoc: ^0.28.20
+  'typedoc-plugin-markdown': ^4.13.1
+  '@microsoft/api-extractor': ^7.59.3
   # Lighthouse CI — runs against the built apps/docs to gate perf budgets.
   '@lhci/cli': ^0.15.1
   # Pagefind — static-site search index for the docs.
-  pagefind: ^1.4.0
+  pagefind: ^1.5.2
 
   # --- lint / format ---
   # Migrated 2026-05 from ESLint + Prettier to the oxc toolchain. Rust-
   # native, ~30–100× faster, and shared config between every package.
   # Prettier is kept ONLY for .svelte files until oxfmt's bundled Svelte
   # support stabilizes (oxc-project/oxc#19715).
-  oxlint: ^1.62.0
-  oxfmt: ^0.47.0
-  prettier: ^3.8.3
-  'prettier-plugin-svelte': ^3.5.1
+  oxlint: ^1.86.0
+  oxfmt: ^0.71.0
+  prettier: ^3.9.9
+  'prettier-plugin-svelte': ^4.1.1
 
   # --- git hooks ---
-  lefthook: ^2.1.6
+  lefthook: ^2.1.17
 
   # --- docs site (SvelteKit + static) ---
-  '@sveltejs/kit': ^2.59.0
-  '@sveltejs/adapter-static': ^3.0.10
-  '@sveltejs/vite-plugin-svelte': ^7.0.0
-  vite: ^8.0.10
+  '@sveltejs/kit': ^3.0.0
+  '@sveltejs/adapter-static': ^4.0.0
+  '@sveltejs/vite-plugin-svelte': ^7.3.1
+  vite: ^8.3.2
 
 # onlyBuiltDependencies: keep install hermetic.
 onlyBuiltDependencies:

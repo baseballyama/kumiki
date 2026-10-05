@@ -75,27 +75,27 @@ const L4_BUDGET = {
   tooltip: 2_000,
   dialog: 3_500,
   'form-field': 2_800, // [ADR 0018] reduction target 1_950 B (with-validation split)
-  select: 3_000,
+  select: 3_200, // [ADR 0023] Svelte 5.57 toolchain (was 3_000)
   combobox: 4_500,
   accordion: 2_800, // [ADR 0018] reduction target 1_950 B (Item ctx simplification)
-  slider: 2_650, // [ADR 0018]
+  slider: 2_800, // [ADR 0023] Svelte 5.57 toolchain (was 2_650 / ADR 0018)
   'number-field': 2_900, // [ADR 0018]
   popover: 2_500,
   toast: 3_000,
-  menu: 3_000,
+  menu: 3_200, // [ADR 0023] Svelte 5.57 toolchain (was 3_000)
   calendar: 5_500,
   'date-picker': 7_000,
   // Phase 1.5
   badge: 500,
-  'horizontal-rule': 350, // [ADR 0018] reduction target 300 B (Svelte runtime floor)
+  'horizontal-rule': 400, // [ADR 0023] Svelte 5.57 toolchain (was 350 / ADR 0018); reduction target 300 B
   'definition-list': 400,
-  'loading-spinner': 600,
-  breadcrumb: 950, // [ADR 0018]
+  'loading-spinner': 650, // [ADR 0023] Svelte 5.57 toolchain (was 600)
+  breadcrumb: 1_000, // [ADR 0023] Svelte 5.57 toolchain (was 950 / ADR 0018)
   button: 1_250, // [ADR 0018] reduction target 800 B (L3 paint() dedup)
   avatar: 1_000,
   'avatar-group': 1_000,
   'icon-button': 1_350, // [ADR 0018]
-  alert: 1_600, // [ADR 0018] reduction target 1_000 B (locale-provider inlining)
+  alert: 1_700, // [ADR 0023] Svelte 5.57 toolchain (was 1_600 / ADR 0018); reduction target 1_000 B
   chips: 1_200,
   pagination: 2_000, // [ADR 0018] reduction target 1_400 B (further consolidation)
   toolbar: 1_800,
@@ -113,7 +113,7 @@ const ATELIER_BUDGET_DEFAULT = 8_000;
 const ATELIER_BUDGET_OVERRIDES = {
   toggle: 6_000,
   dialog: 6_000,
-  'datetime-field': 9_250, // [ADR 0018] — bound by Tailwind variant
+  'datetime-field': 9_850, // [ADR 0023] Svelte 5.57 toolchain (was 9_250 / ADR 0018) — bound by Tailwind variant
 };
 
 const COMPONENTS_PKG_DIR = join(ROOT, 'packages', 'components');

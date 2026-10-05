@@ -5,7 +5,7 @@
 -->
 <script lang="ts">
   import type { Component } from 'svelte';
-  import { LIVE_PLAYGROUNDS } from '$lib/playgrounds/registry.js';
+  import { LIVE_PLAYGROUNDS } from '#lib/playgrounds/registry.js';
 
   type Props = {
     slug: string;
@@ -25,14 +25,14 @@
    * Looked up by the base name (atelier-tooltip → tooltip).
    */
   const THUMB_PREVIEWS: Record<string, () => Promise<{ default: Component }>> = {
-    dialog: () => import('$lib/playgrounds/thumb-previews/dialog.svelte'),
-    tooltip: () => import('$lib/playgrounds/thumb-previews/tooltip.svelte'),
-    popover: () => import('$lib/playgrounds/thumb-previews/popover.svelte'),
-    menu: () => import('$lib/playgrounds/thumb-previews/menu.svelte'),
-    toast: () => import('$lib/playgrounds/thumb-previews/toast.svelte'),
-    'icon-button': () => import('$lib/playgrounds/thumb-previews/icon-button.svelte'),
-    toolbar: () => import('$lib/playgrounds/thumb-previews/toolbar.svelte'),
-    accordion: () => import('$lib/playgrounds/thumb-previews/accordion.svelte'),
+    dialog: () => import('#lib/playgrounds/thumb-previews/dialog.svelte'),
+    tooltip: () => import('#lib/playgrounds/thumb-previews/tooltip.svelte'),
+    popover: () => import('#lib/playgrounds/thumb-previews/popover.svelte'),
+    menu: () => import('#lib/playgrounds/thumb-previews/menu.svelte'),
+    toast: () => import('#lib/playgrounds/thumb-previews/toast.svelte'),
+    'icon-button': () => import('#lib/playgrounds/thumb-previews/icon-button.svelte'),
+    toolbar: () => import('#lib/playgrounds/thumb-previews/toolbar.svelte'),
+    accordion: () => import('#lib/playgrounds/thumb-previews/accordion.svelte'),
   };
 
   const baseName = $derived(slug.replace(/^(component|atelier|attachment|machine)-/, ''));

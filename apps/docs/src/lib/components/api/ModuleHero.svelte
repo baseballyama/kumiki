@@ -4,7 +4,7 @@
 -->
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import type { ApiModule, MemberKind } from '$lib/api/types.js';
+  import type { ApiModule, MemberKind } from '#lib/api/types.js';
   import MemberKindLabel from './MemberKindLabel.svelte';
 
   let { module }: { module: ApiModule } = $props();

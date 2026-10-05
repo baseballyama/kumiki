@@ -5,7 +5,7 @@
     ?dir=rtl
 -->
 <script lang="ts">
-  import { base, resolve } from '$app/paths';
+  import { resolve } from '$app/paths';
   import { Breadcrumb } from '@kumiki/components/breadcrumb';
   import { page } from '$app/state';
 
@@ -14,6 +14,8 @@
   // `resolve()` enforces that the pathname matches a known route. Sandbox
   // demos intentionally use fictional URLs (`/products`, …) for illustration,
   // so we prefix the base path manually instead.
+  // SvelteKit 3 dropped the `base` export; derive it from the root route.
+  const base = resolve('/').replace(/\/$/, '');
   const productsHref = `${base}/products`;
 </script>
 

@@ -1,15 +1,15 @@
 <script lang="ts">
-  import En from '$content/docs/i18n/en.svelte';
-  import Ja from '$content/docs/i18n/ja.svelte';
-  import ZhHans from '$content/docs/i18n/zh-Hans.svelte';
-  import ZhHant from '$content/docs/i18n/zh-Hant.svelte';
-  import Ko from '$content/docs/i18n/ko.svelte';
-  import Es from '$content/docs/i18n/es.svelte';
-  import Fr from '$content/docs/i18n/fr.svelte';
-  import De from '$content/docs/i18n/de.svelte';
-  import Ar from '$content/docs/i18n/ar.svelte';
-  import He from '$content/docs/i18n/he.svelte';
-  import { ui } from '$lib/i18n/store.svelte.js';
+  import En from '#content/docs/i18n/en.svelte';
+  import Ja from '#content/docs/i18n/ja.svelte';
+  import ZhHans from '#content/docs/i18n/zh-Hans.svelte';
+  import ZhHant from '#content/docs/i18n/zh-Hant.svelte';
+  import Ko from '#content/docs/i18n/ko.svelte';
+  import Es from '#content/docs/i18n/es.svelte';
+  import Fr from '#content/docs/i18n/fr.svelte';
+  import De from '#content/docs/i18n/de.svelte';
+  import Ar from '#content/docs/i18n/ar.svelte';
+  import He from '#content/docs/i18n/he.svelte';
+  import { ui } from '#lib/i18n/store.svelte.js';
 </script>
 
 {#if ui.locale === 'ja'}

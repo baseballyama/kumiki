@@ -2,7 +2,7 @@
  * Internal context shared between Menu.Root and its subcomponents.
  */
 
-import type { MenuController, MenuItem } from '@kumiki/headless/menu';
+import type { MenuController } from '@kumiki/headless/menu';
 
 export const MENU_CONTEXT_KEY = Symbol('kumiki.menu');
 

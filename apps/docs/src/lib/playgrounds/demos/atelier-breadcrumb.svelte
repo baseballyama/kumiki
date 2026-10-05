@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { base, resolve } from '$app/paths';
+  import { resolve } from '$app/paths';
   import { Vanilla as Breadcrumb } from '@kumiki/atelier/breadcrumb';
 
   // `/docs/atelier` is a demo URL — there is no real route. We prefix the
   // base path by hand because `resolve()` only accepts known routes.
+  // SvelteKit 3 dropped the `base` export; derive it from the root route.
+  const base = resolve('/').replace(/\/$/, '');
   const atelierHref = `${base}/docs/atelier`;
 </script>
 

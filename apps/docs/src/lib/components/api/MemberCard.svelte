@@ -15,7 +15,7 @@
    ↑ 2px pigment-coloured left rule keyed off the kind.
 -->
 <script lang="ts">
-  import type { ApiMember } from '$lib/api/types.js';
+  import type { ApiMember } from '#lib/api/types.js';
   import MemberKindLabel from './MemberKindLabel.svelte';
   import Markdown from './Markdown.svelte';
   import SourceLink from './SourceLink.svelte';

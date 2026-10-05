@@ -1,7 +1,7 @@
 <script lang="ts">
   import { asset, resolve } from '$app/paths';
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { dict } from '$lib/i18n/dict.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { dict } from '#lib/i18n/dict.js';
   const f = $derived(dict(ui.locale).footer);
 </script>
 
@@ -17,7 +17,7 @@
       <li><a href={resolve('/docs/accessibility')}>{f.accessibility}</a></li>
       <li><a href={resolve('/docs/i18n')}>{f.i18n}</a></li>
       <li><a href={resolve('/sizes')}>{f.sizes}</a></li>
-      <li><a href={asset('/llms.txt')} dir="ltr">llms.txt</a></li>
+      <li><a href={asset('llms.txt')} dir="ltr">llms.txt</a></li>
       <li>
         <a href="https://github.com/baseballyama/kumiki" rel="noopener noreferrer">GitHub ↗</a>
       </li>

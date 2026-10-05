@@ -46,7 +46,7 @@ export interface MachineConfig<C, E extends EventLike, S extends string> {
     // (undocumented)
     readonly initial: S;
     // (undocumented)
-    readonly states: { readonly [K in S]: StateNode<C, E, S> };
+    readonly states: { readonly [K in S]: StateNode<C, E, S>; };
 }
 
 // @public
@@ -64,7 +64,7 @@ export interface StateNode<C, E extends EventLike, S extends string> {
     // (undocumented)
     readonly exit?: ReadonlyArray<Action<C, E>>;
     // (undocumented)
-    readonly on?: { readonly [K in E['type']]?: TransitionLike<C, E, S> };
+    readonly on?: { readonly [K in E['type']]?: TransitionLike<C, E, S>; };
 }
 
 // @public

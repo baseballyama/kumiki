@@ -1,6 +1,6 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import { PLAYGROUNDS } from '$lib/playgrounds/registry.js';
+  import { PLAYGROUNDS } from '#lib/playgrounds/registry.js';
 
   const groups = $derived.by(() => {
     const out: Record<number, typeof PLAYGROUNDS> = {};
@@ -43,7 +43,7 @@
       <ul class="cards">
         {#each groups[layer] ?? [] as p (p.slug)}
           <li class="card" class:has-demo={p.live}>
-            <a href={resolve(`/play/${p.slug}`)}>
+            <a href={resolve('/play/[package]', { package: p.slug })}>
               <header>
                 <code>{p.name}</code>
                 <span class="status status-{p.status}">{p.status}</span>

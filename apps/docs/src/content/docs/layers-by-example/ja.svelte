@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import Prose from '#lib/components/Prose.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
 
   let pressed = $state(false);
@@ -39,7 +39,7 @@
   </p>
 
   <p>
-    題材として <a href={resolve('/components/component-toggle')}>Toggle</a>
+    題材として <a href={resolve('/components/[slug]', { slug: 'component-toggle' })}>Toggle</a>
     を選びました。挙動は単純(押したら反転)ですが、<strong>4 階層すべてで実装が揃っている</strong
     >ので比較に最適です。
   </p>
@@ -188,7 +188,7 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <pre><code
       >{`<script lang="ts">
-  import Toggle from '$lib/components/Toggle.svelte';
+  import Toggle from '#lib/components/Toggle.svelte';
   let pressed = $state(false);
 <\/script>
 

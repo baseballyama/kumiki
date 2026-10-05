@@ -5,7 +5,7 @@
 <script lang="ts">
   import { Calendar } from '@kumiki/components';
   import { CalendarDate, today, getLocalTimeZone } from '@internationalized/date';
-  import { ui } from '$lib/i18n/store.svelte.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
 
   let value = $state<CalendarDate | null>(today(getLocalTimeZone()));
   // Map our 10 short locales to the IETF tags Intl expects.

@@ -1,15 +1,15 @@
 <script lang="ts">
   import { asset, resolve } from '$app/paths';
   import type { Component } from 'svelte';
-  import { LIVE_PLAYGROUNDS } from '$lib/playgrounds/registry.js';
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { dict } from '$lib/i18n/dict.js';
-  import DirectionToggle from '$lib/components/DirectionToggle.svelte';
-  import KumikiThemeSwitcher from '$lib/components/KumikiThemeSwitcher.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
-  import CodeBlock from '$lib/components/CodeBlock.svelte';
-  import LiveThumb from '$lib/components/LiveThumb.svelte';
-  import { localizedSummary } from '$lib/playgrounds/summaries.js';
+  import { LIVE_PLAYGROUNDS } from '#lib/playgrounds/registry.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { dict } from '#lib/i18n/dict.js';
+  import DirectionToggle from '#lib/components/DirectionToggle.svelte';
+  import KumikiThemeSwitcher from '#lib/components/KumikiThemeSwitcher.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
+  import CodeBlock from '#lib/components/CodeBlock.svelte';
+  import LiveThumb from '#lib/components/LiveThumb.svelte';
+  import { localizedSummary } from '#lib/playgrounds/summaries.js';
 
   let { data } = $props();
   // svelte-ignore state_referenced_locally
@@ -401,7 +401,7 @@
                 </dl>
                 <p class="spec-links">
                   <a
-                    href={asset(`/machine-specs/${l.machineSpec.name}.json`)}
+                    href={asset(`machine-specs/${l.machineSpec.name}.json`)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

@@ -6,7 +6,7 @@
  * so the context is plain (no `<V>` parameterisation needed).
  */
 
-import type { TabItem, TabsController, TabsOrientation } from '@kumiki/headless/tabs';
+import type { TabsController, TabsOrientation } from '@kumiki/headless/tabs';
 
 export const TABS_CONTEXT_KEY = Symbol('kumiki.tabs');
 

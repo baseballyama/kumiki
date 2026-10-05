@@ -36,8 +36,7 @@
   };
 
   export type Props =
-    | (BaseProps & { 'aria-label': string })
-    | (BaseProps & { 'aria-labelledby': string });
+    (BaseProps & { 'aria-label': string }) | (BaseProps & { 'aria-labelledby': string });
 </script>
 
 <script lang="ts">

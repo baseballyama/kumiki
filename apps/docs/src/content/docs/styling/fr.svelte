@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import Prose from '#lib/components/Prose.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
 
   let pressed = $state(false);
@@ -315,7 +315,7 @@
   <p>Côté consommateur :</p>
   <pre><code
       >{`<script lang="ts">
-  import MyToggle from '$lib/components/MyToggle.svelte';
+  import MyToggle from '#lib/components/MyToggle.svelte';
   let muted = $state(false);
 <\/script>
 

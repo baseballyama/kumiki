@@ -1,8 +1,8 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Sidebar from '$lib/components/Sidebar.svelte';
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { dict } from '$lib/i18n/dict.js';
+  import Sidebar from '#lib/components/Sidebar.svelte';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { dict } from '#lib/i18n/dict.js';
 
   let { children } = $props();
   let sidebarOpen = $state(false);

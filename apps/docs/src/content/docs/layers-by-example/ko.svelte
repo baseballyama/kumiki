@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import Prose from '#lib/components/Prose.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
 
   let pressed = $state(false);
@@ -34,9 +34,9 @@
   </p>
 
   <p>
-    예제로 <a href={resolve('/components/component-toggle')}>Toggle</a> 을 사용합니다. 동작은
-    단순(눌러 뒤집기)하지만, 구현이 <strong>네 계층 모두</strong>에 존재하므로 나란히 비교하기에
-    이상적입니다.
+    예제로 <a href={resolve('/components/[slug]', { slug: 'component-toggle' })}>Toggle</a> 을
+    사용합니다. 동작은 단순(눌러 뒤집기)하지만, 구현이 <strong>네 계층 모두</strong>에 존재하므로
+    나란히 비교하기에 이상적입니다.
   </p>
 
   <PreviewFrame>
@@ -181,7 +181,7 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <pre><code
       >{`<script lang="ts">
-  import Toggle from '$lib/components/Toggle.svelte';
+  import Toggle from '#lib/components/Toggle.svelte';
   let pressed = $state(false);
 <\/script>
 

@@ -1,15 +1,15 @@
 <script lang="ts">
-  import En from '$content/docs/architecture/en.svelte';
-  import Ja from '$content/docs/architecture/ja.svelte';
-  import ZhHans from '$content/docs/architecture/zh-Hans.svelte';
-  import ZhHant from '$content/docs/architecture/zh-Hant.svelte';
-  import Ko from '$content/docs/architecture/ko.svelte';
-  import Es from '$content/docs/architecture/es.svelte';
-  import Fr from '$content/docs/architecture/fr.svelte';
-  import De from '$content/docs/architecture/de.svelte';
-  import Ar from '$content/docs/architecture/ar.svelte';
-  import He from '$content/docs/architecture/he.svelte';
-  import { ui } from '$lib/i18n/store.svelte.js';
+  import En from '#content/docs/architecture/en.svelte';
+  import Ja from '#content/docs/architecture/ja.svelte';
+  import ZhHans from '#content/docs/architecture/zh-Hans.svelte';
+  import ZhHant from '#content/docs/architecture/zh-Hant.svelte';
+  import Ko from '#content/docs/architecture/ko.svelte';
+  import Es from '#content/docs/architecture/es.svelte';
+  import Fr from '#content/docs/architecture/fr.svelte';
+  import De from '#content/docs/architecture/de.svelte';
+  import Ar from '#content/docs/architecture/ar.svelte';
+  import He from '#content/docs/architecture/he.svelte';
+  import { ui } from '#lib/i18n/store.svelte.js';
 </script>
 
 {#if ui.locale === 'ja'}

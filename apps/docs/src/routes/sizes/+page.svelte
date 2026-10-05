@@ -118,7 +118,7 @@
           <dt>Issued</dt>
           <dd>{generatedLabel}</dd>
           <dt>Source</dt>
-          <dd><a href={asset('/sizes.json')}>/sizes.json</a></dd>
+          <dd><a href={asset('sizes.json')}>/sizes.json</a></dd>
         </dl>
       {/if}
     </aside>

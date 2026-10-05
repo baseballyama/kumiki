@@ -4,7 +4,7 @@
 <script lang="ts">
   import { DatePicker } from '@kumiki/components';
   import type { CalendarDate } from '@internationalized/date';
-  import { ui } from '$lib/i18n/store.svelte.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
 
   let value = $state<CalendarDate | null>(null);
   const intlLocale = $derived(

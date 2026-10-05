@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { dict } from '$lib/i18n/dict.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { dict } from '#lib/i18n/dict.js';
 
   type Status = 'stable' | 'preview' | 'unreleased';
   let { status }: { status: Status } = $props();

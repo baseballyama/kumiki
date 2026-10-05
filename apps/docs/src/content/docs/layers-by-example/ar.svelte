@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import Prose from '#lib/components/Prose.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
 
   let pressed = $state(false);
@@ -34,9 +34,9 @@
   </p>
 
   <p>
-    نستخدم <a href={resolve('/components/component-toggle')}>Toggle</a> مثالًا تطبيقيًّا. السلوك
-    بسيط (اضغط لتبديل)، لكنّ التنفيذ موجود في <strong>الطبقات الأربع</strong>، ما يجعله مثاليًّا
-    لمقارنة جنبًا إلى جنب.
+    نستخدم <a href={resolve('/components/[slug]', { slug: 'component-toggle' })}>Toggle</a> مثالًا
+    تطبيقيًّا. السلوك بسيط (اضغط لتبديل)، لكنّ التنفيذ موجود في <strong>الطبقات الأربع</strong>، ما
+    يجعله مثاليًّا لمقارنة جنبًا إلى جنب.
   </p>
 
   <PreviewFrame>
@@ -179,7 +179,7 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <pre><code
       >{`<script lang="ts">
-  import Toggle from '$lib/components/Toggle.svelte';
+  import Toggle from '#lib/components/Toggle.svelte';
   let pressed = $state(false);
 <\/script>
 

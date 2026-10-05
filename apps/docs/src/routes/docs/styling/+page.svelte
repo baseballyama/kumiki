@@ -1,15 +1,15 @@
 <script lang="ts">
-  import En from '$content/docs/styling/en.svelte';
-  import Ja from '$content/docs/styling/ja.svelte';
-  import ZhHans from '$content/docs/styling/zh-Hans.svelte';
-  import ZhHant from '$content/docs/styling/zh-Hant.svelte';
-  import Ko from '$content/docs/styling/ko.svelte';
-  import Es from '$content/docs/styling/es.svelte';
-  import Fr from '$content/docs/styling/fr.svelte';
-  import De from '$content/docs/styling/de.svelte';
-  import Ar from '$content/docs/styling/ar.svelte';
-  import He from '$content/docs/styling/he.svelte';
-  import { ui } from '$lib/i18n/store.svelte.js';
+  import En from '#content/docs/styling/en.svelte';
+  import Ja from '#content/docs/styling/ja.svelte';
+  import ZhHans from '#content/docs/styling/zh-Hans.svelte';
+  import ZhHant from '#content/docs/styling/zh-Hant.svelte';
+  import Ko from '#content/docs/styling/ko.svelte';
+  import Es from '#content/docs/styling/es.svelte';
+  import Fr from '#content/docs/styling/fr.svelte';
+  import De from '#content/docs/styling/de.svelte';
+  import Ar from '#content/docs/styling/ar.svelte';
+  import He from '#content/docs/styling/he.svelte';
+  import { ui } from '#lib/i18n/store.svelte.js';
 </script>
 
 {#if ui.locale === 'ja'}

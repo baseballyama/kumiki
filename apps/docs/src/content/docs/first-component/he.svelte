@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import Prose from '#lib/components/Prose.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
 
   let pressed = $state(false);
@@ -57,7 +57,8 @@
   <p>
     החלף את ה-locale בכותרת העליונה. ל-Toggle עצמו אין מחרוזות מתורגמות, אבל רכיבים כמו Combobox,
     Dialog ו-FormField יחליפו מיד. נסה את
-    <a href={resolve('/components/component-combobox')}>דמו Combobox</a> אחרי החלפה ליפנית.
+    <a href={resolve('/components/[slug]', { slug: 'component-combobox' })}>דמו Combobox</a> אחרי החלפה
+    ליפנית.
   </p>
 
   <h2>מה עכשיו?</h2>

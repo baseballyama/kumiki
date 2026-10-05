@@ -44,8 +44,7 @@
    * @see https://www.w3.org/WAI/ARIA/apg/patterns/table/
    */
   export type Props =
-    | (CommonProps & { 'aria-label': string })
-    | (CommonProps & { 'aria-labelledby': string });
+    (CommonProps & { 'aria-label': string }) | (CommonProps & { 'aria-labelledby': string });
 </script>
 
 <script lang="ts">

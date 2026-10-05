@@ -1,8 +1,8 @@
 import { error } from '@sveltejs/kit';
 import { asset } from '$app/paths';
-import { findPlayground, LIVE_PLAYGROUNDS } from '$lib/playgrounds/registry.js';
-import { findMachineSpec } from '$lib/playgrounds/machine-specs-index.js';
-import { SNIPPETS, DEFAULT_SNIPPETS } from '$lib/playgrounds/highlighted-snippets.js';
+import { findPlayground, LIVE_PLAYGROUNDS } from '#lib/playgrounds/registry.js';
+import { findMachineSpec } from '#lib/playgrounds/machine-specs-index.js';
+import { SNIPPETS, DEFAULT_SNIPPETS } from '#lib/playgrounds/highlighted-snippets.js';
 import type { PageLoad } from './$types.js';
 
 export const load: PageLoad = async ({ params }) => {
@@ -20,7 +20,7 @@ export const load: PageLoad = async ({ params }) => {
   // snapshot is reused across `machine-`, `attachment-`, and `component-`
   // slugs because Layers 2 / 3 / 4 share the same machine.
   const machineSpec = findMachineSpec(entry.slug);
-  const machineSpecJsonUrl = machineSpec ? asset(`/machine-specs/${machineSpec.name}.json`) : null;
+  const machineSpecJsonUrl = machineSpec ? asset(`machine-specs/${machineSpec.name}.json`) : null;
   const machineSpecVizUrl = machineSpec
     ? `https://stately.ai/viz?source=${encodeURIComponent(`https://kumiki.dev/machine-specs/${machineSpec.name}.json`)}`
     : null;

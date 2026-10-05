@@ -16,31 +16,31 @@ export interface Messages {
         label: string;
     };
     combobox: {
-        listboxLabel: string; /** Status text + SR announcement when the filtered set is empty. */
-        noResults: string; /** SR announcement for the result count after filtering. */
-        countResults: (n: number) => string; /** SR announcement after the input is cleared. */
-        cleared: string; /** `aria-label` for the clear button. */
+        listboxLabel: string;
+        noResults: string;
+        countResults: (n: number) => string;
+        cleared: string;
         clearLabel: string;
     };
     dialog: {
         closeLabel: string;
     };
     formField: {
-        required: string; /** Generic error when a required field is empty. */
-        requiredError: string; /** Generic error when the value's type is wrong (e.g. text in a number input). */
+        required: string;
+        requiredError: string;
         typeMismatch: string;
     };
     pagination: {
-        label: string; /** `aria-label` for the previous-page button. */
-        prev: string; /** `aria-label` for the next-page button. */
-        next: string; /** `aria-label` for the first-page button. */
-        first: string; /** `aria-label` for the last-page button. */
-        last: string; /** `aria-label` for an inactive page button (`{n}` is the page number). */
-        page: (n: number) => string; /** `aria-label` for the current-page indicator. */
+        label: string;
+        prev: string;
+        next: string;
+        first: string;
+        last: string;
+        page: (n: number) => string;
         currentPage: (n: number) => string;
     };
     popconfirm: {
-        confirm: string; /** Default label for the cancel button. Override via `cancelLabel` prop. */
+        confirm: string;
         cancel: string;
     };
     table: {
@@ -56,12 +56,12 @@ export interface Messages {
         tablistLabel: string;
     };
     timeField: {
-        hour: string; /** `aria-label` for the minute spinbutton. */
-        minute: string; /** `aria-label` for the second spinbutton. */
-        second: string; /** `aria-label` for the AM/PM spinbutton. */
-        dayPeriod: string; /** Visible glyph for an empty (unset) numeric segment. */
-        placeholder: string; /** Visible label for AM (12-hour cycle). */
-        am: string; /** Visible label for PM (12-hour cycle). */
+        hour: string;
+        minute: string;
+        second: string;
+        dayPeriod: string;
+        placeholder: string;
+        am: string;
         pm: string;
     };
 }

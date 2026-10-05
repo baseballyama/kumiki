@@ -4,7 +4,7 @@
   splice raw Markdown into the DOM.
 -->
 <script lang="ts">
-  import { renderInline, renderProse, renderSignature } from '$lib/api/render.js';
+  import { renderInline, renderProse, renderSignature } from '#lib/api/render.js';
 
   let {
     text,

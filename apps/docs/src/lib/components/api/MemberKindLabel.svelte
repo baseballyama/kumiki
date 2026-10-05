@@ -4,7 +4,7 @@
   reused in the Toc + MemberCard headers + sidebar mini-pills.
 -->
 <script lang="ts">
-  import type { MemberKind } from '$lib/api/types.js';
+  import type { MemberKind } from '#lib/api/types.js';
 
   let { kind, size = 'md' }: { kind: MemberKind; size?: 'sm' | 'md' } = $props();
 

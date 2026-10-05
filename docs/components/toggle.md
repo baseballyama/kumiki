@@ -61,8 +61,7 @@ API:
 
 ```ts
 type ToggleGroupProps =
-  | (BaseProps & { 'aria-label': string })
-  | (BaseProps & { 'aria-labelledby': string });
+  (BaseProps & { 'aria-label': string }) | (BaseProps & { 'aria-labelledby': string });
 
 type BaseProps =
   | { mode: 'multiple'; value: string[]; onValueChange?: (v: string[]) => void; children: Snippet }

@@ -5,8 +5,8 @@
   `code` is the raw source that the copy button writes to the clipboard.
 -->
 <script lang="ts">
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { dict } from '$lib/i18n/dict.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { dict } from '#lib/i18n/dict.js';
 
   type Props = {
     title?: string;

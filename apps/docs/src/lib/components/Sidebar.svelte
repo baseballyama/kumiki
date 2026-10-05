@@ -4,8 +4,8 @@
 <script lang="ts">
   import { page } from '$app/state';
   import type { Snippet } from 'svelte';
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { dict } from '$lib/i18n/dict.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { dict } from '#lib/i18n/dict.js';
 
   type Item = { href: string; label: string; status?: 'preview' | 'unreleased' | 'stable' };
   type Section = {

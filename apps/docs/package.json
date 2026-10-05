@@ -5,6 +5,10 @@
   "description": "Kumiki documentation site (SvelteKit, deployed to Cloudflare Pages).",
   "license": "MIT",
   "type": "module",
+  "imports": {
+    "#lib/*": "./src/lib/*",
+    "#content/*": "./src/content/*"
+  },
   "scripts": {
     "predev": "node ../../scripts/ensure-api-docs.mjs",
     "dev": "vite dev",
@@ -37,11 +41,11 @@
     "@sveltejs/adapter-static": "catalog:",
     "@sveltejs/kit": "catalog:",
     "@sveltejs/vite-plugin-svelte": "catalog:",
-    "@types/node": "^22.10.0",
+    "@types/node": "^22.20.5",
     "axe-core": "catalog:",
     "pagefind": "catalog:",
     "playwright": "catalog:",
-    "shiki": "^4.0.2",
+    "shiki": "^4.5.0",
     "svelte": "catalog:",
     "svelte-check": "catalog:",
     "typescript": "catalog:",

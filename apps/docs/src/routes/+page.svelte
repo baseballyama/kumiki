@@ -10,8 +10,8 @@
 -->
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { dict } from '$lib/i18n/dict.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { dict } from '#lib/i18n/dict.js';
 
   const t = $derived(dict(ui.locale).landing);
 
