@@ -54,22 +54,24 @@ test.describe('Accordion', () => {
     await expect(page.locator(PANEL('billing'))).toBeHidden();
   });
 
-  test('ArrowDown moves focus to next enabled trigger (skip disabled)', async ({ page }) => {
+  test('Tab walks every trigger (no roving tabindex)', async ({ page }) => {
     await page.goto('/sandbox/accordion');
     await waitForHydration(page);
     await page.locator(TRIGGER('general')).focus();
-    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Tab');
+    await expect(page.locator(TRIGGER('billing'))).toBeFocused();
+    await page.keyboard.press('Tab');
     await expect(page.locator(TRIGGER('team'))).toBeFocused();
   });
 
-  test('Home / End jump within triggers', async ({ page }) => {
+  test('Arrow / Home / End do not move focus between triggers', async ({ page }) => {
     await page.goto('/sandbox/accordion');
     await waitForHydration(page);
     await page.locator(TRIGGER('general')).focus();
-    await page.keyboard.press('End');
-    await expect(page.locator(TRIGGER('security'))).toBeFocused();
-    await page.keyboard.press('Home');
-    await expect(page.locator(TRIGGER('general'))).toBeFocused();
+    for (const key of ['ArrowDown', 'ArrowUp', 'End', 'Home']) {
+      await page.keyboard.press(key);
+      await expect(page.locator(TRIGGER('general'))).toBeFocused();
+    }
   });
 
   test('collapsible=false: cannot close the only-open', async ({ page }) => {
