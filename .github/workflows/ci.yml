@@ -150,6 +150,50 @@ jobs:
           retention-days: 14
           if-no-files-found: error
 
+  # ─── TEMPORARY (remove before merge): run the lefthook hooks and
+  #     `pnpm format` remotely. This PR's commits were pushed with
+  #     --no-verify (maintainer-approved) because the authoring machine had
+  #     no node_modules; this job measures the same checks in CI. ───
+  hooks-parity:
+    name: Hooks parity (temporary)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: pnpm format (write) and record the diff
+        run: |
+          pnpm format
+          git diff --stat
+          git diff > "$RUNNER_TEMP/format.diff"
+
+      - name: Upload format diff
+        uses: actions/upload-artifact@v4
+        with:
+          name: format-diff-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/format.diff
+          retention-days: 7
+
+      - name: Fail if pnpm format changed anything
+        run: git diff --exit-code
+
+      - name: lefthook pre-commit (all files)
+        run: pnpm exec lefthook run pre-commit --all-files
+
+      - name: lefthook pre-push
+        run: pnpm exec lefthook run pre-push
+
   # ─── Browser tests: e2e + axe ───
   browser:
     name: Browser tests (e2e + axe)
