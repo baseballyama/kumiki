@@ -54,7 +54,8 @@ component + `useLocale()` consumer ship in
 `@kumiki/atelier/toggle` and `@kumiki/atelier/dialog` ship
 **Tailwind v4 + vanilla CSS** variants. Sandbox routes
 `/sandbox/atelier-toggle` and `/sandbox/atelier-dialog`. Versioned
-under the `preview` npm dist-tag per ADR 0010.
+under the `preview` npm dist-tag per ADR 0010 (superseded by ADR 0017:
+Atelier ships GA at v1.0).
 
 ### CLI (`kumiki add`)
 
@@ -155,11 +156,13 @@ complete it. None block code merge; all block public release.
       pushes commits + tags from the version PR.
 - [ ] **Create the Cloudflare Pages project** for `apps/docs`. Wire it
       to the `docs.yml` workflow.
-- [ ] **Add CI secrets:** - `NPM_TOKEN` — for `release.yml` and `preview.yml`. - `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` — for `docs.yml`.
-- [ ] **Smoke-test the preview publish flow.** `pnpm changeset version
---snapshot preview && pnpm changeset publish --tag preview --no-git-tag`
-      against the real registry. Confirm the resulting versions are
-      installable from `pnpm add @kumiki/atelier@preview`.
+- [ ] **Add CI secrets:** - `NPM_TOKEN` — for `release.yml`, then set the repository variable `KUMIKI_NPM_PUBLISH_ENABLED=true` (the release job is skipped until then). - `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` — for `docs.yml`.
+- [ ] **Smoke-test the packages before the first publish.** Download the
+      `kumiki-packages-<head sha>` artifact from CI's Package smoke job and
+      install all tarballs in a fresh project, each as `file:<path>` in both
+      `dependencies` and `pnpm.overrides` (see `scripts/check-pack-smoke.mjs`).
+      Per-PR npm preview publishes were removed; ADR 0017 retired the
+      Atelier `preview` dist-tag.
 - [ ] **Verify the screen-reader matrix.** First nightly run of
       `scheduled-screen-reader.yml` exercises the SR smoke harness on
       macos-latest + windows-latest. Watch the first run; if it flakes,
@@ -194,8 +197,8 @@ These are post-v1.0 enhancements; the code lands incrementally:
 1. `git pull --ff-only`.
 2. Read this file's "Publish prerequisites" — work through it top to bottom.
 3. After each item, re-run `pnpm ci:health` to keep the gates green.
-4. When the prerequisites are clear, cut a `0.0.1-preview` release with
-   `pnpm changeset version --snapshot preview && pnpm changeset publish --tag preview`.
+4. When the prerequisites are clear, set `KUMIKI_NPM_PUBLISH_ENABLED=true`
+   and release through the Version Packages PR (`release.yml`).
 
 Nothing in the code is blocked. Safe to walk away after the prerequisites
 are done.

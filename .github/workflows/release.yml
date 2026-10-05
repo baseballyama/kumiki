@@ -20,6 +20,12 @@ env:
 jobs:
   release:
     name: Version & publish
+    # Opt-in until the publish prerequisites in STATUS.md are done (`@kumiki`
+    # npm scope, `NPM_TOKEN`). With no pending changesets, `changesets/action`
+    # runs `changeset publish`, which publishes every version not yet on npm —
+    # today that is every package at `0.0.0`, on every push to `main`.
+    # Set the repository variable `KUMIKI_NPM_PUBLISH_ENABLED=true` to enable.
+    if: vars.KUMIKI_NPM_PUBLISH_ENABLED == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

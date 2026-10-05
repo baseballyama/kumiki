@@ -73,7 +73,7 @@ docs/components/combobox.md.
    - `pnpm changeset publish` (publishes to npm with `provenance: true`).
 4. npm receives the published versions. Tags are pushed as part of `changeset publish`.
 
-The CI workflows are at [`.github/workflows/release.yml`](../../.github/workflows/release.yml) and `preview.yml`.
+The release workflow is [`.github/workflows/release.yml`](../../.github/workflows/release.yml). It stays skipped until the repository variable `KUMIKI_NPM_PUBLISH_ENABLED` is `true` (set once the `@kumiki` scope and `NPM_TOKEN` exist).
 
 ## 14.3 npm publish settings
 
@@ -105,22 +105,11 @@ This is communicated in the README and in the docs install instructions.
 
 ## 14.5 Layer 5 preview policy
 
-`@kumiki/atelier` is published with the **`preview`** dist-tag during the v1.0 series, per [16-decisions/0010-layer5-preview-in-v1.md](16-decisions/0010-layer5-preview-in-v1.md).
+The Atelier `preview` dist-tag planned by [16-decisions/0010-layer5-preview-in-v1.md](16-decisions/0010-layer5-preview-in-v1.md) is retired: [16-decisions/0017-atelier-ga-at-v1.md](16-decisions/0017-atelier-ga-at-v1.md) ships Atelier GA at v1.0. `packages/atelier/package.json` still carries `publishConfig.tag: "preview"`; remove it with the first GA release.
 
-### Preview snapshot publishes
+### PR packages (no npm publish)
 
-The `preview.yml` workflow publishes per-PR snapshots tagged `preview`:
-
-```bash
-pnpm changeset version --snapshot preview
-pnpm changeset publish --tag preview --no-git-tag
-```
-
-Versions like `0.0.0-preview-20260601-abcdef0` appear under the `preview` dist-tag. Users who want preview Atelier components:
-
-```bash
-pnpm add @kumiki/atelier@preview
-```
+PRs are not published to npm. The **Package smoke** job in [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) runs `pnpm pack` for every publishable package, installs the tarballs into a clean consumer outside the workspace (`scripts/check-pack-smoke.mjs`), imports (TS packages) or resolves (Svelte packages) every subpath from there, and uploads the tarballs as the `kumiki-packages-<head sha>` artifact. To try a PR build, install every tarball together, listing each one as `file:<path>` in both `dependencies` and `pnpm.overrides` (the cross-package `0.0.0` dependencies must resolve to the tarballs, not the registry; `scripts/check-pack-smoke.mjs` builds exactly this consumer).
 
 ### Stable Layer 5
 
