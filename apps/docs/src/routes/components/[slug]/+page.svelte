@@ -1,5 +1,6 @@
 <script lang="ts">
   import { asset, resolve } from '$app/paths';
+  import type { AssetPath } from '$app/types';
   import type { Component } from 'svelte';
   import { LIVE_PLAYGROUNDS } from '#lib/playgrounds/registry.js';
   import { ui } from '#lib/i18n/store.svelte.js';
@@ -401,7 +402,7 @@
                 </dl>
                 <p class="spec-links">
                   <a
-                    href={asset(`machine-specs/${l.machineSpec.name}.json`)}
+                    href={asset(`machine-specs/${l.machineSpec.name}.json` as AssetPath)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

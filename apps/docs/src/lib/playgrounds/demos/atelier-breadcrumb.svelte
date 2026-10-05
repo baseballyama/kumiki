@@ -2,10 +2,11 @@
   import { resolve } from '$app/paths';
   import { Vanilla as Breadcrumb } from '@kumiki/atelier/breadcrumb';
 
-  // `/docs/atelier` is a demo URL — there is no real route. We prefix the
+  // `/docs` and `/docs/atelier` are demo URLs — there is no real route. We prefix the
   // base path by hand because `resolve()` only accepts known routes.
   // SvelteKit 3 dropped the `base` export; derive it from the root route.
   const base = resolve('/').replace(/\/$/, '');
+  const docsHref = `${base}/docs`;
   const atelierHref = `${base}/docs/atelier`;
 </script>
 
@@ -16,7 +17,7 @@
     </Breadcrumb.Item>
     <Breadcrumb.Separator />
     <Breadcrumb.Item>
-      <Breadcrumb.Link href={resolve('/docs')}>Docs</Breadcrumb.Link>
+      <Breadcrumb.Link href={docsHref}>Docs</Breadcrumb.Link>
     </Breadcrumb.Item>
     <Breadcrumb.Separator />
     <Breadcrumb.Item>
