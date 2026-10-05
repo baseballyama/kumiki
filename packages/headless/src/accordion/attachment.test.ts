@@ -94,36 +94,24 @@ describe('createAccordion attachment', () => {
     expect(triggerNodes['b']!.getAttribute('aria-expanded')).toBe('false');
   });
 
-  it('ArrowDown moves focus to next enabled trigger (skip disabled)', () => {
+  it('every trigger stays in the Tab sequence (no roving tabindex)', () => {
     const c = createAccordion({ items });
     attachAll(c);
-    triggerNodes['a']!.focus();
-    triggerNodes['a']!.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'ArrowDown', cancelable: true, bubbles: true }),
-    );
-    expect(document.activeElement).toBe(triggerNodes['c']);
+    for (const id of ['a', 'b', 'c', 'd']) {
+      expect(triggerNodes[id]!.hasAttribute('tabindex')).toBe(false);
+    }
   });
 
-  it('Home / End jump within triggers', () => {
+  it('Arrow / Home / End are not intercepted (APG 2026)', () => {
     const c = createAccordion({ items });
     attachAll(c);
     triggerNodes['a']!.focus();
-    triggerNodes['a']!.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'End', cancelable: true, bubbles: true }),
-    );
-    expect(document.activeElement).toBe(triggerNodes['d']);
-    triggerNodes['d']!.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'Home', cancelable: true, bubbles: true }),
-    );
+    for (const key of ['ArrowDown', 'ArrowUp', 'Home', 'End']) {
+      const event = new KeyboardEvent('keydown', { key, cancelable: true, bubbles: true });
+      triggerNodes['a']!.dispatchEvent(event);
+      expect(event.defaultPrevented).toBe(false);
+    }
     expect(document.activeElement).toBe(triggerNodes['a']);
-  });
-
-  it('roving tabindex: only first enabled gets tabindex=0', () => {
-    const c = createAccordion({ items });
-    attachAll(c);
-    expect(triggerNodes['a']!.getAttribute('tabindex')).toBe('0');
-    expect(triggerNodes['b']!.getAttribute('tabindex')).toBe('-1');
-    expect(triggerNodes['c']!.getAttribute('tabindex')).toBe('-1');
   });
 
   it('onValueChange fires only when expandedIds change', () => {
