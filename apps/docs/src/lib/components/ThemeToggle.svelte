@@ -3,8 +3,8 @@
   Animation respects prefers-reduced-motion.
 -->
 <script lang="ts">
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { dict } from '$lib/i18n/dict.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { dict } from '#lib/i18n/dict.js';
   const labels = $derived(dict(ui.locale).nav);
 </script>
 

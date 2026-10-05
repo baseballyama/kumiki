@@ -48,7 +48,7 @@
   "dependencies": {},
   "devDependencies": {
     "@size-limit/preset-small-lib": "catalog:",
-    "@types/node": "^22.10.0",
+    "@types/node": "^22.20.5",
     "size-limit": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",

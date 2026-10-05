@@ -4,13 +4,13 @@ import {
   LIVE_PLAYGROUNDS,
   PLAYGROUNDS,
   type PlaygroundEntry,
-} from '$lib/playgrounds/registry.js';
-import { findMachineSpec, type MachineSpecMeta } from '$lib/playgrounds/machine-specs-index.js';
+} from '#lib/playgrounds/registry.js';
+import { findMachineSpec, type MachineSpecMeta } from '#lib/playgrounds/machine-specs-index.js';
 import {
   SNIPPETS,
   DEFAULT_SNIPPETS,
   type HighlightedSnippet as Snippet,
-} from '$lib/playgrounds/highlighted-snippets.js';
+} from '#lib/playgrounds/highlighted-snippets.js';
 import type { PageLoad } from './$types.js';
 
 /**

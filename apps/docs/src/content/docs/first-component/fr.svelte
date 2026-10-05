@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import Prose from '#lib/components/Prose.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
 
   let pressed = $state(false);
@@ -58,7 +58,8 @@
   <p>
     Changez la locale dans l'en-tête. Le Toggle lui-même n'a pas de chaînes traduites, mais les
     composants comme Combobox, Dialog et FormField basculent instantanément. Essayez la
-    <a href={resolve('/components/component-combobox')}>démo Combobox</a> après être passé au japonais.
+    <a href={resolve('/components/[slug]', { slug: 'component-combobox' })}>démo Combobox</a> après être
+    passé au japonais.
   </p>
 
   <h2>Et maintenant ?</h2>

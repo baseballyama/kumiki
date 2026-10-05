@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import Prose from '#lib/components/Prose.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
 
   let pressed = $state(false);
@@ -35,8 +35,8 @@
   </p>
 
   <p>
-    We use <a href={resolve('/components/component-toggle')}>Toggle</a> as the worked example. The
-    behaviour is simple (press to flip), but the implementation is present in
+    We use <a href={resolve('/components/[slug]', { slug: 'component-toggle' })}>Toggle</a> as the
+    worked example. The behaviour is simple (press to flip), but the implementation is present in
     <strong>all four layers</strong>, which makes it ideal for a side-by-side comparison.
   </p>
 
@@ -185,7 +185,7 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <pre><code
       >{`<script lang="ts">
-  import Toggle from '$lib/components/Toggle.svelte';
+  import Toggle from '#lib/components/Toggle.svelte';
   let pressed = $state(false);
 <\/script>
 

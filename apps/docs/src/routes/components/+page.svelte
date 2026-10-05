@@ -5,11 +5,11 @@
 -->
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import { PLAYGROUNDS, LIVE_PLAYGROUNDS } from '$lib/playgrounds/registry.js';
-  import type { PlaygroundEntry } from '$lib/playgrounds/registry.js';
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { dict } from '$lib/i18n/dict.js';
-  import LiveThumb from '$lib/components/LiveThumb.svelte';
+  import { PLAYGROUNDS, LIVE_PLAYGROUNDS } from '#lib/playgrounds/registry.js';
+  import type { PlaygroundEntry } from '#lib/playgrounds/registry.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { dict } from '#lib/i18n/dict.js';
+  import LiveThumb from '#lib/components/LiveThumb.svelte';
 
   const t = $derived(dict(ui.locale).components);
 
@@ -140,7 +140,11 @@
     <ul class="grid">
       {#each filtered as g (g.base)}
         <li class="tile">
-          <a class="cover" href={resolve(`/components/${g.primarySlug}`)} aria-label={g.display}>
+          <a
+            class="cover"
+            href={resolve('/components/[slug]', { slug: g.primarySlug })}
+            aria-label={g.display}
+          >
             <div class="thumb-wrap">
               {#if g.thumbSlug}
                 <LiveThumb slug={g.thumbSlug} />
@@ -151,14 +155,14 @@
           </a>
           <div class="meta">
             <h3>
-              <a href={resolve(`/components/${g.primarySlug}`)}>{g.display}</a>
+              <a href={resolve('/components/[slug]', { slug: g.primarySlug })}>{g.display}</a>
             </h3>
             <div class="layers" aria-label="Available layers">
               {#each g.layers as l (l.layer)}
                 <a
                   class="chip"
                   data-layer={l.layer}
-                  href={resolve(`/components/${l.entry.slug}`)}
+                  href={resolve('/components/[slug]', { slug: l.entry.slug })}
                   title={`L${l.layer} — ${t.layerLabel(l.layer)}`}
                 >
                   L{l.layer}

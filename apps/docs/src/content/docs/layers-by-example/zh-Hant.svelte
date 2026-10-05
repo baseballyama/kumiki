@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import Prose from '#lib/components/Prose.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
 
   let pressed = $state(false);
@@ -33,7 +33,7 @@
   </p>
 
   <p>
-    我們以 <a href={resolve('/components/component-toggle')}>Toggle</a>
+    我們以 <a href={resolve('/components/[slug]', { slug: 'component-toggle' })}>Toggle</a>
     作為實例。行為簡單(按下翻轉),但 實作
     <strong>四層皆有</strong>,非常適合並排比較。
   </p>
@@ -174,7 +174,7 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <pre><code
       >{`<script lang="ts">
-  import Toggle from '$lib/components/Toggle.svelte';
+  import Toggle from '#lib/components/Toggle.svelte';
   let pressed = $state(false);
 <\/script>
 

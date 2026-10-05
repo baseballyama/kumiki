@@ -4,7 +4,7 @@
   IntersectionObserver bound through {@attach}.
 -->
 <script lang="ts">
-  import type { ApiMember, MemberKind } from '$lib/api/types.js';
+  import type { ApiMember, MemberKind } from '#lib/api/types.js';
   import MemberKindLabel from './MemberKindLabel.svelte';
 
   let { members }: { members: readonly ApiMember[] } = $props();

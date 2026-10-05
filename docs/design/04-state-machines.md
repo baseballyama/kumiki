@@ -73,10 +73,7 @@ Note that **actions are described as data when possible** — using the `{ type,
 import { defineMachine } from '@kumiki/runtime';
 
 export type ToggleEvent =
-  | { type: 'TOGGLE' }
-  | { type: 'SET'; pressed: boolean }
-  | { type: 'DISABLE' }
-  | { type: 'ENABLE' };
+  { type: 'TOGGLE' } | { type: 'SET'; pressed: boolean } | { type: 'DISABLE' } | { type: 'ENABLE' };
 
 export type ToggleContext = { pressed: boolean; disabled: boolean };
 

@@ -42,7 +42,7 @@
       maintainer's machine — numbers are machine-dependent and intended for trend tracking,
       <strong>not</strong>
       as a CI gate. Generated <strong>{generatedLabel}</strong>. Raw JSON at
-      <a href={asset('/benches.json')}><code>/benches.json</code></a>.
+      <a href={asset('benches.json')}><code>/benches.json</code></a>.
     </p>
 
     {#each benches.packages as pkg (pkg.package)}

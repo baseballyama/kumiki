@@ -5,7 +5,7 @@
  * single internal cast (per docs/design/08-typescript.md §8.2).
  */
 
-import type { SelectController, SelectItem } from '@kumiki/headless/select';
+import type { SelectController } from '@kumiki/headless/select';
 
 export const SELECT_CONTEXT_KEY = Symbol('kumiki.select');
 

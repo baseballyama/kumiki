@@ -1,15 +1,15 @@
 <script lang="ts">
-  import En from '$content/docs/layers-by-example/en.svelte';
-  import Ja from '$content/docs/layers-by-example/ja.svelte';
-  import ZhHans from '$content/docs/layers-by-example/zh-Hans.svelte';
-  import ZhHant from '$content/docs/layers-by-example/zh-Hant.svelte';
-  import Ko from '$content/docs/layers-by-example/ko.svelte';
-  import Es from '$content/docs/layers-by-example/es.svelte';
-  import Fr from '$content/docs/layers-by-example/fr.svelte';
-  import De from '$content/docs/layers-by-example/de.svelte';
-  import Ar from '$content/docs/layers-by-example/ar.svelte';
-  import He from '$content/docs/layers-by-example/he.svelte';
-  import { ui } from '$lib/i18n/store.svelte.js';
+  import En from '#content/docs/layers-by-example/en.svelte';
+  import Ja from '#content/docs/layers-by-example/ja.svelte';
+  import ZhHans from '#content/docs/layers-by-example/zh-Hans.svelte';
+  import ZhHant from '#content/docs/layers-by-example/zh-Hant.svelte';
+  import Ko from '#content/docs/layers-by-example/ko.svelte';
+  import Es from '#content/docs/layers-by-example/es.svelte';
+  import Fr from '#content/docs/layers-by-example/fr.svelte';
+  import De from '#content/docs/layers-by-example/de.svelte';
+  import Ar from '#content/docs/layers-by-example/ar.svelte';
+  import He from '#content/docs/layers-by-example/he.svelte';
+  import { ui } from '#lib/i18n/store.svelte.js';
 </script>
 
 {#if ui.locale === 'ja'}

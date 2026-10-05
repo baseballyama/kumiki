@@ -3,7 +3,7 @@
   default; gains a vermillion accent on hover.
 -->
 <script lang="ts">
-  import type { ApiSource } from '$lib/api/types.js';
+  import type { ApiSource } from '#lib/api/types.js';
 
   let { source }: { source: ApiSource } = $props();
 

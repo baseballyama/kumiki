@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import Prose from '#lib/components/Prose.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
 
   let pressed = $state(false);
@@ -57,7 +57,8 @@
   <p>
     بدّل اللغة من رأس الصفحة. الـ Toggle لا يحوي نصوصًا مترجمة، لكن مكوّنات مثل Combobox وDialog
     وFormField ستتبدّل فورًا. جرّب
-    <a href={resolve('/components/component-combobox')}>عرض Combobox</a> بعد التبديل إلى اليابانية.
+    <a href={resolve('/components/[slug]', { slug: 'component-combobox' })}>عرض Combobox</a> بعد التبديل
+    إلى اليابانية.
   </p>
 
   <h2>والآن؟</h2>

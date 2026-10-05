@@ -1,8 +1,8 @@
 <script lang="ts">
-  import '$lib/styles/global.css';
-  import Header from '$lib/components/Header.svelte';
-  import Footer from '$lib/components/Footer.svelte';
-  import { ui } from '$lib/i18n/store.svelte.js';
+  import '#lib/styles/global.css';
+  import Header from '#lib/components/Header.svelte';
+  import Footer from '#lib/components/Footer.svelte';
+  import { ui } from '#lib/i18n/store.svelte.js';
 
   let { children } = $props();
 

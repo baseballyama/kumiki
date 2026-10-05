@@ -2,8 +2,8 @@
  * Tiny resolver for per-locale content components.
  *
  * Usage:
- *   import En from '$content/docs/getting-started/en.svelte';
- *   import Ja from '$content/docs/getting-started/ja.svelte';
+ *   import En from '#content/docs/getting-started/en.svelte';
+ *   import Ja from '#content/docs/getting-started/ja.svelte';
  *   const Body = pickLocaleComponent({ en: En, ja: Ja });
  *   <Body />
  *

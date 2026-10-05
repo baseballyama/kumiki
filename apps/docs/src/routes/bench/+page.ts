@@ -29,7 +29,7 @@ export interface BenchData {
 import { asset } from '$app/paths';
 
 export const load: PageLoad = async ({ fetch }) => {
-  const response = await fetch(asset('/benches.json'));
+  const response = await fetch(asset('benches.json'));
   if (!response.ok) {
     return { benches: null as BenchData | null };
   }

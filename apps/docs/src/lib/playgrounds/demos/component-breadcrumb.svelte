@@ -5,7 +5,7 @@
   const trail = [
     { href: resolve('/'), label: 'Home' },
     { href: resolve('/components'), label: 'Components' },
-    { href: resolve('/components/breadcrumb'), label: 'Breadcrumb' },
+    { href: resolve('/components/[slug]', { slug: 'breadcrumb' }), label: 'Breadcrumb' },
   ];
 </script>
 

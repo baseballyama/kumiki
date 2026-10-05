@@ -103,14 +103,14 @@ Two columns: **Gate** is what CI enforces today; **Target** is the long-run redu
 | `@kumiki/components/tooltip`      | 2 kB    | 2 kB    | + Floating UI peer dep amortized                                                   |
 | `@kumiki/components/dialog`       | 3.5 kB  | 3.5 kB  |                                                                                    |
 | `@kumiki/components/form-field`   | 2_800 B | 1_950 B | `with-validation` subpath split deferred                                           |
-| `@kumiki/components/select`       | 3 kB    | 3 kB    | + Floating UI peer dep amortized                                                   |
+| `@kumiki/components/select`       | 3_200 B | 3 kB    | Revised per ADR 0023 (Svelte 5.57 toolchain); + Floating UI peer dep amortized     |
 | `@kumiki/components/combobox`     | 4.5 kB  | 4.5 kB  | + Floating UI peer dep amortized                                                   |
 | `@kumiki/components/accordion`    | 2_800 B | 1_950 B | Item context simplification deferred                                               |
-| `@kumiki/components/slider`       | 2_650 B | 2_650 B | Revised per ADR 0018                                                               |
+| `@kumiki/components/slider`       | 2_800 B | 2_650 B | Revised per ADR 0023 (Svelte 5.57 toolchain; was 2_650 B / ADR 0018)               |
 | `@kumiki/components/number-field` | 2_900 B | 2_900 B | Revised per ADR 0018                                                               |
 | `@kumiki/components/popover`      | 2.5 kB  | 2.5 kB  |                                                                                    |
 | `@kumiki/components/toast`        | 3 kB    | 3 kB    |                                                                                    |
-| `@kumiki/components/menu`         | 3 kB    | 3 kB    |                                                                                    |
+| `@kumiki/components/menu`         | 3_200 B | 3 kB    | Revised per ADR 0023 (Svelte 5.57 toolchain)                                       |
 | `@kumiki/components/calendar`     | 5.5 kB  | 5.5 kB  | + `@internationalized/date` peer (Gregorian + Japanese imperial at v1.0; ADR 0013) |
 | `@kumiki/components/date-picker`  | 7 kB    | 7 kB    | Calendar + Popover composition; same peer dep                                      |
 
@@ -121,15 +121,15 @@ Numbers track each component's `docs/components/<name>.md` "Bundle (Layer 4 targ
 | Subpath                                   | Gate    | Target  | Notes                                                                 |
 | ----------------------------------------- | ------- | ------- | --------------------------------------------------------------------- |
 | `@kumiki/components/badge`                | 0.5 kB  | 0.5 kB  |                                                                       |
-| `@kumiki/components/horizontal-rule`      | 350 B   | 300 B   | Reduced 400 → 330 B via `<svelte:element>`; runtime floor near gate   |
+| `@kumiki/components/horizontal-rule`      | 400 B   | 300 B   | Revised per ADR 0023 (Svelte 5.57 toolchain); runtime floor near gate |
 | `@kumiki/components/definition-list`      | 0.4 kB  | 0.4 kB  |                                                                       |
-| `@kumiki/components/loading-spinner`      | 0.6 kB  | 0.6 kB  |                                                                       |
-| `@kumiki/components/breadcrumb`           | 950 B   | 950 B   | Revised per ADR 0018                                                  |
+| `@kumiki/components/loading-spinner`      | 650 B   | 0.6 kB  | Revised per ADR 0023 (Svelte 5.57 toolchain)                          |
+| `@kumiki/components/breadcrumb`           | 1_000 B | 950 B   | Revised per ADR 0023 (Svelte 5.57 toolchain; was 950 B / ADR 0018)    |
 | `@kumiki/components/button`               | 1_250 B | 800 B   | L3 `paint()` ↔ L4 reactive-binding dedup deferred                     |
 | `@kumiki/components/avatar`               | 1.0 kB  | 1.0 kB  |                                                                       |
 | `@kumiki/components/avatar-group`         | 1.0 kB  | 1.0 kB  | Composes Avatar; shared layout primitive                              |
 | `@kumiki/components/icon-button`          | 1_350 B | 1_350 B | Revised per ADR 0018                                                  |
-| `@kumiki/components/alert`                | 1_600 B | 1_000 B | Reduced via `Title` `<svelte:element>`; locale-provider inlining left |
+| `@kumiki/components/alert`                | 1_700 B | 1_000 B | Revised per ADR 0023; locale-provider inlining left                   |
 | `@kumiki/components/chips`                | 1.2 kB  | 1.2 kB  |                                                                       |
 | `@kumiki/components/pagination`           | 2_000 B | 1_400 B | Reduced via Item/Prev/Next `<svelte:element>`; further deferred       |
 | `@kumiki/components/toolbar`              | 1.8 kB  | 1.8 kB  | APG roving tabindex; depends on `@kumiki/primitives/collection`       |
@@ -146,7 +146,7 @@ Atelier subpaths are gated by the same `measure:svelte-size:check` flow as `@kum
 | -------------------------------- | ------- | ------------------------------------------------------------------ |
 | `@kumiki/atelier/toggle`         | 6 KB    | Includes Tailwind v4 utility-class strings + scoped CSS variant    |
 | `@kumiki/atelier/dialog`         | 6 KB    | Same shape                                                         |
-| `@kumiki/atelier/datetime-field` | 9_250 B | Revised per [ADR 0018] — bound by Tailwind variant                 |
+| `@kumiki/atelier/datetime-field` | 9_850 B | Revised per ADR 0023 (was 9_250 B / ADR 0018) — Tailwind variant   |
 | `@kumiki/atelier/<other>`        | ≤ 8 KB  | Each other Phase 1.5 atelier subpath ships both Tailwind + vanilla |
 
 These are larger because they include styles. That's the value proposition of the Atelier; the gate enforces the ceiling.

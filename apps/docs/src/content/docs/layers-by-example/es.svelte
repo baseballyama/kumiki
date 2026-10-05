@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import Prose from '#lib/components/Prose.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
 
   let pressed = $state(false);
@@ -48,8 +48,9 @@
   </p>
 
   <p>
-    Usamos <a href={resolve('/components/component-toggle')}>Toggle</a> como ejemplo trabajado. El
-    comportamiento es simple (pulsar para alternar) pero la implementación está en
+    Usamos <a href={resolve('/components/[slug]', { slug: 'component-toggle' })}>Toggle</a> como
+    ejemplo trabajado. El comportamiento es simple (pulsar para alternar) pero la implementación
+    está en
     <strong>las cuatro capas</strong>, ideal para una comparativa lado a lado.
   </p>
 
@@ -199,7 +200,7 @@ npx kumiki add toggle --variant=vanilla`}</code
 
   <pre><code
       >{`<script lang="ts">
-  import Toggle from '$lib/components/Toggle.svelte';
+  import Toggle from '#lib/components/Toggle.svelte';
   let pressed = $state(false);
 <\/script>
 

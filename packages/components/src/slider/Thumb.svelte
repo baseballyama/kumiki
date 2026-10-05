@@ -25,8 +25,7 @@
    * @see https://www.w3.org/WAI/ARIA/apg/patterns/slider/
    */
   export type Props =
-    | (BaseProps & { 'aria-label': string })
-    | (BaseProps & { 'aria-labelledby': string });
+    (BaseProps & { 'aria-label': string }) | (BaseProps & { 'aria-labelledby': string });
 </script>
 
 <script lang="ts">

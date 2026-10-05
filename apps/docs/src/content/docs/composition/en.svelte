@@ -1,6 +1,6 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
+  import Prose from '#lib/components/Prose.svelte';
 </script>
 
 <svelte:head>

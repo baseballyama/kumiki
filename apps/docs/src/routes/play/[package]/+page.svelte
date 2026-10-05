@@ -1,8 +1,8 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import { LIVE_PLAYGROUNDS } from '$lib/playgrounds/registry.js';
+  import { LIVE_PLAYGROUNDS } from '#lib/playgrounds/registry.js';
   import type { Component } from 'svelte';
-  import CodeBlock from '$lib/components/CodeBlock.svelte';
+  import CodeBlock from '#lib/components/CodeBlock.svelte';
 
   let { data } = $props();
   // svelte-ignore state_referenced_locally

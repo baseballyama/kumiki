@@ -20,7 +20,7 @@ export interface SizesData {
 }
 
 export const load: PageLoad = async ({ fetch }) => {
-  const response = await fetch(asset('/sizes.json'));
+  const response = await fetch(asset('sizes.json'));
   if (!response.ok) {
     return { sizes: null as SizesData | null };
   }

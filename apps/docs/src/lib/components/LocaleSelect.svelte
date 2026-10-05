@@ -6,8 +6,8 @@
   - we have to demonstrate i18n discipline, not show off the combobox.
 -->
 <script lang="ts">
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { LOCALES, dict, type LocaleCode } from '$lib/i18n/dict.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { LOCALES, dict, type LocaleCode } from '#lib/i18n/dict.js';
 
   const labels = $derived(dict(ui.locale).nav);
 </script>

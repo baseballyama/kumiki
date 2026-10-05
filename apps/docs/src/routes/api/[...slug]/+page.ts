@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
-import { findEntry, getRawMarkdown } from '$lib/api/registry.js';
-import { parseModule } from '$lib/api/parse.js';
+import { findEntry, getRawMarkdown } from '#lib/api/registry.js';
+import { parseModule } from '#lib/api/parse.js';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ params }) => {

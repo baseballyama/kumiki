@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import Prose from '#lib/components/Prose.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
 
   let pressed = $state(false);
@@ -58,7 +58,8 @@
   <p>
     Change the locale in the page header. The Toggle itself has no localised strings, but components
     like Combobox, Dialog, and FormField will switch instantly. Try the
-    <a href={resolve('/components/component-combobox')}>Combobox demo</a> after switching to Japanese.
+    <a href={resolve('/components/[slug]', { slug: 'component-combobox' })}>Combobox demo</a> after switching
+    to Japanese.
   </p>
 
   <h2>What now?</h2>

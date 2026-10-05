@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import KumikiThemeSwitcher from '$lib/components/KumikiThemeSwitcher.svelte';
-  import CodeBlock from '$lib/components/CodeBlock.svelte';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import KumikiThemeSwitcher from '#lib/components/KumikiThemeSwitcher.svelte';
+  import CodeBlock from '#lib/components/CodeBlock.svelte';
 
   const ja = $derived(ui.locale === 'ja');
 

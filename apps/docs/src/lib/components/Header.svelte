@@ -3,13 +3,13 @@
   theme/locale toggles, and a mobile menu opener.
 -->
 <script lang="ts">
-  import { base, resolve } from '$app/paths';
+  import { resolve } from '$app/paths';
   import { page } from '$app/state';
   import Logo from './Logo.svelte';
   import ThemeToggle from './ThemeToggle.svelte';
   import LocaleSelect from './LocaleSelect.svelte';
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { dict } from '$lib/i18n/dict.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { dict } from '#lib/i18n/dict.js';
 
   const labels = $derived(dict(ui.locale).nav);
   const path = $derived(page.url.pathname);
@@ -24,6 +24,8 @@
   const architectureHref = resolve('/docs/architecture');
   const sizesHref = resolve('/sizes');
   const apiHref = resolve('/api');
+  // SvelteKit 3 dropped the `base` export; derive it from the root route.
+  const base = resolve('/').replace(/\/$/, '');
   const docsActive = $derived(path === `${base}/docs` || path.startsWith(`${base}/docs/`));
 
   function isActive(target: string): boolean {

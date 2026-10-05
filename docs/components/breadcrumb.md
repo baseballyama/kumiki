@@ -50,8 +50,7 @@ type RootProps = {
 
 // Breadcrumb.Link
 type LinkProps =
-  | { href: string; current?: false; children: Snippet }
-  | { current: true; children: Snippet }; // last crumb: no href, sets aria-current
+  { href: string; current?: false; children: Snippet } | { current: true; children: Snippet }; // last crumb: no href, sets aria-current
 
 // Breadcrumb.Separator
 type SeparatorProps = {

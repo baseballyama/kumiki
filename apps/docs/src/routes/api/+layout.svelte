@@ -3,10 +3,10 @@
   (centre). Module pages add their own right-rail TOC inside +page.svelte.
 -->
 <script lang="ts">
-  import ApiSidebar from '$lib/components/api/ApiSidebar.svelte';
-  import { buildIndex } from '$lib/api/registry.js';
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { dict } from '$lib/i18n/dict.js';
+  import ApiSidebar from '#lib/components/api/ApiSidebar.svelte';
+  import { buildIndex } from '#lib/api/registry.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { dict } from '#lib/i18n/dict.js';
 
   let { children } = $props();
   let sidebarOpen = $state(false);

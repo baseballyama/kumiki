@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import Prose from '$lib/components/Prose.svelte';
-  import PreviewFrame from '$lib/components/PreviewFrame.svelte';
+  import Prose from '#lib/components/Prose.svelte';
+  import PreviewFrame from '#lib/components/PreviewFrame.svelte';
   import { Toggle } from '@kumiki/components';
 
   let pressed = $state(false);
@@ -58,7 +58,8 @@
   <p>
     Cambia el idioma en la cabecera. El propio Toggle no tiene cadenas localizadas, pero componentes
     como Combobox, Dialog y FormField cambian al instante. Prueba la
-    <a href={resolve('/components/component-combobox')}>demo de Combobox</a> tras cambiar al japonés.
+    <a href={resolve('/components/[slug]', { slug: 'component-combobox' })}>demo de Combobox</a> tras
+    cambiar al japonés.
   </p>
 
   <h2>¿Y ahora?</h2>

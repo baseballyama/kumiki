@@ -1650,7 +1650,7 @@ scope.next('desc')     // "kumiki-dialog-2-desc"`,
       lang: 'svelte',
       code: `<script lang="ts">
   import { Tailwind as IconButton } from '@kumiki/atelier/icon-button';
-  import XIcon from '$lib/icons/x.svelte';
+  import XIcon from '#lib/icons/x.svelte';
 </script>
 
 <IconButton.Root variant="ghost" size="md" aria-label="Close">

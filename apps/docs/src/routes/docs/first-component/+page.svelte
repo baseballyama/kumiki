@@ -1,15 +1,15 @@
 <script lang="ts">
-  import En from '$content/docs/first-component/en.svelte';
-  import Ja from '$content/docs/first-component/ja.svelte';
-  import ZhHans from '$content/docs/first-component/zh-Hans.svelte';
-  import ZhHant from '$content/docs/first-component/zh-Hant.svelte';
-  import Ko from '$content/docs/first-component/ko.svelte';
-  import Es from '$content/docs/first-component/es.svelte';
-  import Fr from '$content/docs/first-component/fr.svelte';
-  import De from '$content/docs/first-component/de.svelte';
-  import Ar from '$content/docs/first-component/ar.svelte';
-  import He from '$content/docs/first-component/he.svelte';
-  import { ui } from '$lib/i18n/store.svelte.js';
+  import En from '#content/docs/first-component/en.svelte';
+  import Ja from '#content/docs/first-component/ja.svelte';
+  import ZhHans from '#content/docs/first-component/zh-Hans.svelte';
+  import ZhHant from '#content/docs/first-component/zh-Hant.svelte';
+  import Ko from '#content/docs/first-component/ko.svelte';
+  import Es from '#content/docs/first-component/es.svelte';
+  import Fr from '#content/docs/first-component/fr.svelte';
+  import De from '#content/docs/first-component/de.svelte';
+  import Ar from '#content/docs/first-component/ar.svelte';
+  import He from '#content/docs/first-component/he.svelte';
+  import { ui } from '#lib/i18n/store.svelte.js';
 </script>
 
 {#if ui.locale === 'ja'}

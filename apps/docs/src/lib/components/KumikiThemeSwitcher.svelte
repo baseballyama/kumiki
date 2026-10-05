@@ -5,8 +5,8 @@
   source of truth at runtime.
 -->
 <script lang="ts">
-  import { ui } from '$lib/i18n/store.svelte.js';
-  import { KUMIKI_THEMES, type KumikiTheme } from '$lib/i18n/store.svelte.js';
+  import { ui } from '#lib/i18n/store.svelte.js';
+  import { KUMIKI_THEMES, type KumikiTheme } from '#lib/i18n/store.svelte.js';
 
   type Props = {
     /** Visual variant. `pill` = compact horizontal toggle group. `card` = labelled card with swatches. */

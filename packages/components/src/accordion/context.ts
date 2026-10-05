@@ -6,7 +6,7 @@
  * with a single internal cast (per docs/design/08-typescript.md §8.2).
  */
 
-import type { AccordionController, AccordionItem } from '@kumiki/headless/accordion';
+import type { AccordionController } from '@kumiki/headless/accordion';
 
 export const ACCORDION_CONTEXT_KEY = Symbol('kumiki.accordion');
 

@@ -7,7 +7,7 @@
  * of light theme.
  */
 
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import type { LocaleCode } from './dict.js';
 import { isRtl, LOCALES } from './dict.js';
 

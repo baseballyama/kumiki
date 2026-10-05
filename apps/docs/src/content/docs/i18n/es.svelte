@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Prose from '$lib/components/Prose.svelte';
-  import { LOCALES } from '$lib/i18n/dict.js';
+  import Prose from '#lib/components/Prose.svelte';
+  import { LOCALES } from '#lib/i18n/dict.js';
 </script>
 
 <svelte:head>

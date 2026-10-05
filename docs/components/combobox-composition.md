@@ -29,9 +29,7 @@ const cb = withValidation(
   schema['~standard']
     ? schema
     : {
-        '~standard': {
-          /* … */
-        },
+        '~standard': {/* … */},
       },
 );
 

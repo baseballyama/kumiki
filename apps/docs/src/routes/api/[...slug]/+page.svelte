@@ -3,11 +3,11 @@
 -->
 <script lang="ts">
   import type { PageProps } from './$types';
-  import type { MemberKind } from '$lib/api/types.js';
-  import ModuleHero from '$lib/components/api/ModuleHero.svelte';
-  import MemberCard from '$lib/components/api/MemberCard.svelte';
-  import MemberKindLabel from '$lib/components/api/MemberKindLabel.svelte';
-  import Toc from '$lib/components/api/Toc.svelte';
+  import type { MemberKind } from '#lib/api/types.js';
+  import ModuleHero from '#lib/components/api/ModuleHero.svelte';
+  import MemberCard from '#lib/components/api/MemberCard.svelte';
+  import MemberKindLabel from '#lib/components/api/MemberKindLabel.svelte';
+  import Toc from '#lib/components/api/Toc.svelte';
 
   let { data }: PageProps = $props();
 

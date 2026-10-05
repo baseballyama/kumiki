@@ -10,7 +10,7 @@
   first interaction while the WASM-backed index loads (~20 KB gzip).
 -->
 <script lang="ts">
-  import { browser } from '$app/environment';
+  import { browser } from '$app/env';
 
   type SearchResult = {
     id: string;
